@@ -1327,15 +1327,47 @@ spec:
 
 删除：kubectl delete -f pod-nginx.yaml
 
+
+
+## Annotation
+
+注解/注释信息，可以被程序引用到
+
+用途：
+
+- 注释性信息，不影响k8s调度
+- 可以被程序引用获取信息
+
+
+
+命令方式使用：
+
+```shell
+$ kubectl annotate <resource> foo=bar
+```
+
+
+
 ## Label
 
 Label是kubernetes系统中的一个重要概念。它的作用就是在资源上添加标识，用来对它们进行区分和选择。
+
+用途：
+
+- 标示元信息
+- Controller和Service可通过 label selector 控制 pod 生命周期
+- 对k8s调度产生影响（控制哪个节点运行哪些pod，不运行哪些pod）
+- 影响 Network Policy
+
+
 
 Label的特点：
 
 - 一个Label会以key/value键值对的形式附加到各种对象上，如Node、Pod、Service等等
 - 一个资源对象可以定义任意数量的Label ，同一个Label也可以被添加到任意数量的资源对象上去
 - Label通常在资源对象定义时确定，当然也可以在对象创建后动态添加或者删除
+
+
 
 可以通过Label实现资源的多维度分组，以便灵活、方便地进行资源分配、调度、配置、部署等管理工作。
 
@@ -1344,6 +1376,8 @@ Label的特点：
 > - 版本标签："version":"release", "version":"stable"......
 > - 环境标签："environment":"dev"，"environment":"test"，"environment":"pro"
 > - 架构标签："tier":"frontend"，"tier":"backend"
+
+
 
 标签定义完毕之后，还要考虑到标签的选择，这就要使用到Label Selector，即：
 
@@ -1394,7 +1428,7 @@ nginx-pod   1/1     Running   0          17m   version=2.0
 [root@master ~]# kubectl get pod -n dev -l version!=2.0 --show-labels
 No resources found in dev namespace.
 
-#删除标签
+# 删除标签
 [root@master ~]# kubectl label pod nginx-pod version- -n dev
 pod/nginx-pod labeled
 ```
@@ -1421,6 +1455,8 @@ spec:
 ```
 
 然后就可以执行对应的更新命令了：kubectl apply -f pod-nginx.yaml
+
+
 
 ## Deployment
 
@@ -1630,6 +1666,23 @@ spec:
 > **小结**
 >
 > 至此，已经掌握了Namespace、Pod、Deployment、Service资源的基本操作，有了这些操作，就可以在kubernetes集群中实现一个服务的简单部署和访问了，但是如果想要更好的使用kubernetes，就需要深入学习这几种资源的细节和原理。
+
+
+
+## InitContainers
+
+POD能够具有多个容器，应用运行在容器中，但是可能会有一个或多个优先于应用容器启动的init容器。Init容器是一种专用的容器，在应用程序容器运行之前运行，包括一些应用镜像中不存在的实用工具和安装脚本。
+
+与普通POD容器不同的点：
+
+- Init容器总是运行到成功完成为止；
+- 如果POD的init容器失败，k8s会不断的重启该POD，直到init容器成功为止。但是，如果POD对应的restartPolicy为Never，则不会重新启动；
+- 如果为一个POD指定了多个Init容器，那会按顺序一次运行一个。每个Init容器必须运行成功，下一个才能运行。当所有Init容器运行完毕，k8s会像开始运行应用容器；
+
+应用场景：
+
+- 进行应用的初始化，如：从Git或svn拉取应用最新配置或动态生成配置文件；
+- 进行应用的依赖检查，如一些应用必须要先启动数据库，然后再启动web服务，此时可以在web应用pod内定义一个init容器，通过init容器去对数据库进行检测，一旦检测到数据库启动成功，就继续启动web应用POD；
 
 
 
