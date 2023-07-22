@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="面试题">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/面试题/尚硅谷150道MySQL大厂面试题.zip!/" />
+      <root url="jar://$PROJECT_DIR$/面试题/2022年Java面试题资料合集.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
