@@ -1043,9 +1043,13 @@ scp  -r  HOME/.kube   node1: HOME/
 
 查询资源 使用命令式对象管理 kubectl get(describe) 资源名称
 
+
+
 # 实战入门
 
 本章节将介绍如何在kubernetes集群中部署一个nginx服务，并且能够对其进行访问。
+
+
 
 ## Namespace
 
@@ -1150,6 +1154,8 @@ metadata:
 创建：kubectl create -f ns-dev.yaml
 
 删除：kubectl delete -f ns-dev.yaml
+
+
 
 ## Pod
 
@@ -1568,6 +1574,8 @@ spec:
 
 删除：kubectl delete -f deploy-nginx.yaml
 
+
+
 ## Service
 
 通过上节课的学习，已经能够利用Deployment来创建一组Pod来提供具有高可用性的服务。
@@ -1671,7 +1679,11 @@ spec:
 
 # Pod详解
 
+
+
 ## Pod介绍
+
+
 
 ### Pod结构
 
@@ -1831,6 +1843,8 @@ FIELDS:
 - volumes <[]Object> 存储卷，用于定义Pod上面挂在的存储信息
 - restartPolicy <string> 重启策略，表示Pod在遇到故障的时候的处理策略
 
+
+
 ## Pod配置
 
 本小节主要来研究`pod.spec.containers`属性，这也是pod配置中最为关键的一项配置。
@@ -1852,6 +1866,8 @@ FIELDS:
    ports    <[]Object>     # 容器需要暴露的端口号列表
    resources <Object>      # 资源限制和资源请求的设置
 ```
+
+
 
 ### 基本配置
 
@@ -1900,6 +1916,8 @@ pod-base   1/2     Running   4          95s
 # 此时已经运行起来了一个基本的Pod，虽然它暂时有问题
 [root@k8s-master01 pod]# kubectl describe pod pod-base -n dev
 ```
+
+
 
 ### 镜像拉取
 
@@ -1959,6 +1977,8 @@ Events:
   Normal   Created    7s (x3 over 25s)  kubelet, node1     Created container busybox
   Normal   Started    7s (x3 over 25s)  kubelet, node1     Started container busybox
 ```
+
+
 
 ### 启动命令
 
@@ -2030,6 +2050,8 @@ pod-command   2/2     Runing   0          2s
  4 如果command和args都写了，那么Dockerfile的配置被忽略，执行command并追加上args参数
 ```
 
+
+
 ### 环境变量
 
 创建pod-env.yaml文件，内容如下：
@@ -2068,6 +2090,8 @@ admin
 ```
 
 这种方式不是很推荐，推荐将这些配置单独存储在配置文件中，这种方式将在后面介绍。
+
+
 
 ### 端口设置
 
@@ -2213,7 +2237,7 @@ Warning  FailedScheduling  35s   default-scheduler  0/3 nodes are available: 1 n
 
 ### apiVersion
 
-![在这里插入图片描述](Kubernetes.assets/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2tlbGVfYmFiYQ==,size_16,color_FFFFFF,t_70.png)
+![在这里插入图片描述](Kubenetes.assets/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2tlbGVfYmFiYQ==,size_16,color_FFFFFF,t_70.png)
 
 
 
@@ -2227,7 +2251,7 @@ Warning  FailedScheduling  35s   default-scheduler  0/3 nodes are available: 1 n
 
 FallbackToLogsOnError，从日志中来读取
 
-File
+
 
 
 
@@ -2563,6 +2587,8 @@ pod-initcontainer                1/1     Running           0          90s
 [root@k8s-master01 ~]# ifconfig ens33:2 192.168.5.15 netmask 255.255.255.0 up
 ```
 
+
+
 ### 钩子函数
 
 钩子函数能够感知自身生命周期中的事件，并在相应的时刻到来时运行用户指定的程序代码。
@@ -2650,6 +2676,8 @@ pod-hook-exec  1/1     Running    0          29s    10.244.2.48   node2
 [root@k8s-master01 ~]# curl 10.244.2.48
 postStart...
 ```
+
+
 
 ### 容器探测
 
@@ -2936,6 +2964,8 @@ NAME                   READY   STATUS    RESTARTS   AGE
 pod-restartpolicy      0/1     Running   0          5min42s
 ```
 
+
+
 ## Pod调度
 
 在默认情况下，一个Pod在哪个Node节点上运行，是由Scheduler组件采用相应的算法计算出来的，这个过程是不受人工控制的。但是在实际使用中，这并不满足的需求，因为很多情况下，我们想控制某些Pod到达某些节点上，那么应该怎么做呢？这就要求了解kubernetes对Pod的调度规则，kubernetes提供了四大类调度方式：
@@ -2944,6 +2974,8 @@ pod-restartpolicy      0/1     Running   0          5min42s
 - 定向调度：NodeName、NodeSelector
 - 亲和性调度：NodeAffinity、PodAffinity、PodAntiAffinity
 - 污点（容忍）调度：Taints、Toleration
+
+
 
 ### 定向调度
 
@@ -3052,6 +3084,8 @@ Events:
   ----     ------            ----       ----               -------
   Warning  FailedScheduling  <unknown>  default-scheduler  0/3 nodes are available: 3 node(s) didn't match node selector.
 ```
+
+
 
 ### 亲和性调度
 
@@ -3389,6 +3423,8 @@ NAME                           READY   STATUS    RESTARTS   AGE   IP            
 pod-podantiaffinity-required   1/1     Running   0          30s   10.244.1.96   node2  ..
 ```
 
+
+
 ### 污点和容忍
 
 **污点（Taints）**
@@ -3525,6 +3561,8 @@ FIELDS:
 
 # Pod控制器详解
 
+
+
 ## Pod控制器介绍
 
 Pod是kubernetes的最小管理单元，在kubernetes中，按照pod的创建方式可以将其分为两类：
@@ -3546,6 +3584,8 @@ Pod是kubernetes的最小管理单元，在kubernetes中，按照pod的创建方
 - Job：它创建出来的pod只要完成任务就立即退出，不需要重启或重建，用于执行一次性任务
 - Cronjob：它创建的Pod负责周期性任务控制，不需要持续后台运行
 - StatefulSet：管理有状态应用
+
+
 
 ## ReplicaSet(RS)
 
@@ -3723,6 +3763,8 @@ pc-replicaset-dslhb   1/1     Running   0          75s
 [root@k8s-master01 ~]# kubectl delete -f pc-replicaset.yaml
 replicaset.apps "pc-replicaset" deleted
 ```
+
+
 
 ## Deployment(Deploy)
 
@@ -4086,6 +4128,8 @@ pc-deployment-6c9f56fcfb-rf84v   1/1     Running   0          37s
 deployment.apps "pc-deployment" deleted
 ```
 
+
+
 ## Horizontal Pod Autoscaler(HPA)
 
 在前面的课程中，我们已经可以实现通过手工执行`kubectl scale`命令实现Pod扩容或缩容，但是这显然不符合Kubernetes的定位目标--自动化、智能化。 Kubernetes期望可以实现通过监测Pod的使用情况，实现pod数量的自动调整，于是就产生了Horizontal Pod Autoscaler（HPA）这种控制器。
@@ -4304,6 +4348,8 @@ nginx-7df9756ccc-m9gsj   1/1     Terminating         0          6m50s
 nginx-7df9756ccc-sl9c6   1/1     Terminating         0          6m50s
 ```
 
+
+
 ## DaemonSet(DS)
 
 DaemonSet类型的控制器可以保证在集群中的每一台（或指定）节点上都运行一个副本。一般适用于日志收集、节点监控等场景。也就是说，如果一个Pod提供的功能是节点级别的（每个节点都需要且只需要一个），那么这类Pod就适合使用DaemonSet类型的控制器创建。
@@ -4390,6 +4436,8 @@ pc-daemonset-k224w   1/1     Running   0          37s   10.244.2.74   node2
 [root@k8s-master01 ~]# kubectl delete -f pc-daemonset.yaml
 daemonset.apps "pc-daemonset" deleted
 ```
+
+
 
 ## Job
 
@@ -4517,6 +4565,8 @@ pc-job-5vg2j   0/1     Completed           0          12s
 job.batch "pc-job" deleted
 ```
 
+
+
 ## CronJob(CJ)
 
 CronJob控制器以Job控制器资源为其管控对象，并借助它管理pod资源对象，Job控制器定义的作业任务在其控制器资源创建之后便会立即执行，但CronJob可以以类似于Linux操作系统的周期性任务作业计划的方式控制其运行**时间点**及**重复运行**的方式。也就是说，**CronJob可以在特定的时间点(反复的)去运行job任务**。
@@ -4641,6 +4691,8 @@ cronjob.batch "pc-cronjob" deleted
 
 # Service详解
 
+
+
 ## Service介绍
 
 在kubernetes中，pod是应用程序的载体，我们可以通过pod的ip来访问应用程序，但是pod的ip地址不是固定的，这也就意味着不方便直接采用pod的ip对服务进行访问。
@@ -4706,6 +4758,8 @@ TCP  10.97.97.97:80 rr
   -> 10.244.2.33:80               Masq    1      0          0
 ```
 
+
+
 ## Service类型
 
 Service的资源清单文件：
@@ -4734,7 +4788,11 @@ spec: # 描述
 - LoadBalancer：使用外接负载均衡器完成到服务的负载分发，注意此模式需要外部云环境支持
 - ExternalName： 把集群外部的服务引入集群内部，直接使用
 
+
+
 ## Service使用
+
+
 
 ### 实验环境准备
 
@@ -4788,6 +4846,8 @@ pc-deployment-66cb59b984-wnncx   1/1     Running    10.244.1.40   node1    app=n
 [root@k8s-master01 ~]# curl 10.244.1.40
 10.244.1.40
 ```
+
+
 
 ### ClusterIP类型的Service
 
@@ -4902,6 +4962,8 @@ TCP  10.97.97.97:80 rr persistent 10800
 service "service-clusterip" deleted
 ```
 
+
+
 ### HeadLiness类型的Service
 
 在某些场景中，开发人员可能不想使用Service提供的负载均衡功能，而希望自己来控制负载均衡策略，针对这种情况，kubernetes提供了HeadLiness Service，这类Service不会分配Cluster IP，如果想要访问service，只能通过service的域名进行查询。
@@ -4961,6 +5023,8 @@ service-headliness.dev.svc.cluster.local. 30 IN A 10.244.1.39
 service-headliness.dev.svc.cluster.local. 30 IN A 10.244.2.33
 ```
 
+
+
 ### NodePort类型的Service
 
 在之前的样例中，创建的Service的ip地址只有集群内部才可以访问，如果希望将Service暴露给集群外部使用，那么就要使用到另外一种类型的Service，称为NodePort类型。NodePort的工作原理其实就是**将service的端口映射到Node的一个端口上**，然后就可以通过`NodeIp:NodePort`来访问service了。
@@ -4998,6 +5062,8 @@ service-nodeport   NodePort   10.105.64.191   <none>        80:30002/TCP  app=ng
 # 接下来可以通过电脑主机的浏览器去访问集群中任意一个nodeip的30002端口，即可访问到pod
 ```
 
+
+
 ### LoadBalancer类型的Service
 
 LoadBalancer和NodePort很相似，目的都是向外部暴露一个端口，区别在于LoadBalancer会在集群的外部再来做一个负载均衡设备，而这个设备需要外部环境支持的，外部服务发送到这个设备上的请求，会被设备负载之后转发到集群中。
@@ -5033,6 +5099,8 @@ www.baidu.com.          30      IN      CNAME   www.a.shifen.com.
 www.a.shifen.com.       30      IN      A       39.156.66.18
 www.a.shifen.com.       30      IN      A       39.156.66.14
 ```
+
+
 
 ## Ingress介绍
 
