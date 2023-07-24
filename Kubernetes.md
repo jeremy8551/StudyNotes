@@ -1669,23 +1669,6 @@ spec:
 
 
 
-## InitContainers
-
-POD能够具有多个容器，应用运行在容器中，但是可能会有一个或多个优先于应用容器启动的init容器。Init容器是一种专用的容器，在应用程序容器运行之前运行，包括一些应用镜像中不存在的实用工具和安装脚本。
-
-与普通POD容器不同的点：
-
-- Init容器总是运行到成功完成为止；
-- 如果POD的init容器失败，k8s会不断的重启该POD，直到init容器成功为止。但是，如果POD对应的restartPolicy为Never，则不会重新启动；
-- 如果为一个POD指定了多个Init容器，那会按顺序一次运行一个。每个Init容器必须运行成功，下一个才能运行。当所有Init容器运行完毕，k8s会像开始运行应用容器；
-
-应用场景：
-
-- 进行应用的初始化，如：从Git或svn拉取应用最新配置或动态生成配置文件；
-- 进行应用的依赖检查，如一些应用必须要先启动数据库，然后再启动web服务，此时可以在web应用pod内定义一个init容器，通过init容器去对数据库进行检测，一旦检测到数据库启动成功，就继续启动web应用POD；
-
-
-
 # Pod详解
 
 ## Pod介绍
@@ -2354,7 +2337,100 @@ securityContext:
 
 
 
+### spec
 
+
+
+#### InitContainers
+
+POD能够具有多个容器，应用运行在容器中，但是可能会有一个或多个优先于应用容器启动的init容器。Init容器是一种专用的容器，在应用程序容器运行之前运行，包括一些应用镜像中不存在的实用工具和安装脚本。
+
+与普通POD容器不同的点：
+
+- Init容器总是运行到成功完成为止；
+- 如果POD的init容器失败，k8s会不断的重启该POD，直到init容器成功为止。但是，如果POD对应的restartPolicy为Never，则不会重新启动；
+- 如果为一个POD指定了多个Init容器，那会按顺序一次运行一个。每个Init容器必须运行成功，下一个才能运行。当所有Init容器运行完毕，k8s会像开始运行应用容器；
+
+应用场景：
+
+- 进行应用的初始化，如：从Git或svn拉取应用最新配置或动态生成配置文件；
+- 进行应用的依赖检查，如一些应用必须要先启动数据库，然后再启动web服务，此时可以在web应用pod内定义一个init容器，通过init容器去对数据库进行检测，一旦检测到数据库启动成功，就继续启动web应用POD；
+
+
+
+#### terminationGracePeriodSeconds
+
+属性值是一个整数字段，指定了Pod在被终止之前要等待的时间（以秒为单位）。这给予了Pod在终止前完成正在运行的任务和清理的机会。
+
+是一个用于控制Pod终止过程的设置。当Kubernetes调度器决定终止一个Pod时（例如，当需要更新Deployment的副本数或者节点需要驱逐时），它会触发Pod的终止过程。
+
+在Pod终止过程中，Kubernetes会发送一个`SIGTERM`信号给容器中的主进程（entrypoint或CMD指定的进程），表明希望它优雅地停止。优雅终止是为了确保在终止之前完成未完成的工作，并允许正在处理的请求完成，从而避免丢失数据或导致不稳定的状态。
+
+如果容器在`terminationGracePeriodSeconds`的时间内未能终止，Kubernetes将强制终止（发送`SIGKILL`信号）该容器，这将导致容器立即停止而不会有进一步的优雅清理。
+
+设置`terminationGracePeriodSeconds`的值取决于你的应用程序的性质以及它在终止时需要完成的任务。如果设置得过小，可能导致未完成的任务或数据丢失；如果设置得过大，可能会导致终止过程耗费较长时间，影响应用程序的扩缩容和更新等操作的速度。
+
+这是一个Pod模板示例，其中指定了`terminationGracePeriodSeconds`字段：
+
+
+
+#### hostAliases
+
+在Pod内部使用自定义的主机名来解析特定的IP地址，而无需进行DNS查找。
+
+通常用于以下情况：
+
+1. **解决本地开发问题**：当你在本地开发环境中运行容器时，可能希望使用自定义的主机名来代替IP地址。使用`hostAliases`可以在Pod内部轻松地将自定义主机名映射到本地主机的IP地址。
+2. **解决一些依赖于特定主机名的应用程序问题**：某些应用程序可能依赖于特定的主机名进行通信。使用`hostAliases`可以将这些特定的主机名映射到正确的IP地址，以便应用程序能够正确地解析它们。
+
+下面是一个包含`hostAliases`字段的Pod示例：
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: example-pod
+spec:
+  containers:
+  - name: my-app-container
+    image: nginx:latest
+  hostAliases:
+  - ip: "192.168.1.100"
+    hostnames:
+    - "custom-hostname.local"
+    - "alias-hostname.local"
+```
+
+
+
+#### nodeSelector
+
+是用于选择在哪些节点上调度Pod的一个字段。通过使用`nodeSelector`，你可以指定一个或多个标签键值对，以便Kubernetes调度器能够将特定的Pod调度到具有匹配标签的节点上。
+
+每个Kubernetes节点都可以拥有自定义的标签，用于描述其特性、硬件配置或其他属性。使用`nodeSelector`，你可以选择性地将Pod调度到具有特定标签的节点上，以便根据应用程序的需求进行节点选择。
+
+以下是一个使用`nodeSelector`字段的Pod示例：
+
+```yaml
+yamlCopy code
+apiVersion: v1
+kind: Pod
+metadata:
+  name: example-pod
+spec:
+  nodeSelector:
+    disk: ssd
+    gpu: true
+  containers:
+  - name: my-app-container
+    image: nginx:latest
+```
+
+在这个示例中，`example-pod` Pod的`nodeSelector`字段包含两个键值对：`disk: ssd`和`gpu: true`。这意味着这个Pod将被调度到具有标签`disk=ssd`和`gpu=true`的节点上。
+
+要使用`nodeSelector`，你需要确保至少有一个节点带有与`nodeSelector`字段中指定的标签匹配的标签。
+
+需要注意的是，`nodeSelector`只是一个简单的节点选择器，可以满足基本的节点选择需求。如果你需要更复杂的节点选择逻辑，例如根据节点的资源使用情况进行选择，那么你可以考虑使用更高级的调度策略，如Node Affinity和Node Selector Expressions。这些功能允许你在Pod规范中定义更灵活的节点选择规则。
 
 
 
