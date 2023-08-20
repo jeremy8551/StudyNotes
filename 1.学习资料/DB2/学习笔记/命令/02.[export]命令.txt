@@ -1,0 +1,152 @@
+#命 令：export
+#作 用：根据查询语句卸载查询结果为DEL、IXF/WSF文件
+#参 数：
+#作 者：吕钊军
+#时 间：2012-03-29
+
+-- 命令格式: 
+=========================================================================================================================================================
+EXPORT TO filename OF {IXF | DEL | WSF}
+[LOBS TO lob-path [ {,lob-path} ... ] ]
+[LOBFILE lob-file [ {,lob-file} ... ] [MODIFIED BY {filetype-mod ...}]
+[METHOD N ( column-name [ {,column-name} ... ] )] [MESSAGES message-file]
+{select-statement | HIERARCHY {STARTING sub-table-name |
+(sub-table-name [{, sub-table-name} ...])} [WHERE ...] }
+  filetype-mod:
+    NODOUBLEDEL, LOBSINFILE, CHARDELx, COLDELx, DLDELx, DECPLUSBLANK
+    DECPTx, DATESISO, 1, 2, 3, 4, CODEPAGE=x, STRIPLZEROS, NOCHARDEL
+ 
+NOTE: From the operating system prompt, prefix commands with 'db2'.
+      Special characters MAY require an escape sequence (\), for example:
+      db2 \? change database
+      db2 ? change database xxx comment with \"text\"
+
+导出文件格式：
+    DEL (delimited ASCII format)
+    WSF (work sheet format)
+    IXF (integrated exchange format, PC version)
+=========================================================================================================================================================
+
+-- 导出数据
+db2 "export to E:\name.txt of del select * from tableName"
+db2 "export to E:\name.txt of del MODIFIED BY NOCHARDEL select * from tableName"(导出不带分号的数据)
+
+-- 导出表结构和数据
+db2 "export to E:\name.ixf of ixf MODIFIED BY NOCHARDEL select * from tableName"
+db2 "export to E:\name.ixf of ixf MODIFIED BY NOCHARDEL select * from tableName fetch first (取数+UNM) rows only"(取固定条数)
+
+-- 导出存储过程结构
+db2 "export to xxx.sql of del select text from syscat.procedures where procname='大写存储过程名'"
+
+-- 导入数据
+db2 "load client from D:\xx.txt of del insert/replace into tabName"(不需要写日志，但插入前表必须存在;不能create table)
+db2 "load client from D:\xx.txt of del restart/terminate into tabName" 当导入数据出现问题被强行中断时，此表会被加锁，通过此命令可以解锁
+
+-- 卸载一个表中全部数据
+db2 "export to btpoper.txt of del select * from btpoper"
+db2 "export to btpoper.txt of del modified by coldel| select * from btpoper"
+
+-- 带条件卸载一个表中数据
+db2 "export to btpoper.txt of del select * from btpoper where brhid='907020000'"
+db2 "export to cmmcode.txt of del select * from cmmcode where codtp='01'"
+db2 "export to cmmcode.txt of del modified by coldel| select * from cmmcode where codtp='01'"
+
+
+1、导出用户必须有SYSADM或DBADM授权，或者在表格上拥有CONTROL或SELECT权限；
+2、不支持带结构列的表格数据导出；
+3、可以导出带identity列的表格为ixf格式，导入时用REPLACE_CREATE、CREATE重建identity列，如果该列定义是GENERATED ALWAYS,导入时则必须指定identityignore选项。
+4、指定导出格式为ixf，ixf文件中含有表格和索引定义，用import可以重建表格和索引，但是下面情况ixf文件会丢失相关信息：
+* index column names contain hexadecimal values of 0×2B or 0×2D
+* table contains XML columns
+* table contains LOB(超过1G的定义) columns
+* table is multidimensional clustered
+* table contains a table partitioning key
+* index name that is longer than 128 bytes due to codepage conversion
+* table is a protected table
+* contains action strings other than SELECT * FROM 
+* method N is specified
+5、如果导出文件太大，可以使用where条件限制导出的数据量，分批导出；
+
+7、执行导出命令前，确认完成了commit或rollback；
+8、导出格式为DEL时，如果字符列长度超过254时会有警告提示；
+9、导出包是与DATETIME ISO格式绑定的，所以在sql语句中需要使用iso格式：
+查询数据库（返回3行数据）
+db2 select col2 from tab1 where char(col2)=’05/10/2005’;
+
+导出时使用locale格式不能选择到记录
+db2 export to test.del of del select col2 from test where char(col2)=’05/10/2005’;
+
+由locale格式改为iso格式
+db2 export to test.del of del select col2 from test where char(col2)=’2005-05-10’;
+
+10、导出执行的三种方式
+* CLP命令：export
+* ADMIN_CMD存储过程的export过程
+* db2export的API接口，使用c语言实现
+11、del文件格式指定参数举例：db2 “export to myfile.del of del modified by chardel’’ coldel; decpt, select * from staff”
+chardelx: 指定字符串的分隔符，缺省是双引号，可以指定为单引号modified by chardel'’
+coldelx：指定列分隔符，缺省是逗号，可以改为分号modified by coldel;
+decplusblank：指定对正数是否用+符号，缺省带+,可以指定不加正数符号
+striplzeros：指定移走数据前导的0，如：+00001.8–>+1.8
+
+测试如下
+db2 “export to tb1-1.del of del select * from tb1″
++00000002.10,”abc”
+db2 “export to tb1-2.del of del modified by chardel'’ coldel; decplusblank striplzeros select * from tb1″
+2.10;’abc’
+timestampformat=″x″时间戳格式设置，如：”YYYY/MM/DD HH:MM:SS.UUUUUU”、”yyyy.mm.dd hh:mm tt”
+YYYY - Year (four digits ranging from 0000 - 9999)
+M - Month (one or two digits ranging from 1 - 12)
+MM - Month (two digits ranging from 01 - 12)
+D - Day (one or two digits ranging from 1 - 31)
+DD - Day (two digits ranging from 1 - 31)
+H - Hour (one or two digits ranging from 0 - 12 for a 12 hour system, and 0 - 24 for a 24 hour system)
+HH - Hour (two digits ranging from 0 - 12 for a 12 hour system, and 0 - 24 for a 24 hour system)
+M - Minute (one or two digits ranging from 0 - 59)
+MM - Minute (two digits ranging from 0 - 59)
+S - Second (one or two digits ranging from 0 - 59)
+SS - Second (two digits ranging from 0 - 59)
+UUUUUU - Microsecond (6 digits ranging from 000000 - 999999)
+UUUUU - Microsecond (5 digits ranging from 00000 - 99999)
+UUUU - Microsecond (4 digits ranging from 0000 - 9999)
+UUU - Microsecond (3 digits ranging from 000 - 999)
+UU - Microsecond (2 digits ranging from 00 - 99)
+U - Microsecond (1 digit ranging from 0 - 9)
+TT - Meridian indicator (AM or PM)
+如果指定了TT，HH就会在0－12之间显示
+
+实例：
+
+export to e:\temp\S_OSS_NC_KMYE.del of del modified by coldel$ nochardel decplusblank select * from S_OSS_NC_KMYE with ur 
+ 
+-- 导出存储过程
+export to e:\temp\proc.sql of del select text from syscat.procedures where procname='PROC_OSS_INIT'
+
+
+export to E:\\ECC_BORROWERS_IMPORT.txt of del modified by nochardel decplusblank  select 
+left(coalesce( CARD_NO, ''), 16),
+left(coalesce(  OPERATION_TYPE, ''), 1),
+left(coalesce( NAME_CN, ''), 80),
+left(coalesce( NAME_UCN, ''), 80),
+left(coalesce(  COUNTRY, ''), 3),
+left(coalesce(  CERTIFY_CODE, ''), 10),
+left(coalesce( REGIST_TYPE, ''), 3),
+left(coalesce( REGIST_CODE, ''), 20),
+left(coalesce( REGIST_DATE, ''), 10),
+left(coalesce( LICENCE_MATURITY, ''), 10),
+left(coalesce(  GSH_LOGIN_NO, ''), 20),
+left(coalesce(  DSH_LOGIN_N, ''), 20),
+left(coalesce(  JKR_KIND, ''), 2),
+left(coalesce(  TRADE_CODE, ''), 5),
+left(coalesce(  JKR_INPRESS, ''), 1),
+left(coalesce(  JKR_PHONE, ''), 35),
+left(coalesce(  JKR_REGIST_ADDR, ''), 80),
+left(coalesce(  JKR_COMM_ADDR, ''), 80),
+left(coalesce(  POSTCODE, ''), 6),
+left(coalesce(  GROUP_FLAG, ''), 1),
+left(coalesce(  IMPEXP_FLAG, ''), 1),
+left(coalesce(  INMARKET_FLAG, ''), 1)
+  from ECC_BORROWERS
+
+
+

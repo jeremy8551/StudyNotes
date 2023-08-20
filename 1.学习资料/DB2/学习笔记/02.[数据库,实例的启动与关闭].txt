@@ -1,0 +1,48 @@
+
+-- 连接到本地数据库名
+db2 connect to <数据库名>    
+
+-- 连接到远端数据库
+db2 connect to <数据库名> user <用户名> using <密码> 
+
+-- 启动当前的DB2数据库管理实例。  
+db2start
+
+-- 停止当前的数据库管理实例。 
+db2stop
+
+注：启动和关闭的是数据库管理实例，而不是单个的数据库，
+restart database：并不是重新启动数据库，是平衡非正常结束而不一致状态的数据库，结束后，连接仍然存在。 
+
+
+管理DAS
+产生：root运行－dascrt -u dasuser1
+删除：root运行－dasdrop
+启动：dasusr1运行－db2admin start
+停止：dasusr1运行－db2admin stop
+
+-- 必杀技
+db2_kill
+ipclean
+
+
+db2start dbpartitionnum 9 restart
+
+-- 断开数据库连接
+disconnect db2_gcb 
+
+-- 断开数据库连接
+db2 connect reset    
+
+-- 断开数据库连接
+db2 terminate        
+    
+-- 强迫某些应用程序从数据库断开
+db2 force applications (<应用程序ID,应用程序ID>); 
+
+-- 强迫所有应用程序从数据库断开
+db2 force applications all 
+
+
+
+

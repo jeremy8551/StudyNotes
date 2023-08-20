@@ -1,0 +1,116 @@
+在Shell中有三种变量
+
+1)系统变量
+
+		$n  $1 表示第一个参数，$2 表示第二个参数 ...  
+		$#  命令行参数的个数  
+		$0  当前程序的名称  
+		$?  前一个命令或函数的返回码  
+		$*  以"参数1 参数2 ... " 形式保存所有参数  
+		$@  以"参数1" "参数2" ... 形式保存所有参数  
+		$$  本程序的(进程ID号)PID  
+		$!  上一个命令的PID  
+		
+		如：
+		——————————————————————————————————————
+		#!/bin/sh
+		#This file is used to explain the shell system variable.
+		echo "the number of parameter is $# ";
+		echo "the return code of last command is $?";
+		echo "the script name is $0 ";
+		echo "the parameters are $* ";
+		echo "\$1 = $1 ; \$2 = $2 ";
+		——————————————————————————————————————
+		#!/bin/sh
+		if [ $# -ne 2 ] ; then
+		echo "Usage: $0 string file";
+		exit 1;
+		fi
+		grep $1 $2 ;
+		if [ $? -ne 0 ] ; then
+		echo "Not Found \"$1\" in $2";
+		exit 1;
+		fi
+		echo "Found \"$1\" in $2";上面的例子中使用了$0 $1 $2 $# $? 等变量，下面是程序的解释： 
+		
+		1.判断运行参数个数，如果不等于2，显示使用"用法帮助", 其中 $0 表示就是脚本自己。 
+		2.用grep 在$2 文件中查找$1 字符串。 
+		3.判断前一个命令运行后的返回值(一般成功都会返回0, 失败都会返回非0)。 
+		4.如果没有成功显示没找到相关信息，否则显示找到了。 
+		5.其中\"表示转义，在"" 里面还需要显示"号，则需要加上转义符\"
+		————————————————————————————————————————
+
+
+3)用户变量
+		用户定义的变量必须由字母数字及下划线组成,并且变量名的第一个字符不能为数字, 与其它UNIX名字一样,变量名是大小写敏感的
+		注意：变量和'='之间不要有空格，'='和赋值也不要有空格，否则shell不会认为变量被定义
+		例1：name="Winter"
+		例2：	name="Winter"
+					WINTER=$name
+					echo "Hello $WINTER !"
+					
+		关键字：readonly 表示一个变量只能读不能改。如：readonly a=2  
+		——————————————————————————————————————————————
+		shell中的数组
+		shell变量中还能设置数组，但是不同的shell版本有不同数组赋值方法，而bourne shell 中不支持数组方式。
+		因此，如果不是十分需要，还是建议你不要使用数组。shell有两种赋值方式，
+		第一种是直接用下标赋值：   
+					name[0]="Tom"
+					name[1]="Tomy"
+					name[2]="John"
+
+		另一种方式对于不同的shell版本不一样。bash中赋值： 
+					#!/usr/local/bin/bash
+					name=("Tom" "Tomy" "John")
+					for i in 0 1 2
+					do
+					echo $i:${name[$i]} ;
+					done;
+		———————————————————————————————————————————————
+		如果需要子进程也看到该环境变量，需要使用export
+		
+		
+2)环境变量
+		
+		shell环境变量是所有shell 程序都会接受的参数。shell程序运行时，都会接收一组变量，这组变量就是环境变量。
+		常用的环境变量： 
+					PATH           命令搜索路径,以冒号为分隔符.注意与DOS下不同的是, 当前目录不在系统路径里  
+					HOME           用户home目录的路径名,是cd命令的默认参数  
+					COLUMNS        定义了命令编辑模式下可使用命令行的长度  
+					EDITOR         默认的行编辑器  
+					VISUAL         默认的可视编辑器  
+					FCEDIT         命令fc使用的编辑器  
+					HISTFILE       命令历史文件  
+					HISTSIZE       命令历史文件中最多可包含的命令条数  
+					HISTFILESIZE   命令历史文件中包含的最大行数  
+					IFS            定义SHELL使用的分隔符  
+					LOGNAME        用户登录名  
+					MAIL           指向一个需要SHELL监视其修改时间的文件.当该文件修改后, SHELL将发消息You hava mail给用户  
+					MAILCHECK      SHELL检查MAIL文件的周期,单位是秒  
+					MAILPATH       功能与MAIL类似.但可以用一组文件,以冒号分隔,每个文件后可跟一个问号和一条发向用户的消息  
+					SHELL          SHELL的路径名  
+					TERM           终端类型  
+					TMOUT          SHELL自动退出的时间,单位为秒,若设为0则禁止SHELL自动退出  
+					PROMPT_COMMAND 指定在主命令提示符前应执行的命令  
+					PS1            主命令提示符  
+					PS2            二级命令提示符,命令执行过程中要求输入数据时用  
+					PS3            select的命令提示符  
+					PS4            调试命令提示符  
+					MANPATH        寻找手册页的路径,以冒号分隔  
+					LD_LIBRARY_PATH  寻找库的路径,以冒号分隔  
+		
+		如果希望把定义的变量让其他所有的shell程序都能使用，也就是定义新的环境变量。只要使用export关键词就可以了。
+		例如：  export MY_NAME=Winter
+		        export PATH=/home/winter/bin:$PATH
+		        
+
+
+Shell设置添加去除显示当前值注解
+shNAME=value1
+export NAMENAME=value2:$NAMEunset NAMEset(internal)或者env(exported)
+
+
+
+
+                
+		        		     

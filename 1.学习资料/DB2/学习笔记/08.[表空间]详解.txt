@@ -1,0 +1,279 @@
+
+=========================================================================================================================================================
+-- 查看表空间
+list tablespaces 
+
+-- 查看当前数据库表空间分配状况
+db2 list tablespaces show detail     
+
+-- 查看tablespace id=2使用容器所在目录
+db2 list tablespace containers for 2  show detail 
+
+-- 表空间容器
+LIST TABLESPACE CONTAINERS FOR [Tablespace ID]
+Example: LIST TABLESPACE CONTAINERS FOR 1
+
+-- 创建表并指定其索引表空间
+db2 create table(.....) in userspace1 INDEX in userspace2
+userspace1是表所在空间，userspace2是表上索引所在空间
+
+-- 将表空间的状态复位成正常（NORMAL）
+quiesce tablespaces for table <tablename> reset
+
+-- 表空间和缓冲池快照
+db2 get snapshot for tablespaces on drew_db
+db2 get snapshot for bufferpools on drew_db
+
+-- 获取表空间的 CONTAINER
+LIST TABLESPACE CONTAINERS FOR 0(TABLESPACE_ID) SHOW DETAIL
+
+-- 获取表空间使用信息
+get snapshot for tablespaces on sample
+
+=========================================================================================================================================================
+-- 创建表空间
+
+-- 创建表空间, 建立数据库系统使用的物理存储设备与用来存储数据的逻辑容器或表的关系
+CREATE TABLESPACE <name> MANAGED BY SYSTEM USING ('<path>')
+CREATE TABLESPACE <name> MANAGED BY DATABASE USING (FILE'<path>' <size>) DEVICE
+
+-- 指定分区组
+CREATE TABLESPACE PLANS IN ODDNODEGROUP MANAGED BY DATABASE USING 
+ (DEVICE '/dev/HDISK0' 10000,DEVICE '/dev/n1hd01' 40000) on node 1 
+ (DEVICE '/dev/HDISK0' 10000,DEVICE '/dev/n1hd03' 40000) on node 3 
+ (DEVICE '/dev/HDISK0' 10000,DEVICE '/dev/n1hd05' 40000) on node 5  
+
+CREATE REGULAR TABLESPACE CUSTTBS IN DATABASE PARTITION GROUP CUSTOMER PAGESIZE 4 K  MANAGED BY DATABASE 
+ USING ( FILE 'D:\testdbtbs\custtbs0_1' 5120 ) ON DBPARTITIONNUM (0) 
+ USING ( FILE 'D:\testdbtbs\custtbs1_1' 5120 ) ON DBPARTITIONNUM (1) 
+EXTENTSIZE 16 OVERHEAD 10.5 PREFETCHSIZE 16
+
+-- 删除表空间
+DROP TABLESPACE <name>
+
+-- 增加表空间的空间
+ALTER TABLESPACE RESOURCE ADD (DEVICE '/dev/rhd9' 10000,DEVICE '/dev/rhd10' 10000)
+
+-- 改变表空间状态
+DB2 ALTER TABLESPACE <name> SWITCH ONLINE
+
+-- 在多分区数据库中创建单分区组
+CREATE DATABASE PARTITION GROUP single_tbs_grp ON DBPARTITIONNUM(0)
+
+-- 在单分区组中创建单分区表空间
+CREATE TABLESPACE single_part_tbs IN DATABASE PARTITION GROUP single_tbs_grp 
+MANAGED BY DATABASE USING (FILE 'd:\testdbtbs\single_part_tbs_1' 5120)
+
+-- 在UNIX中使用字符设备
+
+-- 创建特定类型的表空间
+
+-- 创建系统临时表空间
+CREATE SYSTEM TEMPORARY TABLESPACE tmp_tbsp MANAGED BY SYSTEM USING ('d:\tmp_tbsp','e:\tmp_tbsp')
+   
+-- 在分区数据库中创建系统临时表空间 只能在IBMTEMPGROUP中产生
+CREATE SYSTEM TEMPORARY  TABLESPACE TEMPSYS_TBSP1
+    IN DATABASE PARTITION GROUP IBMTEMPGROUP 
+    PAGESIZE 4 K  MANAGED BY SYSTEM  
+    USING ('D:\testdbtbs\sys_temp_0' ) ON DBPARTITIONNUM (0) 
+    USING ('d:\testdbtbs\sys_temp_1' ) ON DBPARTITIONNUM (1) 
+    EXTENTSIZE 16 OVERHEAD 10.5 PREFETCHSIZE 16 
+    
+-- 创建用户临时表空间
+CREATE USER TEMPORARY TABLESPACE usr_tbsp MANAGED BY DATABASE USING (FILE 'd:\db2data\user_tZbsp' 5000, FILE 'e:\db2data\user_tbsp' 5000)
+
+-- 在分区数据库中创建用户临时表空间 可在除IBMTEMPGROUP中的其他分区组中产生
+CREATE  USER TEMPORARY  TABLESPACE USER_TEMP_TBSP 
+    IN DATABASE PARTITION GROUP USER_TEMP_TBSGRP 
+    PAGESIZE 4 K  MANAGED BY SYSTEM  
+    USING ('D:\testdbtbs\user_temp_0' ) ON DBPARTITIONNUM (0) 
+    USING ('d:\testdbtbs\user_temp_1' ) ON DBPARTITIONNUM (1)      
+
+-- 指定物理设备
+在WINDOWS上,指定物理硬盘驱动器,使用\\.\PhysicalDriveN (N-0,1,2..) 指定逻辑驱动器使用\\.\N: (N是系统中的逻辑盘符)
+在UNIX中指定字符设备.
+
+-- SMS  当对象增大时，文件每次扩展一页。若需要提高插入性能，可以考虑启用多页分配，如MDC表。
+运行db2empfa. 对于多分区数据库必须对每个分区运行此使用程序，一旦启用就不能禁止。
+
+-- DMS  
+单分区表空间大小，4kb - 64gb;8kb-128gb;16kb-256gb;32kb-512gb
+在缺省情况下，每个容器都保留一个数据块作为开销，表空间的最小大小是5个数据块。
+三个保留给开销使用。两个用于用户表数据。
+
+-- 在多个节点上产生表空间
+CREATE TABLESPACE TS1 MANAGED BY DATABASE USING(device '/dev/rcont $N' 20000)
+
+CREATE TABLESPACE TS2 MANAGED BY DATABASE USING(file '/DB2/containers/TS2/container $N+100' 10000)
+
+CREATE TABLESPACE TS3 MANAGED BY SYSTEM USING('/TS3/cont $N%2', '/TS3/cont $N%2+2')
+
+
+=========================================================================================================================================================
+-- 表空间备份
+在只有一些表空间有相当大更改的数据库中，可以选择不备份整个数据库，而只备份特定表空间。要执行表空间备份，请使用以下语法：
+
+BACKUP DATABASE sample TABLESPACE ( syscatspace, userspace1, userspace2 ) ONLINE TO /db2tbsp/backup1, /db2tbsp/backup2
+
+通常，您想要将相关的表空间备份在一起，如数据、索引、LOB或定义了表间引用约束的表的表空间
+注意：此备份方式只能用于ARCHIVAL LOGGIN环境中。
+
+=========================================================================================================================================================
+-- 表空间恢复
+表空间恢复需要相当仔细的规划，因为比较容易犯错，这会使数据处于不一致状态。下面是表空间 RESTORE 命令的示例：
+
+RESTORE DATABASE sample TABLESPACE ( mytblspace1 ) ONLINE FROM /db2tbsp/backup1, /db2tbsp/backup2
+
+让我们更仔细地研究该命令： 
+指明要恢复的数据库映像的名称。 
+指出这是表空间 RESTORE，并指定要恢复的一个或多个表空间的名称。 
+指出这是联机恢复。注：对于用户表空间，既允许联机恢复也允许脱机恢复。正如前面所提到的那样，对于数据库，只允许脱机恢复。 
+指定输入备份文件所在的位置。 
+表空间恢复注意事项 
+
+恢复表空间之后，它将始终处于前滚暂挂状态。要使表空间可访问并复位该状态，必须至少将表空间前滚到最小的时间点
+（point in time，PIT）。该最小的 PIT 确保表空间和日志与系统目录中的内容保持一致。
+
+请考虑下面的示例：
+
+假设在时间 t1 您执行了完全数据库备份，该备份包括了表空间 mytbls1 
+在时间 t2，您在表空间 mytbls1 中创建了表 myTable。这会将表空间 mytbs1 恢复的最小 PIT 设置为 t2。 
+在时间 t3，您决定仅从在 t1 进行的完全数据库备份恢复表空间 mytbls1。 
+恢复完成之后，表空间 mytbls1 将处于前滚暂挂状态。如果允许前滚到最小 PIT 之前的某一点，则表空间 mytbls1 将失去表 myTable；然而，系统目录将显示该表确实存在于 mytbls1 中。因此，为了避免类似的不一致，DB2 会在您恢复表空间时强制您至少前滚到最小 PIT。 
+当针对表空间或表空间中的表运行 DDL 语句时，会更新最小的 PIT。为了确定表空间恢复的最小 PIT，可以使用下列两种方法之一：
+
+使用 LIST TABLESPACES SHOW DETAIL 命令 
+通过 GET SNAPSHOT FOR TABLESPACE ON db_name 命令获取表空间快照。 
+另外，系统目录表空间（SYSCATSPACE）必须前滚到日志的末尾并处于脱机方式。
+
+=========================================================================================================================================================
+-- 数据库和表空间前滚
+-- 数据库前滚
+在上一章中，我们简要地讨论了 ROLLFORWARD 命令。在本章中，我们将更详细地讨论它。ROLLFORWARD 命令允许恢复到某一时间点；
+这意味着该命令将让您遍历 DB2 日志，并重做或撤销记录在日志中的操作直到某个特定的时间点。虽然可以将数据库或表空间前滚到最小 
+PIT 之后的任何时间点，但不能保证您选择前滚到的结束时间将使所有数据保持一致。
+
+我们将不在本教程中讨论 QUIESCE 命令。然而，值得提一下的是：可以在常规数据库操作期间使用该命令来设置一致性点。通过设置
+这些一致性点，您可以始终执行至其中任何一点的时间点恢复，并保证数据同步。 
+
+一致性点和许多其它信息一起被记录在 DB2 历史记录文件中，可以使用 LIST HISTORY 命令来查看该文件。 
+
+在前滚处理期间，DB2 将：
+
+在当前日志路径中查找必需的日志文件。 
+如果找到该日志，重新从日志文件应用事务。 
+如果在当前路径中找不到该日志文件，并且使用了 OVERFLOWLOGPATH 选项，那么 DB2 将在该选项指定的路径中搜索并且将使用该位置中的
+日志。 
+如果在当前路径中找不到该日志文件并且没有使用 OVERFLOWLOGPATH 选项，则调用用户出口来检索归档路径中的日志文件。 
+仅当前滚完全数据库恢复并且启用了用户出口时，才会调用用户出口来检索日志文件。 
+一旦日志在当前日志路径或 OVERFLOWLOGPATH 中，就将重新应用事务。 
+执行 ROLLFORWARD 命令需要 SYSADM、SYSCTRL 或 SYSMAINT 权限。 
+
+下面是 ROLLFORWARD 命令的语法：
+
+ROLLFORWARD DATABASE database-alias [USER username [USING password]]
+[TO {isotime [ON ALL DBPARTITIONNUMS] [USING LOCAL TIME] | END OF LOGS
+[On-DbPartitionNum-Clause]}] [AND {COMPLETE | STOP}] |
+{COMPLETE | STOP | CANCEL | QUERY STATUS [USING LOCAL TIME]}
+[On-DbPartitionNum-Clause] [TABLESPACE ONLINE | TABLESPACE (tblspace-name
+[ {,tblspace-name} ... ]) [ONLINE]] [OVERFLOW LOG PATH (log-directory
+[{,log-directory ON DBPARTITIONNUM db-partition-number} ... ])] [NORETRIEVE]
+[RECOVER DROPPED TABLE dropped-table-id TO export-directory]
+
+On-DbPartitionNum-Clause:
+  ON {{DBPARTITIONNUM | DBPARTITIONNUMS} (db-partition-number
+  [TO  db-partition-number] , ... ) | ALL DBPARTITIONNUMS [EXCEPT
+  {DBPARTITIONNUM | DBPARTITIONNUMS} (db-partition-number
+  [TO db-partition-number] , ...)]}
+
+让我们研究一个示例。要执行样本数据库的前滚，可以使用下列任意一条语句：
+
+(1)ROLLFORWARD DATABASE sample TO END OF LOGS AND COMPLETE
+(2)ROLLFORWARD DATABASE sample TO timestamp AND COMPLETE
+(3)ROLLFORWARD DATABASE sample TO timestamp USING LOCAL TIME AND COMPLETE
+
+让我们仔细地研究每一条语句： 
+
+在该示例中，我们将前滚到日志的结尾，这意味着将遍历所有归档和活动日志。最终它将完成前滚并通过回滚任何未提交的事务来除去
+前滚暂挂状态。 
+对于该示例，DB2 将前滚到指定的时间点。使用的时间戳记形式必须是 CUT（全球标准时间，Coordinated Universal Time），这可以通
+过从当前时区减去本地时间来计算。 
+该示例类似于上一个示例，但可以用本地时间表示时间戳记。 
+请注意，语法中没有关键字 OFFLINE，因为这是缺省方式。事实上，对于 ROLLFORWARD 命令，这是数据库允许的唯一方式。 
+
+＃表空间前滚 第 2 页（共4 页） 
+
+
+表空间前滚通常可以联机或脱机。但系统目录表空间（SYSCATSPACE）是例外，它只能进行脱机前滚。
+
+下面是一个表空间前滚示例：
+
+ROLLFORWARD DATABASE sample 
+  TO END OF LOGS AND COMPLETE
+  TABLESPACE ( userspace1 ) ONLINE
+
+
+上面示例中的选项已经在数据库前滚一章中说明过了。这里唯一的新选项是 TABLESPACE，它指定要前滚的表空间。
+
+表空间前滚考虑事项 
+
+如果启用注册表变量 DB2_COLLECT_TS_REC_INFO，则只处理恢复表空间所需的日志文件；ROLLFORWARD 命令将跳过不需要的日志文件，这可以加快恢复时间。 
+ROLLFORWARD 命令的 QUERY STATUS 选项可用于列出 DB2 已经前滚的日志文件、下一个需要的归档日志文件以及自前滚处理开始以来最后一次提交的事务的时间戳记。例如：
+ROLLFORWARD DATABASE sample QUERY STATUS USING LOCAL TIME 
+在表空间时间点前滚操作完成后，表空间处于备份暂挂状态。必须对表空间或数据库进行备份，因为在表空间恢复到的时间点和当前时间之间对它所做的所有更新都已经丢失。 
+
+＃＃索引的重新创建
+＃重建索引
+
+如果由于一些硬件或操作系统原因而使数据库崩溃，那么在数据库重新启动阶段一些索引可能被标记为无效。配置参数 INDEXREC 确定 DB2 何时将试图重建无效索引。 
+
+INDEXREC 在数据库管理器和数据库配置文件中都进行了定义。该参数有三个可能的设置： 
+
+SYSTEM：只能在数据库配置文件中指定该值。当将 INDEXREC 设置为该值时，DB2 将查找在数据库管理器配置文件中指定的 INDEXREC 设置，并使用该值。 
+ACCESS：这意味着在第一次访问索引时重建无效索引。 
+RESTART：这意味着在数据库重新启动期间重建无效索引。 
+
+
+###管理服务器
+get admin cfg
+update admin cfg using <p> <v>
+
+
+-- 备份表空间
+BACKUP DATABASE SAMPLE TABLESPACE ( USERSPACE1 ) ONLINE TO "d:\db2\" WITH 1 BUFFERS BUFFER 1024 PARALLELISM 1 WITHOUT PROMPTING;
+
+-- 生成表的DDL
+db2look -d SAMPLE -t  MY_EMPLOYEE  -a -e  -l  -x  -c ;
+
+-- 生成表的DDL,包括表的统计信息的DDL
+db2look -d SAMPLE -t  MY_EMPLOYEE  -a -e  -l  -x  -m  -r  -c ;
+
+=========================================================================================================================================================
+5.1 maintrcie 4
+db2 fixpak 2
+
+-- 数据库空间需求
+1) 系统目录表的空间需求  3.5MB
+2) 用户表数据的空间需求 每页面255行 
+4KB页面 68字节用于管理开销，4028用于数据，行长度不能超过4005字节，最多500列。
+8,16,32KB 页面 8101,16293,32677     1012列
+估计大小公式4KB：
+(4028/(AVERAGE ROW SIZE + 10)) = RECORDS_PER_PAGE
+(NUMBER_OF_RECORDS/RECORDS_PER_PAGE)*1.1 = NUMBER_OF_PAGES
+长型字段数据的空间需求
+存储在单独的表对象中。数据存储在大小为32KB的区域中。
+大对象数据的空间需求
+#索引的空间的需求
+（平均索引键大小＋9）×行数×2
+  创建索引的临时空间需求
+         （平均索引键大小＋9）×行数×3.2
+对每个叶子页的平均键数的粗略估计是
+#日志文件的空间需求
+(logprimary + logsecond)*(logfilesiz+2)*4096
+如果以对数据库启用了无限记录（logsecond 设置为－1），则必须启用userexit配置参数。
+#临时空间需求
+
+
+
+
+

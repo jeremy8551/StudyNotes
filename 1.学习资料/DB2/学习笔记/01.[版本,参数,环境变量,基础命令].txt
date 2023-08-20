@@ -1,0 +1,163 @@
+
+====================================================================================================================================================
+
+db2level                -- 查看版本信息(信息最详细，列出补丁级别)
+db2licm -l              -- 查看版本、license信息、补丁信息(看到的只是大的补丁号)
+lslpp -l|grep db2       -- 查看包信息
+db2licm -a lic.file     -- 安装授权文件
+====================================================================================================================================================
+
+-- DB2中的系统目录视图:
+SYSIBM.SYSDUMMY1        -- 
+SYSIBM.DUAL             -- dual是一个从sysdummy1中创建而来的view
+SYSCAT.CHECKS           -- 检查约束
+SYSCAT.COLUMNS          -- 列
+SYSCAT.COLCHECKS        -- 检查约束引用的列
+SYSCAT.KEYCOLUSE        -- 关键字中使用的列
+SYSCAT.DATATYPES        -- 数据类型
+SYSCAT.FUNCPARMS        -- 函数参数或函数结果
+SYSCAT.REFERENCES       -- 参考约束
+SYSCAT.SCHEMATA         -- 模式
+SYSCAT.TABCONST         -- 表约束
+SYSCAT.TABLES           -- 表
+SYSCAT.TRIGGERS         -- 触发器
+SYSCAT.FUNCTIONS        -- 用户定义函数
+SYSCAT.VIEWS            -- 视图（select viewname from views where viewname='V_ZJT_TABLES'）
+SYSCAT.PROCEDURES       -- 存储过程（SELECT SUBSTR(PROCSCHEMA,1,15), SUBSTR(PROCNAME,1,15) FROM SYSCAT.PROCEDURES）
+SYSCAT.INDEXCOLUSE      -- 列出索引中包含的所有列
+
+-- 最常用的专用寄存器:
+CURRENT_DATE            -- 
+CURRENT_TIME            -- 
+CURRENT_TIMESTAMP       -- 
+CURRENT_USER            -- 
+CURRENT_PATH            -- 
+
+====================================================================================================================================================
+
+数据类型             类型             特性[示例或范围]
+---------------      ------------     ----------------------------------------------------------------------------------------
+CHAR(15)             定长字符串       最大长度为 254 'Sunny day' 
+VARCHAR(15)          变长字符         最大长度为 4000 'Sunny day'  
+SMALLINT             数字             长度为 2 字节精度为 5 位 范围为-32768 至 32767 
+INTEGER              数字             长度为 4 字节精度为 10 位 范围为-2147483648 至 2147483647 
+REAL                 数字             单精度浮点32 位近似值 范围为-3.402E+38至-1.175E-37或 1.175E-37 至-3.402E+38或零 
+DOUBLE               数字             双精度浮点64 位近似值 范围为-1.79769E+308 至-2.225E-307或 2.225E-307 至 1.79769E+308或零 
+DECIMAL(5,2)         数字             精度为 5小数位为 2 范围为 -10**31+1 至 10**31-1 
+DATE                 日期时间         三部分值 1991-10-27 
+TIME                 日期时间         三部分值 13.30.05 
+TIMESTAMP            日期时间         七部分值 1991-10-27-13.30.05.000000 
+
+-- 所有数据类型
+drop table lzj_test;
+create table lzj_test (
+    f00 smallint,
+    f01 bigint,
+    f02 int,
+    f03 integer,
+    f04 char(10),
+    f05 varchar(10),
+    f06 GRAPHIC(10),
+    f07 VARGRAPHIC(10),
+    f08 LONG VARGRAPHIC,
+    f09 REAL,
+    f10 float,
+    f11 double,
+    f12 date,
+    f13 time,
+    f14 timestamp,
+    f15 numeric(12,2),
+    f16 NUM(12,3),
+    f17 DECIMAL(13,2),
+    f18 DEC(13,2),
+    f19 blob(1000),
+    f20 DBCLOB(4000),
+    f21 clob(1000),
+    f22 varchar(100) for bit data,
+    f23 long varchar,
+    f24 long varchar for bit data
+)
+
+====================================================================================================================================================
+
+-- 列出所有DB2实例：
+$ cd /opt/IBM/db2/V9.1/instance
+$ db2ilist
+
+-- 删除一个实例：
+$ cd /usr/lpp/db2_07_01/instance
+$ ./db2idrop InstName
+
+-- 显示当前数据库管理实例
+$ db2 get instance
+The current database manager instance is:  db2iudsf
+
+-- 设置实例系统启动时是否自动启动。
+$ db2iauto -on     -- 自动启动
+$ db2iauto -off    -- 不自动启动
+
+====================================================================================================================================================
+
+-- 查看数据库参数
+db2 get dbm cfg
+db2 get db cfg for btpdbs
+
+-- 修改数据库参数, 改完后应执行【start,stop】命令使其生效
+db2 update db cfg for btpdbs using LOGBUFSZ 20
+db2 update db cfg for btpdbs using LOGFILSIZ 5120
+
+db2 update db cfg for udsfdb using UTIL_HEAP_SZ 52000
+
+====================================================================================================================================================
+-- 注册项的值 DB2SETPARAMETER=VALUE  
+-- 设定一个全局级的参数 DB2SETPARAMETER=VALUE-G(小写)
+-- 查看能在配置文件注册表中设置的所有变量的列表 DB2SET-LR(小写)
+
+db2 set schema [schemaName]         -- 修改当前模式为[schemaName]
+db2 set db2codepage=1208            -- 修改页编码为1208
+CREATE SCHEMASCHEMA_NAME            -- 如何建立模式?
+
+list [command] [options]
+db2 list application                -- 查看所有连接（需要连接到具体数据库才能查看）
+db2 list db directory               -- 系统数据库目录
+db2 list database directory         -- 列出所有数据库库
+db2 list node directory             -- 数据库服务器目录
+db2 list active databases           -- 列出所有活动的数据库
+db2 list tablespaces                -- 列出表空间
+db2 list tablespaces show detail    -- 显示数据库空间使用情况
+db2 list packages for all           -- 
+
+db2 list tables                     -- 当前用户
+db2 list tables for all             -- 列出当前数据库下所有的表
+db2 list tables for all             -- 所有表
+db2 list tables for schema [schema] -- 指定模式的表
+db2 list tables for system          -- 列出所有的系统表 
+
+db2 "describe table [tablename]"    -- 显示表结构
+
+声明注册表和环境变量
+db2set   注意：设置完成后需要退出用户，再注册进入才能生效。
+
+-- 列出当前实例所有已定义的变量
+db2set
+
+-- 列出所有受支持的变量
+db2set -lr
+
+-- 要列出概要文件注册表中所有定义的注册表变量
+db2set -all
+
+-- 列出单个变量
+db2set [registry_variable_name]
+
+-- 更改变量
+db2set [registry_variable_name=new_value]
+
+-- 变量复位为缺省值
+db2set -r [registry_variable_name]
+
+-- 改变页编码
+db2set DB2CODEPAGE=819
+
+
+    

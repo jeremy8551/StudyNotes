@@ -1,0 +1,27 @@
+
+====================================================================================================================================================
+-- DB2 查看死锁及解决办法
+
+1、进入命令行 DB2CMD
+2、打开监视器: db2 update monitor switches using statement on
+3、获取死锁信息: db2 get snapshot for locks on bipdb , db2 get snapshot for dynamic sql on "database name" >> "d:\sql.txt"
+4、关闭死锁的进程: db2 "force application(Application handle)"
+5、关闭监视器: db2 update monitor switches using statement off
+
+6、查看DB2数据库进程详细信息 db2 list applications show detail 
+
+7、查看DB2数据库详细进程信息 db2 get snapshot for applications on udsfdb
+
+方法一:
+    使用SecureCRT
+    db2 "get snapshot for locks on 数据库名"
+    db2 "force application(进程hander)"
+    杀掉死锁进程
+
+方法二:
+    用管理员帐户登陆,在"管理员模式下"
+    使用select agent_id,tabname,lock_mode from table(snap_get_lock('BL_DEVP')) as aa
+    查看:进程hander,表名,锁模式
+    然后进控制中心,选择对应数据库,右键选择"应用程序",找到对应进程hander,选"强制"杀掉死锁进程
+
+

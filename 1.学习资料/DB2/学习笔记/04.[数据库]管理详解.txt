@@ -1,0 +1,103 @@
+
+db2 CONNECT TO <接点名称> user <用户名> using <密码>                               --连接本地接点访问远程数据库
+
+10、db2 connect reset 或 db2 terminate    --断开与数据库的连接
+
+6、create database <数据库名> using codeset utf-8 territory CN    --创建数据库使用utf-8编码
+
+
+　　1. 建立数据库DB2_GCB 
+
+　　CREATE DATABASE DB2_GCB ON G: ALIAS DB2_GCB 
+　　USING CODESET GBK TERRITORY CN COLLATE USING SYSTEM DFT_EXTENT_SZ 32 
+
+　　2. 连接数据库 
+
+　　connect to sample1 user db2admin using 8301206 
+
+　　3. 建立别名 
+
+　　CREATE ALIAS db2admin.tables for sysstat.tables; 
+　　CREATE ALIAS DB2ADMIN.VIEWS FOR SYSCAT.VIEWS 
+　　CREATE ALIAS db2admin.columns for syscat.columns; 
+　　CREATE ALIAS guest.columns for syscat.columns; 
+
+
+9、数据库导入
+
+--把上述导出的表结构导入到数据库表结构
+db2 -tvf  <脚本名称>.sql       
+
+--把上述“db2move <数据库名> export “导出的数据导入到数据库中并把相同的数据替换掉 
+db2move <数据库名> load -lo replace
+在实际使用过程中，如果用到db2自增主键，需要使用by default， 而不是always，功能是一样的，但这样在数据移植时候会很方便!
+
+--备份整个数据库数据
+db2 backup db db2name<数据库名称>  
+
+--还原数据库
+db2 restore db <db2name>
+
+EXAMPLE:
+CREATE DATABASE PERSONL
+   CATALOG TABLESPACE
+     MANAGED BY SYSTEM USING (path 'D:\PCATALOG','E:\PCATALOG')
+     EXTENTSIZE 16 PREFETCHSIZE 32
+   USER TABLESPACE
+     MANAGED BY DATABASE USING (FILE 'D:\DB2DATA\PERSION1' 5000,
+                                FILE 'D:\DB2DATA\PERSION2' 5000)
+     EXTENSIZE 32 PREFETCHSIZE 64
+   TEMPORARY TABLESPACE
+     MANAGED BY SYSTEM USING (path 'F:\DB2TEMP\PERSONL')
+   WITH "PERSONNEL DB FOR DSCHIEFER CO"
+
+create database sccrm using codeset GBK territory CN
+
+#删除数据库
+   DROP DATABASE <DB-NAME>
+
+
+八、备份数据库
+1、 db2 backup db btpdbs
+2、 db2move btpdbs export
+3、 db2look -d btpdbs -e -x [-a] -o crttbl.sql
+
+九、恢复数据库
+1、 db2 restore db btpdbs without rolling forward
+2、 db2 -tvf crtdb.sql
+        crtdb.sql文件内容：create db btpdbs on /db2catalog
+    db2 -stvf crttbl.sql
+    db2move btpdbs import
+
+
+-- 数据库迁移
+
+    1、	用数据库抽取工具 db2look 导出数据库结构
+    db2look -d “数据库名” -e -z “模式名” -l -o bipdb.sql
+    
+    2、	用 db2move 工具导出数据库数据
+    db2move “数据库名”export
+    
+    3、	打包压缩该目录
+     tar zcvf bipdb.tar.gz bipdb /
+    
+    4、	解压 
+    tar zxfv oatest0303.tar.gz 
+    
+    5、	建立新数据库
+    db2 create db sample
+    
+    6、	执行 bipdb.sql 脚本建立数据库
+    db2 -tvf oatest.sql
+    
+    7、	执行 db2move 导入数据
+    db2move sample load
+    
+    8、	检查一致性
+    db2 set integrity for oatest.UM_USER immediate checked
+    
+    建立表空间和索引空间
+    DW_IDX
+    DW_TBL
+    
+    

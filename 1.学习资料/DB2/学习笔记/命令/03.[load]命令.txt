@@ -1,0 +1,124 @@
+#命 令：load
+#作 用：装载指定路径的文件到数据库表中
+#参 数：
+#作 者：吕钊军
+#时 间：2012-03-29
+
+命令格式：
+=========================================================================================================================================================
+LOAD [CLIENT] FROM file/pipe/dev/cursor_name [ {,file/pipe/dev} ... ]
+OF {ASC | DEL | IXF | CURSOR}
+[LOBS FROM lob-path [ {,lob-path} ... ] ]
+[MODIFIED BY filetype-mod [ {filetype-mod} ... ] ]]
+[METHOD {L ( col-start col-end [ {,col-start col-end} ... ] )
+           [NULL INDICATORS (col-position [ {,col-position} ... ] )]
+       | N ( col-name [ {,col-name} ... ] )
+       | P ( col-position  [ {,col-position} ... ] )}]
+[SAVECOUNT n]
+[ROWCOUNT n] [WARNINGCOUNT n] [MESSAGES msg-file]
+[TEMPFILES PATH pathname]
+{INSERT | REPLACE | RESTART | TERMINATE}
+INTO table-name [( insert-column [ {,insert-column} ... ] )]
+[datalink-specification] [FOR EXCEPTION table-name]
+[STATISTICS {NO | USE PROFILE}]
+[{COPY {NO | YES { USE TSM [OPEN num-sess SESSIONS]
+                 | TO dir/dev [ {,dir/dev} ... ]
+                  | LOAD lib-name [OPEN num-sess SESSIONS]}}
+ | NONRECOVERABLE} ]
+[HOLD QUIESCE] [WITHOUT PROMPTING] [DATA BUFFER buffer-size]
+[SORT BUFFER buffer-size] [CPU_PARALLELISM n] [DISK_PARALLELISM n]
+[INDEXING MODE {AUTOSELECT | REBUILD | INCREMENTAL | DEFERRED}]
+[CHECK PENDING CASCADE {DEFERRED | IMMEDIATE}]
+[ALLOW NO ACCESS | ALLOW READ ACCESS [USE tblspace-name]] [LOCK WITH FORCE]
+[[PARTITIONED DB CONFIG] partitioned-db-option [{partitioned-db-option}...]]
+  filetype-mod:
+    NOROWWARNINGS, ANYORDER, BINARYNUMERICS, CODEPAGE=x,
+    DUMPFILE=x, FASTPARSE, NOHEADER, TOTALFREESPACE=x,
+    INDEXFREESPACE=x, PAGEFREESPACE=x, FORCEIN, IMPLIEDDECIMAL,
+    PACKEDDECIMAL, NOCHECKLENGTHS, NOEOFCHAR, NULLINDCHAR=x,
+    RECLEN=x, STRIPTBLANKS, STRIPTNULLS, NODOUBLEDEL, LOBSINFILE,
+    CHARDELx, COLDELx, DLDELx, DECPLUSBLANK, DECPTx, DATESISO,
+    DELPRIORITYCHAR, USEDEFAULTS, DATEFORMAT=x, TIMEFORMAT=x,
+    TIMESTAMPFORMAT=x, ZONEDDECIMAL, KEEPBLANKS, IDENTITYMISSING,
+    IDENTITYIGNORE, IDENTITYOVERRIDE, GENERATEDMISSING,
+    GENERATEDIGNORE, GENERATEDOVERRIDE, USEGRAPHICCODEPAGE
+  partitioned-db-option:
+    HOSTNAME x, FILE_TRANSFER_CMD x, PART_FILE_LOCATION x, OUTPUT_DBPARTNUMS x,
+    PARTITIONING_DBPARTNUMS x, MODE x, MAX_NUM_PART_AGENTS x, OMIT_HEADER,
+    ISOLATE_PART_ERRS x, STATUS_INTERVAL x, PORT_RANGE x, CHECK_TRUNCATION,
+    MAP_FILE_INPUT x, MAP_FILE_OUTPUT x, TRACE x, NEWLINE, DISTFILE x
+  datalink-specification:
+    ([DL_LINKTYPE URL][{DL_URL_REPLACE_PREFIX prefix |
+    DL_URL_DEFAULT_PREFIX prefix}] [DL_URL_SUFFIX suffix], ...)
+ 
+NOTE: From the operating system prompt, prefix commands with 'db2'.
+      Special characters MAY require an escape sequence (\), for example:
+      db2 \? change database
+      db2 ? change database xxx comment with \"text\"
+=========================================================================================================================================================
+load挂起的解决,在数据仓库应用中,常常需要load数据。
+
+Load命令分为三个阶段，分别为Load阶段、Build阶段、Delete阶段，某个阶段出现问题，将导致表对应的表空间处于某种异常状态，
+表空间的状态可通过 db2 list tablespaces，如果状态的编码为0x0000,表明表空间状态正常，否则表空间处于某种异常状态，0x0008表明表空间处于装载挂起状态，
+0x010表明表空间处于删除挂起状态，0x020表明表空间处于备份挂起状态。
+Shdw_dev数据库表空间处于暂挂状态，暂不确定为什么产生及怎么避免产生。用Load命令来restart或terminate,先查找那个表使哪个表空间处于暂挂状态。
+db2 list tablespaces show detail
+记下表ID(Object ID),假设为x, 记下表空间ID(Tablespace ID),假设为y:
+db2 select tabname from syscat.tables where tableid=x and tbspaceid=y
+记下表名，先按原先Load命令进行restart,
+db2 load client from d:\… restart into gs.c_g_dkkhxxq
+如果不行，先按原先Load命令进行terminate,
+这样就可以存取表空间了。
+如果是CHECK PENDING状态，需要用SET INTEGRITY FOR 来消除。
+
+数据库表空间有时处于停止的状态，0x0004,先如上找到表，再用命令
+db2 quiesce tablespaces for table gs.c_g_dkkhxxq RESET
+
+暂挂状态为0x000c的处理办法
+db2 force application all
+db2stop
+db2start
+再用Load命令来terminate
+
+=========================================================================================================================================================
+
+-- load空表
+load from /dev/null of del replace into tabname nonrecoverable
+
+-- 导入数据
+load from /tabname.del of del savecount 1000  messages  ./tabname.msg replace into tabname nonrecoverable
+
+-- load的同时收集统计信息
+load from ./reftdpfn.del of del replace into tabname.reftdpfn STATISTICS yes nonrecoverable 
+
+-- load pending 状态解锁
+load from /dev/null of del terminate INTO tabname nonrecoverable
+
+-- load大对象时需要Tempfiles paths 参数
+load from ./tabname.del of del TEMPFILES PATH /path/ replace into tabname nonrecoverable
+
+-- load时强制不写错误信息
+load from /tangbo/data/opp_dtl_dly_fact.del of del messages ./tabname.del.msg  MODIFIED BY NOROWWARNINGS  replace into tabname nonrecoverable
+
+-- import 导入数据
+import 虽然速度比load慢，但是可以设定每次提交的行数，这样可以减少数据库的log文件
+import from ./tabname.del of del messages  ./tabname.msg  commitcount 1000 replace into  tabname
+
+-- 用游标来将一个表的数据更新到另一个表
+db2 declare [cur_name] cursor for [select user_id,account_id,customer_id from administrator.tab_user_info where ]
+db2 load from [cur_name] of cursor insert into [administrator.tab_user_info1]
+
+
+=========================================================================================================================================================
+
+-- 例1：
+load from Test.del of del modified by coldel| insert into Test
+
+-- 例2：
+LOAD CLIENT
+  FROM 'F:\1t??±?ò?DDêy?YD????????à1?μ????÷\é?????±?\20120306±?·Y\DL_OLD_MC_BLACKLIST.del' OF DEL
+  SAVECOUNT 5000
+  REPLACE INTO "DLHRBDB"."AF_PAWN"
+  NONRECOVERABLE
+  WITHOUT PROMPTING
+  ALLOW NO ACCESS;

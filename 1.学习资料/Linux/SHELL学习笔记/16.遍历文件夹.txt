@@ -1,0 +1,19 @@
+
+遍历文件2中方法：
+
+
+for i in /usr/local/src/yourdir/*;
+do 
+  if [ -f $i ]; then 
+    sftpxxxx; 
+  fi 
+done
+
+
+————————————————————
+
+filelist=`ls A` 
+
+for filename in $filelist; do 
+  # your-command 
+done

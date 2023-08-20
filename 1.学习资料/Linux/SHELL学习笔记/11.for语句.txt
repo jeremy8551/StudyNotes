@@ -1,0 +1,46 @@
+
+for/do/done 请点评
+		
+		Shell脚本的for循环结构和C语言很不一样，它类似于某些编程语言的foreach循环。例如：
+		
+		#! /bin/sh
+		
+		for FRUIT in apple banana pear; do
+		  echo "I like $FRUIT"
+		
+		解释：doneFRUIT是一个循环变量，第一次循环$FRUIT的取值是apple，第二次取值是banana，第三次取值是pear。
+		      再比如，要将当前目录下的chap0、chap1、chap2等文件名改为chap0~、chap1~、chap2~等（按惯例，末尾有~字符的文件名表示临时文件），
+		      这个命令可以这样写：
+		
+		$ for FILENAME in chap?; do mv $FILENAME $FILENAME~; done也可以这样写：
+		
+		$ for FILENAME in `ls chap?`; do mv $FILENAME $FILENAME~; done
+		
+		——————————————————————————————————————————————————————————————————
+		
+		#! /bin/sh
+
+		is_directory()
+		{
+		  DIR_NAME=$1
+		  if [ ! -d $DIR_NAME ]; then
+		    return 1
+		  else
+		    return 0
+		  fi
+		}
+		
+		for DIR in "$@"; do
+		  if is_directory "$DIR"
+		  then :
+		  else
+		    echo "$DIR doesn't exist. Creating it now..."
+		    mkdir $DIR > /dev/null 2>&1
+		    if [ $? -ne 0 ]; then
+		      echo "Cannot create directory $DIR"
+		      exit 1
+		    fi
+		  fi
+		done
+		
+		

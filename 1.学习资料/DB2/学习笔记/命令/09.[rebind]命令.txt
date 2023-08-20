@@ -1,0 +1,73 @@
+#命 令：rebind 
+#作 用：重新绑定存储过程package
+#参 数：存储过程的ID
+#作 者：吕钊军
+#时 间：2012-03-29
+
+
+    建立存储过程时，DB2查询优化器会根据当前存储过程中所操作表生成一份执行计划。
+在执行存储过程时，DB2自动按照其执行计划执行存储过程。所以DB2存储过程执行效率与其执行计划是否准确有关。
+所以对存储过程的调优针对其执行计划调整即可。
+每次执行存储过程之前先执行 rebind 操作，rebind 操作重新生成存储过程的执行计划。
+
+
+-- 重新生成存储过程的执行计划
+rebind package ${存储过程ID} resolve any 
+
+-- 获取存储过程ID调用：
+SELECT RTRIM(routineschema)||'.'||'P'||SUBSTR(CHAR(lib_id+10000000),2) FROM SYSCAT.ROUTINES WHERE routinename='${存储过程名}' with ur 
+
+
+-- shell脚本实例：
+
+# 函数：编译存储过程
+# 参数：存储过程名
+# 作者：吕钊军
+# 时间：2009-05-01
+function _rebind_proc() {
+  proc_name_tmp=$1
+  echo ____正在编译...
+  proc_id_tmp=`db2 -x "SELECT RTRIM(routineschema)||'.'||'P'||SUBSTR(CHAR(lib_id+10000000),2) FROM SYSCAT.routines WHERE routinename='$proc_name_tmp' with ur "`
+  if [ "$proc_id_tmp" == "" ]; then
+    echo "____编译错误: 找不到存储过程【$proc_name_tmp】"
+    db2 +o connect reset 
+    exit 78
+  fi
+  ermsg=`db2 -x "rebind package $proc_id_tmp resolve any "`
+  rs=$?
+  if [ $rs -ne 0 -a $rs -ne 2 ]; then
+    echo "编译 $proc_id_tmp 发生错误: $ermsg"
+    db2 +o connect reset 
+    exit 75
+  fi
+  return 0
+}
+
+
+# 函数：调用存储过程
+# 参数：存储过程名
+# 作者：吕钊军
+# 时间：2009-05-01
+function _progress() {
+  echo ____正在执行...
+  btime=`date +%s`
+  produce_tmp=$1
+  returnmsg=`db2 "call ${produce_tmp}(?)"`
+  if [ $? -ne 0 ]; then
+    echo "____运行存储过程${produce_tmp}失败!"
+    echo "____返回消息: ${returnmsg}"
+    db2 +o connect reset
+    exit 76 
+  fi
+  returnvalue=`echo ${returnmsg} | awk -F" " '{print $13}'`
+  if [ $returnvalue -ne 0 ]; then
+    errmsg=`db2 -x "select (char(d.err_dt)||' '||char(d.err_time)||' '||d.err_message) as msg from (select c.* from (select a.* , rank() over(partition by name order by err_dt desc) as num from udsf_sys_err_log a where name='${produce_tmp}') c where c.num=1) d order by d.err_time desc fetch first 1 rows only with ur"`
+    echo "____错误信息: ${errmsg}"
+    db2 +o connect reset
+    exit 77
+  fi
+  etime=`date +%s`
+  utime=$((etime-btime))
+  echo "____执行完毕, 用时=$((utime/60))分$((utime%60))秒"
+  return 0
+}

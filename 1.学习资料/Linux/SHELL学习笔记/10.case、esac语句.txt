@@ -1,0 +1,44 @@
+
+case/esac命令：
+
+case命令可类比C语言的switch/case语句，esac表示case语句块的结束。
+C语言的case只能匹配整型或字符型常量表达式，而Shell脚本的case可以匹配字符串和Wildcard，每个匹配分支可以有若干条命令，
+末尾必须以;;结束，执行时找到第一个匹配的分支并执行相应的命令，然后直接跳到esac之后，不需要像C语言一样用break跳出。
+
+#! /bin/sh
+
+echo "Is it morning? Please answer yes or no."
+read YES_OR_NO
+case "$YES_OR_NO" in
+yes|y|Yes|YES)
+  echo "Good Morning!";;
+[nN]*)
+  echo "Good Afternoon!";;
+*)
+  echo "Sorry, $YES_OR_NO not recognized. Enter yes or no."
+  exit 1;;
+esac
+exit 0
+
+使用case语句的例子可以在系统服务的脚本目录/etc/init.d中找到。这个目录下的脚本大多具有这种形式（以/etc/apache2为例）：
+
+case $1 in
+	start)
+		...
+	;;
+	stop)
+		...
+	;;
+	reload | force-reload)
+		...
+	;;
+	restart)
+	...
+	*)
+		log_success_msg "Usage: /etc/init.d/apache2 {start|stop|restart|reload|force-reload|start-htcacheclean|stop-htcacheclean}"
+		exit 1
+	;;
+
+
+
+

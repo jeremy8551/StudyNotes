@@ -1,0 +1,58 @@
+DB2用户管理：
+  db2 use os to manage users.You can use following steps to add a db2 user:
+  1,add a user on os.
+  2,grant rights to user.
+    GRANT  CREATETAB,CONNECT ON DATABASE  TO USER FUJIE;
+    grant select, update, delete on table employee to user john with grant option
+
+
+
+        
+    2、数据定义语言(DDL：create,alter)
+    <1>创建或删除实例
+       db2icrt instance_name/db2idrop -f instance_name
+       linux:db2icrt -u user_id instance_name
+       
+       
+
+
+产生
+db2icrt -a AuthType(SERVER,CLIENT,SERVER_ENCRYPT) -p PORT_NAME 
+表空间PREFETCHSIZE的设置，EXTENTSIZE的关系，缓冲池的监控，页清除程序的多少。
+   临时表空间页面大小与其他表空间页面大小的设置，临时表空间与缓冲池的设置。
+example:db2icrt db2 -s ese -p d:\db2 -u Administrator
+
+注意：在UNIX 上产生实例时需要产生一个和实例名称相同的用户名，和fencedid 用户。
+  如：db2icrt -s ese -u db2fenc2 db2inst2 将在db2inst2用户中产生实例db2inst2.
+
+缺省创建32位实例，创建64位实例：db2icrt -s ese -w 64 -u db2fenc2 db2inst2 
+   
+删除
+db2idrop instance-name
+启动
+db2start 
+停止
+db2stop force
+
+
+
+列出实例
+db2ilist
+设置当前实例
+set db2instance=<instance-name>
+得到当前实例
+db2 get instance
+设置实例自动重启动UNIX
+db2iauto -on <instance-name>
+db2iauto -off <instance-name>
+
+
+
+获取实例的配置参数
+db2 get dbm cfg
+修改配置参数
+例如:db2 update dbm cfg using authentication server_encrypt
+     db2stop and db2start
+     
+     
+     

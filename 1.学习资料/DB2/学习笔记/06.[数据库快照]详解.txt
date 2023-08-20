@@ -1,0 +1,114 @@
+
+###监控DB2活动
+  ##捕获快照
+    数据库,表空间,表,缓冲池,锁,数据库管理器,应用程序
+  #拍摄快照
+   API,命令行
+  UPDATE MONITOR SWITCHES
+  #打开和关闭快照
+   1,在实例级别上设置监视器开关(影响所有用户和数据库)
+     DFT_MON_STMT：语句监视器（用于动态 SQL） 
+DFT_MON_TABLE：表监视器 
+DFT_MON_LOCK：锁监视器 
+DFT_MON_BUFPOOL：缓冲池监视器 
+DFT_MON_SORT：排序监视器 
+DFT_MON_UOW：工作单元信息 
+DFT_MON_TIMESTAMP：跟踪时间戳记信息 
+     db2 get dbm cfg|grep DFT_MON
+     db2 update dbm cfg using monitorSwitch [ON|OFF]
+db2 update dbm cfg using DFT_MON_SORT ON
+
+   2,在应用程序级别上设置监视器开关(只适合于特定的应用程序)
+   在CLP中打开只适合这个CLP
+     Bufferpool 
+Lock 
+Sort 
+Statement 
+Table 
+Timestamp 
+UOW 
+
+
+
+db2 get monitor switches
+    db2 update monitor switches using switchName [ON|OFF]
+
+
+db2 get snapshot for dynaimic sql on jining
+
+
+
+    3,复位开关
+  db2 reset monitor [ALL|for database databaseName] [at dbpartitionnum partitionNum]
+将监视器开关的值复位成空或0.
+
+
+    下面是获取这种快照的命令
+db2 get snapshot for database on databaseName
+
+    #数据库管理器快照
+    db2 get snapshot for database manager
+    #表快照
+    db2 get snapshot for tables on drew_db
+    
+    
+    #锁快照
+    db2 get snapshot for locks on drew_db
+    
+    #动态SQL快照
+    #查找执行速度较慢的SQL
+     SELECT stmt_text,total_exec_time,num_executions
+     FROM TABLE (SNAPSHOT_DYN_SQL('DREW_DB',-1)) as dynSnapTab
+     ORDER BY total_exec_time desc
+     FETCH FIRST 1 ROW ONLY
+
+
+
+
+
+计算缓冲池命中率:
+    Ratio = ((1-(physical index and data reads))/(logical index and data reads))*100%
+
+
+
+
+    第二个示例查找平均执行时间最长的五条 SQL 语句：
+SELECT stmt_text, 
+CASE WHEN num_executions = 0 
+THEN 0 
+ELSE (total_exec_time / num_executions) 
+END avgExecTime,
+num_executions
+FROM TABLE( SNAPSHOT_DYN_SQL('DREW_DB', -1)) as dynSnapTab
+ORDER BY avgExecTime desc
+FETCH FIRST 5 ROWS ONLY
+
+
+
+#死锁监控
+        CREATE EVENT MONITOR DEADLOCK_DB
+FOR DEADLOCKS
+WRITE TO FILE 'deadlock_db'
+MAXFILES 1
+MAXFILESIZE NONE
+AUTOSTART
+              注意：事件监控器名称使用大写字母，需要创建目录。
+
+
+
+
+
+#性能  监控命令
+get monitor switches  返回会话监控开关的状态
+update monitor switches using <monitor> <on|off> 为<monitor>设置会话监控开关的状态
+reset monitor all 复位性能监控程序值
+get snapshot for dbm
+get snapshot for all on <dbname>
+get snapshot for dynamic sql on <dbname>   返回动态SQL高速缓存的内容
+runstats on table <tbschema>.<tbname> 收集<tbname>的统计信息
+reorgchk on table all      确定是否需要重组  reorgchk on table <tbschema>.<tbname>
+reorg table <tablename> 通过重组消除碎片
+
+
+
+db2 get snapshot for dynaimic sql on jining

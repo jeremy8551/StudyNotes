@@ -1,0 +1,156 @@
+DB2性能调整命令速查
+
+#########
+##查看执行计划
+#########
+db2expln:
+db2expln -d dbname -c pkgOwner -p pkgNmae -o expln.out
+
+dynexpln:
+dynexpln -d eos -q "select * from eosmenu" -g -t
+dynexpln -d eos -f query.sql -o out.txt
+
+
+#########
+##更新统计信息
+#########
+runstats:
+db2 runstats on table songxn.eosmenu and indexs songxn.ix1,songxn.ix2 allow read access
+db2 runstats on table songxn.eosmenu with distribution and detailed index all
+
+
+#########
+##调整优化等级
+#########
+(0,1,2,3,5,7,9)：
+更改DFT_QUERYOPT(db cfg)， 默认为5
+SQL:set current query optimization = 3
+
+
+#####
+##索引
+#####
+建立索引：
+create unique index ind1 on vicky.staff ( dept, lastname )
+create unique index ind2 on vicky.emplyee ( empno ) include ( lastname, salary)
+include中的字段不列入排序范围
+
+丛集索引：记录与索引的顺序一致
+cretae index ind3 on vicky.staff ( dept ) CLUSTER
+
+SCAN MODE:
+Index Scan,Full Index Scan(Index only Access),Relation Scan
+
+查询索引：
+select indname from syscat.indexes where tabname='customer'
+
+索引建议器：
+db2advis -d dbname -i query.sql | -s "sql stmt" -o advis.out
+
+在数据页中预留空间：
+alter table vicky.staff PCTFREE 30（预留30％）
+load from staff.ixf of ixf modified by pagefreespace=30 replace into vicky.staff
+
+
+########
+##缓冲池与IO
+########
+默认为IBMDEFAULTBP
+
+新建缓冲池：
+db2 create bufferpool bpname size 1000 pagesize 4k
+alter tablespace tbname bufferpool bpname
+当脏页超过CHNGPGS_THRESH(%,db cfg)时，缓冲池将被清空并写回
+
+延展缓冲池:
+ESTORE_SEG_SZ& NUM_ESTORE_SEGS(db cfg)
+db2 alter bufferpool ibmdefaultbp [ not ] extended storage
+
+I/O SERVER:
+NUM_IOSERVERS(db cfg):一般为磁盘数+2
+
+
+#######
+##数据重整
+#######
+REORGCHK:
+db2 reorgchk update statistics on table all 该语句也用来对所有表做RUNSTATS
+db2 reorgchk current statistics on table vicky.staff
+
+table statistics：
+CARD:记录笔数
+OV(ERFLOW):overflow的记录数
+NP(AGES):含有记录的页数
+FP(AGES):表格占用的总页数
+TSIZE(Bytes):表格大小
+
+index statistics:
+LEAF:leaf page数
+ELEAF:空叶数
+NDEL:被删除的RID数
+LVLS:索引层级数
+ISIZE:索引平均长度
+KEYS:不同的索引值的个数
+
+表格重整：
+db2 reorg table vicky.staff index ind1 use tempspace2 indexscan
+
+索引重整：
+db2 reorg indexes all for table vicky.staff _options_ (ALLOW NO ACCESS || ALLOW READ ACCESS || ALLOW WRITE ACCESS)
+options:allow read|write|no access, cleanup only pages|all（不重建索引结构，只回收空索引页）
+
+联机表格重整(V8+)：
+db2 reorg table vicky.staff index vicky.ind2 inplace allow write access
+db2 reorg table vicky.staff index vicky.ind2 inplace pause|resume
+db2 list history reorg all for dbname
+
+
+####
+##MQT
+####
+MQT:
+建立MQT:
+CREATE TABLE vicky.mqt1 AS 
+  (  SELECT name, location, salary 
+  FROM vicky.staff, vicky.org
+  WHERE staff.dept=org.deptnumb AND salary>20000
+  )  DATA INITIALLY DEFERRED REFRESH DEFERRED|IMMEDIATE
+  ENABLE|DISABLE QUERY OPTIMIZATION
+REFRESH TABLE vicky.mqt1
+
+利用MQT:
+RUNSTATS ON TABLE vicky.mqt1
+UPDATE DB CFG FOR sample USING DFT_REFRESH_AGE ANY
+
+
+#######
+##并行处理
+#######
+设置并行处理：
+UPDATE DBM CFG USING INTRA_PARALLEL YES
+UPDATE DB CFG FOR EOS USING DFT_DEGREE ANY
+
+并行处理上限：
+应用级：
+  SET RUNTIME DEGREE FOR ( 25 ) TO 4
+  SET RUNTIME DEGREE FOR ALL TO 6
+实例级：
+  UPDATE DBM CFG USING MAX_QUERYDEGREE 6
+  
+
+#####
+##MDC表
+#####
+CREATE TABLE vicky.sales
+( YearAndMonth CHAR(4),
+  Region CHAR(20),
+  Product CHAR(2),
+  Sales BIGINT
+) ORGANIZE BY DIMENSIONS ( YearAndMonth, Region )
+CREATE TABLE vicky.table1
+( col1 CHAR(10),
+  col2 CHAR(10),
+  col3 CHAR(10),
+  col4 INTEGER,
+  col5 DECIMAL(10,2),
+) ORGANIZE BY DIMENSIONS ( col1, ( col2, col3 ),col4 )

@@ -1,0 +1,97 @@
+
+Bash中可以使用数组变量,其赋值有两种:
+(1) name = (value1 ... valuen) 此时下标从0开始，也可以：names=([2]=alice [0]=hatter [1]=duchess)。
+(2) name[index] = value
+
+
+数组可以使用declare –a来显示声明，数组下标的范围没有任何限制,同时也不必使用连续的分量。
+可以通过${array[i]}.访问数组中的元素。如果不指定元素，则表示第一个元素。@ 与*相同，
+但是使用时加引号，并在引号中返回每个参数，*则作为一个整体的字符串返回。
+____________________________
+
+# A=(a b c def)
+# echo ${A[@]}
+a b c def
+# echo ${A}   
+a
+echo ${A[*]}
+a b c def
+for i in "${A[@]}"; do
+    echo $i
+done
+显示的结果：
+a
+b
+c
+def
+____________________________
+
+for i in "${A[*]}"; do
+    echo $i
+done
+显示结果：
+a b c def
+____________________________
+
+显示目前有值的数组序号：――bash 3.0以后才支持。
+# echo ${!A[@]}
+0 1 2 3
+//取得数组元素的个数
+# echo ${#A[@]}
+4
+____________________________
+
+显示第3个元素里面的元素的个数：
+echo ${#A[3]}
+3
+echo ${#A[2]}
+1
+ 
+//清除变量
+$ unset A
+$ echo ${A[@]}
+$
+A=B 
+B=C 
+unset $A 事实上所取消的变量是 B 而不是 A
+ ____________________________
+ 
+//清空变量,即将值变为空
+$ A=
+$ echo ${A[@]}
+$
+
+____________________________
+ 
+#!/bin/bash
+    for i in $(cut -f 1,3 -d: /etc/passwd) ; do
+        echo $i
+        array[${i#*:}]=${i%:*}
+    done
+echo "User ID $1 is ${array[$1]}."
+echo "There are currently ${#array[@]} user accounts on the system."
+
+____________________________
+ 
+用shell实现的选择排序
+# vi test2
+#!/bin/bash
+ 
+    values=(39 5 36 12 9 3 2 30 4 18 22 1 28 25)
+    numvalues=${#values[@]}
+    for (( i=0; i < numvalues; i++ )); do
+        lowest=$i
+        for (( j=i+1; j < numvalues; j++ )); do
+            if [ ${values[j]} -le ${values[$lowest]} ]; then
+                lowest=$j
+            fi
+        done
+        temp=${values[i]}
+        values[i]=${values[lowest]}
+        values[lowest]=$temp
+    done
+    for (( i=0; i < numvalues; i++ )); do
+        echo -ne "${values[$i]}\t"
+    done
+echo -e "\n\n-------end---------\n"
+ 

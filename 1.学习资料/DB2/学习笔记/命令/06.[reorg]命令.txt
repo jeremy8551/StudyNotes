@@ -1,0 +1,45 @@
+====================================================================================================================================================
+数据库优化命令：
+   reorg、runstats
+   当数据库经过一段时间使用，数据空间会变得越来越庞大。一些delete掉 的数据仍存放在数据库中，占用数据空间，影响系统性能。因此需要定期
+   运行reorg、runstats命令，清除已delete的数据，优化数据结构。
+   db2 reorg table 表名
+   db2 runstats on table 表名 with distribution and indexes all
+   因为要优化的表比较多，所以在/btp/bin目录下提供了一个sh程序runsall，
+   可在当天业务结束后，运行runsall，对数据库进行优化  
+
+
+
+<6>重新组织表及其索引
+      重组表数据  reorg table tableName index indexName(根据索引)
+      重组表索引  reorg indexes all for table tableName
+
+
+
+
+##REORG 和 REORGCHK 实用程序 
+
+从数据库增删的数据在物理上可能并不是按顺序放置的。在这种情况下，DB2 必须执行额外的读操作来访问数据。通常，这意味着需要更多的
+磁盘 I/O 操作，而我们都知道进行这类操作的代价是昂贵的。在这种情况下，您应该考虑根据索引对表进行物理上的重组，以便相关数据相
+互之间靠得更近一些，从而尽可能地减少 I/O 操作。
+REORG 是一个为表和／或索引重组数据的实用程序。虽然在物理上对数据进行了重新安排，但 DB2 却提供了联机或脱机执行该操作的选项。
+在缺省情况下，脱机 REORG 允许其他用户读取该表。您可以通过指定 ALLOW NO ACCESS 选项来限制表访问。联机 REORG（也称为现场 REORG）
+不支持对表的读访问或写访问。由于重新安排了数据页，因此并发应用程序可能必须等待 REORG 完成当前页。您可以使用适当的选项来轻松
+地停止、暂停或重新开始重组过程：
+下面的示例都是非常容易看懂的：
+
+REORG TABLE db2user.employee INDEX db2user.idxemp INPLACE ALLOW WRITE ACCESS
+REORG TABLE db2user.employee INDEX db2user.idxemp INPLACE PAUSE
+
+REORGCHK 是另一个数据维护实用程序，它有一个选项可以用来检索当前的数据库统计信息或更新数据库统计信息。它还会生成带有 REORG 
+指示符的统计信息报告。REORGCHK 根据统计规则在需要 REORG 的地方用星号（*）标记表或索引。
+让我们考虑一些示例。下面这条命令生成当前（关于运行时授权标识拥有的全部表的）统计信息的报告：
+REORGCHK CURRENT STATISTICS ON TABLE USER
+
+下面的命令更新统计信息，然后生成在模式 smith 下创建的全部表的报告：
+
+REORGCHK UPDATE STATISTICS ON SCHEMA smith
+
+
+
+

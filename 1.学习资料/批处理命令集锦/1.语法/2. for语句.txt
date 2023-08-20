@@ -1,0 +1,68 @@
+
+四、for 循环命令，只要条件符合，它将多次执行同一命令。 
+
+语法：
+对一组文件中的每一个文件执行某个特定命令。
+
+FOR %%variable IN (set) DO command [command-parameters]
+
+%%variable　　　 指定一个单一字母可替换的参数。
+(set)　　　　　　指定一个或一组文件。可以使用通配符。
+command　　　　　指定对每个文件执行的命令。
+command-parameters 为特定命令指定参数或命令行开关。
+
+例如一个批处理文件中有一行: 
+for %%c in (*.bat *.txt) do type %%c 
+
+则该命令行会显示当前目录下所有以bat和txt为扩展名的文件的内容。
+
+
+@echo off&setlocal enabledelayedexpansion
+:: 代码4
+:: Code by CN-DOS terse
+set "hx=0123456789ABCDEF"
+for /l %%a in (1 1 10000) do (
+    set /a str=%%a
+    for /l %%i in (1 1 8) do (
+        if !str! gtr 0 (
+        set/a "n=str&15,str>>=4"
+        for %%i in (!n!) do set h=!hx:~%%i,1!!h!
+      ))
+        echo %%a 的十六进制为:0x!h!&set "h="
+)
+pause
+
+
+@echo off&setlocal enabledelayedexpansion
+:: 代码5
+:: Code by CN-DOS terse
+set "hx=0123456789ABCDEF"
+set/p str=:
+(for /l %%i in (1 1 8) do (
+     if !str! GTR 0 (
+        set/a "n=str&15,str>>=4"
+        call set h=%%hx:~!n!,1%%!h!
+     )
+)
+if not defined h set "h=0"
+echo.%str% 的十六进制为:0x!h!)
+pause
+
+
+“%”和“!”引用的变量扩展的区别：
+
+      在读取完毕一个单条语句或复合语句后，语句中所有使用“%”引用的变量将会被扩展
+      在读取完毕一个单条语句或复合语句后，语句中所有使用“!”引用的变量不会被扩展，
+      而是在读取完该语句后执行该语句前的最后一步在进行扩展
+
+    以上所说的“变量扩展”其实就是“变量替换”的意识，这样解释同学们可能容易理解一些
+
+
+
+获取当前目录下的所有jar包
+set jars=
+for %%c in (%cd%\lib\*.jar) do (
+    set jars=%%c;!jars!
+)
+
+

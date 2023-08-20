@@ -1,0 +1,84 @@
+#命 令：db2
+#作 用：查看DB2命令的帮助信息
+#参 数：
+#作 者：吕钊军
+#时 间：2012-03-29
+
+====================================================================================================================================================
+(c) Copyright IBM Corporation 1993,2002
+Command Line Processor for DB2 SDK 8.2.2
+ 
+You can issue database manager commands and SQL statements from the command 
+prompt. For example:
+    db2 => connect to sample
+    db2 => bind sample.bnd
+ 
+For general help, type: ?.
+For command help, type: ? command, where command can be
+the first few keywords of a database manager command. For example:
+ ? CATALOG DATABASE for help on the CATALOG DATABASE command
+ ? CATALOG          for help on all of the CATALOG commands.
+ 
+To exit db2 interactive mode, type QUIT at the command prompt. Outside 
+interactive mode, all commands must be prefixed with 'db2'.
+To list the current command option settings, type LIST COMMAND OPTIONS.
+ 
+For more detailed help, refer to the Online Reference Manual.
+
+-- DB2 命令选项
+-a 显示 SQLCA OFF 
+-c 自动落实 ON 
+-e 显示 SQLCODE/SQLSTATE OFF 
+-f 读取输入文件 OFF 
+-l 将命令记录到历史文件中 OFF 
+-n 除去换行字符 OFF 
+-o 显示输出 ON 
+-p 显示交互式输入提示 ON 
+-r 将输出保存到报告文件 OFF 
+-s 在命令出错时停止执行 OFF 
+-t 设置语句终止字符 OFF 
+-v 回送当前命令 OFF 
+-w 显示 FETCH/SELECT 警告信息 ON 
+-x 不打印列标题 OFF 
+-z 将所有输出保存到输出文件 OFF 
+
+-- 这些选项的具体功能及其缺省设置为： 
+.a 显示 SQLCA 的数据，缺省为 OFF。 
+.c 是否自动落实 SQL 命令，缺省为 ON。 
+.e {c|s} 显示 SQLCODE 或 SQLSTATE，缺省为 OFF。 
+.f 文件名 将命令的输入从标准输入指定到某一文件，缺省为 OFF。
+ 
+-- 注：命令“db2 < 文件名”与“db2 -f 文件名”作用相同。 
+.l 文件名 将命令记录到历史文件中，缺省为 OFF。 
+.n 除去换行字符，缺省为 OFF。 
+.o 将输出数据及信息送到标准输出，缺省为 ON。 
+.p 在交互方式下显示命令行处理器的提示信息，缺省为 ON。 
+.r 将输出保存到指定文件中，缺省为 OFF。 
+.s 执行批处理文件中或交互方式下的命令出错时即停止执行操作，缺省为 OFF。 
+.t 设置语句终止字符，缺省为 OFF。 
+.v 回送当前命令到标准输出，缺省为 OFF。 
+.w 显示 FETCH 或 SELECT 警告信息，缺省为 ON。 
+.x 不打印列标题，缺省为 OFF。 
+.z 文件名 将所有输出保存到输出文件，缺省为 OFF。 
+
+以上选项不要求顺序并可以进行组合使用。若要修改其缺省设置，将选项设为打开，只需在选项前加“+”；而将选项关闭则加“-”。 
+通过设置环境变量 DB2OPTIONS，也可对这些选项进行设置。如在 WINDOWS 系统下使用：set DB2OPTIONS='+c -a'；在 UNIX 系统下使用：export DB2OPTIONS='+c -a'。
+但命令行处理器选项设置的优先级高于 DB2OPTIONS 的设置。 
+
+-- DB2帮助命令：
+db2 ?
+db2 ? restroe
+db2 ? sql<码值> (例：db2 ? sql0803) 注：code必须为4位数，不够4位，前面补0 
+
+-- SQL 帮助(说明 SQL 语句的语法) 例如，help SELECT 
+help statement
+
+-- SQLSTATE 帮助(说明 SQL 的状态和类别代码) 
+db2 ? sqlstate 
+
+-- 更改与"管理服务器"相关的口令 
+db2admin setid username password 
+
+-- 要运行脚本，请输入以下命令, 运行脚本 ： 
+db2 -f script_name -o -t -z log_name
+

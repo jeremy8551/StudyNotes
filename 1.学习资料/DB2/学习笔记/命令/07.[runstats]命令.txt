@@ -1,0 +1,22 @@
+<7>重新收集表及其索引统计信息
+      runstats on table tableName for indexes all(跑批前重新收集所用表信息可以提高效率)
+      
+
+
+##RUNSTATS 实用程序 
+
+DB2 利用一个完善的、基于成本的优化器来确定如何访问数据。其决策在很大程度上受到了一些统计信息的影响，这些统计信息是关于数据库
+表和索引的大小的。因此，要时刻使数据库统计信息保持最新状态，以便能够选择有效的数据存取方案，这一点十分重要。RUNSTATS 实用程
+序用于更新表的物理特征及其相关索引的统计信息。这些特征包括记录数（基数）、页数和平均记录长度等。
+让我们用一些示例来演示此实用程序的用法。下面的命令收集表 db2user.employee 的统计信息。在计算统计信息期间允许阅读器和记录器访
+问该表：
+
+RUNSTATS ON TABLE db2user.employee ALLOW WRITE ACCESS
+
+以下命令用分布式统计收集表 db2user.employee 以及列 empid 和 empname 的统计信息。在此命令运行期间，该表只能用于只读请求。
+
+RUNSTATS ON TABLE db2user.employee WITH DISTRIBUTION ON COLUMNS ( empid, empname ) 
+    ALLOW READ ACCESS
+以下命令收集表 db2user.employee 的统计信息及其全部索引的详细统计信息：
+
+RUNSTATS ON TABLE db2user.employee AND DETAILED INDEXES ALL

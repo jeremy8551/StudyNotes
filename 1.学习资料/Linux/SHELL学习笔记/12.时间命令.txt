@@ -1,0 +1,17 @@
+
+
+用date +%s可以得到UNIX的时间戳,
+[/home/javalee/myshell]date +%s
+1060510783
+
+
+#!/bin/ksh
+#
+date -d '1970-01-01 UTC '$1' seconds' +"%Y-%m-%d %T"
+[/home/javalee/myshell]utc 1047335700
+2003-03-11 06:35:00
+
+可以把UNIX时间戳转换成当前系统时间!
+
+
+

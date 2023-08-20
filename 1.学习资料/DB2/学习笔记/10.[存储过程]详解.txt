@@ -1,0 +1,105 @@
+15. 查看存贮过程 
+
+SELECT SUBSTR(PROCSCHEMA,1,15),SUBSTR(PROCNAME,1,15) FROM SYSCAT.PROCEDURES; 
+
+-- 查询
+SELECT RTRIM(r.routineschema) || '.' || RTRIM(r.routinename) AS spname, 
+       ' ( '|| RTRIM(r.routineschema) || '.' || 'P'||SUBSTR(CHAR(r.lib_id+10000000),2)||' )'
+ FROM SYSCAT.routines r
+ WHERE r.routinetype = 'P' 
+   and r.routinename like 'PROC_GRZX_%'
+   AND ((r.origin = 'Q' AND r.valid != 'Y') 
+           OR EXISTS (
+               SELECT 1 FROM syscat.packages 
+               WHERE pkgschema = r.routineschema 
+               AND pkgname = 'P'||SUBSTR(CHAR(r.lib_id+10000000),2) 
+               AND valid !='Y'))
+   ORDER BY spname;
+
+=========================================================================================================================================================
+-- DB2 导出存储过程
+
+1、命令方式（已尝试）：
+DB2 GET ROUTINE INTO E:\temp\proc.sar FROM PROCEDURE bips.PROC_DATAFLAT_ORGCODE;
+drop PROCEDURE PROC_DATAFLAT_ORGCODE;
+DB2 PUT ROUTINE from E:\temp\proc.sar;
+
+2、网上找到的方法
+1) 从 DB2 的目录表 SYSCAT.ROUTINES 中选取：
+    在 SYSCAT.ROUTINES 系统目录表中，有一个名为 TEXT 的字段，其数据类型定义为 CLOB，长度为 2M（2097152 个字节），用于存放存储过程的创建语句。为得到全部存储过程的定义，可使用类似如下 SELECT 语句，并将定义输出到一个文件中。
+    DB2 SELECT CHAR(ROUTINESCHEMA,20), CHAR(ROUTINENAME,20), TEXT FROM SYSCAT.ROUTINES > <输出文件名>
+2) 对于 v8.2 之后的 DB2，DB2LOOK 命令的 -e 选项中增加了对存储过程的创建语句的提取，用户通过执行：
+    db2look -d <数据库名> -e -o <输出文件名>
+    在命输出文件中找到“存储过程的 DDL 语句”段，从而获得创建所有存储过程的语句。
+3)通过 GET ROUTINE 命令来完成： 
+    由于 GET ROUTINE 只能在已知存储过程名称后，对单个存储过程进行，因此需要分成两个步骤来完成：
+    1）获取所有存储过程的名称：
+        DB2 SELECT CHAR(ROUTINESCHEMA,20) AS SCHEMA, CHAR(ROUTINENAME,20) AS NAME FROM SYSCAT.ROUTINES WHERE SUBSTR(VARCHAR(TEXT),1,16) = 'CREATE PROCEDURE' > <输出文件名>
+    2) 根据输出文件中存储过程的名称，分别对每个存储过程执行如下操作，以便将完整的创建语句输出到指定文件中：
+        DB2 GET ROUTINE INTO <输出文件名> FROM PROCEDURE <存储过程模式名>.<存储过程名>
+
+
+export to E:\temp\cre.sql of del MODIFIED BY LOBSINFILE select text from SYSCAT.ROUTINES where routinename = 'PROC_DATAFLAT_ORGCODE';
+
+db2look -d <dbname> -td @ -e | sed -n '/^CREATE PROCEDURE/,/^@$/{p;}'
+
+1，db2 v8中 的db2look导出的存储过程是不完整的
+2、直接从syscat.procedures 查询text重定向到文件，是有bug的，当text中长度超过32767是就不完整了
+3，使用get routine命令导出的是二进制
+最好的办法是：
+EXPORT TO E:\temp\cre.del OF del MODIFIED BY LOBSINFILE
+      SELECT 'SET CURRENT SCHEMA '
+             ||rtrim(procschema)||'@'||chr(10)
+             ||'SET CURRENT PATH = SYSIBM,SYSFUN,SYSPROC,'
+             ||rtrim(procschema)||' @'||chr(10)
+             ||text||chr(10)||'@'||chr(10)
+        FROM syscat.procedures
+       WHERE procschema IN (${exp_schema})
+       ORDER BY create_time ;
+
+=========================================================================================================================================================
+-- 动态执行SQL语句
+    CREATE PROCEDURE create_dept_table    (IN deptNumber VARCHAR(3), OUT table_name VARCHAR(30))   
+    LANGUAGE SQL     
+    BEGIN       
+    
+    DECLARE stmt VARCHAR(1000);       
+    -- continue if sqlstate 42704 ('undefined object name')       
+    DECLARE CONTINUE HANDLER FOR SQLSTATE '42704'         
+    SET stmt = '';       
+    DECLARE CONTINUE HANDLER FOR SQLEXCEPTION          
+    SET table_name = 'PROCEDURE_FAILED';       
+    SET table_name = 'DEPT_'||deptNumber||'_T';       
+    SET stmt = 'DROP TABLE '||table_name;       
+    PREPARE s1 FROM stmt;       
+    EXECUTE s1;       
+    SET stmt = 'CREATE TABLE '||table_name||        
+      '( empno CHAR(6) NOT NULL, '||        
+      'firstnme VARCHAR(12) NOT NULL, '||        
+      'midinit CHAR(1) NOT NULL, '||        
+      'lastname VARCHAR(15) NOT NULL, '||        
+      'salary DECIMAL(9,2))';
+    
+    PREPARE s2 FROM STMT;       
+    EXECUTE s2;       
+    SET stmt = 'INSERT INTO '||table_name || ' ' ||        
+      'SELECT empno, firstnme, midinit, lastname, salary '||        
+      'FROM employee '||        
+      'WHERE workdept = ?';      
+    PREPARE s3 FROM stmt;      
+    EXECUTE s3 USING deptNumber;  
+    END 
+    
+    DECLARE mycur CURSOR FOR mystmt;
+    DECLARE str_sql VARCHAR(256);
+    SET str_sql = 'SELECT c1, ''string'' FROM t1 WHERE c2 =  ''A'''
+    PREPARE mystmt FROM str_sql;
+    OPEN mycur;
+    
+    DECLARE var1 CHAR(1);
+    DECLARE var2 CHAR(1);
+    DECLARE str_sql VARCHAR(256);
+    SET str_sql = 'SELECT c1, ''string'' FROM t1 WHERE c2 =  ? AND c3 = ?'
+    PREPARE s1 FROM str_sql;
+    EXECUTE s1 USING var1, var2;
+-----------------

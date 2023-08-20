@@ -1,0 +1,131 @@
+
+-- 建立表 
+create table zjt_tables as (select * from tables) definition only; 
+create table zjt_views as (select * from views) definition only; 
+
+-- 查看表 
+select tabname from tables where tabname='ZJT_TABLES'; 
+
+-- 查看列 
+select * from SYSIBM.SYSCOLUMNS where tbname = 'QYZX_C_ECC_BORROWERS' order by colno
+
+-- 查看表结构 
+db2 describe table user1.department 
+db2 describe select * from user.tables 
+
+-- 基于已存在的表
+db2 create table clone_tablename like tablename 
+db2 create table clone_tablename as (select * from tablename) definition only
+
+-- 定义含有缺省值的表
+db2 create table tableName(column1 数据类型,column2 数据类型 default '缺省值')
+
+-- 创建物化查询表（MQT） 
+create table new_table_name as (select * from table_name) data initially deferred refresh deferred;
+refresh table new_table_name; 
+注意：物化表类似一个查询，没有真正形成表，类型显示为Query。但它完全可以当表来用。
+
+
+-- 修改表(列，主键，唯一约束，检查约束)
+1) 添加新列 alter table tablename ADD COLUMN columnname 数据类型
+2) 添加约束
+3) 修改表中字段 alter table tablename alter columnname set data type 数据类型
+4) 添加主键 alter table tablename add primary key(c1,c2)
+
+
+-- DB2自动增长主键方法, 将一个字段指定为自增长型字段，放在数据类型后
+generated always as identity(start with 1,increment by 1) 
+
+ 
+-- SEQUENCE 对象(序列)
+创建序列
+序列是一个数据库对象,它允许自动生成值.序列特别适合于生成唯一键值.
+与身份列属性不同,未使序列与特定表列相关,也未将它绑定至唯一列,只是仅可通过该表
+列存取.只在单分区数据库中才受支持.
+在多分区环境中的单分区数据库也不行.
+CREATE SEQUENCE order_seq 
+       START WITH 1
+       INCREMENT BY 1
+       NOMAXVALUE
+       NOCYCLE
+       CACHE 24
+使用序列
+insert into order (orderno,custno) values (nextval for order_seq,123456);
+insert into line_item (orderno,partno,quantity) values (prevval for order_seq,987654,1)
+使用NEXTVAL,PREVVAL可以在两个不同的表中使用相同的序列号.
+
+
+-- 修改字段长度
+ALTER TABLE DMD_USER_INFO ALTER  column BANK_ORG_ID  SET DATA TYPE  CHAR(15);
+ALTER TABLE DMD_USER_INFO ALTER  column OWNER_ORG_ID SET DATA TYPE  CHAR(15);
+
+
+-- 增加表中的列
+ALTER TABLE EMPLOYEE ADD <COLUMN_NAME> <DATA_TYPE> <NULL_ATTRIBUTE>
+ 
+-- 增加唯一性约束
+ALTER TABLE EMPLOYEE ADD CONSTRAINT NEWID UNIQUE(EMPNO,HIREDATE)
+
+-- 删除唯一性约束
+ALTER TABLE EMPLOYEE DROP UNIQUE NEWID
+
+-- 删除主键
+ALTER TABLE <NAME> DROP PRIMARY KEY
+
+-- 增加主键
+ALTER TABLE <NAME> ADD PRIMARY KEY (COL1,COL2,..)
+
+-- 删除外键
+ALTER TABLE <name>
+DROP FOREIGN KEY <foreign_key_name>
+
+-- 删除表检查约束
+ALTER TABLE <table_name> DROP CHECK <check_constraint_name>    
+   
+-- 添加表的外键
+ALTER TABLE <NAME>
+    ADD CONSTRAINT <constraint_NAME>
+    FOREIGN KEY <COLUMN_NAME>
+    references table_name <col_name>
+    ON DELETE <ACTION_TYPE>
+    ON UPDATE <ACTION_TYPE>
+        
+
+-- 下面是快速清空DB2表数据的4中方法(推荐第四种 load)
+1) 删除表中数据：delete from tablename 
+2) 不记 log 删除表中数据：alter table tabname activate not logged initially;delete from tablename 
+   例子: ALTER TABLE r000040v ACTIVATE NOT LOGGED INITIALLY WITH EMPTY TABLE
+3) 修改表不记录 log 方式：alter table tabname activate not logged with empty table 
+4) LOAD 的 replace 方式：load from [empfile] of del replace into [tabname] 
+   例子: LOAD FROM /DEV/NULL OF DEL REPLACE INTO dbname
+
+
+-- 查询表状态
+db2 load query table + tableName
+    
+    
+-- 修改当前表名、模式名
+db2 "rename table [tableNameSrc] to [tableNameDesc]"
+
+====================================================================================================================================================
+-- DB2 分页查询
+1. db2分页查询sql
+    
+    select * from ( 
+     select ROW_NUMBER() OVER(ORDER BY DOC_UUID DESC) AS ROWNUM, DOC_UUID, DOC_DISPATCHORG,       DOC_SIGNER, DOC_TITLE    from DT_DOCUMENT  ) a  
+    where ROWNUM > 20 and ROWNUM <=30
+
+2.ROW_NUMBER()函数
+
+    增加行号，不排序
+    select * from ( select ROW_NUMBER() OVER() AS ROWNUM,t.*  from DT_DOCUMENT  t ) a 
+    增加行号，按某列排序
+    select * from ( select ROW_NUMBER() OVER( ORDER BY DOC_UUID DESC ) AS ROWNUM,t.*  from DT_DOCUMENT  t ) a 
+
+====================================================================================================================================================
+
+
+lock table test in exclusive mode 
+
+
+lock table test in share mode 

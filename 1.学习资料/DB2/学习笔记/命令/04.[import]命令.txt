@@ -1,0 +1,58 @@
+#命 令：export
+#作 用：根据查询语句卸载查询结果为DEL、IXF/WSF文件
+#参 数：
+#作 者：吕钊军
+#时 间：2012-03-29
+
+-- 命令格式: 
+=========================================================================================================================================================
+IMPORT FROM filename OF {IXF | ASC | DEL | WSF}
+[LOBS FROM lob-path [ {,lob-path} ... ] ] [MODIFIED BY filetype-mod ...]
+[METHOD {L ( col-start col-end [ {,col-start col-end} ... ] )
+[NULL INDICATORS (col-position [ {,col-position} ... ] )] |
+N ( col-name [ {,col-name} ... ] ) |
+P ( col-position  [ {,col-position} ... ] )}]
+[ALLOW {NO | WRITE} ACCESS]
+[COMMITCOUNT {n | AUTOMATIC}] [{RESTARTCOUNT | SKIPCOUNT} n]
+[ROWCOUNT n] [WARNINGCOUNT n] [NOTIMEOUT] [MESSAGES message-file]
+{{INSERT | INSERT_UPDATE | REPLACE | REPLACE_CREATE}
+INTO {table-name [( insert-column , ... )] | hierarchy-description}
+| CREATE INTO {table-name [( insert-column , ... )] |
+hierarchy-description {AS ROOT TABLE | UNDER sub-table-name}
+[IN tablespace-name [INDEX IN tablespace-name] [LONG IN tablespace-name]]}
+[datalink-specification]
+  filetype-mod:
+    COMPOUND=x, INDEXSCHEMA=schema, FORCEIN, INDEXIXF, IMPLIEDDECIMAL,
+    NOCHECKLENGTHS, NOEOFCHAR, NULLINDCHAR, RECLEN=x, STRIPTBLANKS,
+    STRIPTNULLS, NO_TYPE_ID, NODOUBLEDEL, LOBSINFILE, USEDEFAULTS,
+    CHARDELx, COLDELx, DLDELx, DECPLUSBLANK, DECPTx, DATESISO,
+    DELPRIORITYCHAR, IDENTITYMISSING, IDENTITYIGNORE,
+    GENERATEDMISSING, GENERATEDIGNORE, DATEFORMAT=x, TIMEFORMAT=x,
+    TIMESTAMPFORMAT=x, KEEPBLANKS, CODEPAGE=x, NOROWWARNINGS,
+    NOCHARDEL, USEGRAPHICCODEPAGE
+  hierarchy-description:
+    {ALL TABLES | (sub-table-name [(insert-column, ...)], ...)} [IN]
+    HIERARCHY {STARTING sub-table-name | (sub-table-name, ...)}
+  datalink-specification:
+    ([DL_LINKTYPE URL][{DL_URL_REPLACE_PREFIX prefix |
+    DL_URL_DEFAULT_PREFIX prefix}] [DL_URL_SUFFIX suffix], ...)
+ 
+NOTE: From the operating system prompt, prefix commands with 'db2'.
+      Special characters MAY require an escape sequence (\), for example:
+      db2 \? change database
+      db2 ? change database xxx comment with \"text\"
+=========================================================================================================================================================
+-- 加载数据
+1、 以默认分隔符加载,默认为“,”号
+    db2 "import from btpoper.txt of del insert into btpoper"
+2、 以指定分隔符“|”加载
+    db2 "import from btpoper.txt of del modified by coldel| insert into btpoper"
+    
+    
+
+-- 导入命令
+db2 "import from E:\name.txt of del insert into tableName"
+db2 "import from E:\name.ixf of ixf commitcount 5000 insert /create/replace into tableName"
+db2 "import from tab76.ixf of ixf commitcount 5000 insert into achact"
+
+

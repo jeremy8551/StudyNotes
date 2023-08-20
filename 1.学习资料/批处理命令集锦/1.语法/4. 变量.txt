@@ -1,0 +1,55 @@
+
+分为两类,分别为"系统变量"和"自定义变量"
+
+1、系统变量：
+
+他们的值由系统将其根据事先定义的条件自动赋值,也就是这些变量系统已经给定义了值,不需要我们来给他赋值,我们只需要调用而以! 我把他们全部列出来!
+%allusersprofile% 本地“所有用户”配置文件的位置。 C:\Documents and Settings\All Users
+%appdata% 本地默认情况下应用程序存储数据的位置。 C:\Documents and Settings\Administrator\Application Data
+%cd% 本地当前目录字符串。 C:\Documents and Settings\Administrator\桌面
+%cd:\=\\% 本地当前目录字符串。C:\\Documents and Settings\\Administrator\\桌面
+%cmdcmdline% 本地用来启动当前的 Cmd.exe 的准确命令行。 cmd /c ""C:\Documents and Settings\Administrator\桌面\a.bat" "
+%cmdextversion% 系统当前的“命令处理程序扩展”的版本号。2
+%computername% 系统计算机的名称。  xxxxx
+%comspec% 系统命令行解释器可执行程序的准确路径。 C:\WINDOWS\system32\cmd.exe
+%date% 系统当前日期。使用与 date /t 命令相同的格式。由 Cmd.exe 生成。有关 date 命令的详细信息，请参阅 Date。
+%time% 系统当前时间。使用与 time /t 命令相同的格式。由 Cmd.exe 生成。有关 time 命令的详细信息，请参阅 Time。
+%errorlevel% 系统上一条命令的错误代码。通常用非零值表示错误。
+%homedrive% 系统连接到用户主目录的本地工作站驱动器号。基于主目录值而设置。用户主目录是在“本地用户和组”中指定的。 C:
+%homepath% 系统用户主目录的完整路径。基于主目录值而设置。用户主目录是在“本地用户和组”中指定的。 \Documents and Settings\Administrator
+%homeshare% 系统用户的共享主目录的网络路径。基于主目录值而设置。用户主目录是在“本地用户和组”中指定的。
+%logonserver% 本地验证当前登录会话的域控制器的名称。 \\xxxx
+%number_of_processors% 系统指定安装在计算机上的处理器的数目。
+%os% 系统操作系统名称。Windows 2000 显示其操作系统为 Windows_NT。 Windows_NT
+%path% 系统指定可执行文件的搜索路径。 C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem
+%pathext% 系统操作系统认为可执行的文件扩展名的列表。 .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH
+%processor_architecture% 系统处理器的芯片体系结构。值：x86 或 IA64 基于Itanium        x86
+%processor_identfier% 系统处理器说明。
+%processor_level% 系统计算机上安装的处理器的型号。 15
+%processor_revision% 系统处理器的版本号。   4f02
+%prompt% 本地当前解释程序的命令提示符设置。由 Cmd.exe 生成。$P$G
+%random% 系统 0 到 32767 之间的任意十进制数字。由 Cmd.exe 生成。 30580
+%systemdrive% 系统包含 Windows server operating system 根目录（即系统根目录）的驱动器。 C:
+%systemroot% 系统Windows server operating system 根目录的位置。C:\WINDOWS
+%temp% C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp和 %tmp% C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp系统和用户对当前登录用户可用的应用程序所使用的默认临时目录。有些应用程序需要 TEMP，而其他应用程序则需要 TMP。
+%userdomain% 本地包含用户帐户的域的名称。 xxxxxx
+%username% 本地当前登录的用户的名称。   Administrator
+%userprofile% 本地当前用户的配置文件的位置。 C:\Documents and Settings\Administrator
+%windir% 操作系统目录的位置。 C:\WINDOWS
+%programfiles% 程序文件夹的位置。C:\Program Files
+这么多系统变量,我们如何知道他的值是什么呢?
+在CMD里输入 echo %WINDIR%
+windir变量名,不是随便乱输的!
+这样就能显示一个变量的值了!
+
+举个实际例子,比如我们要复制文件到当前帐号的启动目录里就可以这样
+
+copy d:\1.bat "%USERPROFILE%\「开始」菜单\程序\启动\"
+
+%USERNAME% 本地 返回当前登录的用户的名称。 注意有空格的目录要用引号引起来
+
+
+
+
+
+2、自定义变量：

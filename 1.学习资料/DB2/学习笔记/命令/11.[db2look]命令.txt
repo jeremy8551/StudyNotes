@@ -1,0 +1,98 @@
+#命 令：db2look
+#作 用：能为表、索引、视图和诸如此类需要产生统计信息和数据定义语言（DDL）的对象产生需要的语句，以便重建数据库对象和/或更新统计信息。
+#       DB2CLP下直接 db2look -h，可看到选项。
+#参 数：
+#作 者：吕钊军
+#时 间：2012-03-29
+
+=========================================================================================================================================================
+-- 命令帮助
+
+        db2look -d DBname [-e] [-u Creator] [-z Schema] [-t Tname1 Tname2...TnameN] [-tw Tname] [-h] [-o Fname] [-a] 
+                          [-m] [-c] [-r] [-l] [-x] [-xd] [-f] [-fd] [-td x] [-noview] [-i userID] [-w password]
+                          [-v Vname1 Vname2 ... VnameN]
+                          [-wrapper WrapperName] [-server ServerName] [-nofed]
+
+        db2look -d DBname [-u Creator] [-s] [-g] [-a] [-t Tname1 Tname2...TnameN]
+                          [-p] [-o Fname] [-i userID] [-w password]
+        db2look [-h]
+ 
+        -d: Database Name: This must be specified
+
+        -e: Extract DDL file needed to duplicate database
+        -u: Creator ID: If -u and -a are both not specified then $USER will be used
+        -z: Schema name: If -z and -a are both specified then -z will be ignored
+        -t: Generate statistics for the specified tables
+       -tw: Generate DDLs for tables whose names match the pattern criteria (wildcard characters) of the table name
+        -h: More detailed help message
+        -o: Redirects the output to the given file name
+        -a: Generate statistics for all creators
+        -m: Run the db2look utility in mimic mode
+            -c: Do not generate COMMIT statements for mimic
+            -r: Do not generate RUNSTATS statements for mimic
+        -l: Generate Database Layout: Database partition groups, Bufferpools and Tablespaces
+        -x: Generate Authorization statements DDL excluding the original definer of the object
+       -xd: Generate Authorization statements DDL including the original definer of the object
+        -f: Extract configuration parameters and environment variables
+       -td: Specifies x to be statement delimiter (default is semicolon(;))
+        -p: Use plain text format
+        -s: Generate a postscript file
+        -g: Use graph to show page fetch pairs for indices
+        -i: User ID to log on to the server where the database resides
+        -w: Password to log on to the server where the database resides
+   -noview: Do not generate CREATE VIEW ddl statements
+  -wrapper: Generates DDLs for federated objects that apply to this wrapper
+   -server: Generates DDLs for federated objects that apply to this server
+    -nofed: Do not generate Federated DDL
+       -fd: Generates db2fopt statements for opt_buffpage and opt_sortheap along with other cfg and env parameters.
+        -v: Generate DDL for view only, this option is ignored when -t is specified
+    
+    LaTeX Typeseting: latex filename.tex to obtain filename.dvi
+     
+    Example: db2look -d DEPARTMENT -u walid -e -o db2look.sql
+     
+     -- This generates DDL statements for all tables and federated objects created by user WALID
+     -- The db2look output is sent to a file called db2look.sql 
+     
+    Example: db2look -d DEPARTMENT -z myscm1 -e -o db2look.sql
+     
+     -- This generates DDL statements for all tables with schema name MYSCM1
+     -- DDLs for all federated objects created by $USER will also be generated
+     -- The db2look output is sent to a file called db2look.sql 
+     
+    Example: db2look -d DEPARTMENT -u walid -m -o db2look.sql
+     
+     -- This generates UPDATE statements to capture statistics on tables/nicknames created by user WALID
+     -- The db2look output is sent to a file called db2look.sql 
+     
+    Example: db2look -d DEPARTMENT -u walid -e -wrapper W1 -o db2look.sql
+     
+     -- This generates DDL statements for all tables created by user WALID
+     -- DDLs for all federated objects created by user WALID that apply to the wrapper W1 will also be generated
+     -- The db2look output is sent to a file called db2look.sql 
+     
+    Example: db2look -d DEPARTMENT -u walid -e -server S1 -o db2look.sql
+     
+     -- This generates DDL statements for all tables created by user WALID
+     -- DDLs for all federated objects created by user WALID that apply to the server S1 will also be generated
+     -- The db2look output is sent to a file called db2look.sql 
+
+=========================================================================================================================================================
+
+-- 导出表结构
+db2look -d dbName -e -t tableName -o D:\xxx.sql -i userName -w password
+db2look -d dbName -z tabSchema -e -c -i userName -w password -o + 路径名
+
+=========================================================================================================================================================
+
+-- 导出数据库的表结构，其中用户空间一般为db2admin/db2inst1
+db2look -d <数据库名> -u <用户> -e -o <脚本名称>.sql        
+
+-- 导出数据库中表1和表2的表结构
+db2look -d <数据库名> -u <用户> -t <表1> <表2>  -e -o <脚本名称>.sql   
+
+=========================================================================================================================================================
+
+
+
+

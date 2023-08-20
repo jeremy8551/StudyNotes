@@ -1,0 +1,30 @@
+调用函数、输入参数
+
+调用一个函数的格式：函数名[空格]参数，
+例如：
+						#!/bin/sh
+						# 这个函数用来取某个月份的上一个月的最后一天的日期
+						lastdate() {
+						    DateString=$1
+						    Year=`echo $DateString | cut -b 1-4`
+						    Month=`echo $DateString | cut -b 5-6`
+						
+						    if [ $Month -eq 1 ]; then
+						        Month=12
+						        Year=`expr $Year - 1`
+						    else
+						        Month=`expr $Month - 1`
+						    fi
+						
+						    Cal=`cal $Month $Year`
+						    Yesterday=`echo $Cal | awk '{print $NF}'`
+						    echo "$Year/$Month/$Yesterday"
+						}
+						#NF 是域记录个数，加了$符号表示最后一个域
+						
+						lastdate 200303
+						lastdate `date +%Y%m`
+						
+	在函数中可以用特殊变量$1,$2 取得传入函数的参数
+	传回SHELL脚本,$1,$2恢复到调用函数之前的状态
+		

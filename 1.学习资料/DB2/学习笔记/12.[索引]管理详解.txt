@@ -1,0 +1,16 @@
+
+-- 建立唯一性索引 
+CREATE UNIQUE INDEX I_ztables_tabname ON zjt_tables(tabname); 
+
+-- 查看表的索引 
+db2 describe indexes for table [user1.department]
+
+
+14. 查看索引 
+
+　　select indname from indexes 
+　　where indname='I_ZTABLES_TABNAME';  
+
+db2 describe indexes for table user1.department 
+
+

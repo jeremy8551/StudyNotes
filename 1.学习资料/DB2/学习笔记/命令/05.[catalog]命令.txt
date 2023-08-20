@@ -1,0 +1,89 @@
+#命 令：catalog 
+#作 用：编目数据库或节点
+#参 数：
+#作 者：吕钊军
+#时 间：2012-03-29
+
+-- 命令详解
+=========================================================================================================================================================
+CATALOG APPC NODE node-name REMOTE symbolic-destination-name
+[SECURITY {NONE | SAME | PROGRAM}] [REMOTE_INSTANCE instance-name]
+[SYSTEM system-name] [OSTYPE os-type] [WITH "comment string"]
+ 
+CATALOG DATABASE database-name [AS alias] [ON path | AT NODE node-name]
+[AUTHENTICATION {SERVER | CLIENT | DCS | DCE SERVER PRINCIPAL principalname
+| KERBEROS TARGET PRINCIPAL principalname | SERVER_ENCRYPT | DCS_ENCRYPT
+| DATA_ENCRYPT | GSSPLUGIN}] [WITH "comment-string"]
+ 
+CATALOG DCS DATABASE database-name [AS target-database-name]
+[AR arname] [PARMS "parameter-string"] [WITH "comment-string"]
+ 
+CATALOG GLOBAL DATABASE database-global-name AS alias
+USING DIRECTORY {DCE} [WITH "comment-string"]
+ 
+CATALOG LDAP DATABASE database-name [AS alias]
+[AT NODE node-name] [GWNODE gateway-node]
+[AR arname] [PARMS "parameter-string"]
+[AUTHENTICATION {SERVER | CLIENT | DCS | DCE SERVER PRINCIPAL principalname
+| KERBEROS TARGET PRINCIPAL principalname | SERVER_ENCRYPT | DCS_ENCRYPT
+| DATA_ENCRYPT | GSSPLUGIN}]
+[WITH "comment-string"] [USER username [PASSWORD password]]
+ 
+CATALOG LDAP NODE node-name [AS node-alias]
+[USER username [PASSWORD password]]
+ 
+CATALOG [ADMIN] LOCAL NODE node-name
+[INSTANCE instance-name] [SYSTEM system-name]
+[OSTYPE os-type] [WITH "comment string"]
+ 
+CATALOG [ADMIN] TCPIP NODE node-name REMOTE hostname [SERVER service-name]
+[SECURITY {SOCKS}] [REMOTE_INSTANCE instance-name]
+[SYSTEM system-name] [OSTYPE os-type] [WITH "comment string"]
+ 
+Note: SERVER service-name is mandatory for CATALOG TCPIP NODE
+      and not allowed for CATALOG ADMIN TCPIP NODE
+ 
+NOTE: From the operating system prompt, prefix commands with 'db2'.
+      Special characters MAY require an escape sequence (\), for example:
+      db2 \? change database
+      db2 ? change database xxx comment with \"text\"
+=========================================================================================================================================================
+
+-- 远程数据库名称到本地接点
+db2 catalog db <远程数据库名称> as <接点名称>  at node PUB11                       
+
+-- 把远程数据库映射到本地接点一般为50000
+db2 catalog tcpip node <接点名称> remote <远程数据库地址> server <端口号>  
+
+-- 建立数据库编目
+db2 catalog db [btpdbs] on /db2catalog
+
+-- 取消已编目的数据库btpdbs
+db2 uncatalog db [btpdbs]  
+
+-- 
+db2 catalog tcpip node LNA remote 168.1.50.10 server 50000
+
+-- 要编制远程数据库目录，请输入以下命令： 
+db2 catalog database <远程数据库的名称> as <客户机实例别名> at node <DB2客户机的系统名称> 
+
+-- 添加远程数据库节点
+db2 catalog tcpip node [节点名] remote 130.1.9.19 server 50006
+-- 添加远程数据库节点上的数据库
+db2 catalog db [节点上数据库的名字] [ as 别名] at node [节点名]
+
+-- 切换到50006端口数据库
+db2 uncatalog node udsfdb
+db2 catalog tcpip node UDSFDB remote 130.1.9.19 server 50006
+db2 catalog db UDSFDB at node UDSFDB
+
+-- 切换到50003端口数据库
+db2 uncatalog node UDSFDB
+db2 uncatalog db UDSFDB
+db2 catalog tcpip node UDSFDB remote 130.1.9.19 server 50003
+db2 catalog db UDSFDB at node UDSFDB
+db2 terminate
+
+
+db2 uncatalog node 原节点名
+db2 uncatalog db 数据库名

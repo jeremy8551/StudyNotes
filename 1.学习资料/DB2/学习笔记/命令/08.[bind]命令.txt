@@ -1,0 +1,42 @@
+
+
+BIND {filename | @filelist} [ACTION {ADD | REPLACE [RETAIN {YES | NO}]
+[REPLVER version-id]}] [BLOCKING {UNAMBIG | ALL | NO}]
+[CLIPKG number-of-packages] [COLLECTION collection-id]
+[DATETIME {DEF | USA | EUR | ISO | JIS | LOC}]
+[DEGREE {1 | degree-of-parallelism | ANY}]
+[DYNAMICRULES {RUN | BIND | INVOKERUN | INVOKEBIND | DEFINERUN | DEFINEBIND}]
+[EXPLAIN {NO | YES | REOPT | ALL} [EXPLSNAP {NO | YES | REOPT | ALL}]
+[FEDERATED {NO | YES}] [FUNCPATH schema-name [ {,schema-name} ... ]]
+[GENERIC string] [GRANT {authid | PUBLIC}] [GRANT_GROUP group-name]
+[GRANT_USER user-name] [INSERT {BUF | DEF}]
+[ISOLATION {CS | RR | UR | RS | NC}] [MESSAGES message-file]
+[OWNER authorization-id]
+[QUALIFIER qualifier-name] [QUERYOPT optimization-level]
+[REOPT {NONE | ONCE | ALWAYS}]
+[SQLERROR {NOPACKAGE | CHECK | CONTINUE}] [VALIDATE {RUN | BIND}]
+[SQLWARN {NO | YES}] [STATICREADONLY {NO | YES}]
+[TRANSFORM GROUP transform-group]
+*******************************************************************************
+* The following options are valid only if connected to a host or iSeries Server
+*******************************************************************************
+[CCSIDG double-ccsid] [CCSIDM mixed-ccsid] [CCSIDS sbcs-ccsid]
+[CHARSUB {DEFAULT | BIT | SBCS | MIXED}] [CNULREQD {YES | NO}]
+[DBPROTOCOL {DRDA | PRIVATE}] [DEC {31 | 15}] [DECDEL {PERIOD | COMMA}]
+[ENCODING {ASCII | EBCDIC | UNICODE | ccsid}]
+[IMMEDWRITE {NO | YES | PH1}] [KEEPDYNAMIC {NO | YES}]
+[OPTHINT hint-id] [OS400NAMING {SQL | SYSTEM}] [PATH schema-name]
+[RELEASE {COMMIT | DEALLOCATE}]
+[SORTSEQ {HEX | JOBRUN}] [STRDEL {APOSTROPHE | QUOTE}] [TEXT label]
+
+NOTE: From the operating system prompt, prefix commands with 'db2'.
+      Special characters MAY require an escape sequence (\), for example:
+      db2 \? change database
+      db2 ? change database xxx comment with \"text\"
+
+
+十一、bind命令：将应用程序与数据库作一捆绑,每次恢复数据库后，建议都要做一次bind
+   (1) db2 bind br8200.bnd
+   (2) /btp/bin/bndall /btp/bnd
+       /btp/bin/bndall /btp/tran/bnd
+       

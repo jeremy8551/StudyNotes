@@ -1,0 +1,17 @@
+
+连接数据：
+设置一个全局变量 db2_connect_str="udsfdb user udsfadm using udsfadm"
+
+# 链接UDSF数据库
+db2 +o connect to $db2_connect_str
+return_val=$?
+if [ $return_val -ne 0 ]; then
+   echo "链接UDSF数据库失败"
+   exit $return_val
+fi
+
+
+
+
+断开连接：
+db2 +o connect reset

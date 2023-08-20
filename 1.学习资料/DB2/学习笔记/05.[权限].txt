@@ -1,0 +1,61 @@
+
+SELECT RTRIM(routineschema)||'.'||'P'||SUBSTR(CHAR(lib_id+10000000),2) FROM SYSCAT.routines WHERE routinename='PROC_GRZX_CHECKDATA' with ur;
+grant EXECUTE ON PACKAGE UDSFADM.P0434076 TO awp ;
+
+Note:  Some commands are operating system specific and may not be available.
+ 
+For further help:
+                  ? db2-command   - help for specified command
+                  ? OPTIONS       - help for all command options
+                  ? HELP          - help for reading help screens
+The preceding three options can be run as db2 <option> from an OS prompt.
+ 
+                  !db2ic          - DB2 Information Center (Windows only)
+This command can also be run as db2ic from an OS prompt.
+
+
+　　30. 显示用户数据库的存取权限 
+
+　　GET AUTHORIZATIONS 
+
+
+33. 表或视图特权 
+
+　　grant select,delete,insert,update on tables to user 
+　　grant all on tables to user WITH GRANT OPTION 
+
+　　34. 程序包特权 
+
+　　GRANT EXECUTE 
+　　ON PACKAGE PACKAGE-name 
+　　TO PUBLIC 
+
+
+
+35. 模式特权 
+
+　　GRANT CREATEIN ON SCHEMA SCHEMA-name TO USER 
+
+　　36. 数据库特权 
+
+　　grant connect,createtab,dbadm on database to user 
+
+　　37. 索引特权 
+
+　　grant control on index index-name to user 
+
+
+
+    将表的特权授予用户
+    grant select,update,delete on table tableName to user userName with grant option
+    将包特权授予同组
+    grant control on package packageName on group groupName with grant option
+
+
+DB2用户管理：
+  db2 use os to manage users.You can use following steps to add a db2 user:
+  1,add a user on os.
+  2,grant rights to user.
+    GRANT CREATETAB,CONNECT ON DATABASE TO USER FUJIE;
+    grant select, update, delete on table employee to user john with grant option
+

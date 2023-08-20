@@ -1,0 +1,42 @@
+#命 令：db2look
+#作 用：db2移动数据的一个工具，可以在两个不同的db2数据库间移动数据，这两个DB2数据库可以在不同的服务器上，尤其是大量数据的表需要转移的情况下，非常方便。 
+#       DB2CLP下直接db2move，可看到选项。
+#参 数：
+#作 者：吕钊军
+#时 间：2012-03-29
+
+-- 命令格式: 
+=========================================================================================================================================================
+**
+** DB2MOVE
+**
+** Please read the DB2 Administration Guide for more info!
+**
+** Usage: "db2move dbname action [options]"
+**
+** - Action:  must be EXPORT, IMPORT, or LOAD.
+** - Options: If not specified, defaults will be used.
+**
+**      Option             Default             Notes                         
+** ==========================================================================
+** -tc  table-creators    all creators       EXPORT.  Wildcard (*) allowed.  
+** -tn  table-names       all user tables    EXPORT.  Wildcard (*) allowed.  
+** -sn  schema-names      all schemas        EXPORT.  Wildcard (*) allowed. UDB sources only. 
+** -ts  tblspace-names    all tablespace     EXPORT.  Wildcard (*) allowed.  
+** -tf  tables from file  none               EXPORT only.                    
+** -io  import-option     REPLACE_CREATE     IMPORT only.                    
+** -lo  load-option       INSERT             LOAD only.                      
+** -l   lobpaths          current dir        separated by commas. NO BLANKS. 
+** -u   userid            logged on userid                                   
+** -p   password          logged on password                                 
+** -aw  allow-warnings    false              include tables that encounter   
+**                                           warnings during export.         
+**
+=========================================================================================================================================================
+
+--导出数据库数据
+db2move <数据库名> export              
+
+--导出数据库中表和表数据
+db2move <数据库名> export -tn <表1>,<表2>       
+

@@ -1,0 +1,210 @@
+
+include文件，就是将.h文件合并入.c 文件的#include < >指令处, 
+此 #include < >一般在文件头部，这样，头文件被合并入.c文件的前部
+
+
+标准库API库文件 /usr/include,在不同平台,可通过find / -name stdio.h 来找到系统目录 
+
+
+ansi标准库函数 
+<ctype.h> 变量检查，或大小写转换
+<math.h> 数学函数
+<string.h> 字符串处理 
+<time.h> 处理日期与时间 
+
+<stdio.h> 标准I/O
+<stdlib.h> 很多实用的函数，如exit( )
+<stddef.h> 定义一些使用的宏（常量），如NULL
+
+
+linux查询库函数man –s 2/3 .. 
+[macg@machome ~]$ man -s 3 free 查询free()
+-s 3即标准库函数 
+-s 2即系统调用（比如rmdir）
+
+solaris没有man -s 2 , -s 3
+
+缺include文件,不是想象的那样出error,而是出warning. 
+#include <stdio.h>
+main()
+{ exit(0); }
+
+[macg@localhost ~]$ gcc -o liu liu.c
+liu.c: In function main
+liu.c:21: warning : incompatible implicit declaration of built-in function exit 
+
+man -s 3 exit
+发现要#include <stdlib.h>
+
+#include <stdio.h>
+#include <stdlib.h> 
+main()
+{ exit(0); } 
+[macg@localhost ~]$ gcc -o liu liu.c
+[macg@localhost ~]$
+
+
+如何避免循环include --------一个Ｃ源码文件中 #include a.h 和 b.h， 而 a.h 又 #include 了 b.h ， #include 了 b.h 两次 
+如果再一次重复调用这个.h文件，就不会执行#ifndef FILENAME_H -- #endif之间的程序体
+#ifndef FILENAME _H 
+#define FILENAME _H
+
+#define DECKSIZE 52
+
+typedef struct deck_t
+{
+int card[DECKSIZE];
+int dealt;
+}deck_t;
+#endif 
+
+
+
+多文件include
+
+对标准库函数include文件,即include < > 
+每个 .c文件都要包含标准库文件 ，无法实现一个文件包含所有文件共享
+
+对带函数体 的自定义库函数的自定义include文件，如“comm.h” 
+则正好相反，只能一个.c文件include自定义库 ，（最好是含 main()的主文件）
+如果自定义.h文件被 #include 到多个源文件里，就会出现“重复定义multiple definition”错误 
+$ make
+gcc test.o test2.o -o test
+test2.o(.text+0x0): In function `getyn':
+test2.c: multiple definition of `getyn' 重复定义函数 
+test.o(.text+0x0):test.c: first defined here
+test2.o(.text+0x64): In function `getanyn':
+test2.c: multiple definition of `getanyn'
+test.o(.text+0x64):test.c: first defined here
+collect2: ld returned 1 exit status
+make: *** [test] Error 1
+
+
+对只带函数声明 的自定义include文件，所有.c文件可包含，可不包含，随便 .
+
+但还是建议所有全包含只含函数声明的头文件 
+(自定义头文件不包含，读自定义库，不出任何错误信息)
+$ vi main.c
+#include <stdio.h>
+#include <stdlib.h>
+#include ”comm.h” 
+#include ”/usr/include/mysql/mysql.h”
+
+$ vi liu.c
+#define DEBUG 0
+#include <stdio.h>
+#include <stdlib.h>
+#include ”/usr/include/mysql/mysql.h”
+#include ”comm.h”
+
+$ vi generatedatafile.c
+#include <stdio.h>
+#include ”/usr/include/mysql/mysql.h”
+#include ”comm.h” 
+
+$ vi makefile
+
+LIBS=-L/usr/lib/mysql -lmysqlclient -lz -lcomm 
+INC=-Iinclude
+
+dataexe: liu clean
+
+liu: main.o liu.o generatedatafile.o
+gcc -g $? -o $@ $(LIBS)
+main.o: src/main.c
+gcc -c $? $(INC)
+liu.o: src/liu.c
+gcc -c $? $(INC)
+generatedatafile.o: src/generatedatafile.c
+gcc -c $? $(INC)
+
+clean:
+$(RM) *.o
+
+$ make
+gcc -c src/main.c -Iinclude
+gcc -c src/liu.c -Iinclude
+gcc -c src/generatedatafile.c -Iinclude
+gcc -g main.o liu.o generatedatafile.o -o liu -L/usr/lib/mysql -lmysqlclient -lz -lcomm
+
+$ ldd liu
+linux-gate.so.1 => (0x00868000)
+libmysqlclient.so.14 => /usr/lib/mysql/libmysqlclient.so.14 (0x009a1000)
+libz.so.1 => /usr/lib/libz.so.1 (0x00959000)
+libcomm.so => /usr/lib/libcomm.so (0x00ce5000)
+
+
+
+其实标准头文件也完全可以不包含，只去读系统库，但会出warning 
+warning: incompatible implicit declaration of built-in function pintf()
+
+
+是否包含没有一定之规,总之看系统编译信息. 
+比如MYSQL的API 库,是算标准库,还是自定义库?
+如果算标准库，但用要include “ “
+如果算自定义库，却每个.c文件都要#include ”/usr/include/mysql/mysql.h”，如果有一个.c文件没include,就会出现下面的出错信息
+[macg@localhost mysqltmp]$ make
+gcc -c generatedatafile.c
+generatedatafile.c: In function datafile
+generatedatafile.c:9: error: MYSQL_RES undeclared (first use in this function)
+generatedatafile.c:9: error: (Each undeclared identifier is reported only once
+generatedatafile.c:9: error: for each function it appears in.)
+generatedatafile.c:9: error: res ?undeclared (first use in this function)
+generatedatafile.c:10: error: MYSQL_ROW undeclared (first use in this function)
+
+
+为什么头文件中一般只含有数据和函数声明，而没有函数体？ 
+因为GCC完成了下边的工作：
+gcc连接器从#include <stdio.h> 语句包含的文件中找到它的声明 ， 
+把存储在C库（/lib/libc.so.6）中的目标代码连接进来
+
+
+变量声明和函数声明都要用extern 
+变量 用关键字“extern”
+函数 函数原型里隐含着 extern 的意思
+即void print(char *);
+相当于extern void print(char *);
+
+
+改成.so库，.h文件文件只包含函数声明，结果发现所有.c都可以不包含这个.h文件，.so库可以完全取代inlcude .h文件，gcc的-l参数可以完全取代c文件中的include 指令 
+$ vi test.c
+#include <stdio.h>
+主文件只包含stdio.h ，不包含comm.h
+
+main()
+{
+int rowCount,colCount,i,j,ret,test;
+char a[5],b[5],s[80];
+
+printf(”input slot: ------->”);
+scanf(”%s”,a);
+while (!checknumber(a)) scanf(”%s”,a); 引用comm.h里的自定义函数
+}
+
+自然出错
+$ gcc -o test test.c
+/tmp/ccWAPbT1.o(.text+0x61): In function `main':
+test.c: undefined reference to `checknumber'
+collect2: ld returned 1 exit status
+
+加入.so库编译，同时又不include，程序通过
+$ vi test.c
+#include <stdio.h>
+主文件只包含stdio.h，不包含comm.h
+
+main()
+{
+int rowCount,colCount,i,j,ret,test;
+char a[5],b[5],s[80];
+
+printf(”input slot: ------->”);
+scanf(”%s”,a);
+while (!checknumber(a)) scanf(”%s”,a); 引用comm.h里的自定义函数
+
+}
+
+事前编译了libcomm.so
+copy入/usr/lib 
+$ gcc -o test test.c –lcomm 
+$ ./test
+input slot: ------->3 

@@ -1,0 +1,44 @@
+一。与日期有关的
+1、计算当前日期与其他日期间的天数：VALUES days (current date) - days (date('2007-1-1'))
+2、计算任何两个日期间的天数：values days('2007-01-1') - days('2006-01-01') ，用年头日期相减，则为计算某年的天数。
+3、取当前日期：VALUES CURRENT DATE  '2007-01-24'
+    取当前时间戳：VALUES CURRENT timestamp      '2007-01-24 14:39:04.586808'
+    取当前时间：VALUES current time           '15:24:07'
+   也可用下面的方式，请参考适当的DB2寄存器。
+   SELECT current date FROM sysibm.sysdummy1    '2007-01-24'
+   SELECT current time FROM sysibm.sysdummy1    '15:26:22'
+   SELECT current timestamp FROM sysibm.sysdummy1  '2007-01-24 15:26:45.432034'
+
+4、分别取当前的年、月、日、小时、分钟、秒、微妙
+     values YEAR (current timestamp);                   2007 年
+        values MONTH (current timestamp);               1 月
+        values DAY (current timestamp);                 24 号
+        values HOUR (current timestamp);                15 点
+        values MINUTE (current timestamp);              7 分
+        values SECOND (current timestamp);              10 秒
+        values MICROSECOND (current timestamp);         464872 微妙
+        
+5、几种常见的日期格式。
+        values char(current date,ISO);   '2007-01-24'
+        values char(current date,USA);    '01/24/2007'
+        values char(current date,EUR);    24.01.2007
+        values char(current date,JIS);    '2007-01-24'
+        values char(current date,LOCAL)    '01/24/2007'
+        
+
+
+7、如何对日期进行加减运算，即使我想获得某一个日期的前1天，前N天，前一个月，前N个月，前1年，前N年，后1天，后N天，1月后，N月后，1年后，N年后....。
+ VALUES current date + 1 YEAR   '2008-01-24'
+ VALUES current date + 3 YEARS + 2 MONTHS + 15 DAYS   '2010-04-08'
+ VALUES current time + 5 HOURS - 3 MINUTES + 10 SECONDS  '20:27:56'
+
+8、如何自动得到2007年1月24日,这样格式的日期
+
+select rtrim(char(year(current date)))||'年'||rtrim(char(month(current date)))||'月'||rtrim(char(day(current date)))||'日' from (values(1)) a
+
+
+要使当前时间或当前时间戳记调整到GMT/CUT，则把当前的时间或时间戳记减去当前时区寄存器：
+   values current timestamp - current timezone   '2007-01-24 07:22:00.314034'
+   values current time - current timezone        '07:22:48'
+
+

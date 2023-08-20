@@ -1,0 +1,32 @@
+
+
+
+
+FILE=$1　　　　　　　＃命令行，第一个参数传设定给ＦＩＬＥ变量 
+tmshutdown   -s   $FILE   #关闭一个服务 
+ftp   -i   -in   < <!　　　＃把到！为止的内容，传递给ｆｔｐ命令 
+open   10.222.1.30　　＃打开目标服务器 
+user   ruisrv   2105　　＃用户名，密码 
+bi　　　　　　　　　＃ｂｉｎａｒｙ，设置二进制模式 
+cd   bin　　　　　　　＃进入远程目录 
+lcd　　　　　　　　　＃进入本地用户的ＨＯＭＥ目录 
+lcd   bin　　　　　　　＃进入本地ｂｉｎ目录 
+get   $FILE　　　　　　＃取得远程文件 
+bye　　　　　　　　　＃ｆｔｐ结束 
+!　　　　　　　　　　＃结束符 
+chmod   755   $HOME/bin/$FILE　　　　＃修改刚传过来的文件的权限 
+tmboot   -s   $FILE   #起一个服务
+
+
+====================================================================================
+ftp -n -v <<!
+open `sed -n '1'p $HOME/sjpt/bin/ftp.ini`
+user `sed -n '2'p $HOME/sjpt/bin/ftp.ini`
+ascii
+prompt
+cd ./CORE
+cd  ./${_YY}1231
+get NZBZ.del
+close
+bye
+!

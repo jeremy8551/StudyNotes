@@ -1,0 +1,7 @@
+
+RHEL5下jdk默认的目录：
+
+/usr/java/jdk1.5.0_22
+
+
+

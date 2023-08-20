@@ -1,0 +1,21 @@
+
+
+# ls -l /unix
+lrwxrwxrwx 1 root system 21 May 06 2001 /unix ->; /usr/lib/boot/unix_mp
+为32位内核。
+# ls -l /unix
+lrwxrwxrwx 1 root system 21 May 06 2001 /unix ->; /usr/lib/boot/unix_64
+为64位内核。 
+查看是否安装了64位内核(bos.mp64)或32位内核(bos.mp)的软件包。
+如果没有安装，可从AIX 5L操作系统光盘中安装。
+将32位内核转变为64位内核。
+ln -sf /usr/lib/boot/unix_64 /unix
+ln -sf /usr/lib/boot/unix_64 /usr/lib/boot/unix
+bosboot -ad /dev/ipldevice
+shutdown -Fr 
+将64位内核转变为32位内核。
+ln -sf /usr/lib/boot/unix_mp /unix
+ln -sf /usr/lib/boot/unix_mp /usr/lib/boot/unix
+bosboot -ad /dev/ipldevice
+shutdown -Fr
+注意：对32位的系统不能使用64位的内核，对64位的系统可以使用32位的内核。

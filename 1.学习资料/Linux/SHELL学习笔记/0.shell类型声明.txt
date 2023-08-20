@@ -1,0 +1,20 @@
+
+shell编程是以"#"为注释，但对"#!/bin/sh"却不是。
+#!/bin/sh 是对shell的声明，说明你所用的是那种类型的shell及其路径所在。
+
+默认SHELL：
+    如果没有声明，则脚本将在默认的shell中执行，默认shell是由 /etc/passwd 中的配置信息决定的。
+    查看默认shell的命令： 
+    more /etc/passwd
+    查看用户所在行就明白了
+
+
+shell怎么切换？ 
+    假设你现在想用ksh了，仅仅执行一下: /usr/bin/ksh 或者 /bin/ksh ，你的命令解释器就变成ksh了。
+    那么在shell编程的时候怎么指定呢？你只需要在第一行加入#!/usr/bin/ksh 或者 #!/bin/ksh 就可以了,其它的雷同. 
+    这里顺便说一下 /usr/bin 和 /bin的区别，/bin 会放置一些普通用户不让使用的命令，
+    所以它的目录权限可能会更严一些， 如果没有权限使用这目录就可以用 /usr/bin 了。 
+
+
+
+

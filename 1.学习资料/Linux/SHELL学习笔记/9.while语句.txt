@@ -1,0 +1,23 @@
+
+while语句
+
+语法：
+		while [ 命令/条件 ]; do
+			语句
+		done
+      
+例子：
+		#!/bin/sh
+		index=1
+		while [ index -le 11 ]; do
+			echo ${index};
+			((index=index+1))
+		done
+		
+无限循环:
+        #!/bin/sh
+		while true  
+        do
+            sleep 2
+            echo 测试
+        done
