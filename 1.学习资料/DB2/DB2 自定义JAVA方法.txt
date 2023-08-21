@@ -1,0 +1,64 @@
+我们知道,在DB2中提供的函数有限.在笔者的实际工作中就遇到了这个问题.所以我们在用到DB2的项目中,很多时候需要自己定义函数.好在DB2也提供了自定义函数的功能.
+下面笔者就某个项目来说.
+用java来实现DB2自定义函数,首先要写出函数的java实现代码
+import COM.ibm.db2.app.*;  
+
+public class DB2Udf extends UDF
+{
+
+ /**
+  * 
+  */
+ public DB2Udf()
+ {
+ }
+ 
+ /**
+  * 返回两个数值的按位与操作结果
+  * @param num1
+  * @param num2
+  * @return int 
+  */
+ public static int bitand(int num1,int num2)
+ {
+  return num1&num2;
+ }
+}
+
+编译之,要注意的地方是一定要用DB2自带的jdk来进行编译.
+然后把这个class文件放到DB2安装路径下\sqllib\function下
+
+然后再到DB2的客户端声明这个自定义函数就可以用了
+--两个整形数字的按位与
+drop function bitand;
+create function bitand(value1 int,value2 int)
+returns  integer
+fenced
+variant
+no sql
+language java
+parameter style java
+external name 'DB2Udf!bitand';
+
+drop function checkCardCode;
+create function checkCardCode(cardcode char(16))
+returns  integer
+fenced
+variant
+no sql
+language java
+parameter style DB2GENERAL
+external name 'QYZXCheckCardno!checkCardCode';
+
+drop function checkCardCode;
+CREATE FUNCTION checkCardCode( CHAR(16))
+RETURNS INTEGER
+EXTERNAL NAME 'QYZXCheckCardno!checkCardCode'
+FENCED
+SCRATCHPAD 10
+FINAL CALL
+VARIANT
+NO SQL
+PARAMETER STYLE DB2GENERAL
+LANGUAGE JAVA
+NO EXTERNAL ACTION@

@@ -1,0 +1,8 @@
+
+
+find命令
+
+find {起始目录} -name 文件名
+
+
+find /home/easymis -name rpt.log （在 /home/easymis目录下查找 rpt.log文件）

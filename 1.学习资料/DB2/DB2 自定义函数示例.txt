@@ -1,0 +1,178 @@
+create function getIndex ( 
+
+in_strChn varchar(2) 
+
+) returns char(1) 
+
+language sql 
+
+external action 
+
+reads sql data 
+
+
+begin atomic 
+
+declare chResult char(1); 
+
+declare n integer default 0; 
+
+
+if( in_strChn = '' or in_strChn is null or lengthb( in_strChn ) > 2 ) then 
+
+return null; 
+
+
+end if; 
+
+
+if(( ascii( in_strChn ) >= ascii('A') and ascii( in_strChn ) <= ascii('Z') ) 
+
+or ( ascii( in_strChn ) >= ascii('a') and ascii( in_strChn ) <= ascii('z')) ) then 
+
+return lcase( substr( in_strChn, 1, 1 ) ); 
+
+
+end if; 
+
+
+for myloop as 
+
+select t2.strChn 
+
+from ( select t1.strChn 
+
+from ( select '°Ä' strChn from sysibm.sysdummy1 
+
+union all 
+
+select '²À' strChn from sysibm.sysdummy1 
+
+union all 
+
+select '´í' strChn from sysibm.sysdummy1 
+
+union all 
+
+select '¶é' strChn from sysibm.sysdummy1 
+
+union all 
+
+select '·¡' strChn from sysibm.sysdummy1 
+
+union all 
+
+select '¸À' strChn from sysibm.sysdummy1 
+
+union all 
+
+select '¹ı' strChn from sysibm.sysdummy1 
+
+union all 
+
+select '»ö' strChn from sysibm.sysdummy1 
+
+union all 
+
+select '»ö' strChn from sysibm.sysdummy1 
+
+union all 
+
+select '¿¥' strChn from sysibm.sysdummy1 
+
+union all 
+
+select 'À«' strChn from sysibm.sysdummy1 
+
+union all 
+
+select 'Âç' strChn from sysibm.sysdummy1 
+
+union all 
+
+select 'ÄÂ' strChn from sysibm.sysdummy1 
+
+union all 
+
+select 'Åµ' strChn from sysibm.sysdummy1 
+
+union all 
+
+select 'Å½' strChn from sysibm.sysdummy1 
+
+union all 
+
+select 'ÆÙ' strChn from sysibm.sysdummy1 
+
+union all 
+
+select 'Èº' strChn from sysibm.sysdummy1 
+
+union all 
+
+select 'Èõ' strChn from sysibm.sysdummy1 
+
+union all 
+
+select 'Ëù' strChn from sysibm.sysdummy1 
+
+union all 
+
+select 'ÍÙ' strChn from sysibm.sysdummy1 
+
+union all 
+
+select 'ÍÙ' strChn from sysibm.sysdummy1 
+
+union all 
+
+select 'ÍÙ' strChn from sysibm.sysdummy1 
+
+union all 
+
+select 'Îó' strChn from sysibm.sysdummy1 
+
+union all 
+
+select 'Ñ¸' strChn from sysibm.sysdummy1 
+
+union all 
+
+select 'ÔĞ' strChn from sysibm.sysdummy1 
+
+union all 
+
+select '×ù' strChn from sysibm.sysdummy1 
+
+union all 
+
+select in_strChn strChn from sysibm.sysdummy1 
+
+) as t1 
+
+order by t1.strChn 
+
+) as t2 
+
+
+do 
+
+if ( strChn = in_strChn ) then 
+
+set chResult = chr( ascii('a') + ( case n when 26 then n-1 else n end ) ); 
+
+return chResult; 
+
+
+end if; 
+
+set n = n + 1; 
+
+
+end for; 
+
+
+return chResult; 
+
+
+end@ 

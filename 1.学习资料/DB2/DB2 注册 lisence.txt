@@ -1,0 +1,3 @@
+在db2数据库上注册lisence的方法：
+db2licm -a db2udbee.lic
+其中文件db2udbee.lic由IBM提供
