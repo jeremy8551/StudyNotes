@@ -1,0 +1,11 @@
+觉得用indent配置起来还是挺灵活的，不过配置起来还是蛮费功夫，经过一个上午的努力，总算基本达到了自己的要求，特把配置选项保存期来。
+
+觉得用indent配置起来还是挺灵活的，不过配置起来还是蛮费功夫，经过一个上午的努力，总算基本达到了自己的要求，特把配置选项保存期来。
+
+命令行：d:GnuWin32inindent.exe -nbad -fc1 -npsl -ts2 -cdw -bap -bbo -nbc -bl -bli0 -bls -ncdb -nsaf -nsai -nsaw -npcs -ncs -ce -c8 -cd8 -cp8 -ci4 -cli0 -l200 %n%e
+
+工作目录：%p
+
+菜单项目名称：格式化文件
+
+做成上面的样子是因为我在ultraedit中做了一个按钮，可以直接格式化当前的文件。

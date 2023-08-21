@@ -1,0 +1,577 @@
+
+**************************************************************************************************************************
+**************************************************************************************************************************
+
+informix数据库命令
+    dbaccess 
+    finderr 查找错误码的解释信息
+    oninit -vy 启动数据库服务
+
+
+查看informix字符集，二种方式：登陆到 sysmaster 库中
+    第一种：
+        select site from systables where tabname=' GL_COLLATE'
+    第二种：
+        select * from sysdbslocale 
+
+    进入目录 $INFORMIXDIR/bin
+    执行命令 glfiles -lc
+    再查看当前目录下的lc*.txt文件
+    
+
+建库语句（并打开事务）
+create database mydatabase in rootdbs WITH LOG;
+
+**************************************************************************************************************************
+**************************************************************************************************************************
+
+informix数据库授权（grant命令）
+    GRANT {DBA|RESOURCE|CONNECT} TO {PUBLIC|user-list} 
+        PUBLIC|user-list：全部或指定的用户。 
+        三种权限居且仅居其一，事务处理过程中不要执行GRANT语句。
+        
+        例：grant resource to pulbic; 
+    
+    授表级权限
+    GRANT tab-privilege ON table-name TO {PUBLIC|user-list} [WITH GRANT OPTION] 
+        tab-privilege：表级权限（如：select）
+        table-name：表名称。 
+        PUBLIC|user-list：全部或指定的用户。 
+        [WITH GRANT OPTION]：表示被授权用户有否权限进行二次授权。 
+        用户可以在自己建立表达式或被[WITH GRANT OPTION]准许的表中进行赋权；限定越多的权限优先级越高。 
+        
+        例：grant update(c1,c6) on user to dick with grant option; 
+
+    附（INFORMIX的权限） 
+    (1) 数据库的权限（控制对数据库的访问以及数据库中表的创建和删除） 
+        DBA权限：全部权利，修改系统表，建立和删除表与索引、增加和恢复表数据，以及授予其他用户数据库权限等； 
+        RESOURCE权限：允许对数据库表中的数据进行存取，建立永久性表以及索引。 
+        CONNECT权限：只允许对数据库表中的数据进行存取，建立和删除视图与临时表。 
+    
+    (2)表级权限（对表的建立、修改、检索和更新等权限） 
+        ALTER：更改权限 
+        DELETE：删除权限 
+        INDEX：索引权限 
+        INSERT：插入权限 
+        SELECT [(cols)]：指定字段或所有字段上的查询权限，不指明字段缺省为所有字段。 
+        UPDATE [(cols)] ：指定字段或所有字段上的更新权限，不指明字段缺省为所有字段。 
+        ALL [PRIVILEGES]：以上所有表级权限 
+    
+    收权命令
+        REVOKE {DBA|RESOURCE|CONNECT} FROM {PUBLIC|user-list} 
+            PUBLIC|user-list：全部或指定的用户。 
+            三种权限居且仅居其一，事务处理过程中不要执行GRANT语句。 
+            例：revoke resource from john;
+            REVOKE tab-privilege ON table-name FROM {PUBLIC|user-list} 
+    
+    收表级权限
+        tab-privilege：表级权限。 
+        table-name：表名称。 
+        PUBLIC|user-list：全部或指定的用户。 
+        [WITH GRANT OPTION]：表示被授权用户有否权限进行二次授权。 
+        用户只能取消由其本人赋予其他用户的表级存取权限；不能取消自己的权限，对SELECT和UPDATE作取消时，将取消
+        所有表中字段的SELECT 和UPDATE权限。 
+        例；revoke update on user from dick; 
+
+    
+    取消记录级加锁和表级加锁或文件加锁。 
+        UNLOCK TABLE table-name 
+        table-name：表名称。 
+        例：unlock user; 
+
+    
+    改变锁定状态
+        SET LOCK MODE TO [NOT] WAIT 
+        TO [NOT]：等待解锁，有可能被死锁或不等待并提示错误信息，表示此记录被锁，缺省值。 
+        访问一个EXCLUSIVE状态下的记录，将返回一个错误。 
+
+
+    启动事务处理
+        START DATABSE db_name [WITH LOG IN “pathname”] 
+        “pathname”：事务处理日志文件。 
+        执行该语句前，需要先关闭当前数据库。 
+        
+        例；clost database; 
+        start databse customer with log in “/usr/john/log/customer.log”; 
+
+    开始事务。例：begin work; 
+        BEGIN WORK 
+
+    
+    提交（正常结束）事务。例： commit work; 
+        COMMIT WORK 
+    
+    
+    ROLLBACK WORK 
+        回滚（非正常结束）事务。例：rollback work; 
+        
+        
+    检查索引语句
+        CHECK TABLE table-name 
+    　　语句使用者是表的拥有者或拥有DBA权限；不能对 systable 使用此语句。 
+    　　例：略 
+    　　REPAIR TABLE table-name 
+    
+    清空表数据
+        TRUNCATE TABLE tablename
+
+    修复索引
+　　    语句使用者是表的拥有者或拥有DBA权限；不能对 systable 使用此语句。 
+
+    将文本数据栽入表中
+　　    LOAD FROM “file-name” INSERT INTO table_name [(column_name[,…])] 
+　　    例：load form “aa.txt” insert into user; 
+　　    
+　　将表中数据卸为文本。 
+        UNLOAD TO “pathname” 
+    　　例：unload to “aa.txt” select * from user; 
+
+    锁表问题
+        在informix用户下找出锁表的用户：onstat -ks|grep HDR+X，输出的内容很多很多， 
+        10ad44850        0                1acf10c10        10d214a70        HDR+X    160009b  784e801     0   
+        10ad44d20        0                1acf10c10        11d51dfa0        HDR+X    160009b  1c40301     0   
+        10ad44e70        0                1acf10c10        123c785d0        HDR+X    160009b  70bc201     0   
+        10ad46840        0                1acf10c10        1135969c0        HDR+X    400880   101da01  K- 1   
+        10ad474f0        0                1acf10c10        115efbe60        HDR+X    160009b  6df6301     0
+        
+        每列分别对应： 
+        Locks address    wtlist           owner            lklist           type     tblsnum  rowid    key#/bsiz 
+        锁地址           等待线程列表     用户             …列表　          锁类型   行id   
+
+        根据owner 找到对应的sessid： 
+        onstat -u | grep  1acf10c10 
+        
+        address          flags   sessid   user     tty      wait             tout locks  nreads   nwrites 
+        1acf10c10        C-RPR-- 5395192  npmuser  -        10a130358        0    199800 374159   255337 
+
+
+        用 onstat -g ses 5395192   可以看到具体的内容
+        
+        杀掉session ：onmode -z 5395192 
+
+**************************************************************************************************************************
+**************************************************************************************************************************
+1. dbexport
+　　将数据库以ASCII方式下载。该命令常用于迁移数据库。
+　　如：命令dbexport -o /opt/informix/db_export db_name
+　　将数据库 stores7 下载到/opt/informix/db_export/db_name.exp 目录下，数据库模式文件存放在/opt/informix/db_export/db_name.exp/db_name.sql 下。
+
+2. dbimport
+　　与dbexport 配合使用，根据dbexport 的输出创建数据库。
+　　如：命令dbimport -c -i /opt/informix/db_export db_name
+　　根据上例中输出结果创建数据库。
+　　(数据库名必须与x.sql文件的x一致。如果需要改变数据库的名称，如改变数据库名db_name为new_db_name则在导入前必须改变文件db_name.exp/db_name.sql为db_name.exp/new_db_name.sql，“.sql”不变 ；)
+
+3. dbload
+　　将ASCII 文件中的数据传送到数据库中。
+　　如：dbload -d test -c tmp/load.cmd -l tmp/error.log
+　　cmd文件的写法如下：file "/opt/informix/tmp/test" delimiter "|" 7 ;
+　　insert into tab;
+　　(文件路径必须为绝对路径，“7”为一行的列数)
+
+4. dbschema
+　　将数据库的模式输出到文件中，可用于重建数据库或表。
+
+5. oncheck
+　　数据一致性检查和索引修复工具。常用选项有：
+　　oncheck -ce 检查Chunks 和extents
+　　oncheck -cd 检查数据行
+　　oncheck -ci 检查索引值
+　　oncheck -cI 检查索引值和rowid
+　　oncheck -cr 检查系统保留页
+　　oncheck -cc 检查系统目录表
+
+6. oninit
+　　启动OnLine
+
+7. onlog
+　　显示系统逻辑日志的内容。常用选项有：
+　　onlog -l 显示已经备份到磁带上的日志信息
+
+8. onmode
+　　改变OnLine 的运行模式，强制检查点动作，切换逻辑日志以及杀死指定的进程。常用选项有：
+　　onmode -k 关闭OnLine
+　　onmode -c 强制检查点动作
+　　onmode -l 切换逻辑日志到下一个逻辑日志文件
+　　onmode -z 杀死指定的进程
+　　onmode -F 释放多余的内存
+　　onmode -a 动态分配内存
+
+9. onparams
+　　改变OnLine 的逻辑日志和物理日志的配置参数。（添加逻辑日志时使用）
+
+10. onspaces
+　　创建、删除和修改dbspace、chunk工具。
+
+11. ontape
+　　进行逻辑日志的备份，改变数据库日志的状态，执行数据恢复。常用选项有：
+　　ontape -a 备份所有已满的逻辑日志
+　　ontape -c 启动连续逻辑日志备份
+　　ontape -s 启动数据备份
+　　ontape -r 启动数据恢复
+　　ontape -s -B | -N | -U 数据库名 改变数据库日志的状态
+
+　　$>ontape -s -B db_name   修改为buffer_log
+　　$>ontape -s -U db_name   修改为unbuffer_log
+　　$>ontape -s -N db_name   修改为无日志模式
+　　$>ontape -s -A db_name   修改为ansi logging模式，从这个模式无法改到其它模式，因此一般不要用该项。
+
+12. onstat
+　　监视数据库的操作。常用选项有：
+　　onstat --help 显示所有信息help
+　　onstat -      显示数据库状态信息
+　　onstat -V     显示数据库版本信息
+　　onstat -l     显示物理日志和逻辑日志信息
+　　onstat -g     ses 显示用户线索信息
+　　onstat -g     sql 显示sql语句
+　　onstat -k     显示锁信息
+　　onstat -x     显示事物信息
+　　onstat -d     显示数据库空间使用信息
+　　onstat -D     显示CHUNK读写信息
+　　onstat -c     显示配置信息
+　　onstat -m     显示online.log最后20行信息
+　　onstat -p     显示性能信息
+　　onstat -r     周期性重复显示信息
+　　onstat -u     显示用户信息
+　　onstat -z     将所有统计值置为0
+　　onstat -g ath 显示线程
+　　onstat -g seg 显示内存信息
+　　onstat -g rea 显示等待线程
+　　onstat -g act 显示活动线程
+　　onstat -g iof 显示CHUNK读写信息
+　　onstat -g ioq 显示AIO队列信息
+　　onstat -g ntu 显示网络端口读写信息
+　　onstat -g ntd 显示线程读写信息
+
+13. 在x-windows下可以运行的程序
+　　$ onperf 数据库性能监控
+　　$ ipload Informix最快的load数据工具
+　　$ onpload ipload的命令行方式工具
+
+14. onbar
+　　$ onbar 支持IBM光盘库、磁带库的备份工具
+
+15. Dbaccess
+　　$ dbaccess 最常用的数据库管理（库、表、索引）工具
+
+16. onmonitor
+　　$ onmonitor 菜单界面的Informix数据库管理工具
+
+17. Update statistics 需要定期处理，最好每天都做
+　　对性能最有影响的SQL语句
+
+18. set explain on 打开分析SQL语句性能的开关
+
+19. 数据库错误码查询方法
+　　Informix的错误码可通过命令finderr查询错误详细信息，该命令在安装目录的bin目录（如/informix/bin）下。
+　　$ finderr 107 查询错误代码107的详细信息
+　　$ finderr 显示其帮助
+
+20. informix load大表时出错
+　　458: Long transaction aborted. 12204: RSAM error: Long transaction detected.
+　　847: Error in load file line 1934286.
+　　原因是：日志空间不够，事务不能被滚回，自动结束。
+　　解决：将数据库改为不带日志模式:onmonitor->Logical-Logs->Database或用ontape命令
+ 
+
+**************************************************************************************************************************
+**************************************************************************************************************************
+** DDL
+
+修改表名
+    RENAME TABLE oldname TO newname 
+　　oldname：原名称。 
+　　newname：新名称。 
+
+修改字段名
+    RENAME COLUMN table.oldcolumn TO newcolumn 
+　　table.oldcolumn：表名及原字段名称 
+　　newcolumn：新字段名称。 
+　　语句使用者是表的拥有者或拥有 DBA 权限或有 ALTER 权限的用户，事务中处理过程中不要使用此语句。 
+　　例：rename column user.c6 to c7; 
+
+创建视图
+　  CREATE VIEW view-name column-list 
+　　CREATE VIEW view-name column-list AS select_statement [WITH CHECK OPTION] 
+　　view-name：视图名称。 
+　　column-list：字段列表。 
+　　select_statement：SELECT语句。 
+
+删除视图 
+    DROP VIEW view-name 
+　　view-name：视图名称。 
+　　用户可删除自己建立的视图；视图的后代视图也被删除；事务中处理中不要使用此语句。 
+　　例：drop view v_user; 
+
+
+创建索引 
+　　CREATE [UNIQUE/DISTINCT] [CLUSTER] INDEX index_name ON table_name([column_name ASC/DESC],…) 
+　　index_name：索引名称。 
+　　table_name：表名称。 
+　　column_name：字段名称。 
+　　UNIQUE/DISTINCT：唯一索引。 
+　　CLUSTER：使表的物理存放顺序按索引排列。 
+　　ASC/DESC：升序或降序，缺省升序。 
+　　语句执行时，将表的状态置为 EXCLUSIVE；复合索引最多包含 8 个字段，所有字段长度和不得大于 120 字节；
+    事务中处理过程中使用此语句，即使事务回滚，索引将建立，不能恢复。 
+　　例：create cluster index ix_user on user(c5); 
+
+
+修改索引性质
+    ALTER INDEX index-name TO [NOT] CLUSTER 
+　　index-name：索引名称。 
+　　TO [NOT] CLUSTER：去掉或加上 CLUSTER 属性。 
+　　语句执行时，将表的状态置为 EXCLUSIVE；事务中处理过程中使用此语句，即使事务回滚，索引性质将改变，不能恢复。 
+　　例：alter index ix_user to not cluster; 
+
+
+删除索引
+    DROP INDEX index-name 
+　　index-name：索引名称。 
+　　语句使用者是索引的拥有者或拥有 DBA 权限，事务中处理过程中不要使用此语句，否则事务无法恢复。 
+　　例：drop index ix_user; 
+
+创建同义名
+    CREATE SYNONYM synonym FOR table-name 
+　　synonym：同义名 
+　　table-name：表名称 
+　　数据库的创建者可以使用同义名；没有赋予同义名权限的用户不能使用同义名；同义名不能和表名相同；事务中处理过程中不要使用此语句。 
+　　例：create synonym user_alias for user; 
+
+删除同义名 
+    DROP SYNONYM synonym 
+　　synonym：同义名 
+　　可以删除自己建立的同义名；事务中处理过程中不要使用此语句，否则无法恢复。 
+　　例：drop synonym user_alias; 
+
+
+更新数据库的统计数字
+    UPDATE STATISTICS [FOR TABLE table-name] 
+　　table-name：表名称 
+　　此语句仅作用于当前数据库；可提高查询效率；只有执行此语句，才改变统计数据。 
+　　例：update statistics for table user;
+
+
+**************************************************************************************************************************
+**************************************************************************************************************************
+
+
+informix数据库
+    建表语句
+    CREATE TABLE AML_CUST_GLENDER_TMP  (
+    		  DATE_ID CHAR(10) NOT NULL , 
+    		  CUSTOMER_TYPE CHAR(2) , 
+    		  CUSTOMER_ID CHAR(20) NOT NULL , 
+    		  BANK_ORG_ID CHAR(20) NOT NULL ) lock mode row ;
+    		  
+    见表指定表空间
+    CREATE TABLE s_core_sxxbm  ( 
+        zlbz CHAR(1) NOT NULL, 
+        bh INTEGER NOT NULL, 
+        mc CHAR(30) NOT NULL, 
+        sx CHAR(20) NOT NULL, 
+        zymc CHAR(12) NOT NULL 
+    ) in datadbs;
+    
+    添加主键
+    ALTER TABLE AML_CUST_TMP ADD CONSTRAINT PRIMARY KEY (DATE_ID,CUSTOMER_ID);
+
+
+informix数据库：JDBC连接
+    driverClassName="com.informix.jdbc.IfxDriver"
+    url=jdbc:informix-sqli://172.24.30.20:19000/coredbzq:informixserver=easycore
+    url=jdbc:informix-sqli:ip:8090/office:informixserver=online_usr;NEWCODESET=gbk,8859-1,819
+        jdbc:informix-sqli://ip:8899/dbname:informixserver=online;newcodeset=GBK,8859-1,819
+    原因：
+    informix数据库内部存储用ISO8859-1，jdbc连接时中文显示乱码，查看jdbc文档，发现informix不支持gbk，必须自己定义NEWCODESET
+    NEWCODESET格式:
+    NEWCODESET=JDK-encoding,Ifx-codeset,Ifx-codeset-number
+    JDK-encoding对应java中的encoding是gbk
+    ifx-codeset对应数据库中的编码格式，是ISO885901
+    ifx-codeset-number对应informix数据库编码id，手册中8859-1对应的是 819
+    java程序可以正确的显示数据库中的汉字了
+
+
+informix数据库：分业查询
+	SELECT SKIP 10 FIRST 10 * FROM a1330_1 WHERE dbank_id = '651080000' order by row_num; 
+	SKIP n ：跳过N FIRST n ：获取前n条记录 SKIP 10 FIRST 10 :跳过前10条获取接下来的10条 
+	SELECT first 10 * FROM TABLE(MULTISET (SELECT FIRST 20 * FROM a1330_1 where dbank_id = '651080000' order by row_num )) a order by row_num desc 
+	TABLE(MULTISET(……)) a :  创建视图，别名为a 
+
+
+informix数据库：update语句
+    update tb1 set col4=(select bol3 from tb2 where tb1.col1=tb2.bol1)
+
+informix数据库: char 转 int  
+    如：select '15'+0 from oss_sub a  (字符变量隐式转换成整形变量)
+    cast('1212' as int) 显示转换
+
+informix数据库：日期常用函数：
+    select sysdate from test_table;-- 系统当前时间   
+    select current from test_table;-- 系统当前时间   
+    select TODAY-1 from test_table;-- 系统前一天日期   
+    select sysdate - 1 UNITS year from test_table;-- 系统前一年时间   
+    select sysdate - 1 UNITS month from test_table;-- 系统前一月时间   
+    select sysdate - 1 UNITS day from test_table;-- 系统前一天时间   
+    select sysdate - 1 UNITS hour from test_table;-- 系统前一小时时间   
+    select sysdate - 1 UNITS minute from test_table;-- 系统前一分钟时间   
+    select sysdate - 1 UNITS second from test_table;-- 系统前一秒时间   
+    select date (sysdate - 1*interval(24) hour to hour) from test_table;-- 系统前一天时间
+    
+    整形变量转日期型变量：CAST(jyrq AS date), to_char(date(jyrq),'%Y-%m-%d')
+
+
+聚合函数： 
+    avg,求平均值 
+    count,统计记录的条数 
+    max,求最大值 
+    min,求最小值 
+    range,计算所选行的最大值与最小值的差 
+    stdev,计算所选行的标准偏差 
+    sum,求和函数 
+    variance，函数返回值样本的方差做为所有选择行的方差的无偏估计。 
+    它的公式，(sum(xi**2)-sum(xi)**2)/N)/(N-1) 
+    其中xi是列中的每个值，N是列中值的总和。 
+    时间函数： 
+    day,mdy,month,weekday,year 这些函数返回与用来调用函数的表达式或自身变量的值。Current返回当前的日期和时间值，可以用extend函数来调整date或datetime值的精度。 
+    使用day和current 函数来将列值与当前日期进行比较。 
+    Date函数将字符串函数转换为DATE值。例date(‘12/7/04’) 
+    To_char函数将datetime和date值转化为字符值。 
+    To_date函数将字符值转化为datetime类型的值。例to_date(“1978-10-07 10:00” ,”%Y-%m-%d %H:%M) 
+
+    cardinality（仅适用IDS）函数对集合包含的元素数目计数。 
+
+    filetoblob( )，将文件复制到BLOB列中 
+    filetoclob( ),将文件复制到CLOB列中 
+    locopy( ),将BLOB或CLOB类型的数据复制到另一个BLOB或CLOB列中 
+    lotofile( ),将BLOB或CLOB复制到文件中 
+
+    lower,将字符串中每个大写字母转换为小写字母 
+    upper，将字符串中每个小写字母转换为大写字母 
+    initcap，将字符串中每个词的首写字母转换成大写 
+    replace，将字符串中的某一组字符转换成其他字符，例replace(col,”each”,”eve”) 
+    substr，返回字符串中的某一部分，例substr(col,1,2) 
+    substring，返回字符串中的某一部分，例substring(col,from 1 to 4) 
+    lpad，使用lpad函数已用重复次数达到必要次数的字符序列在左边填充或截断的字符串的副本，这取决于字符串中填充部分的指定长度。 
+    举例：字段 col 为char(15)类型，select lpad(col,21,”_”) from tab_name则显示为在col前加上六个_。 
+    Rpad，使用rpad函数已用重复次数达到必要次数的字符序列在右边填充或截断的字符串的副本，这取决于字符串中填充部分的指定长度。 
+    举例：字段col为char(15)类型，select rpad(col,21,”_”) from tab_name则显示为在col后边加上六个_。 
+ 
+    hex，返回表达式的十六进制数 
+    round，返回表达式的四舍五入值 
+    trunc，返回表达式的截断值 
+    length，计算表达式的长度 
+    user，返回执行查询的用户的用户名（登陆帐户名） 
+    today，返回当前系统日期 
+    dbservername，返回数据库服务器的名称，同sitename 
+    dbinfo，返回数据库的相关信息 
+    decode，函数来将一个具有一个值的表达式转换为另一个值 
+    decode(test,a,a_value,b,b_value,c,c_value……),decode函数不支持TEXT和BYTE类型。 
+    Nvl，来将求值为空的表达式转化为另一个想要指定的值。 
+    另外还可以在select语句中使用存储过程，如 select spl($test) from tab_name 
+
+
+NVL 函数相当于coalesce()函数
+select item,alternate,sum(qty),sum(qty_used) from jobmatnew where order_number="N0210" GROUP BY 1,2
+ union all
+select item,item,sum(qty),sum(qty_used) from jobmat where order_number="N0210" GROUP BY 1,2 order by 1
+
+
+
+
+
+
+1、聚合函数
+1）COUNT（*）　　　　　　　　　　返回行数
+2）COUNT（DISTINCT COLNAME）　　 返回指定列中唯一值的个数
+3）SUM（COLNAME/EXPRESSION）　　 返回指定列或表达式的数值和；
+4）SUM（DISTINCT COLNAME）　　　 返回指定列中唯一值的和
+5）AVG（COLNAME/EXPRESSION）　　 返回指定列或表达式中的数值平均值
+6）AVG（DISTINCT COLNAME）　　　 返回指定列中唯一值的平均值
+7）MIN（COLNAME/EXPRESSION）　　 返回指定列或表达式中的数值最小值
+8）MAX（COLNAME/EXPRESSION）　　 返回指定列或表达式中的数值最大值
+
+2、日期与时间函数
+1）DAY（DATE/DATETIME EXPRESSION）　　　返回指定表达式中的当月几号
+2）MONTH（DATE/DATETIME EXPRESSION）　　返回指定表达式中的月份
+3）YEAR（DATE/DATETIME EXPRESSION）　　 返回指定表达式中的年份
+4）WEEKDAY（DATE/DATETIME EXPRESSION）　返回指定表达式中的当周星期几
+5）DATE（NOT DATE EXPRESSION）　　　　　返回指定表达式代表的日期值
+6）TODAY　　　　　　　　　　　　　　　　返回当前日期的日期值
+7）CURRENT[first to last]　　　　　　　 返回当前日期的日期时间值
+8）COLNAME/EXPRESSION UNITS PRECISION　 返回指定精度的指定单位数
+9）MDY（MONTH，DAY，YEAR）　　　　　　　返回标识指定年、月、日的日期值
+10）DATETIME（DATE/DATETIME EXPRESSION）FIRST TO LAST 返回表达式代表的日期时间值
+11）INTERVAL（DATE/DATETIME EXPRESSION）FIRST TO LAST 返回表达式代表的时间间隔值
+12）EXTEND（DATE/DATETIME EXPRESSION，[first to last]）返回经过调整的日期或日期时间
+
+
+例子1、和UNITS合用，指定日期或时间单位(year,month,day,hour,minute,seond,fraction)：
+let tmp_date = today + 3 UNITS day
+例子2、let tmp_date = MDY(10,30,2002)　　-- 2002-10-30
+例子3、let tmp_date = today + interval(7) day to day　--当前时间加上7天；
+注：该功能与1相似；
+例子4、EXTEND转换日期或日期时间值
+let tmp_inthour = extend(datetime1,hour to hour)
+
+3、代数函数
+1）ABS(COLNAME/EXPRESSION)：　　　　　　 取绝对值
+2）MOD（COLNAME/EXPRESSION，DIVISOR）　　返回除以除数后的模（余数）
+3）POW（COLNAME/EXPRESSION，EXPONENT）　 返回一个值的指数冥
+例子：let tmp_float = pow(2,3)　--8.00000000
+
+4）ROOT（COLNAME/EXPRESSION，[index]）　 返回指定列或表达式的根值
+5）SQRT（COLNAME/EXPRESSION）　　　　　　返回指定列或表达式的平方根值
+6）ROUND（COLNAME/EXPRESSION，[factor]） 返回指定列或表达式的圆整化值
+7）TRUNC（COLNAME/EXPRESSION，[factor]） 返回指定列或表达式的截尾值
+说明：上两者中FACTOR指定小数位数，若不指定，则为0；若为负数，则整化到小数点左边；
+注：ROUND是在指定位上进行4舍5入；TRUNC是在指定位上直接截断；
+let tmp_float = round(4.555,2) --4.56
+let tmp_float = trunc(4.555,2) --4.55
+
+4、指数与对数函数
+1）EXP（COLNAME/EXPRESSION）　　　　返回指定列或表达式的指数值
+2）LOGN（COLNAME/EXPRESSION）　　　 返回指定列或表达式的自然对数值
+3）LOG10（COLNAME/EXPRESSION）　　　返回指定列或表达式的底数位10的对数值
+
+5、三角函数
+1）COS（RADIAN EXPRESSION）　　　　　返回指定弧度表达式的余弦值
+2）SIN（RADIAN EXPRESSION）　　　　　正弦
+3）TAN（RADIAN EXPRESSION）　　　　　正切
+4）ACOS（RADIAN EXPRESSION）　　　　 反余弦
+5）ASIN（RADIAN EXPRESSION）　　　　 反正弦
+6）ATAN（RADIAN EXPRESSION）　　　　 反正切
+7）ATAN2（X，Y）　　　　　　　　　　 返回坐标（X，Y）的极坐标角度组件
+
+6、统计函数
+1）RANGE（COLNAME）　　　 返回指定列的最大值与最小值之差 = MAX（COLNAME）-MIN
+
+（COLNAME）
+2）VARIANCE（COLNAME）　　返回指定列的样本方差；
+3）STDEV（COLNAME）　　　 返回指定列的标准偏差；
+
+7、其他函数
+1）USER　　　　　　　　　　　　　　返回当前用户名
+2）HEX（COLNAME/EXPRESSION）　　　 返回指定列或表达式的十六进制值
+3）LENGTH（COLNAME/EXPRESSION）　　返回指定字符列或表达式的长度
+4）TRIM（COLNAME/EXPRESSION）　　　删除指定列或表达式前后的字符
+5）COLNAME/EXPRESSION || COLNAME/EXPRESSION　返回并在一起的字符；
+
+二、IDS内部函数
+1、DBSERVERNAME　　　返回数据库服务器名　let tmp_char=DBSERVERNAME
+2、SITENAME　　　　　返回数据库服务器名　let tmp_char=SITENAME
+说明：两者功能相同；
+
+3、DBINFO（‘SPECIAL_KEYWORD')　　　返回只关键字值
+例子1：返回数据中每个表的DBSPACE名称
+select dbinfo('dbspace',partnum),tabname from systables
+where tabid>99 and tabtype='T'　(OK)
+例子2：返回任何表中插入的最后一个SERIAL值
+select dbinfo('sqlca.sqlerrd1') from systables where tabid = 1
+例子3：返回最后一个SELECT，INSERT，UPDATE，DELETE或EXECUTE PROCEDURE语句处理的行数；
+select dbinfo('sqlca.sqlerrd2') from systables where tabid=1; 
+
+
+
+
+

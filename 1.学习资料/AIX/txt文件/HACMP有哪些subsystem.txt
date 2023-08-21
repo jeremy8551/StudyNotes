@@ -1,0 +1,25 @@
+在HACMP的HAS/CRM模块中有:
+
+进程名                       Subsystem    Group  是否一定要启动 
+/usr/sbin/cluster/clstrmgr   clstrmgr    cluster      是 
+/usr/sbin/cluster/clinfo      clinfo     cluster      否 
+/usr/sbin/cluster/clsmuxpd   clsmuxpd    cluster      是 
+/usr/sbin/cluster/cllockd     cllockd      lock       否 
+
+在HACMP的ES/ESCRM中有 :
+
+         进程名                Subsystem    Group  是否一定要启动 
+/usr/es/sbin/cluster/clstrmgr  clstrmgrES   cluster      是 
+/usr/es/sbin/cluster/clinfo     clinfoES    cluster      否 
+/usr/es/sbin/cluster/clsmuxpd  clsmuxpdES   cluster      是 
+/usr/es/sbin/cluster/cllockd    cllockdES    lock        否 
+/usr/sbin/rsct/bin/emsvcs        emsvcs      emsvcs      是 
+/usr/sbin/rsct/bin/topsvcs       topsvcs     topsvcs     是 
+/usr/sbin/rsct/bin/hagsglsmd     grpglsm     grpsvcs     是 
+/usr/sbin/rsct/bin/emaixos        emsvcs      emsvcs     是 
+
+不要用kill -9 来停这些服务，它们是受SRC控制的。
+如用 kill -9 停 clstrmgr 进程,会导致clstrmgr的异常终止而运行/usr/es/sbin/cluster/utilities/clexit.rc脚本程序, 引起服务器非正常停机, 造成不必要的切换的发生.
+
+可用 stopsrc -s service_name 来停， 如： 
+#stopsrc -s clinfo

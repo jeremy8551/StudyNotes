@@ -1,0 +1,3 @@
+.notic 是类名 引用的时候用 class="notice"
+
+#notic 引用的时候用 id="notice"

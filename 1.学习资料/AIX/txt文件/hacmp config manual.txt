@@ -1,0 +1,405 @@
+1、SSA磁盘阵列配置
+
+1.1 Software Installation and Maintenance
+Software License Management
+Devices
+System Storage Management (Physical & Logical Storage)
+Security & Users
+Communications Applications and Services
+Print Spooling
+Problem Determination
+Manage the PKCS11 subsystem
+Performance & Resource Scheduling
+System Environments
+Processes & Subsystems
+Applications
+Using SMIT (information only)
+
+1.2 选择Devices
+
+ Asynchronous I/O
+ I/O Completion Ports
+ Multimedia
+ List Devices
+ Configure/Unconfigure Devices
+ Install Additional Device Softwar
+ PCI Hot Plug Manager
+ ISA Adapters
+ PCMCIA Cards
+ SSA Adapters
+ SSA Disks
+ SSA RAID Arrays
+
+选择 SSA RAID Arrays
+显示：
+ List All Defined SSA RAID Arrays
+ List All Supported SSA RAID Arrays
+ List All SSA RAID Arrays Connected to a RAID Manager
+ List Status Of All Defined SSA RAID Arrays
+ List/Identify SSA Physical Disks
+ List/Delete Old RAID Arrays Recorded in an SSA RAID Manager
+ List Status of Hot Spare Pools
+ List Status of Hot Spare Protection for an SSA RAID Array
+ List Components in a Hot Spare Pool
+ Add a Hot Spare Pool
+ Add an SSA RAID Array
+ Delete an SSA RAID Array
+ Change/Show Attributes of an SSA RAID Array
+ Change Member Disks in an SSA RAID Array
+ Change/Show Use of an SSA Physical Disk
+ 
+1.3选择 Add a Hot Spare Pool
++--------------------------------------------------------------------------+
+|                             SSA RAID Manager                             |
+|                                                                          |
+| Move cursor to desired item and press Enter.                             |
+|                                                                          |
+|   ssa0 Available 17-08 IBM SSA 160 SerialRAID Adapter (14109100)         |
+|                                                                          |
+| Esc+1=Help              Esc+2=Refresh           Esc+3=Cancel             |
+| Esc+8=Image             Esc+0=Exit              Enter=Do                 |
+| /=Find                  n=Find Next                                      |
++--------------------------------------------------------------------------+
+添加hot spare  
+1.4 选择 Add an SSA RAID Array
++--------------------------------------------------------------------------+
+|                             SSA RAID Manager                             |
+|                                                                          |
+| Move cursor to desired item and press Enter.                             |
+|                                                                          |
+|   ssa0 Available 17-08 IBM SSA 160 SerialRAID Adapter (14109100)         |
+|                                                                          |
+| Esc+1=Help              Esc+2=Refresh           Esc+3=Cancel             |
+| Esc+8=Image             Esc+0=Exit              Enter=Do                 |
+| /=Find                  n=Find Next                                      |
++--------------------------------------------------------------------------+
++--------------------------------------------------------------------------+
+|                             RAID Array Type                              |
+|                                                                          |
+| Move cursor to desired item and press Enter.                             |
+|                                                                          |
+|   raid_0                  RAID-0 array                                   |
+|   raid_1                  RAID-1 array                                   |
+|   raid_5                  RAID-5 array                                   |
+|   raid_10                 RAID-10 array                                  |
+|                                                                          |
+| Esc+1=Help              Esc+2=Refresh           Esc+3=Cancel             |
+| Esc+8=Image             Esc+0=Exit              Enter=Do                 |
+| /=Find                  n=Find Next                                      |
++--------------------------------------------------------------------------+
+选择相应的镜像方式(raid_5)
+ SSA RAID Manager                                    ssa0
+ RAID Array Type                                     raid_5
+ Member Disks
+ Strip Size                                          64 KB/128 blocks
+ Enable Use of Hot Spares                            yes
+ Choose Hot Spare only from Preferred Pool           no
+ Allow Page Splits                                   yes
+ Enable Fast-Write                                   no
+
+在Member Disks中选择需要加入的磁盘。
+
+1.5 磁盘状态
+ SSA RAID 
+Command: OK            stdout: yes           stderr: no
+
+Before command completion, additional instructions may appear below.
+
+hdisk2          150F3DBFC6FF4CK system    good        72.9GB raid_5
+
+ Hot Spare 
+Command: OK            stdout: yes           stderr: no
+
+Before command completion, additional instructions may appear below.
+
+pdisk0          0040AA71E7AA00D spare     good      36.4GB  disk
+
+2、hacmp 安装配置
+2.1 软件安装
+                 Install and Update from LATEST Available Software
+
+Type or select values in entry fields.
+Press Enter AFTER making all desired changes.
+
+                                                        [Entry Fields]
+* INPUT device / directory for software               /dev/cd0
+* SOFTWARE to install                                [_all_latest]            +
+  PREVIEW only? (install operation will NOT occur)    no                      +
+  COMMIT software updates?                            yes                     +
+  SAVE replaced files?                                no                      +
+  AUTOMATICALLY install requisite software?           yes                     +
+  EXTEND file systems if space needed?                yes                     +
+  OVERWRITE same or newer versions?                   no                      +
+  VERIFY install and check file sizes?                no                      +
+  Include corresponding LANGUAGE filesets?            yes                     +
+  DETAILED output?                                    no                      +
+  Process multiple volumes?                           yes                     +
+ 
+如软件安装进行不下去，可按照提示安装相应的patch
+
+
+安装完成后可执行smitty hacmp
+
+2.2 编辑hosts 和 .rhost 文件
+  hosts 文件
+
+127.0.0.1               loopback localhost      # loopback (lo0) name/address
+192.168.169.22  h85b_stb
+192.168.168.22  h85b_boot h85b
+192.168.168.21  h85a_boot h85a
+192.168.168.31  h85a_srv
+192.168.168.23  h85b_srv
+192.168.169.21  h85a_stb  h85a
+
+ .rhosts 文件
+
+h85a
+h85b
+h85a_boot
+h85b_boot
+h85a_srv
+h85b_srv
+h85a_stb
+h85b_stb
+
+2.3  群集配置
+2.3.1   smitty hacmp 
+                                        HACMP
+
+Move cursor to desired item and press Enter.
+
+  Cluster Configuration
+  Cluster Services
+  Cluster System Management
+  Cluster Recovery Aids
+  RAS Support
+选择Cluster Configuration
+                               Cluster Configuration
+
+Move cursor to desired item and press Enter.
+
+  Cluster Topology
+  Cluster Security
+  Cluster Resources
+  Cluster Snapshots
+  Cluster Verification
+  Cluster Custom Modification
+  Restore System Default Configuration from Active Configuration
+  Advanced Performance Tuning Parameters
+
+选择  Cluster Topology
+                                  Cluster Topology
+
+Move cursor to desired item and press Enter.
+
+  Configure Cluster
+  Configure Nodes
+  Configure Networks
+  Configure Adapters
+  Configure Sites
+  Configure Global Networks
+  Configure Network Modules
+  Configure Topology Services and Group Services
+  Show Cluster Topology
+  Synchronize Cluster Topology
+
+选择  Configure Cluster
+                                 Configure Cluster
+
+Move cursor to desired item and press Enter.
+
+  Add a Cluster Definition
+  Change / Show Cluster Definition
+  Remove Cluster Definition
+
+Add a Cluster Definition
+                              Add a Cluster Definition
+
+Type or select values in entry fields.
+Press Enter AFTER making all desired changes.
+
+                                                        [Entry Fields]
+  **NOTE: Cluster Manager MUST BE RESTARTED
+          in order for changes to be acknowledged.**
+
+* Cluster ID                                         [5]
+* Cluster Name                                       [cluster]
+
+2.3.2 配置nodes
+                                   Configure Nodes
+
+Move cursor to desired item and press Enter.
+
+  Add Cluster Nodes
+  Change / Show Cluster Node Name
+  Remove a Cluster Node
+
+                               Add Cluster Nodes
+
+Type or select values in entry fields.
+Press Enter AFTER making all desired changes.
+
+                                                        [Entry Fields]
+* Node Names                                         [h85a]
+
+2.3.3 adapter config
+
+                                  Configure Adapters
+
+Move cursor to desired item and press Enter.
+
+  Adapters on IP-based network
+  Adapters on Non IP-based network
+
+按下表进行配置
+
+
+
+
+
+2.3.4 Synchronize Cluster Topology
+
+                                Cluster Topology
+
+Move cursor to desired item and press Enter.
+
+  Configure Cluster
+  Configure Nodes
+  Configure Networks
+  Configure Adapters
+  Configure Sites
+  Configure Global Networks
+  Configure Network Modules
+  Configure Topology Services and Group Services
+  Show Cluster Topology
+  Synchronize Cluster Topology
+
+2.3.5 Resources group config
+
+                             Cluster Configuration
+
+Move cursor to desired item and press Enter.
+
+  Cluster Topology
+  Cluster Security
+  Cluster Resources
+  Cluster Snapshots
+  Cluster Verification
+  Cluster Custom Modification
+  Restore System Default Configuration from Active Configuration
+  Advanced Performance Tuning Parameters
+
+
+选择  Cluster Resources
+                                 Cluster Resources
+
+Move cursor to desired item and press Enter.
+
+  Define Resource Groups
+  Define Application Servers
+  Configure Application Monitoring
+  Define Tape Resources
+  Define Highly Available Communication Links
+  Discover Current Volume Group Configuration
+  Configure Dynamic Node Priority Policies
+  Change/Show Resources/Attributes for a Resource Group
+  Cluster Events
+  Change/Show Run Time Parameters
+  Change/Show Cluster Lock Manager Resource Allocation
+  Show Cluster Resources
+  Synchronize Cluster Resources
+                        
+选择  Define Resource Groups
+       Change/Show a Resource Group
+
+Type or select values in entry fields.
+Press Enter AFTER making all desired changes.
+
+                                                        [Entry Fields]
+  Resource Group Name                                 appserv
+  Node Relationship                                   cascading               +
+  Participating Node Names / Default Node Priority   [h85a h85b]              +
+
+应用 Define Application Servers
+
+   Define Resource Groups
+  Define Application Servers
+  Configure Application Monitoring
+  Define Tape Resources
+  Define Highly Available Communication Links
+  Discover Current Volume Group Configuration
+  Configure Dynamic Node Priority Policies
+  Change/Show Resources/Attributes for a Resource Group
+  Cluster Events
+  Change/Show Run Time Parameters
+  Change/Show Cluster Lock Manager Resource Allocation
+  Show Cluster Resources
+  Synchronize Cluster Resources
+
+
+                           Define Application Servers
+
+Move cursor to desired item and press Enter.
+
+  Add an Application Server
+  Change / Show an Application Server
+  Remove an Application Server
+
+                      Change / Show an Application Server
+
+Type or select values in entry fields.
+Press Enter AFTER making all desired changes.
+
+                                                        [Entry Fields]
+  Server Name                                         appserv
+  New Server Name                                    [appserv]
+  Start Script                                       [/appserv/erpstart]
+  Stop Script                                        [/appserv/erpstop]
+
+配置资源组属性
+                                 Cluster Resources
+
+Move cursor to desired item and press Enter.
+
+  Define Resource Groups
+  Define Application Servers
+  Configure Application Monitoring
+  Define Tape Resources
+  Define Highly Available Communication Links
+  Discover Current Volume Group Configuration
+  Configure Dynamic Node Priority Policies
+  Change/Show Resources/Attributes for a Resource Group
+  Cluster Events
+  Change/Show Run Time Parameters
+  Change/Show Cluster Lock Manager Resource Allocation
+  Show Cluster Resources
+  Synchronize Cluster Resources
+             Change/Show Resources/Attributes for a Resource Group
+
+Type or select values in entry fields.
+Press Enter AFTER making all desired changes.
+
+[TOP]                                                   [Entry Fields]
+  Resource Group Name                                 appserv
+  Node Relationship                                   cascading
+  Participating Node Names / Default Node Priority    h85a h85b
+
+  Dynamic Node Priority                              []                       +
+  Service IP label                                   [h85a_srv]               +
+  Filesystems (default is All)                       [/appserv /data]         +
+  Filesystems Consistency Check                       fsck                    +
+  Filesystems Recovery Method                         sequential              +
+  Filesystems/Directories to Export                  []                       +
+  Filesystems/Directories to NFS mount               []                       +
+  Network For NFS Mount                              []                       +
+  Volume Groups                                      [datavg]                 +
+
+  ...............
+
+同步 Synchronize Cluster Resources
+
+
+
+3、共享卷管理
+4、测试
+   
