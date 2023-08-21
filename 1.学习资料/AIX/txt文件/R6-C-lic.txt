@@ -1,0 +1,64 @@
+
+	IBMCXX license install using non-gui step by step
+
+
+
+Step 1: /var/ifor/i4cfg -script
+     1) Network License Client 
+     2) Nodelock License Server (and/or Network License Client)
+     3) Network (and/or Nodelock) License Server
+     4) Central Registry (and/or Network and/or Nodelock) License Server 
+(*)
+
+2
+
+Do you want to disable remote administration of this Nodelock License
+Server? [y,n]: 
+
+y
+
+
+You have to choose now which mechanism must be enabled
+to locate this License Server:
+
+      1) NCS Namespace and Direct Binding (*)
+      2) Direct Binding only
+
+(*) WARNING: Modifying the NCS Namespace configuration may affect
+             any other application that use NCS on this system.
+             NCS Namespace is necessary to support old NetLS, iFOR/LS Clients.
+
+Please indicate your choice [1,2]: 
+2
+
+
+Choose the desired Server(s) logging level
+      1) Default 
+      2) All 
+      3) Customized 
+
+Please indicate your choice [1,2,3]: 
+
+1
+
+The default Log file(s) path is /var/ifor
+Enter blank to accept default or specify a new path:
+
+[CR]
+
+Do you want to configure this machine as a Network License Client too? 
+[y,n]: 
+
+n
+
+Do you want the License Server(s) automatically start on this system
+at boot time? [y,n]: 
+
+y     
+(and yes for all the rest questions)
+
+Step 2: 
+/var/ifor/i4blt -a -n "Nodelock" -f /usr/ibmcxx/cxx36_cn.lic -T 5 -R "admin"
+(·µ»ØºÜÂý)
+
+
