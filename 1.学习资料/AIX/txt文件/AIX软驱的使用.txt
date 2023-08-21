@@ -1,0 +1,17 @@
+将软盘中的a:\db.sql文件拷贝到系统下的/tmp下:
+1. #cd /tmp
+2. #dosread db.sql tmp_db.sql (这里可以改文件名)
+
+
+将系统下的/home/oracle/createdb/下的所有文件拷贝到软驱中:
+1. #cd /home/oracle/createdb
+2. #for file in *
+>do
+>doswrite $file $file
+>done
+这种方法只能复制目录下的文件和子目录名
+
+如果想复制子目录中的文件，可以先在windows下将软盘上的目录结构建好，让后把上面的for循环改一下:
+#for file in * or */* 
+多级目录以此类推
+
