@@ -1,0 +1,45 @@
+步骤如下：
+ 
+　　新建一个sql脚本 d:\czrk.sql,代码如下： 
+
+　　SET echo off
+ 
+　　SET feedback off
+ 
+　　SET newpage none
+ 
+　　SET pagesize 50000
+ 
+　　SET linesize 20000
+ 
+　　SET verify off
+ 
+　　SET pagesize 0
+ 
+　　SET term off
+ 
+　　SET trims ON
+ 
+　　SET heading off
+ 
+　　SET trimspool ON
+ 
+　　SET trimout ON
+ 
+　　SET timing off
+ 
+　　SET verify off
+ 
+　　SET colsep |
+ 
+　　spool d:\czrk.txt
+ 
+　　SELECT sfzh || ',' || xm || ',' || xb || ',' || csrq || ',' || mz|| ',' || xzqh|| ',' || jzdz FROM m_czrk WHERE rownum<=10000;
+ 
+　　spool off
+ 
+　　sqlplus连接上数据库,执行脚本 sqlplus dc/dc@mydb;
+ 
+　　sqlplus>@d:\czrk.sql
+ 
+　　这样就在d盘下生成了一万条数据了。

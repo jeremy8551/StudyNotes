@@ -1,0 +1,284 @@
+
+=========================================================================================================================================
+-- 查找 ORA-00001: 违反唯一约束条件
+select * from all_cons_columns where constraint_name='SYS_C006595' 
+
+
+=========================================================================================================================================
+-- 启动监听
+检查监听器状态：
+cmd
+lsnrctl status 
+sqlplus /nolog 
+conn system/qqqqqq@oradb as sysdba 
+
+
+=== JDBC ===============================================================================================================================================================
+
+JDBC驱动程序包名: ojdbc14.jar
+JDBC驱动类的名字: oracle.jdbc.driver.OracleDriver
+JDBC驱动访问URL: jdbc:oracle:thin:@dbip:port:databasename
+
+ORACLE的JDBC驱动在ORACLE安装目录下的JDBC\LIB下面, 有2个文件 ojdbc14_g.jar与ojdbc14.jar
+javac有一个-g选项，含义为 Generate all debugging info , 这里的g和上述含义一样
+
+
+
+=== JDBC查看表信息 ===================================================================================================================================================================
+
+-- 查看ORACLE 数据库中本用户下的所有表 
+SELECT table_name FROM user_tables; 
+
+-- 查看ORACLE 数据库中所有用户下的所有表 
+select user,table_name from all_tables; 
+
+-- 查看ORACLE 数据库中本用户下的所有列 
+select table_name,column_name from user_tab_columns; 
+select * from col where tname=upper('PCC_LOAN_REPAY') ORDER BY COLNO ASC;
+
+-- 查看表的唯一索引信息
+select * from user_indexes where uniqueness='UNIQUE' AND TABLE_NAME = 'PCC_LOAN';
+
+-- 查看索引详细信息
+select t.column_name, t.descend from user_ind_columns t,user_indexes i where t.index_name = i.index_name AND I.INDEX_NAME = 'SYS_C0012068' and t.table_name='PCC_LOAN' ORDER BY COLUMN_POSITION ASC;
+
+-- 查看ORACLE 数据库中本用户下的所有列 
+select user,table_name,column_name from all_tab_columns; 
+
+-- 查看数据库中当前的sid, 
+select INSTANCE_NAME from v$instance;
+
+-- 查看数据库中所有的用户列,查询结果包括所属表明,列名,类型,和comments 
+select a.TABLE_NAME,a.COLUMN_NAME,a.COMMENTS from user_col_comments a,user_col_comments b where a.TABLE_NAME=b.TABLE_NAME and a.COLUMN_NAME=b.COLUMN_NAME; 
+
+-- 问题1:
+	使用jdbc连接oracle 10.2.0.1.0 数据库的时候出现了下列错误：
+	Connection refused(DESCRIPTION=(TMP=)(VSNNUM=153093120)(ERR=12505)(ERROR_STACK=(ERROR=(CODE=12505)(EMFI=4))))
+	而直接通过plsql可以正常连接数据库,或者可以通过sqlplus 连接数据库
+	经过debug和查找相关的资料发现问题原因如下：
+	jdbc连接数据库的时候，需要使用数据库的sid_name，而不是数据库的services_name
+	而使用plsql连接数据库的时候，只需要数据库的services_name即可，所以修改连接字符串中的services_name 为sid_name
+
+
+=== 常用的数据字典 ===================================================================================================================================================================
+dba_data_files - 通常用来查询关于数据库文件的信息
+dba_db_links - 包括数据库中的所有数据库链路，也就是databaselinks。
+dba_extents - 数据库中所有分区的信息
+dba_free_space - 所有表空间中的自由分区
+dba_indexs - 关于数据库中所有索引的描述
+dba_ind_columns - 在所有表及聚集上压缩索引的列
+dba_objects - 数据库中所有的对象
+dba_rollback_segs - 回滚段的描述
+dba_segments - 所有数据库段分段的存储空间
+dba_synonyms - 关于同义词的信息查询
+dba_tables - 数据库中所有数据表的描述
+dba_tabespaces - 关于表空间的信息
+dba_tab_columns - 所有表描述、视图以及聚集的列
+dba_tab_grants/privs - 对象所授予的权限
+dba_ts_quotas - 所有用户表空间限额
+dba_users - 关于数据的所有用户的信息
+dba_views - 数据库中所有视图的文本
+
+
+=== 动态性能试图 ===================================================================================================================================================================
+v$fixed_table - 列出所有可用的动态性能试图和动态性能表
+v$instance - 当前数据库例程的详细信息
+v$sga - 显示SGA主要组成部分
+v$sgainfo - SGA更详细的信息
+v$parameter - 初始化参数的详细信息
+v$version - 数据库版本信息
+v$option - 数据库安装选项
+v$session - 会话详细信息
+v$process - 与数据库有关的进程信息
+v$bgprocess - 显示后台进程信息
+v$database - 当前数据库详细信息
+v$controlfile - 当前数据库所有控制文件信息
+v$datafile - 当前数据库所有数据文件的详细信息
+v$dbfile - 数据文件编号及名称
+v$logfile - 重做日志成员的信息
+v$log - 显示日志组详细信息
+v$thread - 查看重做线程的详细信息，当使用RAC结构时，每个例程都对应一个重做线程，并且每个重做线程包含独立的重做日志。
+v$lock - 查看锁信息，通过与v$session进行连接查询，可以显示占有锁的会话，以及等待锁的会话
+v$locked_object - 显示被加锁的数据库对象，通过与dba_object进行查询，以显示具体的对象名及执行加锁操作的ORALCE用户名
+v$sysstat - 基于当前操作会话进行的系统统计
+v$waitstat - 出现一个以上会话访问数据库的数据时的详细情况。当有一个以上的会话访问同一信息时，可出现等待情况
+v$statname - 在v$sesstat中报告各个统计的含义
+v$sqlarea - 共享池中使用当前光标的统计信息，光标是一块内存区域，有Oracle处理SQL语句时打开
+v$sesstat - 在v$session中报告当前会话的统计信息
+v$rowcache - 内存中数据字典活动/性能信息
+v$rollstat - 联机回滚段统计信息
+v$rollname - 回滚段信息
+v$librarycache - 共享池中SQL语句的管理信息
+
+
+=== 命令 ===================================================================================================================================================================
+
+-- 查看命令帮助
+help index
+
+-- 查看某个命令的帮助
+? set
+
+-- 停掉数据库
+shutdown immediate
+
+-- 启动数据库
+-- 在单机环境下，要想启动或关闭ORACLE系统必须首先切换到ORACLE用户，如： su - oracle
+startup mount
+
+-- 开启sqlplus支持空行
+set sqlbl on   
+
+-- 查询数据库参数
+show parameter db;          
+
+-- 数据库域名名称
+show parameter domain
+
+-- 数据库服务名 （如果数据库有域名，则数据库服务名就是全局数据库名，如果该数据库没有定义域名，则数据库服务名与数据库名相同）
+show parameter service_name
+
+-- 显示当前用户
+show user
+
+-- 直接登陆
+sqlplus "/as sysdba"
+
+-- 显示表的详细信息（表结构、创建人、创建时间、用户邮箱等）
+describe 表名 
+
+
+ALTER SESSION SET CURRENT_SCHEMA=USER2
+
+=== 查询 ===================================================================================================================================================================
+
+查询ORACLE所有表
+select * from user_all_tables;      // 查询所有的表
+select * from user_objects;         // 查询所有的表
+select * from dba_tables;           // 查询所有的表
+select * from all_tables;           // 查询所有的表
+
+-- 查询一个用户
+select * from user_users
+-- 查询所有用户
+select * from all_users
+-- 查询所有用户
+select * from dba_users
+
+-- 查询数据库 名和它的ID
+select name,dbid from v$database;
+
+-- 查询数据库的实例名
+select instance_name from v$instance;
+
+-- 查询表结构
+select * from sys.user_tab_columns where table_name=表名;
+
+-- 数据库域名名称
+select value from v$parameter where name='db_domain';
+
+-- 当前Oracle系统时间
+select sysdate from dual;
+
+-- 查询数据库字典 （看字符集、货币符号等相关参数）
+select * from v$nls_parameters;
+
+-- 查询有哪些数据库实例在运行
+select inst_name from v$active_instances;
+
+
+=== VM虚拟机崩溃后需要做的操作 ===================================================================================================================================================================
+
+-- 需手动启动数据库实例
+1. 启动监听器，命令：lnsnrctl start
+2. 启动数据库，命令：sqlplus "/as sysdba"
+3. 输入，命令：startup
+
+
+=== 导出/导入数据库 ===================================================================================================================================================================
+详细参数查看exp、imp参数：
+	1. 进入命令提示符界面
+	2. exp HELP=Y
+
+-- 导出命令
+exp rpt/rpt@rptdb file=C:\rpt.dmp full=y
+上面是常用的导出，对于压缩，既用winzip把dmp文件可以很好的压缩。 
+也可以在上面命令后面 加上 compress=y 来实现。 
+
+-- 导入命令
+imp rpt/rpt@rptdb file=C:\rpt.dmp full=y
+
+imp aichannel/aichannel@HUST full=y file=file= d:datanewsmgnt.dmp ignore=y 
+上面可能有点问题，因为有的表已经存在，然后它就报错，对该表就不进行导入。 在后面加上 ignore=y 就可以了。 
+
+
+数据导出： 
+	1. 将数据库TEST完全导出,用户名system 密码manager 导出到D:daochu.dmp中 
+	exp system/manager@TEST file=d:daochu.dmp full=y 
+	
+	2. 将数据库中system用户与sys用户的表导出 
+	exp system/manager@TEST file=d:daochu.dmp owner=(system,sys) 
+	
+	3. 将数据库中的表inner_notify、notify_staff_relat导出 
+	exp aichannel/aichannel@TESTDB2 file= d:datanewsmgnt.dmp tables=(inner_notify,notify_staff_relat) 
+	
+	4. 将数据库中的表table1中的字段filed1以"00"打头的数据导出 
+	exp system/manager@TEST file=d:daochu.dmp tables=(table1) query=" where filed1 like '00%'" 
+
+注意： 
+	操作者要有足够的权限，权限不够它会提示。 
+	数据库时可以连上的。可以用tnsping TEST 来获得数据库TEST能否连上。 
+
+附录一： 
+	给用户增加导入数据权限的操作 
+	第一	动sql*puls 
+	第二	以system/manager登陆 
+	第三	create user 用户名 IDENTIFIED BY 密码 （如果已经创建过用户，这步可以省略） 
+	第四	GRANT CREATE USER,DROP USER,ALTER USER,CREATE ANY VIEW,DROP ANY VIEW,EXP_FULL_DATABASE,IMP_FULL_DATABASE,DBA,CONNECT,RESOURCE,CREATE SESSION TO 用户名字 
+	第五, 运行-cmd-进入dmp文件所在的目录, 
+	imp userid=system/manager full=y file=*.dmp 
+	或者 imp userid=system/manager full=y file=filename.dmp 
+
+
+附录二： 
+	Oracle 不允许直接改变表的拥有者, 利用Export/Import可以达到这一目的. 
+	先建立import9.par, 
+	然后，使用时命令如下：imp parfile=/filepath/import9.par 
+	例 import9.par 内容如下： 
+	FROMUSER=TGPMS 
+	TOUSER=TGPMS2 （注：把表的拥有者由FROMUSER改为TOUSER，FROMUSER和TOUSER的用户可以不同） 
+	ROWS=Y 
+	INDEXES=Y 
+	GRANTS=Y 
+	CONSTRAINTS=Y 
+	BUFFER=409600 
+	file==/backup/ctgpc_20030623.dmp
+
+
+=== 创建用户并设置权限 ===================================================================================================================================================================
+
+1. 打开命令提示符
+
+2. sqlplus "/ as sysdba"
+
+3. 创建用户，命令：
+	 create user 用户名 identified by 密码;
+
+4. 设置权限，命令：
+   grant unlimited tablespace to 用户;
+   grant resource to 用户;
+	 grant dba to 用户;							  //授予用户DBA权限
+	 grant create session to 用户;		//授予用户用户创建session的权限，即登陆权限
+	 grant unlimited session to 用户;	//授予用户用户使用表空间的权限
+	 grant create table to 用户;			//授予创建表的权限
+	 grant drop table to 用户;				//授予删除表的权限
+　 grant insert table to 用户;      //插入表的权限
+	 grant update table to 用户;		  //修改表的权限
+   grant all to public;							//这条比较重要，授予所有权限(all)给所有用户(public)
+
+5. 查看权限，命令：
+   select * from user_sys_privs;		//查看当前用户所有权限
+　 select * from user_tab_privs;		//查看所用用户对表的权限
+
+
+	 

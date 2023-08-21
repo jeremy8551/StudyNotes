@@ -1,0 +1,4835 @@
+
+=== Oracle维护常用SQL语句 ===================================================================================================================================================================
+　　
+提要：
+1、查看表空间的名称及大小
+2、查看表空间物理文件的名称及大小
+3、查看回滚段名称及大小
+4、查看控制文件
+5、查看日志文件
+6、查看表空间的使用情况
+7、查看数据库库对象
+8、查看数据库的版本
+9、查看数据库的创建日期和归档方式
+10、捕捉运行很久的SQL
+11、查看数据表的参数信息
+12、查看还没提交的事务
+13、查找object为哪些进程所用
+14、回滚段查看
+15、耗资源的进程（top session）
+16、查看锁（lock）情况
+17、查看等待（wait）情况
+18、查看sga情况
+19、查看catched object
+20、查看V$SQLAREA
+21、查看object分类数量
+22、按用户查看object种类
+23、有关connection的相关信息
+　　1）查看有哪些用户连接
+　　2）根据v.sid查看对应连接的资源占用等情况
+　　3）根据sid查看对应连接正在运行的sql
+24、查询表空间使用情况
+25、查询表空间的碎片程度
+26、查询正在运行的数据库实例
+
+
+-- 监控数据库正在执行SQL：表 V$SQL
+select * from V$SQL where sql_text like '%CTR_LOAN_CONT%' order by last_active_time desc
+
+
+-- 查看表空间的名称及大小
+select 
+    t.tablespace_name, 
+    round(sum(bytes/(1024*1024)),0) ts_size 
+from 
+    dba_tablespaces t, 
+    dba_data_files d 
+where 
+    t.tablespace_name = d.tablespace_name
+group by t.tablespace_name
+;
+
+
+-- 查看表空间物理文件的名称及大小
+select 
+    tablespace_name, 
+    file_id, 
+    file_name,
+　　round(bytes/(1024*1024),0) total_space 
+from dba_data_files 
+order by tablespace_name
+;
+
+
+-- 查看回滚段名称及大小
+select 
+    segment_name, 
+    tablespace_name, r.status,
+    (initial_extent/1024) InitialExtent,
+    (next_extent/1024) NextExtent,
+　　max_extents, 
+    v.curext CurExtent 
+from 
+    dba_rollback_segs r, 
+    v$rollstat v 
+Where 
+    r.segment_id = v.usn(+) 
+order by segment_name 
+;
+
+
+-- 查看控制文件
+select name from v$controlfile;
+
+
+-- 查看日志文件
+select member from v$logfile;
+
+
+-- 查看表空间的使用情况
+select sum(bytes)/(1024*1024) as free_space,tablespace_name
+ from dba_free_space 
+group by tablespace_name;
+　　
+SELECT 
+    A.TABLESPACE_NAME,
+    A.BYTES TOTAL,
+    B.BYTES USED, 
+    C.BYTES FREE,
+　　(B.BYTES*100)/A.BYTES "% USED",
+     (C.BYTES*100)/A.BYTES "% FREE" 
+FROM 
+    SYS.SM$TS_AVAIL A,
+    SYS.SM$TS_USED B,
+    SYS.SM$TS_FREE C 
+WHERE 
+    A.TABLESPACE_NAME = B.TABLESPACE_NAME 
+AND A.TABLESPACE_NAME = C.TABLESPACE_NAME
+;
+　　
+-- 查看数据库库对象
+select 
+    owner, 
+    object_type, 
+    status, 
+    count(*) count# 
+from 
+    all_objects 
+group by owner, object_type, status
+;
+
+
+-- 查看数据库的版本
+select version FROM Product_component_version where SUBSTR(PRODUCT, 1, 6) = 'Oracle';
+
+
+-- 查看数据库的创建日期和归档方式
+select Created, Log_Mode, Log_Mode From V$Database;
+　　
+-- 捕捉运行很久的SQL
+　　column username format a12
+　　column opname format a16
+　　column progress format a8
+　　select username,sid,opname,
+　　round(sofar*100 / totalwork,0) || '%' as progress,
+　　time_remaining,sql_text
+　　from v$session_longops , v$sql
+　　where time_remaining <> 0
+　　and sql_address = address
+　　and sql_hash_value = hash_value
+　　/
+　　
+-- 查看数据表的参数信息
+SELECT partition_name, high_value, high_value_length, tablespace_name,
+　　pct_free, pct_used, ini_trans, max_trans, initial_extent,
+　　next_extent, min_extent, max_extent, pct_increase, FREELISTS,
+　　freelist_groups, LOGGING, BUFFER_POOL, num_rows, blocks,
+　　empty_blocks, avg_space, chain_cnt, avg_row_len, sample_size,
+　　last_analyzed
+　　FROM dba_tab_partitions
+　　--WHERE table_name = :tname AND table_owner = :towner
+　　ORDER BY partition_position
+;
+
+
+-- 查看还没提交的事务
+select * from v$locked_object;
+select * from v$transaction;
+   
+
+-- 查找object为哪些进程所用
+select
+p.spid,
+s.sid,
+s.serial# serial_num,
+s.username user_name,
+a.type object_type,
+s.osuser os_user_name,
+a.owner,
+a.object object_name,
+decode(sign(48 - command), 1, to_char(command), 'Action Code #' || to_char(command) ) action,
+p.program oracle_process,
+s.terminal terminal,
+s.program program,
+s.status session_status
+from v$session s, v$access a, v$process p
+where s.paddr = p.addr and
+s.type = 'USER' and
+a.sid = s.sid and
+a.object='SUBSCRIBER_ATTR'
+order by s.username, s.osuser
+;
+
+
+-- 回滚段查看
+select rownum, sys.dba_rollback_segs.segment_name Name, v$rollstat.extents
+Extents, v$rollstat.rssize Size_in_Bytes, v$rollstat.xacts XActs,
+v$rollstat.gets Gets, v$rollstat.waits Waits, v$rollstat.writes Writes,
+sys.dba_rollback_segs.status status from v$rollstat, sys.dba_rollback_segs,
+v$rollname where v$rollname.name(+) = sys.dba_rollback_segs.segment_name and
+v$rollstat.usn (+) = v$rollname.usn order by rownum
+
+
+-- 耗资源的进程（top session）
+select s.schemaname schema_name, decode(sign(48 - command), 1,
+to_char(command), 'Action Code #' || to_char(command) ) action, status
+session_status, s.osuser os_user_name, s.sid, p.spid , s.serial# serial_num,
+nvl(s.username, '[Oracle process]') user_name, s.terminal terminal,
+s.program program, st.value criteria_value from v$sesstat st, v$session s , v$process p
+where st.sid = s.sid and st.statistic# = to_number('38') and ('ALL' = 'ALL'
+or s.status = 'ALL') and p.addr = s.paddr order by st.value desc, p.spid asc, s.username asc, s.osuser asc
+
+
+-- 查看锁（lock）情况
+select /*+ RULE */ ls.osuser os_user_name, ls.username user_name,
+decode(ls.type, 'RW', 'Row wait enqueue lock', 'TM', 'DML enqueue lock', 'TX',
+'Transaction enqueue lock', 'UL', 'User supplied lock') lock_type,
+o.object_name object, decode(ls.lmode, 1, null, 2, 'Row Share', 3,
+'Row Exclusive', 4, 'Share', 5, 'Share Row Exclusive', 6, 'Exclusive', null)
+lock_mode, o.owner, ls.sid, ls.serial# serial_num, ls.id1, ls.id2
+from sys.dba_objects o, ( select s.osuser, s.username, l.type,
+l.lmode, s.sid, s.serial#, l.id1, l.id2 from v$session s,
+v$lock l where s.sid = l.sid ) ls where o.object_id = ls.id1 and o.owner
+<> 'SYS' order by o.owner, o.object_name
+
+
+-- 查看等待（wait）情况
+SELECT v$waitstat.class, v$waitstat.count count, SUM(v$sysstat.value) sum_value
+FROM v$waitstat, v$sysstat WHERE v$sysstat.name IN ('db block gets',
+'consistent gets') group by v$waitstat.class, v$waitstat.count
+
+
+-- 查看sga情况
+SELECT NAME, BYTES FROM SYS.V_$SGASTAT ORDER BY NAME ASC
+
+
+-- 查看catched object
+SELECT owner, name, db_link, namespace,
+type, sharable_mem, loads, executions,
+locks, pins, kept FROM v$db_object_cache
+
+
+-- 查看V$SQLAREA
+SELECT SQL_TEXT, SHARABLE_MEM, PERSISTENT_MEM, RUNTIME_MEM, SORTS,
+VERSION_COUNT, LOADED_VERSIONS, OPEN_VERSIONS, USERS_OPENING, EXECUTIONS,
+USERS_EXECUTING, LOADS, FIRST_LOAD_TIME, INVALIDATIONS, PARSE_CALLS, DISK_READS,
+BUFFER_GETS, ROWS_PROCESSED FROM V$SQLAREA
+
+
+-- 查看object分类数量
+select decode (o.type#,1,'INDEX' , 2,'TABLE' , 3 , 'CLUSTER' , 4, 'VIEW' , 5 ,
+'SYNONYM' , 6 , 'SEQUENCE' , 'OTHER' ) object_type , count(*) quantity from
+sys.obj$ o where o.type# > 1 group by decode (o.type#,1,'INDEX' , 2,'TABLE' , 3
+, 'CLUSTER' , 4, 'VIEW' , 5 , 'SYNONYM' , 6 , 'SEQUENCE' , 'OTHER' ) union select
+'COLUMN' , count(*) from sys.col$ union select 'DB LINK' , count(*) from
+
+
+-- 按用户查看object种类
+select u.name schema, sum(decode(o.type#, 1, 1, NULL)) indexes,
+sum(decode(o.type#, 2, 1, NULL)) tables, sum(decode(o.type#, 3, 1, NULL))
+clusters, sum(decode(o.type#, 4, 1, NULL)) views, sum(decode(o.type#, 5, 1,
+NULL)) synonyms, sum(decode(o.type#, 6, 1, NULL)) sequences,
+sum(decode(o.type#, 1, NULL, 2, NULL, 3, NULL, 4, NULL, 5, NULL, 6, NULL, 1))
+others from sys.obj$ o, sys.user$ u where o.type# >= 1 and u.user# =
+o.owner# and u.name <> 'PUBLIC' group by u.name order by
+sys.link$ union select 'CONSTRAINT' , count(*) from sys.con$
+
+
+-- 查看有哪些用户连接
+select 
+    s.osuser os_user_name, 
+    decode(sign(48 - command), 1, to_char(command), 'Action Code #' || to_char(command) ) action, 
+    p.program oracle_process,
+　　status session_status, 
+    s.terminal terminal, 
+    s.program program,
+    s.username user_name, 
+    s.fixed_table_sequence activity_meter, 
+    '' query,
+    0 memory, 
+    0 max_memory, 
+    0 cpu_usage, 
+    s.sid, 
+    s.serial# serial_num 
+from v$session s, 
+     v$process p 
+where 
+     s.paddr=p.addr  
+ and s.type = 'USER' 
+ order by s.username, s.osuser
+;
+
+-- 根据v.sid查看对应连接的资源占用等情况
+select 
+    n.name,
+　　v.value,
+　　n.class,
+　　n.statistic# 
+from 
+    v$statname n, 
+　　v$sesstat v 
+where v.sid = 71 
+  and v.statistic# = n.statistic# 
+order by n.class, n.statistic# 
+;
+
+-- 根据sid查看对应连接正在运行的sql
+select /*+ PUSH_SUBQ */
+    command_type,
+    sql_text,
+    sharable_mem,
+    persistent_mem,
+    runtime_mem,
+    sorts,
+    version_count,
+    loaded_versions,
+    open_versions,
+    users_opening,
+    executions,
+    users_executing,
+    loads,
+    first_load_time,
+    invalidations,
+    parse_calls,
+    disk_reads,
+    buffer_gets,
+    rows_processed,
+    sysdate start_time,
+    sysdate finish_time,
+    '>' || address sql_address,
+    'N' status
+    from v$sqlarea 
+    where address = (select sql_address from v$session where sid = 71)
+;
+
+-- 查询表空间的碎片程度
+select tablespace_name,count(tablespace_name) from dba_free_space group by tablespace_name having count(tablespace_name)>10;
+ alter tablespace name coalesce;
+ alter table name deallocate unused;
+ create or replace view ts_blocks_v as select tablespace_name,block_id,bytes,blocks,'free space' segment_name from dba_free_space
+union all
+    select tablespace_name,block_id,bytes,blocks,segment_name from dba_extents;
+    select * from ts_blocks_v;
+    select tablespace_name,sum(bytes),max(bytes),count(block_id) from dba_free_space group by tablespace_name;
+
+
+-- 查询表空间使用情况
+select a.tablespace_name "表空间名称",
+　　100-round((nvl(b.bytes_free,0)/a.bytes_alloc)*100,2) "占用率(%)",
+　　round(a.bytes_alloc/1024/1024,2) "容量(M)",
+　　round(nvl(b.bytes_free,0)/1024/1024,2) "空闲(M)",
+　　round((a.bytes_alloc-nvl(b.bytes_free,0))/1024/1024,2) "使用(M)",
+　　Largest "最大扩展段(M)",
+　　to_char(sysdate,'yyyy-mm-dd hh24:mi:ss') "采样时间"
+　　from (select f.tablespace_name,
+　　sum(f.bytes) bytes_alloc,
+　　sum(decode(f.autoextensible,'YES',f.maxbytes,'NO',f.bytes)) maxbytes
+　　from dba_data_files f
+　　group by tablespace_name) a,
+　　(select f.tablespace_name,
+　　sum(f.bytes) bytes_free
+　　from dba_free_space f
+　　group by tablespace_name) b,
+　　(select round(max(ff.length)*16/1024,2) Largest,
+　　ts.name tablespace_name
+　　from sys.fet$ ff, sys.file$ tf,sys.ts$ ts
+　　where ts.ts#=ff.ts# and ff.file#=tf.relfile# and ts.ts#=tf.ts#
+　　group by ts.name, tf.blocks) c
+　　where a.tablespace_name = b.tablespace_name and a.tablespace_name = c.tablespace_name;
+
+
+
+=== 函数（日期函数） ===================================================================================================================================================================
+
+SQL> select sysdate from dual;
+    
+    SYSDATE
+    --------------
+    04-12月-10
+
+SQL> select current_date from dual;
+
+    CURRENT_DATE
+    --------------
+    04-12月-10
+
+SQL> alter session set NLS_DATE_FORMAT='dd-mon-yyyy hh:mi:ss';
+
+    会话已更改、
+
+    SQL> select sysdate from dual;
+
+    SYSDATE
+    -------------------------
+    04-12月-2010 11:30:37
+
+    SQL> select current_date from dual;
+    
+    CURRENT_DATE
+    -------------------------
+    04-12月-2010 11:30:42
+
+SQL> select next_day(sysdate,'星期一') as n from dual;
+
+    N
+    -------------------------
+    06-12月-2010 11:34:13
+
+
+=== 函数（转换函数） ===================================================================================================================================================================
+
+to_char,to_date,to_number
+
+SQL> select to_char(sysdate,'yyyy-mm-dd hh24:mi:ss') from dual;
+
+    TO_CHAR(SYSDATE,'YY
+    -------------------
+    2010-12-04 11:37:32
+
+
+SQL> select to_date('4-12月-10') from dual;
+     to_date('1900-01-01','yyyy-mm-dd') + rq
+
+    TO_DATE('4-12月-10')
+    -------------------------
+    04-12月-0010 12:00:00
+
+
+SQL> select to_number('410') from dual;
+
+    TO_NUMBER('410')
+    ----------------
+                410
+
+SQL> select to_number('000410') from dual;
+
+    TO_NUMBER('000410')
+    -------------------
+                   410
+
+
+
+=== 函数（聚集函数） ===================================================================================================================================================================
+
+sum , avg , max , min ,count 
+
+SQL> select sum(price) from books;
+
+    SUM(PRICE)
+    ----------
+          233
+          
+SQL> select max(price) from books;
+
+    MAX(PRICE)
+    ----------
+         54.7
+
+SQL> select min(price) from books;
+    
+    MIN(PRICE)
+    ----------
+            6
+
+SQL> select avg(price) from books;
+    
+    AVG(PRICE)
+    ----------
+    33.2857143
+
+SQL> select count(price) from books;
+    
+    COUNT(PRICE)
+    ------------
+              7
+
+SQL> commit;
+
+    提交完成、
+
+SQL> select * from aa;
+    
+    A1         A2         A3
+    ---------- ---------- ----------
+    avx        ssw        aa
+    avx        swx        aa
+    aeex       ddswx      aa
+    esd
+    ddd                   er
+    ee         ssss       ee
+    
+    已选择6行、
+
+SQL> select count(*) from aa;
+
+     COUNT(*)
+    ----------
+            6
+
+SQL> select count(a2) from aa;
+
+    COUNT(A2)
+    ----------
+            4
+
+
+
+=== Oracle系统视图 ===================================================================================================================================================================
+
+--dba视图
+
+　　select * from dba_data_files   --指定表空间的数据文件及所在的路径
+　　select * from dba_free_space   --指定表空间的剩余空间
+　　select * from dba_users        --找出当前数据库实例中的所有用户
+　　select * from dba_segments     --找出当前数据库实例中的所有对象的物理信息，如：所占空间、pctincrease等
+　　select * from dba_tab_columns  --指定所有表对应的列名
+　　select * from dba_col_comments --指定所有列的注释信息
+　　select * from dba_tablespaces  --列出所有的表空间及相关信息
+　　select * from dba_tab_partitions --所有表分区的信息
+　　select * from dba_ind_columns   --显示所有的被索引的列
+　　select * from dba_indexes       --显示所有的索引信息
+　　select * from dba_jobs          --显示所有的job信息
+　　select * from dba_jobs_running  --显示正在运行的job信息
+
+
+---v$视图
+
+　　select * from v$session        --显示当前所有的session信息
+　　
+   v$lock视图
+　　反映内容：该视图展示当前保持的锁信息；
+　　名称                                                类型                                      说明部分
+　　-----------------------------------------  ----------------------------    ********************************
+　　ADDR                                               RAW(4)                      //锁状态对象地址
+　　KADDR                                              RAW(4)                      //锁地址
+　　SID                                                NUMBER                      //保持锁的会话的会话标识符
+　　TYPE                                               VARCHAR2(2)                 //锁类型 TM:dml排队TX:事务排队UL:用户提供
+　　ID1                                                NUMBER                      //锁标示1
+　　ID2                                                NUMBER                      //锁标示2
+　　LMODE                                              NUMBER                      //会话保持的锁的模式 0，1，2，3，4，5，6
+　　REQUEST                                            NUMBER                      //进程请求锁定时所处的模式
+　　CTIME                                              NUMBER                      //当前的锁模式所消耗的时间
+　　BLOCK                                              NUMBER                      //阻塞其他锁
+
+　　0，1，2，3，4，5，6解释：0代表无，1代表空(null)，2代表行(ss)，3代表行(sx)，4共享S，5S/行X(SSX)，6独占；
+　　通过这个视图你能初步了解锁的模式，从而判断锁会出现的地方；
+
+　　2. v$PROCESS视图
+　　放映内容：包含有关当前活动进程的信息；
+　　SQL> desc v$process
+　　名称                                               类型                                     说明部分
+　　-----------------------------------------  ----------------------------      ********************************
+　　ADDR                                               RAW(4)                       //进程对象状态地址
+　　PID                                                NUMBER                       //oracle进程标识符，类似于序号
+　　SPID                                               VARCHAR2(12)                 //操作系统进程标识符，可以用来和操作系统进程联系
+　　USERNAME                                           VARCHAR2(15)                 //操作系统进程用户名
+　　SERIAL#                                            NUMBER                       //进程序列号
+　　TERMINAL                                           VARCHAR2(16)                 //操作系统终端标示符
+　　PROGRAM                                            VARCHAR2(64)                 //进程中的程序
+　　TRACEID                                            VARCHAR2(255)                //跟踪文件标识符
+　　BACKGROUND                                         VARCHAR2(1)                  //1表示后台进程，null表示其它
+　　LATCHWAIT                                          VARCHAR2(8)                  //进程正在等待锁的地址；如果该值为n/a，则锁地址为null
+　　LATCHSPIN                                          VARCHAR2(8)                  //进程正在轮循的锁的地址，如果该职位n/a，则为地址nill
+　　PGA_USED_MEM                                       NUMBER                       //当前正在使用的pga内存
+　　PGA_ALLOC_MEM                                      NUMBER                       //当前已经分配的pga内存
+　　PGA_FREEABLE_MEM                                   NUMBER                       //可以释放的已分配的pga内存
+　　PGA_MAX_MEM                                        NUMBER                       //曾经需要的最大的最大pga内存
+
+　　这个视图分很有用，可以和操做系统联系，这样用来诊断跟踪顶级系统资源使用很有益处、这里就可以有个案例，经常用到的，通过消耗资源做大的系统进程号的到执行的sql语句，需要结合v$session视图一起来完成；
+
+　　3.v$session
+　　反映内容：列出连接到实例的会话，这个视图有非常多的信息字段也比较多、
+　　SQL> desc v$session
+　　名称                                               类型
+　　----------------------------------------- -------------
+　　SADDR                                          RAW(4)                    session地址
+　　SID                                            NUMBER                    session标识符
+　　SERIAL#                                        NUMBER                    session会话序列号
+　　AUDSID                                         NUMBER                    审计的会话id
+　　PADDR                                          RAW(4)                    拥有该会话的oracle进程号和v$process联系
+　　USER#                                          NUMBER                    oracle用户
+　　USERNAME                                       VARCHAR2(30)              oracle用户名
+　　COMMAND                                        NUMBER                    执行的命令
+　　OWNERID                                        NUMBER                    会话的所有者
+　　TADDR                                          VARCHAR2(8)               事务地址
+　　LOCKWAIT                                       VARCHAR2(8)               锁等待地址，null if none
+　　STATUS                                         VARCHAR2(8)               会话的状态：active,inactive,killed,cached,sniped
+　　SERVER                                         VARCHAR2(9)               服务的类型，共享还是专用服务器
+　　SCHEMA#                                        NUMBER                    用户标示模式
+　　SCHEMANAME                                     VARCHAR2(30)              用户模式名称
+　　OSUSER                                         VARCHAR2(30)              客户端操作系统名称
+　　PROCESS                                        VARCHAR2(12)              操作系统客户端进程号
+　　MACHINE                                        VARCHAR2(64)              操作系统机器名称
+　　TERMINAL                                       VARCHAR2(16)              操作系统终端名
+　　PROGRAM                                        VARCHAR2(64)              操作系统程序名
+　　TYPE                                           VARCHAR2(10)              session种类
+　　SQL_ADDRESS                                    RAW(4)                    当前回话识别目前执行的sql语句的表示地址
+　　SQL_HASH_VALUE                                 NUMBER                    和sql_address一起唯一标示一条执行的sql语句
+　　SQL_ID                                         VARCHAR2(13)              目前被执行的sql语句的标识符
+　　SQL_CHILD_NUMBER                               NUMBER                    目前被执行的sql语句的子句数量
+　　PREV_SQL_ADDR                                  RAW(4)                    与sql_hash_value一起标示上一条被执行的sql语句
+　　PREV_HASH_VALUE                                NUMBER                    与PREV_SQL_ADDR 一起表示上一条被执行的sql语句
+　　PREV_SQL_ID                                    VARCHAR2(13)              前一条被执行的sql语句
+　　PREV_CHILD_NUMBER                              NUMBER                    上一条被执行的sql的子句数量
+　　MODULE                                         VARCHAR2(48)              这个没太懂，oracle文档上面的解释比较清楚
+　　MODULE_HASH                                    NUMBER                    这是针对上面一个字段的hash value
+　　ACTION                                         VARCHAR2(32)              当前 正在执行被DBMS_APPLICATION_INFO.SET_ACTION procedure调用名称
+　　ACTION_HASH                                    NUMBER                    针对上一字段name的hash value
+　　CLIENT_INFO                                    VARCHAR2(64)              由APPLICATION_INFO.SET_ACTION procedure设定的过程名
+　　FIXED_TABLE_SEQUENCE                           NUMBER                    oracle文档有着详细的解释session活动增长记录，最好再去看oracle文档
+　　ROW_WAIT_OBJ#                                  NUMBER                    对象id，对象是table包含行源数据在OW_WAIT_ROW#中的id标识符
+　　ROW_WAIT_FILE#                                 NUMBER                    标示数据文件，等待在OW_WAIT_ROW#中的row，这些行包含在这些数据文件中
+　　ROW_WAIT_BLOCK#                                NUMBER                    表示数据块，这些数据块中行源等待在OW_WAIT_ROW#中
+　　ROW_WAIT_ROW#                                  NUMBER                    目前被锁定的行
+　　LOGON_TIME                                     DATE                      time of logon
+　　LAST_CALL_ET                                   NUMBER      当前session为active时 记录的是session是session编程active状态来的运行时间，相反则为inactive的时间
+　　PDML_ENABLED                                   VARCHAR2(3)               已经被PDML_STATUS字段所取代
+　　FAILOVER_TYPE                                  VARCHAR2(13)
+
+　  这是oracle文档对以上这个字段的解释：
+　　Indicates whether and to what extent transparent application failover
+　　(TAF) is enabled for the session:
+　　■ NONE - Failover is disabled for this session
+　　■ SESSION - Client is able to fail over its session following a disconnect
+　　■ SELECT - Client is able to fail over queries in progress as well
+　　See Also:
+　　■ Oracle Database Concepts for more information on TAF
+　　■ Oracle Database Net Services Administrator's Guide for information on
+　　configuring TAF
+　　FAILOVER_METHOD                 VARCHAR2(10)
+　　oracle文档的解释：
+　　Indicates the transparent application failover method for the session:
+　　■ NONE - Failover is disabled for this session
+　　■ BASIC - Client itself reconnects following a disconnect
+　　■ PRECONNECT - Backup instance can support all connections from
+　　every instance for which it is backed up
+　　FAILED_OVER                          VARCHAR2(3)         //判定是否session已经处于失败状态，yes或者no
+　　RESOURCE_CONSUMER_GROUP                   VARCHAR2(32)          当前session用户的源数据组
+　　PDML_STATUS                        VARCHAR2(8)
+　　oracle的文档解释：
+　　If ENABLED, the session is in a PARALLEL DML enabled mode. If
+　　DISABLED, PARALLEL DML enabled mode is not supported for the
+　　session. If FORCED, the session has been altered to force PARALLEL DML.
+　　PDDL_STATUS                        VARCHAR2(8)
+　　oracle文档解释：
+　　If ENABLED, the session is in a PARALLEL DDL enabled mode. If
+　　DISABLED, PARALLEL DDL enabled mode is not supported for the
+　　session. If FORCED, the session has been altered to force PARALLEL DDL
+　　PQ_STATUS                       VARCHAR2(8)
+　　oracle文档解释：
+　　If ENABLED, the session is in a PARALLEL QUERY enabled mode. If
+　　DISABLED, PARALLEL QUERY enabled mode is not supported for the
+　　session. If FORCED, the session has been altered to force PARALLEL
+　　QUERY.
+　　CURRENT_QUEUE_DURATION              NUMBER         if 1则session已经在队列中，if 0 则还未形成排队
+　　CLIENT_IDENTIFIER                  VARCHAR2(64)       客户端session标识符
+　　BLOCKING_SESSION_STATUS               VARCHAR2(11)
+　　oracle文档资料注解：
+　　Blocking session status:
+　　■ VALID
+　　■ NO HOLDER
+　　■ GLOBAL
+　　■ NOT IN WAIT
+　　■ UNKNOWN
+　　BLOCKING_INSTANCE                NUMBER          模块化的实例标识符
+　　BLOCKING_SESSION                 NUMBER          模块化的session标识符
+　　SEQ#                             NUMBER          不唯一的标示每个等待的序列号
+　　EVENT#                           NUMBER          事件数量
+　　EVENT                            VARCHAR2(64)    oracle的session正在等待的数据或者事件
+　　P1TEXT                           VARCHAR2(64)    首个附加参数的描述
+　　P1                               NUMBER          首个附加参数
+　　P1RAW                            RAW(4)          首个附加参数和前一个区别我还不是很懂
+　　P2TEXT                           VARCHAR2(64)    第二个附加参数的描述
+　　P2                               NUMBER          第二个附加参数
+　　P2RAW                            RAW(4)          第二个附加参数
+　　P3TEXT                           VARCHAR2(64)    第三个附加参数的描述
+　　P3                               NUMBER          第三个附加参数
+　　P3RAW                            RAW(4)          第三个附加参数
+　　WAIT_CLASS_ID                    NUMBER          标记等待事件种类
+　　WAIT_CLASS#                      NUMBER          等待事件的种类
+　　WAIT_CLASS                       VARCHAR2(64)    等待事件的名称
+　　WAIT_TIME                        NUMBER          非0代表上一次session上次等待时间，0代表session当前正在等待
+　　SECONDS_IN_WAIT                  NUMBER
+
+oracle文档的资料：
+　　If WAIT_TIME = 0, then SECONDS_IN_WAIT is the seconds spent in the
+　　current wait condition. If WAIT_TIME > 0, then SECONDS_IN_WAIT is the
+　　seconds since the start of the last wait, and SECONDS_IN_WAIT - WAIT_
+　　TIME / 100 is the active seconds since the last wait ended.
+　STATE                VARCHAR2(19)
+　　oracle资料文档：
+　　Wait state:
+　　■ 0 - WAITING (the session is currently waiting)
+　　■ -2 - WAITED UNKNOWN TIME (duration of last wait is unknown)
+　　■ -1 - WAITED SHORT TIME (last wait <1/100th of a second)
+　　■ >0 - WAITED KNOWN TIME (WAIT_TIME = duration of last wait)
+　　SERVICE_NAME                   VARCHAR2(64)        session的服务名称
+　　SQL_TRACE                      VARCHAR2(8)         标示sql是否能被跟踪
+　　SQL_TRACE_WAITS                VARCHAR2(5)         标记是否等待事件被跟踪
+　　SQL_TRACE_BINDS                VARCHAR2(5)         标记是否绑定跟踪可用与否
+
+　　4.v$SQL
+　　反映内容：包括查询游标等级的详细信息，可以用来找到负责解析游标的会话或者人；同样也有着繁多的信息字段，我下面只拿出一些常用的关键的列：
+　　SQL> desc v$sql;
+　　名称                                                类型
+　　-----------------------------------------  ------------
+　　SQL_TEXT                                     VARCHAR2(1000）     sql语句的前1千个字符
+　　SQL_FULLTEXT                                 CLOB                sql语句的全部分，作为一个clob字段
+　　SQL_ID                                       VARCHAR2(13)        sql与在liberary cache中的parent cursor的标识符
+　　SHARABLE_MEM                                 NUMBER              被子cursor所使用的共享内存的和bytes
+　　PERSISTENT_MEM                               NUMBER              整个生命周期child cursor所使用的固定内存的大小bytes
+　　USERS_OPENING                                NUMBER
+　　FETCHES                                      NUMBER              这条sql语句返回的数据行数量
+　　EXECUTIONS                                   NUMBER              library cache中这条sql语句被执行的次数
+　　USERS_EXECUTING                              NUMBER              执行这条sql语句的用户的数量
+　　LOADS                                        NUMBER              sql或者object被装载load或者被reloaded次数
+　　FIRST_LOAD_TIME                              VARCHAR2(38)        parent cursor创建的时间
+　　INVALIDATIONS                                NUMBER              this child cursor 曾经无效的数量
+　　PARSE_CALLS                                  NUMBER              做语法分析调用child cursor的次数
+　　DISK_READS                                   NUMBER              直接做磁盘读取的次数
+　　DIRECT_WRITES                                NUMBER              直接做磁盘写的次数
+　　BUFFER_GETS                                  NUMBER              逻辑读次数
+　　APPLICATION_WAIT_TIME                        NUMBER              应用等待时间 单位微秒
+　　CLUSTER_WAIT_TIME                            NUMBER              集群等待时间 单位微妙
+　　USER_IO_WAIT_TIME                            NUMBER              用户由于I/O造成等待时间
+　　PLSQL_EXEC_TIME                              NUMBER              plsql程序执行时间 单位微秒
+　　ROWS_PROCESSED                               NUMBER              通过语法分析的sql返回的数据总行数
+　　OPTIMIZER_MODE                               VARCHAR2(10)        优化器选择方式
+　　OPTIMIZER_COST                               NUMBER              采用上面指定优化器所要花费的代价
+　　HASH_VALUE                                   NUMBER              Hash value of the parent statement in the library cache
+　　SERVICE                                      VARCHAR2(64)        服务名，能够知道是oracle用户进程做得还是oracle后台进程
+　　CPU_TIME                                     NUMBER              CPU time (in microseconds) used by this cursor for parsing, executing,and fetching
+　　ELAPSED_TIME                                 NUMBER              用在解析，分析，取回返回数据所使用的总的时间
+　　REMOTE                                       VARCHAR2(1)         是否是远程调用
+　　LAST_LOAD_TIME                               VARCHAR2(38)        上次加载时间
+　　CHILD_LATCH                                  NUMBER              受保护的子闩锁数量
+　　LAST_ACTIVE_TIME                             DATE                上次活动时间
+　　BIND_DATA                                    RAW(2000)           绑定数据
+
+　　这个视图，你能很容易的得到造成过多的解析、物理读、物理写、逻辑读等待sql语句；对于查找低效率sql语句很方便；
+
+　　5、v$event_name
+　　反映内容：所有等待事件以及相关参数(p1-p3的定义)，没有全部写出来，只写了最重要的字段
+　　SQL> desc v$event_name
+　　名称                                                               类型
+　　-----------------------------------------------------   --------------------
+　　EVENT#                                                         NUMBER             该事件的引用编号
+　　EVENT_ID                                                       NUMBER             该事件的标识符
+　　NAME                                                           VARCHAR2(64)       oracle针对次事件的名称
+　　PARAMETER1                                                     VARCHAR2(64)       P1信息的描述
+　　PARAMETER2                                                     VARCHAR2(64)       P2信息的描述
+　　PARAMETER3                                                     VARCHAR2(64)       P3信息的描述
+
+　　6、V$session_event
+　　反映的内容：最近的所有等待事件的统计信息
+　　SQL> desc v$session_event
+　　名称                           类型
+　　-----------------------      --------
+　　SID                              NUMBER            标识符
+　　EVENT                            VARCHAR2(64)      该事件的名称
+　　TOTAL_WAITS                      NUMBER            该会话总的等待次数
+　　TOTAL_TIMEOUTS                   NUMBER            该会话在等待事件期间遇到的超时次数
+　　TIME_WAITED                      NUMBER            该会话等待该事件所消耗的总时间单位0.01秒
+　　AVERAGE_WAIT                     NUMBER            该会话等待该事件所消耗平均等待时间0.01秒
+　　MAX_WAIT                         NUMBER            进程必须等待该事件的最大时间总值单位0.01秒
+　　EVENT_ID                         NUMBER            等待事件的唯一标识符对应V$event_name表
+
+　　通过这个动态性能视图，你应该很容易了解到最近常常发生的等待事件的大体情况；
+
+　　7、v$session_wait
+　　反映的内容：提供了当前会话的当前等待事件的详细信息
+　　SQL> desc v$session_wait
+　　名称                    是否为空? 类型
+　　----------------------- -------- ----------------
+　　SID                              NUMBER               唯一表示符
+　　SEQ#                             NUMBER               等待次序的计数器，进程每开始一次新的等待就就增加1
+　　EVENT                            VARCHAR2(64)         Resource or event for which the session is waiting
+　　P1TEXT                           VARCHAR2(64)         等待事件P1参数名称
+　　P1                               NUMBER               p1的值
+　　P1RAW                            RAW(4)               p1参数2进制值
+　　P2TEXT                           VARCHAR2(64)         等待事件P2参数名称
+　　P2                               NUMBER               p2的值
+　　P2RAW                            RAW(4)               p2参数2进制值
+　　P3TEXT                           VARCHAR2(64)         等待事件P3参数名称
+　　P3                               NUMBER               p3的值
+　　P3RAW                            RAW(4)               p3参数2进制值
+　　WAIT_TIME                        NUMBER               上一次等待持续的时间单位0.01秒
+　　SECONDS_IN_WAIT                  NUMBER               等待时间单位秒
+　　STATE                            VARCHAR2(19)         指出进程是已经完成了等待还是还在等待
+
+　　比如：
+　　SQL> select event name,p1text p1name,p1 p1value from v$session_wait;
+　　NAME                           P1NAME               P1VALUE
+　　------------------------------ --------------- ------------
+　　jobq slave wait                                           0
+　　SQL*Net message from client    driver id         1111838976
+　　Streams AQ: qmn slave idle wai                            0
+　　t
+　　Streams AQ: qmn coordinator id                            0
+　　le wait
+　　Streams AQ: waiting for time m                            0
+　　anagement or cleanup tasks
+　　rdbms ipc message              timeout                  100
+　　rdbms ipc message              timeout                  300
+　　rdbms ipc message              timeout                  500
+
+　　很容易看到当前等待事件的情况；
+
+　　8、v$system_event
+　　反映的内容：列出自从实例启动以来的等待事件的统计信息
+　　SQL> desc v$system_event
+　　名称                       类型
+　　----------------------- -------------------
+　　EVENT                            VARCHAR2(64)   等待事件的名称
+　　TOTAL_WAITS                      NUMBER         次等待事件的总的等待次数
+　　TOTAL_TIMEOUTS                   NUMBER         总的超时等待事件的次数
+　　TIME_WAITED                      NUMBER         等待事件的总的等待时间
+　　AVERAGE_WAIT                     NUMBER         平均等待时间单位0.01s
+　　EVENT_ID                         NUMBER         等待事件的唯一标示符 和v$event_name中的对应
+
+　　9、dba_tables
+　反映内容：记录数据库表所有信息，这里我也只是列出用于性能测试多的字段
+　　SQL> desc dba_tables;
+　　名称                        类型
+　　-----------------------  -------------
+　　OWNER                   NOT NULL VARCHAR2(30)    所有者
+　　TABLE_NAME              NOT NULL VARCHAR2(30)    表名
+　　TABLESPACE_NAME                  VARCHAR2(30)    表所在的表空间名
+　　CLUSTER_NAME                     VARCHAR2(30)    所在集群的名称
+　　PCT_FREE                         NUMBER          数据块允许空闲的最小百分比
+　　PCT_USED                         NUMBER          数据块允许使用的最大百分比
+　　MAX_TRANS                        NUMBER          最大事务数
+　　FREELISTS                        NUMBER          被分配给段的空闲进程数量
+　　LOGGING                          VARCHAR2(3)     是否记录日志生成重做日志记录
+　　NUM_ROWS                         NUMBER          总共有多少行数据记录
+　　BLOCKS                           NUMBER          此表使用的块数
+　　EMPTY_BLOCKS                     NUMBER          表中从来不没有被使用的空块
+　　AVG_SPACE                        NUMBER          表中平均可用空闲空间
+　　AVG_SPACE_FREELIST_BLOC          NUMBER          Average freespace of all blocks on a freelist
+　　NUM_FREELIST_BLOCKS              NUMBER          空闲列表的块数
+　　CACHE                            VARCHAR2(5)     检查表是否被cache到buffer中
+　　TABLE_LOCK                       VARCHAR2(8)     表名表是正在否被锁定
+　　SAMPLE_SIZE                      NUMBER          表被分析的比例或者数量
+　　LAST_ANALYZED                    DATE            表上一次被分析的时间点
+　　NESTED                           VARCHAR2(3)     表是否嵌套
+　　BUFFER_POOL                      VARCHAR2(7)     buffer_pool中被用于表块的default、keep、recycle
+　　MONITORING                       VARCHAR2(3)     表名表是否正被监控
+
+
+这个视图非常的有用，一般可以用来作为健康检查，检查数据库表的分析情况等，对于oracle9以后的版本都推荐使用基于成本的优化器cbo，基于规则的优化器逐渐被放弃了，所以分析的了解很重要：
+　　如下：
+　　TABLE_NAME                     TABLESPACE_NAME                  PCT_FREE   PCT_USED   NUM_ROWS BUFFER_ SAMPLE_SIZE LAST_ANALYZED
+　　------------------------------ ------------------------------ ---------- ---------- ---------- ------- ----------- --------------
+　　LT_LHT_COUNT                   LHT_BBS_SPACE                          10                     8 DEFAULT           8 24-6月 -09
+　　LT_LHT_CYXX                    LHT_BBS_SPACE                          10                    26 DEFAULT          26 24-6月 -09
+　　LT_LHT_FLBK                    LHT_BBS_SPACE                          10                     7 DEFAULT           7 24-6月 -09
+　　LT_LHT_SORT                    LHT_BBS_SPACE                          10                     3 DEFAULT           3 24-6月 -09
+　　LT_LHT_STYLE                   LHT_BBS_SPACE                          10                    15 DEFAULT          15 24-6月 -09
+　　LT_LHT_XTYH                    LHT_BBS_SPACE                          10                     6 DEFAULT           6 24-6月 -09
+　　LT_LHT_ZCYH                    LHT_BBS_SPACE                          10                    36 DEFAULT          36 24-6月 -09
+　　LT_LHT_FT                      LHT_BBS_SPACE                          10                    24 DEFAULT          24 24-6月 -09
+　　LT_LHT_HT                      LHT_BBS_SPACE                          10                    21 DEFAULT          21 24-6月 -09
+　　TEST                           LHT_BBS_SPACE                          10                     0 DEFAULT           0 29-6月 -09
+　　TEST_LOG                       LHT_BBS_SPACE                          10                     6 DEFAULT           6 29-6月 -09
+
+　　可以清晰的了解到裱褙分析的情况，如果LAST_ANALYZED没有值或者时间很早了，那就必须重新的分析这张表得到更为准确统计信 息，SAMPLE_SIZE代表分析的采样值，如果不合理也可以在分析的时候作调整，这些检查有利于却确定基于成本的优化器能够按照最优化的路经化最小的 成本来完成操作和响应、
+　既然对于dba_tables有这样应用，那么dba_indexes也就有同样的使用方式了，索引和表达大同小异就不再说了、
+
+　　9、V$SGA_TARGET_ADVICE
+　　采用动态sga内存管理，但是你希望能知道如何设置这个最大大小才合适呢，那可以采用这个视图；
+　　SQL> desc V$SGA_TARGET_ADVICE
+　　名称                         类型
+　　----------------------- ------------------------
+ 　SGA_SIZE                         NUMBER            sga大小
+　　SGA_SIZE_FACTOR                  NUMBER            此表中的sga_size和当前的parameter中的sga大小的比值
+　　ESTD_DB_TIME                     NUMBER
+　　ESTD_DB_TIME_FACTOR              NUMBER
+　　ESTD_PHYSICAL_READS              NUMBER            估计的物理读的次数
+
+　　比如：
+　　SQL> select sga_size,sga_size_factor,estd_db_time,estd_db_time_factor,estd_physical_reads from V$SGA_TARGET_ADVICE;
+　　SGA_SIZE SGA_SIZE_FACTOR ESTD_DB_TIME ESTD_DB_TIME_FACTOR ESTD_PHYSICAL_READS
+　　---------- --------------- ------------ ------------------- -------------------
+　　276               1          154                   1               10828
+　　138              .5          191              1.2403               12666
+　　207             .75          154                   1               10828
+　　552               2          154                   1               10828
+　　414             1.5          154                   1               10828
+　　483            1.75          154                   1               10828
+　　345            1.25          154                   1               10828
+　　已选择7行、
+　　可以发现当sga设置为207M或者更大的时候就没有性能上的提升了，所以最大也就设置为207左右是比较合适的、
+
+　　10、 V$pga_TARGET_ADVICE
+　　结合9的sga设置pga的pga_target_max设置同样可以采用这样的方式；
+　　SQL> desc V$pga_TARGET_ADVICE
+　　名称                                                       类型
+　　-----------------------------------------          --------------------------
+　　PGA_TARGET_FOR_ESTIMATE                            NUMBER                      pga设置大小bytes
+　　PGA_TARGET_FACTOR                                  NUMBER                      与当前parameter中设置的值的比例
+　　ADVICE_STATUS                                      VARCHAR2(3)                 表名advice是否课可采用on/off，取决于STATISTICS_LEVEL
+　　BYTES_PROCESSED                                    NUMBER                      被所有的进程所占用的资源bytes
+　　ESTD_EXTRA_BYTES_RW                                NUMBER                      被估计的用于读和写的资源占用
+　　ESTD_PGA_CACHE_HIT_PERCENTAGE                      NUMBER                      估计的命中率，当PGA_TARGET_FOR_ESTIMATE等于实际设置的pgaparameter时
+　　ESTD_OVERALLOC_COUNT                               NUMBER                      这里的值如果为零表示pga设置足够大，非零说明pga的设置不是足够大的
+
+　　QL> select * from  V$pga_TARGET_ADVICE;
+　　GA_TARGET_FOR_ESTIMATE PGA_TARGET_FACTOR ADV BYTES_PROCESSED ESTD_EXTRA_BYTES_RW ESTD_PGA_CACHE_HIT_PERCENTAGE ESTD_OVERALLOC_COUT
+　　---------------------- ----------------- --- --------------- ------------------- ----------------------------- ------------------
+　　11927552              .125 ON        202396672             6168576                            974
+　　23855104               .25 ON        202396672                   0                           1000
+　　47710208                .5 ON        202396672                   0                           100
+　
+
+
+
+
+
+
+
+
+1.1查看控制文件
+
+SQL> desc v$controlfile
+名称                                      是否为空 类型
+----------------------------------------- -------- ----------------------------
+STATUS                                             VARCHAR2(7)
+NAME                                               VARCHAR2(513)
+IS_RECOVERY_DEST_FILE                              VARCHAR2(3)
+BLOCK_SIZE                                         NUMBER
+FILE_SIZE_BLKS                                     NUMBER
+
+SQL> select * from v$controlfile;
+
+1.2查看数据文件
+
+SQL> desc v$datafile;
+名称                                      是否为空 类型
+----------------------------------------- -------- ----------------------------
+FILE#                                              NUMBER
+CREATION_CHANGE#                                   NUMBER
+CREATION_TIME                                      DATE
+TS#                                                NUMBER
+RFILE#                                             NUMBER
+STATUS                                             VARCHAR2(7)
+ENABLED                                            VARCHAR2(10)
+CHECKPOINT_CHANGE#                                 NUMBER
+CHECKPOINT_TIME                                    DATE
+UNRECOVERABLE_CHANGE#                              NUMBER
+UNRECOVERABLE_TIME                                 DATE
+LAST_CHANGE#                                       NUMBER
+LAST_TIME                                          DATE
+OFFLINE_CHANGE#                                    NUMBER
+ONLINE_CHANGE#                                     NUMBER
+ONLINE_TIME                                        DATE
+BYTES                                              NUMBER
+BLOCKS                                             NUMBER
+CREATE_BYTES                                       NUMBER
+BLOCK_SIZE                                         NUMBER
+NAME                                               VARCHAR2(513)
+PLUGGED_IN                                         NUMBER
+BLOCK1_OFFSET                                      NUMBER
+AUX_NAME                                           VARCHAR2(513)
+FIRST_NONLOGGED_SCN                                NUMBER
+FIRST_NONLOGGED_TIME                               DATE
+
+SQL> select file#,status from v$datafile;
+
+    FILE# STATUS
+---------- -------
+        1 SYSTEM
+        2 ONLINE
+        3 ONLINE
+        4 ONLINE
+        5 ONLINE
+        
+        
+
+
+1.5使用替代变量
+SQL> select * from dept where deptno=&tt;
+输入 tt 的值:  10
+原值    1: select * from dept where deptno=&tt
+新值    1: select * from dept where deptno=10
+
+   DEPTNO DNAME          LOC
+---------- -------------- -------------
+       10 ACCOUNTING     NEW YORK
+
+1.5 查看、修改、执行缓冲区的sql
+查看：list(简写 l )
+修改：c
+执行：/
+
+SQL> l
+ 1* select * fron dept
+SQL> c/n/m
+ 1* select * from dept
+SQL> /
+
+   DEPTNO DNAME          LOC
+---------- -------------- -------------
+       10 ACCOUNTING     NEW YORK
+       20 RESEARCH       DALLAS
+       30 SALES          CHICAGO
+       40 OPERATIONS     BOSTON
+
+1.6 删除和追加 缓冲区的sql
+
+删除：
+SQL> l
+ 1  select *
+ 2  from
+ 3  dept
+ 4* where deptno=10
+SQL> del 4
+SQL> l
+ 1  select *
+ 2  from
+ 3* dept
+SQL> del 2 3
+SQL> l
+ 1* select *
+
+追加：
+SQL> l
+ 1* select *
+SQL> a from dept
+ 1* select *from dept
+SQL> /
+
+   DEPTNO DNAME          LOC
+---------- -------------- -------------
+       10 ACCOUNTING     NEW YORK
+       20 RESEARCH       DALLAS
+       30 SALES          CHICAGO
+       40 OPERATIONS     BOSTON
+
+
+1.7保存缓冲区的sql
+SQL> save c:\test.txt
+已创建 file c:\test.txt
+SQL> l
+ 1* select *from dept
+
+1.8调用已保存的脚本并执行
+SQL> @test1.txt
+
+   DEPTNO DNAME          LOC
+---------- -------------- -------------
+       10 ACCOUNTING     NEW YORK
+
+SQL> l
+ 1* select * from dept where deptno=10
+SQL> get test1.txt
+ 1* select * from dept where deptno=10
+SQL> /
+
+   DEPTNO DNAME          LOC
+---------- -------------- -------------
+       10 ACCOUNTING     NEW YORK
+
+
+1.9 编辑缓冲区
+SQL> select * from dept;
+
+   DEPTNO DNAME          LOC
+---------- -------------- -------------
+       10 ACCOUNTING     NEW YORK
+       20 RESEARCH       DALLAS
+       30 SALES          CHICAGO
+       40 OPERATIONS     BOSTON
+
+SQL> edit
+已写入 file afiedt.buf
+
+ 1* select * from dept where deptno=20
+SQL> /
+
+   DEPTNO DNAME          LOC
+---------- -------------- -------------
+       20 RESEARCH       DALLAS
+
+1.10使用col命令
+SQL> col deptno heading "编号"
+SQL> select * from dept;
+
+     编号 DNAME          LOC
+---------- -------------- -------------
+       10 ACCOUNTING     NEW YORK
+       20 RESEARCH       DALLAS
+       30 SALES          CHICAGO
+       40 OPERATIONS     BOSTON
+SQL> col dname format a10 heading "部门名称"
+SQL> select * from dept;
+
+     编号 部门名称   LOC
+---------- ---------- -------------
+       10 ACCOUNTING NEW YORK
+       20 RESEARCH   DALLAS
+       30 SALES      CHICAGO
+       40 OPERATIONS BOSTON
+
+SQL> connect sys/ora as sysdba
+已连接、
+SQL> select bytes from v$datafile;
+
+    BYTES
+----------
+503316480
+ 26214400
+262144000
+  5242880
+104857600
+
+SQL> col bytes format 999,999,999
+SQL> select bytes from v$datafile;
+
+      BYTES
+------------
+503,316,480
+ 26,214,400
+262,144,000
+  5,242,880
+104,857,600
+
+
+
+1.11查看表结构
+SQL> desc dept
+名称                                      是否为空? 类型
+----------------------------------------- -------- ----------------------------
+DEPTNO                                    NOT NULL NUMBER(2)
+DNAME                                              VARCHAR2(14)
+LOC                                                VARCHAR2(13)
+
+
+1.12设置报表
+SQL> connect scott/tiger
+SQL> set linesize 50
+SQL> ttitle center "我的标题" 1-
+> left "测试报表" right "页" -
+> format 999 sql.pno skip 2
+SQL> select * from dept;
+
+
+     编号 部门名称   LOC
+---------- ---------- -------------
+       10 ACCOUNTING NEW YORK
+       20 RESEARCH   DALLAS
+       30 SALES      CHICAGO
+       40 OPERATIONS BOSTON
+
+SQL> ttitle off
+SQL> select * from dept;
+
+     编号 部门名称   LOC
+---------- ---------- -------------
+       10 ACCOUNTING NEW YORK
+       20 RESEARCH   DALLAS
+       30 SALES      CHICAGO
+       40 OPERATIONS BOSTON
+
+
+1.13设置报表
+
+先在scott用户下创建一个表
+CREATE TABLE "SCOTT"."BOOKS" 
+  ( "BOOKS_ID" NUMBER, 
+"BOOKS_NAME" VARCHAR2(30), 
+"PRICE" NUMBER, 
+"QTY" NUMBER, 
+"PUB" VARCHAR2(50)
+  ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+ STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+ PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT)
+ TABLESPACE "USERS" ;
+ 
+
+SQL> set linesize 300
+SQL> select * from books;
+
+ BOOKS_ID BOOKS_NAME                          PRICE        QTY PUB
+---------- ------------------------------ ---------- ---------- --------------------------------------------------
+        1 中国文学                               39         12 人民大学
+        2 外国文学                             12.5         22 人民大学
+        3 英语阅读                               33         21 清华大学
+        4 建筑艺术                                6         33 清华大学
+        5 计算机入门                           44.8         24 电子工业
+        6 数据结构                             54.7         65 电子工业
+        7 语文                                   43          5 电子工业
+
+已选择7行、
+SQL> break on pub
+SQL> select * from books;
+
+ BOOKS_ID BOOKS_NAME                          PRICE        QTY PUB
+---------- ------------------------------ ---------- ---------- --------------------------------------------------
+        1 中国文学                               39         12 人民大学
+        2 外国文学                             12.5         22
+        3 英语阅读                               33         21 清华大学
+        4 建筑艺术                                6         33
+        5 计算机入门                           44.8         24 电子工业
+        6 数据结构                             54.7         65
+        7 语文                                   43          5
+
+已选择7行、
+
+进行统计：
+SQL> comp count label "计数" of books_name on pub
+SQL> select * from books;
+
+ BOOKS_ID BOOKS_NAME                          PRICE        QTY PUB
+---------- ------------------------------ ---------- ---------- --------------------------------------------------
+        1 中国文学                               39         12 人民大学
+        2 外国文学                             12.5         22
+          ------------------------------                       **************************************************
+                                       2                       计数
+        3 英语阅读                               33         21 清华大学
+        4 建筑艺术                                6         33
+          ------------------------------                       **************************************************
+                                       2                       计数
+        5 计算机入门                           44.8         24 电子工业
+        6 数据结构                             54.7         65
+        7 语文                                   43          5
+          ------------------------------                       **************************************************
+                                       3                       计数
+
+已选择7行、
+SQL> col pub format a15
+SQL> col books_name format a15
+SQL> select * from books;
+
+ BOOKS_ID BOOKS_NAME           PRICE        QTY PUB
+---------- --------------- ---------- ---------- ---------------
+        1 中国文学                39         12 人民大学
+        2 外国文学              12.5         22
+          ---------------                       ***************
+                        2                       计数
+        3 英语阅读                33         21 清华大学
+        4 建筑艺术                 6         33
+          ---------------                       ***************
+                        2                       计数
+        5 计算机入门            44.8         24 电子工业
+        6 数据结构              54.7         65
+        7 语文                    43          5
+          ---------------                       ***************
+                        3                       计数
+
+已选择7行、
+
+1.14 保存查询的数据(结果集)
+SQL> spool c:\spool.txt
+SQL> select * from books;
+
+ BOOKS_ID BOOKS_NAME           PRICE        QTY PUB
+---------- --------------- ---------- ---------- ---------------
+        1 中国文学                39         12 人民大学
+        2 外国文学              12.5         22
+          ---------------                       ***************
+                        2                       计数
+        3 英语阅读                33         21 清华大学
+        4 建筑艺术                 6         33
+          ---------------                       ***************
+                        2                       计数
+        5 计算机入门            44.8         24 电子工业
+        6 数据结构              54.7         65
+        7 语文                    43          5
+          ---------------                       ***************
+                        3                       计数
+
+已选择7行、
+
+SQL> spool off
+SQL> edit spool.txt
+
+SQL>
+
+确实已经保存为spool.txt的文本文件了、 
+
+
+
+
+
+2.1语言分类
+2.1.1数据定义语言 DDL
+create 
+alter 
+drop
+SQL> create table abc (a varchar2(10),b char(10));
+
+表已创建、
+
+SQL> select table_name from user_tables;
+
+TABLE_NAME
+------------------------------
+DEPT
+EMP
+BONUS
+SALGRADE
+ABC
+BOOKS
+
+已选择6行、
+
+SQL> alter table abc add c number;
+
+表已更改、
+
+SQL> desc abc
+名称
+                                              是否为空? 类型
+-----------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------ -------- --------------------------------------------------------
+------------------------------------------------------------
+A
+                                                       VARCHAR2(10)
+B
+                                                       CHAR(10)
+C
+                                                       NUMBER
+SQL> alter table abc drop column c;
+
+表已更改、
+
+
+
+2.1.2数据控制语言 DCL
+grant 
+revoke
+
+
+SQL> connect decoration/decoration
+已连接、
+SQL> select * from scott.dept;
+select * from scott.dept
+             *
+第 1 行出现错误:
+ORA-00942: 表或视图不存在
+
+
+SQL> connect scott/tiger
+已连接、
+SQL> select * from dept;
+
+     编号 部门名称   LOC
+---------- ---------- -------------
+       10 ACCOUNTING NEW YORK
+       20 RESEARCH   DALLAS
+       30 SALES      CHICAGO
+       40 OPERATIONS BOSTON
+
+SQL> grant select on dept to decoration;
+
+授权成功、
+
+SQL> connect decoration/decoration
+已连接、
+
+SQL> select * from scott.dept;
+
+     编号 部门名称   LOC
+---------- ---------- -------------
+       10 ACCOUNTING NEW YORK
+       20 RESEARCH   DALLAS
+       30 SALES      CHICAGO
+       40 OPERATIONS BOSTON
+
+SQL>
+
+SQL> connect scott/tiger
+已连接、
+
+SQL> revoke select on dept from decoration;
+
+撤销成功、
+
+SQL> connect decoration/decoration
+已连接、
+SQL> select * from scott.dept;
+select * from scott.dept
+                   *
+第 1 行出现错误:
+ORA-00942: 表或视图不存在
+
+
+2.1.3数据操纵语言 DML
+select 
+insert
+delete
+update
+
+SQL> insert into abc values ('aa','bb');
+
+已创建 1 行、
+
+SQL> select * from abc;
+
+A          B
+---------- ----------
+aa         1
+aa         bb
+
+SQL> update abc set a='haha' where b='1';
+
+已更新 1 行、
+
+SQL> delete  abc where b='bb';
+
+已删除 1 行、
+
+SQL> select * from abc;
+
+A          B
+---------- ----------
+haha       1
+
+SQL>
+
+2.2系统函数
+2.2.1字符
+length,lengthb,ltrim,replace,rtrim,substr,trim
+
+SQL> select length('abcdef') from dual;
+
+LENGTH('ABCDEF')
+----------------
+              6
+
+SQL> select length('abc好ef') from dual;
+
+LENGTH('ABC好EF')
+-----------------
+               6
+
+SQL> select lengthb('abc好ef') from dual;
+
+LENGTHB('ABC好EF')
+------------------
+                7
+                
+               
+SQL> select lengthb('  abc好e f ') from dual;
+
+LENGTHB('ABC好EF')
+------------------
+               11
+
+SQL> select ltrim('  abc好e f ') from dual;
+
+LTRIM('AB
+---------
+abc好e f
+
+SQL> select ltrim('  abc好e f ') l from dual;
+
+L
+---------
+abc好e f
+
+SQL> select lengthb(a.l) from (select ltrim('  abc好e f ') l from dual) a;
+
+LENGTHB(A.L)
+------------
+          9
+
+SQL> select lengthb(ltrim('  abc好e f ')) from dual;
+
+LENGTHB(LTRIM('ABC好EF'))
+-------------------------
+                       9
+
+SQL> select lengthb(rtrim('  abc好e f ')) from dual;
+
+LENGTHB(RTRIM('ABC好EF'))
+-------------------------
+                      10
+
+SQL> select lengthb(trim('  abc好e f ')) from dual;
+
+LENGTHB(TRIM('ABC好EF'))
+------------------------
+                      8
+SQL> desc aa
+名称
+                                              是否为空? 类型
+-----------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------ -------- --------------------------------------------------------
+------------------------------------------------------------
+A1
+                                                       VARCHAR2(10)
+A2
+                                                       VARCHAR2(10)
+A3
+                                                       CHAR(10)
+SQL> insert into aa values('avx','ssw','aaa');
+
+已创建 1 行、
+
+SQL> insert into aa values('avx','swx','bfd');
+
+已创建 1 行、
+
+SQL> insert into aa values('aeex','ddswx','ffbfd');
+
+已创建 1 行、
+
+SQL> update aa set a3='aa';
+
+已更新3行、
+
+SQL> select *from aa;
+
+A1         A2         A3
+---------- ---------- ----------
+avx        ssw        aa
+avx        swx        aa
+aeex       ddswx      aa                                                        
+                                                      
+SQL> select length(a2),length(a3) from aa;
+
+LENGTH(A2) LENGTH(A3)
+---------- ----------
+        3         10
+        3         10
+        5         10
+
+SQL> select substr('abcdefrdsg',2,3) from dual;
+
+SUB
+---
+bcd
+
+
+SQL> select substr('abcdefrdsg',length('abcdefrdsg')-3+1,3) from dual;
+
+SUB
+---
+dsg
+
+
+2.2.5其他
+
+user decode nvl 
+
+SQL> select user from dual;
+
+USER
+------------------------------
+SCOTT
+
+SQL> connect decoration/decoration;
+已连接、
+SQL> select user from dual;
+
+USER
+------------------------------
+DECORATION
+
+SQL> connect scott/tiger;
+已连接、
+SQL> select user from dual;
+
+USER
+------------------------------
+SCOTT
+
+SQL> select user from dual;
+
+USER
+------------------------------
+SCOTT
+
+SQL> select * from e;
+
+未选定行
+
+SQL> desc e;
+名称
+                                              是否为空? 类型
+-----------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------ -------- --------------------------------------------------------
+------------------------------------------------------------
+EID
+                                                       NUMBER
+ENAME
+                                                       VARCHAR2(30)
+SEX
+                                                       NVARCHAR2(2)
+
+SQL> select * from e;
+
+      EID ENAME                          SEX
+---------- ------------------------------ ----
+        1 赵1                            男
+        2 钱1                            女
+        3 孙1                            女
+        3 李1                            男
+        3 周1                            女
+
+SQL> select sum(decode(sex,'男',1,0)) as "男",sum(decode(sex,'女',1,0)) as "女" from e;
+
+       男         女
+---------- ----------
+        2          3
+
+SQL> select sum(decode(sex,'男',1,0)) as 男人数,sum(decode(sex,'女',1,0)) as 女人数 from e;
+
+   男人数     女人数
+---------- ----------
+        2          3
+
+SQL> select * from aa;
+
+A1         A2         A3
+---------- ---------- ----------
+avx        ssw        aa
+avx        swx        aa
+aeex       ddswx      aa
+esd
+ddd                   er
+ee         ssss       ee
+
+已选择6行、
+
+SQL> select a1,nvl(a2,'未输入') a2 from aa;
+
+A1         A2
+---------- ----------
+avx        ssw
+avx        swx
+aeex       ddswx
+esd        未输入
+ddd        未输入
+ee         ssss
+
+已选择6行、
+
+SQL> select * from aa where a2 is null;
+
+A1         A2         A3
+---------- ---------- ----------
+esd
+ddd                   er
+
+SQL> select * from aa where a2 is not null;
+
+A1         A2         A3
+---------- ---------- ----------
+avx        ssw        aa
+avx        swx        aa
+aeex       ddswx      aa
+ee         ssss       ee
+
+SQL> select * from aa order by a1 asc;
+
+A1         A2         A3
+---------- ---------- ----------
+aeex       ddswx      aa
+avx        swx        aa
+avx        ssw        aa
+ddd                   er
+ee         ssss       ee
+esd
+
+已选择6行、
+
+SQL> select * from aa order by a1 desc;
+
+A1         A2         A3
+---------- ---------- ----------
+esd
+ee         ssss       ee
+ddd                   er
+avx        ssw        aa
+avx        swx        aa
+aeex       ddswx      aa
+
+已选择6行、
+
+SQL> select distinct a1 from aa;
+
+A1
+----------
+esd
+ee
+ddd
+avx
+aeex
+
+
+
+3.1分组语句
+
+SQL> select sum(price*qty) from books;
+
+SUM(PRICE*QTY)
+--------------
+       6479.7
+SQL> select pub,sum(price*qty) from books group by pub;
+
+PUB             SUM(PRICE*QTY)
+--------------- --------------
+清华大学                   891
+人民大学                   743
+电子工业                4845.7
+
+SQL> select pub,sum(price*qty) from books where sum(price)>30 group by pub;
+select pub,sum(price*qty) from books where sum(price)>30 group by pub
+                                          *
+第 1 行出现错误:
+ORA-00934: 此处不允许使用分组函数
+
+
+SQL> select pub,sum(price*qty) from books having sum(price) > 30 group by pub;
+
+PUB             SUM(PRICE*QTY)
+--------------- --------------
+清华大学                   891
+人民大学                   743
+电子工业                4845.7
+
+SQL> select pub,sum(price*qty) from books group by pub having sum(price) > 30;
+
+PUB             SUM(PRICE*QTY)
+--------------- --------------
+清华大学                   891
+人民大学                   743
+电子工业                4845.7
+
+SQL> select a1,count(a1) from aa where count(a1) > 1;
+select a1,count(a1) from aa where count(a1) > 1
+                                 *
+第 1 行出现错误:
+ORA-00934: 此处不允许使用分组函数
+
+
+SQL> select a1,count(a1) from aa group by a1 having count(a1) > 1;
+
+A1          COUNT(A1)
+---------- ----------
+avx                 2
+
+3.2模糊查询
+SQL> select * from aa where a1 like 'a_';
+
+未选定行
+
+SQL> select * from aa where a1 like 'a__';
+
+A1         A2         A3
+---------- ---------- ----------
+avx        ssw        aa
+avx        swx        aa
+
+SQL> select * from aa where a1 like 'a%';
+
+A1         A2         A3
+---------- ---------- ----------
+avx        ssw        aa
+avx        swx        aa
+aeex       ddswx      aa
+
+SQL> select * from aa where a1 like '_a';
+
+A1         A2         A3
+---------- ---------- ----------
+da         ccc        xxx
+
+SQL> select * from aa where a1 like '__a';
+
+A1         A2         A3
+---------- ---------- ----------
+sda        xxx        xxx
+
+SQL> select * from aa where a1 like '%a';
+
+A1         A2         A3
+---------- ---------- ----------
+ddda       dcc        xxx
+sda        xxx        xxx
+da         ccc        xxx
+
+SQL> select * from aa where a1 like '%a%';
+
+A1         A2         A3
+---------- ---------- ----------
+avx        ssw        aa
+avx        swx        aa
+aeex       ddswx      aa
+ddda       dcc        xxx
+sda        xxx        xxx
+da         ccc        xxx
+
+已选择6行、
+
+SQL> select * from e where ename like '赵%';
+
+      EID ENAME                          SEX
+---------- ------------------------------ ----
+        1 赵1                            男
+
+
+3.3表的连接
+
+SQL> col 姓名 format a10
+SQL> select eid 编号,ename 姓名,sex 性别,id 所在部门 from e;
+
+     编号 姓名       性别   所在部门
+---------- ---------- ---- ----------
+        1 赵1        男            1
+        2 钱1        女            2
+        3 孙1        女            3
+        3 李1        男            4
+        3 周1        女            5
+SQL> select e.eid 编号,e.ename 姓名,e.sex 性别,d.name 所在部门 from e,d where e.id=d.id;
+
+     编号 姓名       性别 所在部门
+---------- ---------- ---- ------------------------------
+        1 赵1        男   A部门
+        2 钱1        女   B部门
+        3 孙1        女   C部门
+        3 李1        男   D部门
+        3 周1        女   E部门
+SQL> select e.eid 编号,e.ename 姓名,e.sex 性别,d.name 所在部门 from e join d on e.id=d.id;
+
+     编号 姓名       性别 所在部门
+---------- ---------- ---- ------------------------------
+        1 赵1        男   A部门
+        2 钱1        女   B部门
+        3 孙1        女   C部门
+        3 李1        男   D部门
+        3 周1        女   E部门
+
+这是内连接，两个表数据完全匹配、
+
+如果不完全匹配，那就是外连接，有左外连接和右外连接、
+
+SQL> select e.eid 编号,e.ename 姓名,e.sex 性别,d.name 所在部门 from e,d where e.id=d.id(+);
+
+     编号 姓名       性别 所在部门
+---------- ---------- ---- ------------------------------
+        1 赵1        男   A部门
+        2 钱1        女   B部门
+        3 孙1        女   C部门
+        3 李1        男   D部门
+        3 周1        女   E部门
+        4 周2        女
+
+已选择6行、
+
+这是左外连接、
+
+SQL> select e.eid 编号,e.ename 姓名,e.sex 性别,d.name 所在部门 from e,d where e.id(+)=d.id;
+
+     编号 姓名       性别 所在部门
+---------- ---------- ---- ------------------------------
+        1 赵1        男   A部门
+        2 钱1        女   B部门
+        3 孙1        女   C部门
+        3 李1        男   D部门
+        3 周1        女   E部门
+                          F部门
+                          G部门
+
+已选择7行、
+
+这是右外连接、
+
+
+3.4子查询
+无关子查询 和 相关子查询
+
+SQL> select * from e where id in (select id from d);
+
+      EID ENAME      SEX          ID
+---------- ---------- ---- ----------
+        1 赵1        男            1
+        2 钱1        女            2
+        3 孙1        女            3
+        3 李1        男            4
+        3 周1        女            5
+上面是无关子查询、
+
+SQL> select * from e where id in (select id from d where id = e.id and id = '03');
+
+      EID ENAME      SEX          ID
+---------- ---------- ---- ----------
+        3 孙1        女            3
+这是相关子查询、
+
+可以取反：
+SQL> select * from e where id not in (select id from d where id = e.id and id = '03');
+
+      EID ENAME      SEX          ID
+---------- ---------- ---- ----------
+        1 赵1        男            1
+        2 钱1        女            2
+        3 李1        男            4
+        3 周1        女            5
+        4 周2        女
+
+子查询不可用 * 
+
+
+
+SQL> select * from e where exists (select id from d);
+
+      EID ENAME      SEX          ID
+---------- ---------- ---- ----------
+        1 赵1        男            1
+        2 钱1        女            2
+        3 孙1        女            3
+        3 李1        男            4
+        3 周1        女            5
+        4 周2        女
+
+已选择6行、
+
+SQL> select * from e;
+
+      EID ENAME      SEX          ID
+---------- ---------- ---- ----------
+        1 赵1        男            1
+        2 钱1        女            2
+        3 孙1        女            3
+        3 李1        男            4
+        3 周1        女            5
+        4 周2        女
+
+已选择6行、
+
+
+SQL> select * from e where exists (select id from d where id = e.id);
+
+      EID ENAME      SEX          ID
+---------- ---------- ---- ----------
+        1 赵1        男            1
+        2 钱1        女            2
+        3 孙1        女            3
+        3 李1        男            4
+        3 周1        女            5
+
+SQL> select * from e where not exists (select id from d where id = e.id);
+
+      EID ENAME      SEX          ID
+---------- ---------- ---- ----------
+        4 周2        女
+
+
+做子查询 的时候，用 in 的时候 不能用 * ,用 exists 可以使用 * 、
+
+SQL> select * from e where not exists (select * from d where id = e.id);
+
+      EID ENAME      SEX          ID
+---------- ---------- ---- ----------
+        4 周2        女
+
+SQL> select * from e where not in (select * from d where id = e.id);
+select * from e where not in (select * from d where id = e.id)
+                         *
+第 1 行出现错误:
+ORA-00936: 缺失表达式
+
+
+3.5使用union
+
+SQL> select eid,ename from e
+ 2  union
+ 3  select id,name from d;
+
+      EID ENAME
+---------- ----------
+        1 A部门
+        1 赵1
+        2 B部门
+        2 钱1
+        3 C部门
+        3 李1
+        3 孙1
+        3 周1
+        4 D部门
+        4 周2
+        5 E部门
+        6 F部门
+        7 G部门
+
+已选择13行、
+
+SQL> select eid from e
+ 2  union
+ 3  select id from d;
+
+      EID
+----------
+        1
+        2
+        3
+        4
+        5
+        6
+        7
+
+已选择7行、
+
+这样使用union可以去除重复行、
+
+3.6使用intersect可以返回两个表中都出现的行、
+SQL> select eid from e
+ 2  intersect
+ 3  select id from d;
+
+      EID
+----------
+        1
+        2
+        3
+        4
+3.7一次插入多条记录
+SQL> insert into e(eid,ename) select id,name from d;
+
+已创建7行、
+
+SQL> select * from e;
+
+      EID ENAME      SEX          ID
+---------- ---------- ---- ----------
+        1 A部门
+        2 B部门
+        3 C部门
+        4 D部门
+        5 E部门
+        6 F部门
+        7 G部门
+        1 赵1        男            1
+        2 钱1        女            2
+        3 孙1        女            3
+        3 李1        男            4
+        3 周1        女            5
+        4 周2        女
+
+已选择13行、
+
+3.8依赖已经有的表来创建表
+
+SQL> create table tt as (select * from e);
+
+表已创建、
+
+SQL> select * from tt;
+
+      EID ENAME      SEX          ID
+---------- ---------- ---- ----------
+        1 A部门
+        2 B部门
+        3 C部门
+        4 D部门
+        5 E部门
+        6 F部门
+        7 G部门
+        1 赵1        男            1
+        2 钱1        女            2
+        3 孙1        女            3
+        3 李1        男            4
+        3 周1        女            5
+        4 周2        女
+
+已选择13行、
+
+SQL> create table t as select eid,ename from e where eid = '001';
+
+表已创建、
+
+SQL> select * from t;
+
+      EID ENAME
+---------- ----------
+        1 A部门
+        1 赵1
+
+
+
+
+接 oracle-学习笔记-1 
+
+-------------------------------------
+
+
+
+4. PL/SQL 块
+
+4.1 PL/SQL 块
+
+SQL> declare
+ 2  x varchar2(10);
+ 3  begin
+ 4  x:='This is..';
+ 5  dbms_output.put_line('x的值为：'||x);
+ 6  end;
+ 7  /
+
+PL/SQL 过程已成功完成、
+
+SQL> set serveroutput on size 10000
+SQL> l
+ 1  declare
+ 2  x varchar2(10);
+ 3  begin
+ 4  x:='This is..';
+ 5  dbms_output.put_line('x的值为：'||x);
+ 6* end;
+SQL> /
+x的值为：This is..
+
+PL/SQL 过程已成功完成、
+
+
+SQL> l
+ 1  declare
+ 2  x varchar2(10):='ABCDE';
+ 3  y string(10):='123';
+ 4  begin
+ 5  --x:='This is..';
+ 6  dbms_output.put_line('x的值为：'||x||'y的值为：'||y);
+ 7  /*
+ 8  dbms_output.put_line('x的值为：'||x);
+ 9  dbms_output.put('x的值为：'||x);
+10  */
+11* end;
+SQL> @plsql_01
+x的值为：ABCDEy的值为：123
+
+PL/SQL 过程已成功完成、
+
+
+4.2分支语句
+
+SQL> l
+ 1  declare
+ 2  a number;
+ 3  b varchar2(10);
+ 4  begin
+ 5  a:=2;
+ 6  if a=1 then
+ 7  b:='A';
+ 8  elsif a=2 then
+ 9  b:='B';
+10  else
+11  b:='C';
+12  end if;
+13  dbms_output.put_line('b的值是：'||b);
+14* end;
+SQL> /
+b的值是：B
+
+PL/SQL 过程已成功完成、
+
+SQL> l
+ 1  declare
+ 2  a number;
+ 3  b varchar2(10);
+ 4  begin
+ 5  a:=53;
+ 6  if a=1 then
+ 7  b:='A';
+ 8  elsif a=2 then
+ 9  b:='B';
+10  else
+11  b:='C';
+12  end if;
+13  dbms_output.put_line('b的值是：'||b);
+14* end;
+SQL> /
+b的值是：C
+
+PL/SQL 过程已成功完成、
+
+4.3循环语句
+
+SQL> l
+ 1  declare
+ 2  x number;
+ 3  begin
+ 4  x:=0;
+ 5  loop
+ 6  x:=x+1;
+ 7  if x>=3 then
+ 8  exit;
+ 9  end if;
+10  dbms_output.put_line('内：x='||x);
+11  end loop;
+12  dbms_output.put_line('外：x='||x);
+13* end;
+SQL> /
+内：x=1
+内：x=2
+外：x=3
+
+PL/SQL 过程已成功完成、
+
+SQL> l
+ 1  declare
+ 2  x number;
+ 3  begin
+ 4  x:=0;
+ 5  loop
+ 6  x:=x+1;
+ 7  exit when x>=3;
+ 8  dbms_output.put_line('内：x='||x);
+ 9  end loop;
+10  dbms_output.put_line('外：x='||x);
+11* end;
+SQL> /
+内：x=1
+内：x=2
+外：x=3
+
+PL/SQL 过程已成功完成、
+
+SQL> l
+ 1  declare
+ 2  x number;
+ 3  begin
+ 4  x:=0;
+ 5  while x<=3 loop
+ 6  x:=x+1;
+ 7  dbms_output.put_line('内：x='||x);
+ 8  end loop;
+ 9  dbms_output.put_line('外：x='||x);
+10* end;
+SQL> /
+内：x=1
+内：x=2
+内：x=3
+内：x=4
+外：x=4
+
+PL/SQL 过程已成功完成、
+
+
+SQL> l
+ 1  begin
+ 2  for i in 1..5 loop
+ 3  dbms_output.put_line('i='||i);
+ 4  end loop;
+ 5  dbms_output.put_line('end of for loop');
+ 6* end;
+SQL> /
+i=1
+i=2
+i=3
+i=4
+i=5
+end of for loop
+
+PL/SQL 过程已成功完成、
+
+
+SQL> l
+ 1  begin
+ 2  for i in reverse 1..5 loop
+ 3  dbms_output.put_line('i='||i);
+ 4  end loop;
+ 5  dbms_output.put_line('end of for loop');
+ 6* end;
+SQL> /
+i=5
+i=4
+i=3
+i=2
+i=1
+end of for loop
+
+PL/SQL 过程已成功完成、
+
+
+SQL> l
+ 1  declare
+ 2  x number;
+ 3  begin
+ 4  x:=0;
+ 5  <<repeat_loop>>
+ 6  x:=x+1;
+ 7  dbms_output.put_line('x='||x);
+ 8  if x<3 then
+ 9  goto repeat_loop;
+10  end if;
+11* end;
+SQL> /
+x=1
+x=2
+x=3
+
+PL/SQL 过程已成功完成、
+
+
+4.4异常处理
+
+SQL> l
+ 1  declare
+ 2  b varchar2(10);
+ 3  begin
+ 4  select ename into b from emp where empno = '1';
+ 5  dbms_output.put_line(b);
+ 6* end;
+SQL> /
+declare
+*
+第 1 行出现错误:
+ORA-01403: 未找到数据
+ORA-06512: 在 line 4
+
+
+SQL> l
+ 1  declare
+ 2  b varchar2(10);
+ 3  begin
+ 4  select ename into b from emp where empno = '1';
+ 5  dbms_output.put_line(b);
+ 6* end;
+
+SQL> l
+ 1  declare
+ 2  b varchar2(10);
+ 3  begin
+ 4  select ename into b from emp where empno = '1';
+ 5  dbms_output.put_line(b);
+ 6  exception
+ 7  when no_data_found then
+ 8  dbms_output.put_line('没有找到数据!');
+ 9* end;
+SQL> /
+没有找到数据!
+
+PL/SQL 过程已成功完成、
+
+
+SQL> l
+ 1  declare
+ 2  b varchar2(10);
+ 3  e exception;
+ 4  begin
+ 5  select ename into b from emp where empno = '7369';
+ 6  if b<>'张三' then
+ 7  raise e;
+ 8  end if;
+ 9  dbms_output.put_line(b);
+10  exception
+11  when e then
+12  dbms_output.put_line('错误，不是 张三 !');
+13* end;
+SQL> /
+错误，不是 张三 !
+
+PL/SQL 过程已成功完成、
+
+4.5记录 - 复合变量
+
+SQL> l
+ 1  declare
+ 2  type myrecord is record(
+ 3  id number,
+ 4  name varchar2(10));
+ 5  real_record myrecord;
+ 6  begin
+ 7  select empno,ename into real_record from emp where empno='7566';
+ 8  dbms_output.put_line(real_record.id||','||real_record.name);
+ 9* end;
+SQL> /
+7566,JONES
+
+PL/SQL 过程已成功完成、
+
+
+SQL> l
+ 1  declare
+ 2  type myrecord is record(
+ 3  id emp.empno%type,
+ 4  name varchar2(10));
+ 5  real_record myrecord;
+ 6  begin
+ 7  select empno,ename into real_record from emp where empno='7566';
+ 8  dbms_output.put_line(real_record.id||','||real_record.name);
+ 9* end;
+SQL> /
+7566,JONES
+
+PL/SQL 过程已成功完成、
+
+SQL> l
+ 1  declare
+ 2  myrec emp%rowtype;
+ 3  begin
+ 4  select * into myrec from emp where empno='7566';
+ 5  dbms_output.put_line(myrec.empno||','||myrec.ename||','||myrec.job);
+ 6* end;
+SQL> /
+7566,JONES,MANAGER
+
+PL/SQL 过程已成功完成、
+
+5.PL/SQL高级应用
+
+5.1 游标
+
+使用游标可以充分操纵表的每一行
+
+SQL> l
+ 1  declare
+ 2  cursor mycur is
+ 3  select * from books;
+ 4  myrecord books%rowtype;
+ 5  begin
+ 6  open mycur;
+ 7  fetch mycur into myrecord;
+ 8  while mycur%found loop
+ 9  dbms_output.put_line(myrecord.books_id||','||myrecord.books_name);
+10  fetch mycur into myrecord;
+11  end loop;
+12  close mycur;
+13* end;
+SQL> /
+1,中国文学
+2,外国文学
+3,英语阅读
+4,建筑艺术
+5,计算机入门
+6,数据结构
+7,语文
+
+PL/SQL 过程已成功完成、
+
+
+上面是显式游标
+
+SQL> l
+ 1  declare
+ 2  cursor cur_para(id number) is
+ 3  select books_name from books where books_id=id;
+ 4  t_name books.books_name%type;
+ 5  begin
+ 6  open cur_para(1);
+ 7  loop
+ 8  fetch cur_para into t_name;
+ 9  exit when cur_para%notfound;
+10  dbms_output.put_line(t_name);
+11  end loop;
+12  close cur_para;
+13* end;
+SQL> /
+中国文学
+
+PL/SQL 过程已成功完成、
+
+SQL> l
+ 1  declare
+ 2  cursor cur_para(id number) is
+ 3  select books_name from books where books_id=id;
+ 4  begin
+ 5  dbms_output.put_line('*******结果集为********');
+ 6  for cur in cur_para(1) loop
+ 7  dbms_output.put_line(cur.books_name);
+ 8  end loop;
+ 9* end;
+SQL> /
+*******结果集为********
+中国文学
+
+PL/SQL 过程已成功完成、
+
+SQL> l
+ 1  declare
+ 2  t_name books.books_name%type;
+ 3  cursor cur(id number) is
+ 4  select books_name from books where books_id=id;
+ 5  begin
+ 6  if cur%isopen then
+ 7  dbms_output.put_line('游标已经被打开!');
+ 8  else
+ 9  open cur(3);
+10  end if;
+11  fetch cur into t_name;
+12  close cur;
+13  dbms_output.put_line(t_name);
+14* end;
+SQL> /
+英语阅读
+
+PL/SQL 过程已成功完成、
+
+
+
+SQL> l
+ 1  declare
+ 2  t_name varchar2(10);
+ 3  cursor mycur is
+ 4  select ename from emp;
+ 5  begin
+ 6  open mycur;
+ 7  loop
+ 8  exit when mycur%notfound or mycur%notfound is null;
+ 9  dbms_output.put_line('游标mycur的rowcount是：'||mycur%rowcount);
+10  end loop;
+11  close mycur;
+12* end;
+SQL> /
+
+PL/SQL 过程已成功完成、
+
+SQL> l
+ 1  declare
+ 2  t_name varchar2(10);
+ 3  cursor mycur is
+ 4  select ename from emp;
+ 5  begin
+ 6  open mycur;
+ 7  loop
+ 8  fetch mycur into t_name;
+ 9  exit when mycur%notfound or mycur%notfound is null;
+10  dbms_output.put_line('游标mycur的rowcount是：'||mycur%rowcount);
+11  end loop;
+12  close mycur;
+13* end;
+SQL> /
+游标mycur的rowcount是：1
+游标mycur的rowcount是：2
+游标mycur的rowcount是：3
+游标mycur的rowcount是：4
+游标mycur的rowcount是：5
+游标mycur的rowcount是：6
+游标mycur的rowcount是：7
+游标mycur的rowcount是：8
+游标mycur的rowcount是：9
+游标mycur的rowcount是：10
+游标mycur的rowcount是：11
+游标mycur的rowcount是：12
+游标mycur的rowcount是：13
+游标mycur的rowcount是：14
+
+PL/SQL 过程已成功完成、
+
+
+SQL> l
+ 1  declare
+ 2  cursor cur is
+ 3  select name from d for update;
+ 4  text varchar2(10);
+ 5  begin
+ 6  open cur;
+ 7  fetch cur into text;
+ 8  while cur%found loop
+ 9  update d set name=name||'_t' where current of cur;
+10  fetch cur into text;
+11  end loop;
+12  close cur;
+13* end;
+SQL> /
+
+PL/SQL 过程已成功完成、
+
+SQL> commit;
+
+提交完成、
+
+5.2 隐式游标
+SQL> l
+ 1  begin
+ 2  for cur in(select name from d) loop
+ 3  dbms_output.put_line(cur.name);
+ 4  end loop;
+ 5* end;
+SQL> /
+A部门_t
+B部门_t
+C部门_t
+D部门_t
+E部门_t
+F部门_t
+G部门_t
+
+PL/SQL 过程已成功完成、
+
+
+5.3 存储过程
+
+声明 执行 异常处理
+输入参数（in） 输出参数（out）
+
+
+创建一个存储过程：
+SQL> @procedure_01
+
+警告: 创建的过程带有编译错误、
+
+SQL> show errors
+PROCEDURE MYPROC 出现错误:
+
+LINE/COL ERROR
+-------- -----------------------------------------------------------------
+5/1      PL/SQL: SQL Statement ignored
+5/45     PL/SQL: ORA-00904: "BOOK_ID": 标识符无效
+SQL> l
+ 1  create or replace procedure myproc(id in varchar2)
+ 2  is
+ 3  name varchar2(10);
+ 4  begin
+ 5  select book_name into name from books where book_id=id;
+ 6  dbms_output.put_line(name);
+ 7* end myproc;
+SQL> @procedure_01
+
+过程已创建、
+
+SQL> l
+ 1  create or replace procedure myproc(id in varchar2)
+ 2  is
+ 3  name varchar2(10);
+ 4  begin
+ 5  select books_name into name from books where books_id=id;
+ 6  dbms_output.put_line(name);
+ 7* end myproc;
+SQL> /
+
+过程已创建、
+
+使用存储过程：
+
+SQL> l
+ 1  declare
+ 2  tid varchar2(10);
+ 3  begin
+ 4  tid:='0001';
+ 5  myproc(tid);
+ 6* end;
+SQL> /
+中国文学
+
+PL/SQL 过程已成功完成、
+
+SQL> l
+ 1  begin
+ 2  myproc('0001');
+ 3* end;
+SQL> /
+中国文学
+
+PL/SQL 过程已成功完成、
+
+SQL> execute myproc('0001');
+中国文学
+
+PL/SQL 过程已成功完成、
+
+
+存储过程存在输入参数和输出参数
+
+SQL> l
+ 1  create or replace procedure myproc2(id varchar2,name out varchar2)
+ 2  is
+ 3  select books_name into name from books where books_id=id;
+ 4* end;
+SQL> show errors
+PROCEDURE MYPROC2 出现错误:
+
+LINE/COL ERROR
+-------- -----------------------------------------------------------------
+3/1      PLS-00103: 出现符号 "SELECT"在需要下列之一时：
+        begin function package
+        pragma procedure subtype type use <an identifier>
+        <a double-quoted delimited-identifier> form current cursor
+        external language
+
+SQL> @procedure_04
+
+过程已创建、
+
+SQL> l
+ 1  create or replace procedure myproc2(id varchar2,name out varchar2)
+ 2  is
+ 3  begin
+ 4  select books_name into name from books where books_id=id;
+ 5* end;
+
+
+
+SQL> l
+ 1  declare
+ 2  tid varchar2(10);
+ 3  tname varchar2(10);
+ 4  begin
+ 5  tid:='0001';
+ 6  myproc2(tid,tname);
+ 7  dbms_output.put_line(tname);
+ 8* end;
+SQL> /
+中国文学
+
+PL/SQL 过程已成功完成、
+
+
+
+5.4 视图
+
+SQL> @view_01
+
+视图已创建、
+
+SQL> l
+ 1  create or replace view myview
+ 2  as
+ 3* select * from books
+SQL> insert into myview(books_id) values ('0008');
+
+已创建 1 行、
+
+SQL> select * from myview;
+
+ BOOKS_ID BOOKS_NAME                          PRICE        QTY
+---------- ------------------------------ ---------- ----------
+PUB
+--------------------------------------------------
+        8
+
+
+        1 中国文学                               39         12
+人民大学
+
+        2 外国文学                             12.5         22
+人民大学
+
+
+ BOOKS_ID BOOKS_NAME                          PRICE        QTY
+---------- ------------------------------ ---------- ----------
+PUB
+--------------------------------------------------
+        3 英语阅读                               33         21
+清华大学
+
+        4 建筑艺术                                6         33
+清华大学
+
+        5 计算机入门                           44.8         24
+电子工业
+
+
+ BOOKS_ID BOOKS_NAME                          PRICE        QTY
+---------- ------------------------------ ---------- ----------
+PUB
+--------------------------------------------------
+        6 数据结构                             54.7         65
+电子工业
+
+        7 语文                                   43          5
+电子工业
+
+
+已选择8行、
+
+SQL> commit;
+
+提交完成、
+
+
+
+SQL> @view_02
+
+视图已创建、
+
+SQL> l
+ 1  create or replace view myview
+ 2  as
+ 3* select * from books where price>30
+SQL> /
+
+视图已创建、
+
+SQL> select * from myview
+ 2  ;
+
+BOOKS_ID BOOKS_NAME                PRICE  QTY PUB
+-------- -------------------- ---------- ---- ---------------
+      1 中国文学                     39   12 人民大学
+      3 英语阅读                     33   21 清华大学
+      5 计算机入门                 44.8   24 电子工业
+      6 数据结构                   54.7   65 电子工业
+      7 语文                         43    5 电子工业
+
+
+SQL> @view_02
+
+视图已创建、
+
+SQL> l
+ 1  create or replace view myview
+ 2  as
+ 3  select * from books where price>30
+ 4* with check option
+SQL> insert into myview values ('0009','aa',20,4,'bb');
+insert into myview values ('0009','aa',20,4,'bb')
+           *
+第 1 行出现错误:
+ORA-01402: 视图 WITH CHECK OPTIDN where 子句违规
+
+
+
+SQL> select empno,ename,job,d.id,d.name from emp e,d where e.empno=d.id;
+
+    EMPNO ENAME      JOB               ID NAME
+---------- ---------- --------- ---------- ----------
+     7782 CLARK      MANAGER         7782 组织
+     7876 ADAMS      CLERK           7876 神仙部
+
+
+SQL> create or replace view v_emp_d
+ 2  as
+ 3  select empno,ename,job,d.id,d.name from emp e,d where e.empno=d.id;
+
+视图已创建、
+
+SQL> save view_03
+已创建 file view_03.sql
+SQL> l
+ 1  create or replace view v_emp_d
+ 2  as
+ 3* select empno,ename,job,d.id,d.name from emp e,d where e.empno=d.id
+SQL> select * from v_emp_d;
+
+    EMPNO ENAME      JOB               ID NAME
+---------- ---------- --------- ---------- ----------
+     7782 CLARK      MANAGER         7782 组织
+     7876 ADAMS      CLERK           7876 神仙部
+
+
+SQL> desc user_views
+名称                                                  是否为空? 类型
+----------------------------------------------------- -------- ---------------------------------
+
+VIEW_NAME                                             NOT NULL VARCHAR2(30)
+TEXT_LENGTH                                                    NUMBER
+TEXT                                                           LONG
+TYPE_TEXT_LENGTH                                               NUMBER
+TYPE_TEXT                                                      VARCHAR2(4000)
+OID_TEXT_LENGTH                                                NUMBER
+OID_TEXT                                                       VARCHAR2(4000)
+VIEW_TYPE_OWNER                                                VARCHAR2(30)
+VIEW_TYPE                                                      VARCHAR2(30)
+SUPERVIEW_NAME                                                 VARCHAR2(30)
+
+SQL> select text from user_views where view_name = 'v_read';
+
+未选定行
+
+5.5 同义词
+
+SQL> connect sys/ora as sysdba
+已连接、
+SQL> select user from dual;
+
+USER
+------------------------------
+SYS
+
+SQL> select * from dept;
+select * from dept
+             *
+第 1 行出现错误:
+ORA-00942: 表或视图不存在
+
+
+SQL> select * from scott.dept;
+
+   DEPTNO DNAME          LOC
+---------- -------------- -------------
+       10 ACCOUNTING     NEW YORK
+       20 RESEARCH       DALLAS
+       30 SALES          CHICAGO
+       40 OPERATIONS     BOSTON
+
+公共同义词 私有同义词
+
+默认创建私有同义词
+
+SQL> create synonym dept for scott.dept;
+
+同义词已创建、
+
+SQL> select * from dept;
+
+   DEPTNO DNAME          LOC
+---------- -------------- -------------
+       10 ACCOUNTING     NEW YORK
+       20 RESEARCH       DALLAS
+       30 SALES          CHICAGO
+       40 OPERATIONS     BOSTON
+SQL> connect decoration/decoration
+已连接、
+SQL> select * from dept;
+select * from dept
+             *
+第 1 行出现错误:
+ORA-00942: 表或视图不存在
+
+删除同义词：
+SQL> connect sys/ora as sysdba
+已连接、
+SQL> drop synonym dept;
+
+同义词已删除、
+
+
+创建公共同义词：
+SQL> create public synonym dept for scott.dept;
+
+同义词已创建、
+
+SQL> select * from dept;
+
+   DEPTNO DNAME          LOC
+---------- -------------- -------------
+       10 ACCOUNTING     NEW YORK
+       20 RESEARCH       DALLAS
+       30 SALES          CHICAGO
+       40 OPERATIONS     BOSTON
+
+SQL> connect decoration/decoration;
+已连接、
+
+SQL> select * from dept;
+
+   DEPTNO DNAME          LOC
+---------- -------------- -------------
+       10 ACCOUNTING     NEW YORK
+       20 RESEARCH       DALLAS
+       30 SALES          CHICAGO
+       40 OPERATIONS     BOSTON
+注意：前提是decoration用户要有select any table 的权限、
+
+SQL> connect system/ora
+已连接、
+SQL> desc dba_synonyms;
+名称                                      是否为空? 类型
+----------------------------------------- -------- ----------------------------
+OWNER                                     NOT NULL VARCHAR2(30)
+SYNONYM_NAME                              NOT NULL VARCHAR2(30)
+TABLE_OWNER                                        VARCHAR2(30)
+TABLE_NAME                                NOT NULL VARCHAR2(30)
+DB_LINK                                            VARCHAR2(128)
+
+SQL> show user;
+USER 为 "DECORATION"
+SQL> create synonym dep for scott.dept;
+
+同义词已创建、
+
+SQL> select * from dep;
+
+   DEPTNO DNAME          LOC
+---------- -------------- -------------
+       10 ACCOUNTING     NEW YORK
+       20 RESEARCH       DALLAS
+       30 SALES          CHICAGO
+       40 OPERATIONS     BOSTON
+SQL> desc user_synonyms;
+名称                                      是否为空? 类型
+----------------------------------------- -------- ----------------------------
+SYNONYM_NAME                              NOT NULL VARCHAR2(30)
+TABLE_OWNER                                        VARCHAR2(30)
+TABLE_NAME                                NOT NULL VARCHAR2(30)
+DB_LINK                                            VARCHAR2(128)
+
+SQL> select synonym_name from user_synonyms;
+
+SYNONYM_NAME
+------------------------------
+DEP
+
+SQL> select * from user_synonyms;
+
+SYNONYM_NA TABLE_OWNER     TABLE_NAME      DB_LINK
+---------- --------------- --------------- ---------------
+DEP        SCOTT           DEPT
+
+
+5.6 序列
+
+SQL> @sequence_01
+
+序列已创建、
+
+SQL> l
+ 1  create sequence myseq
+ 2  start with 1
+ 3  increment by 1
+ 4  order
+ 5* nocycle
+ 
+SQL> select myseq.nextval from dual;
+
+  NEXTVAL
+----------
+        1
+
+SQL> select myseq.nextval from dual;
+
+  NEXTVAL
+----------
+        2
+
+SQL> select myseq.nextval from dual;
+
+  NEXTVAL
+----------
+        3
+SQL> select myseq.nextval from dual;
+
+  NEXTVAL
+----------
+        4
+
+SQL> select myseq.currval from dual;
+
+  CURRVAL
+----------
+        4
+
+
+SQL> show user;
+USER 为 "SCOTT"
+SQL> create table auto(a number,b varchar2(10));
+
+表已创建、
+
+
+SQL>  insert into auto(a,b) values (myseq.nextval,'abc');
+
+已创建 1 行、
+
+SQL>  insert into auto(a,b) values (myseq.nextval,'abc');
+
+已创建 1 行、
+
+SQL>  insert into auto(a,b) values (myseq.nextval,'abc');
+
+已创建 1 行、
+
+SQL> select * from auto;
+
+        A B
+---------- ----------
+       22 abc
+       23 abc
+       24 abc
+
+SQL> commit;
+
+提交完成、
+
+
+SQL> connect system/ora
+已连接、
+SQL> desc dba_sequences;
+名称                                      是否为空? 类型
+----------------------------------------- -------- ----------------------------
+SEQUENCE_OWNER                            NOT NULL VARCHAR2(30)
+SEQUENCE_NAME                             NOT NULL VARCHAR2(30)
+MIN_VALUE                                          NUMBER
+MAX_VALUE                                          NUMBER
+INCREMENT_BY                              NOT NULL NUMBER
+CYCLE_FLAG                                         VARCHAR2(1)
+ORDER_FLAG                                         VARCHAR2(1)
+CACHE_SIZE                                NOT NULL NUMBER
+LAST_NUMBER                               NOT NULL NUMBER
+
+SQL> desc all_sequences;
+名称                                      是否为空? 类型
+----------------------------------------- -------- ----------------------------
+SEQUENCE_OWNER                            NOT NULL VARCHAR2(30)
+SEQUENCE_NAME                             NOT NULL VARCHAR2(30)
+MIN_VALUE                                          NUMBER
+MAX_VALUE                                          NUMBER
+INCREMENT_BY                              NOT NULL NUMBER
+CYCLE_FLAG                                         VARCHAR2(1)
+ORDER_FLAG                                         VARCHAR2(1)
+CACHE_SIZE                                NOT NULL NUMBER
+LAST_NUMBER                               NOT NULL NUMBER
+
+SQL> desc user_sequences;
+名称                                      是否为空? 类型
+----------------------------------------- -------- ----------------------------
+SEQUENCE_NAME                             NOT NULL VARCHAR2(30)
+MIN_VALUE                                          NUMBER
+MAX_VALUE                                          NUMBER
+INCREMENT_BY                              NOT NULL NUMBER
+CYCLE_FLAG                                         VARCHAR2(1)
+ORDER_FLAG                                         VARCHAR2(1)
+CACHE_SIZE                                NOT NULL NUMBER
+LAST_NUMBER                               NOT NULL NUMBER
+
+SQL> show user;
+USER 为 "SYSTEM"
+
+SQL> select sequence_name,sequence_owner from dba_sequences
+ 2  where sequence_owner = 'SCOTT';
+
+SEQUENCE_NAME                  SEQUENCE_OWNER
+------------------------------ ------------------------------
+MYSEQ                          SCOTT
+
+
+SQL> connect scott/tiger
+已连接、
+SQL> alter sequence myseq
+ 2  increment by 3;
+
+序列已更改、
+
+SQL> select myseq.nextval from dual;
+
+  NEXTVAL
+----------
+       27
+
+SQL> select myseq.nextval from dual;
+
+  NEXTVAL
+----------
+       30
+       
+序列可以修改增量，不能修改当前值、
+
+
+接 oracle-学习笔记-2
+
+-------------------------------------
+
+
+
+6.1 事务
+
+事务的隔离性
+
+锁 的机制 
+
+例如：
+第一个窗口：
+SQL> select * from books for update;
+
+ BOOKS_ID BOOKS_NAME      PRICE        QTY PUB
+---------- ---------- ---------- ---------- ----------
+        8
+        1 中国文学           39         12 人民大学
+        2 外国文学         12.5         22 人民大学
+        3 英语阅读           33         21 清华大学
+        4 建筑艺术            6         33 清华大学
+        5 计算机入门       44.8         24 电子工业
+        6 数据结构         54.7         65 电子工业
+        7 语文               43          5 电子工业
+
+已选择8行、
+
+第二个窗口：
+SQL> update books set books_name='bbb' where books_id=8;
+
+一直停着不动了、
+
+第一个窗口：
+SQL> commit；
+提交完成、
+
+第二个窗口：
+SQL> select * from books;
+
+ BOOKS_ID BOOKS_NAME      PRICE        QTY PUB
+---------- ---------- ---------- ---------- ----------
+        8 bbb
+        1 中国文学           39         12 人民大学
+        2 外国文学         12.5         22 人民大学
+        3 英语阅读           33         21 清华大学
+        4 建筑艺术            6         33 清华大学
+        5 计算机入门       44.8         24 电子工业
+        6 数据结构         54.7         65 电子工业
+        7 语文               43          5 电子工业
+
+已选择8行、
+
+SQL> update books set books_name='ccc' where books_id=8;
+
+已更新 1 行、
+
+SQL> select * from books;
+
+ BOOKS_ID BOOKS_NAME      PRICE        QTY PUB
+---------- ---------- ---------- ---------- ----------
+        8 ccc
+        1 中国文学           39         12 人民大学
+        2 外国文学         12.5         22 人民大学
+        3 英语阅读           33         21 清华大学
+        4 建筑艺术            6         33 清华大学
+        5 计算机入门       44.8         24 电子工业
+        6 数据结构         54.7         65 电子工业
+        7 语文               43          5 电子工业
+
+已选择8行、
+
+第一个窗口：
+
+SQL> select * from books for update;
+
+停着不动了，锁了、
+
+第二个窗口：
+SQL> commit;
+
+提交完成、
+
+第一个窗口：
+
+ BOOKS_ID BOOKS_NAME      PRICE        QTY PUB
+---------- ---------- ---------- ---------- ----------
+        8 ccc
+        1 中国文学           39         12 人民大学
+        2 外国文学         12.5         22 人民大学
+        3 英语阅读           33         21 清华大学
+        4 建筑艺术            6         33 清华大学
+        5 计算机入门       44.8         24 电子工业
+        6 数据结构         54.7         65 电子工业
+        7 语文               43          5 电子工业
+
+已选择8行、
+
+SQL> commit;
+
+提交完成、
+
+
+
+7.触发器
+
+对每一行
+
+SQL> l
+ 1  create or replace trigger del_deptid
+ 2  after delete on d
+ 3  for each row
+ 4  begin
+ 5  delete from e where did=:old.id;
+ 6* end del_deptid;
+SQL> /
+
+触发器已创建
+
+SQL> select * from d;
+
+       ID NAME
+---------- ----------
+        1 A部门_t
+        2 B部门_t
+        3 C部门_t
+        4 D部门_t
+        5 E部门_t
+        6 F部门_t
+        7 G部门_t
+
+已选择7行、
+
+SQL> select * from e;
+
+      EID ENAME      SEX         DID
+---------- ---------- ---- ----------
+        1 赵1        男            1
+        2 钱1        女            2
+        3 孙1        女            3
+        3 李1        男            4
+        3 周1        女            5
+        4 周2        女
+
+已选择6行、
+
+SQL> delete from d where id=1;
+
+已删除 1 行、
+
+SQL> select * from e;
+
+      EID ENAME      SEX         DID
+---------- ---------- ---- ----------
+        2 钱1        女            2
+        3 孙1        女            3
+        3 李1        男            4
+        3 周1        女            5
+        4 周2        女
+
+SQL> select * from d;
+
+       ID NAME
+---------- ----------
+        2 B部门_t
+        3 C部门_t
+        4 D部门_t
+        5 E部门_t
+        6 F部门_t
+        7 G部门_t
+
+已选择6行、
+
+SQL> l
+ 1  create or replace trigger insert_deptid
+ 2  after insert on d
+ 3  for each row
+ 4  begin
+ 5  insert into e values (10,'aaa','男',:new.id);
+ 6* end insert_deptid;
+SQL> /
+
+触发器已创建
+
+SQL> select * from d;
+
+       ID NAME
+---------- ----------
+        1 A部门_t
+        2 B部门_t
+        3 C部门_t
+        4 D部门_t
+        5 E部门_t
+        6 F部门_t
+        7 G部门_t
+
+已选择7行、
+
+SQL> select * from e;
+
+      EID ENAME      SEX         DID
+---------- ---------- ---- ----------
+        1 赵1        男            1
+        2 钱1        女            2
+        3 孙1        女            3
+        3 李1        男            4
+        3 周1        女            5
+        4 周2        女
+
+已选择6行、
+
+SQL> insert into d values (50,'hh');
+
+已创建 1 行、
+
+SQL> select * from d;
+
+       ID NAME
+---------- ----------
+       50 hh
+        1 A部门_t
+        2 B部门_t
+        3 C部门_t
+        4 D部门_t
+        5 E部门_t
+        6 F部门_t
+        7 G部门_t
+
+已选择8行、
+
+SQL> select * from e;
+
+      EID ENAME      SEX         DID
+---------- ---------- ---- ----------
+       10 aaa        男           50
+        1 赵1        男            1
+        2 钱1        女            2
+        3 孙1        女            3
+        3 李1        男            4
+        3 周1        女            5
+        4 周2        女
+
+已选择7行、
+
+
+其中的 new old 是在内存中的两张逻辑表
+
+           old      new
+insert       -        √
+delete       √        -
+update       √        √
+
+
+使用触发器级联更新：
+
+SQL> l
+ 1  create or replace trigger update_deptid
+ 2  after update on d
+ 3  for each row
+ 4  begin
+ 5  update e set did=:new.id where did=:old.id;
+ 6* end update_deptid;
+SQL> /
+
+触发器已创建
+
+SQL> select * from e;
+
+      EID ENAME      SEX         DID
+---------- ---------- ---- ----------
+       10 aaa        男           50
+        1 赵1        男            1
+        2 钱1        女            2
+        3 孙1        女            3
+        3 李1        男            4
+        3 周1        女            5
+        4 周2        女
+
+已选择7行、
+
+SQL> select * from d;
+
+       ID NAME
+---------- ----------
+       50 hh
+        1 A部门_t
+        2 B部门_t
+        3 C部门_t
+        4 D部门_t
+        5 E部门_t
+        6 F部门_t
+        7 G部门_t
+
+已选择8行、
+
+SQL> update d set id=55 where id=50;
+
+已更新 1 行、
+
+SQL> select * from d;
+
+       ID NAME
+---------- ----------
+       55 hh
+        1 A部门_t
+        2 B部门_t
+        3 C部门_t
+        4 D部门_t
+        5 E部门_t
+        6 F部门_t
+        7 G部门_t
+
+已选择8行、
+
+SQL> select * from e;
+
+      EID ENAME      SEX         DID
+---------- ---------- ---- ----------
+       10 aaa        男           55
+        1 赵1        男            1
+        2 钱1        女            2
+        3 孙1        女            3
+        3 李1        男            4
+        3 周1        女            5
+        4 周2        女
+
+已选择7行、
+
+
+
+触发器的语句体里面不能写 rollback和commit语句、
+
+
+
+
+
+SQL> l
+ 1  create or replace trigger books_delete
+ 2  after delete on books
+ 3  for each row
+ 4  begin
+ 5  if :old.books_id=1 then
+ 6  raise_application_error(-20000,'不允许删除！');
+ 7  end if;
+ 8* end books_delete;
+SQL> /
+
+触发器已创建
+
+SQL> select * from books;
+
+ BOOKS_ID BOOKS_NAME      PRICE        QTY PUB
+---------- ---------- ---------- ---------- ----------
+        8 ccc
+        1 中国文学           39         12 人民大学
+        2 外国文学         12.5         22 人民大学
+        3 英语阅读           33         21 清华大学
+        4 建筑艺术            6         33 清华大学
+        5 计算机入门       44.8         24 电子工业
+        6 数据结构         54.7         65 电子工业
+        7 语文               43          5 电子工业
+
+已选择8行、
+
+SQL> delete from books where books_id=1;
+delete from books where books_id=1
+           *
+第 1 行出现错误:
+ORA-20000: 不允许删除！
+ORA-06512: 在 "SCOTT.BOOKS_DELETE", line 3
+ORA-04088: 触发器 'SCOTT.BOOKS_DELETE' 执行过程中出错
+
+
+其中的错误号 只能写 -20999  --  -20000 之间的错误号、
+
+
+
+创建语句级别的触发器
+
+
+SQL> l
+ 1  create or replace trigger dml_aa
+ 2  after insert or delete or update on aa
+ 3  begin
+ 4  if inserting then
+ 5  insert into mylog values (user,sysdate,'I');
+ 6  elsif deleting then
+ 7  insert into mylog values (user,sysdate,'D');
+ 8  else
+ 9  insert into mylog values (user,sysdate,'U');
+10  end if;
+11* end dml_aa;
+SQL> /
+
+触发器已创建
+
+SQL> select * from aa;
+
+A1         A2         A3
+---------- ---------- ----------
+avx        ssw        aa
+avx        swx        aa
+aeex       ddswx      aa
+bbbb       xxx        xxxx
+esd
+ddd                   er
+ee         ssss       ee
+ddda       dcc        xxx
+bbbb       xxx        xxx
+da         ccc        xxx
+
+已选择10行、
+
+SQL> insert into aa values('01','掌声','很好');
+
+已创建 1 行、
+
+SQL> select * from aa;
+
+A1         A2         A3
+---------- ---------- ----------
+avx        ssw        aa
+avx        swx        aa
+aeex       ddswx      aa
+bbbb       xxx        xxxx
+01         掌声       很好
+esd
+ddd                   er
+ee         ssss       ee
+ddda       dcc        xxx
+bbbb       xxx        xxx
+da         ccc        xxx
+
+已选择11行、
+
+SQL> update aa set a2='00000' where a1='01';
+
+已更新 1 行、
+
+SQL> select * from aa;
+
+A1         A2         A3
+---------- ---------- ----------
+avx        ssw        aa
+avx        swx        aa
+aeex       ddswx      aa
+bbbb       xxx        xxxx
+01         00000      很好
+esd
+ddd                   er
+ee         ssss       ee
+ddda       dcc        xxx
+bbbb       xxx        xxx
+da         ccc        xxx
+
+已选择11行、
+
+SQL> delete from aa where a1='01';
+
+已删除 1 行、
+
+SQL> select * from aa;
+
+A1         A2         A3
+---------- ---------- ----------
+avx        ssw        aa
+avx        swx        aa
+aeex       ddswx      aa
+bbbb       xxx        xxxx
+esd
+ddd                   er
+ee         ssss       ee
+ddda       dcc        xxx
+bbbb       xxx        xxx
+da         ccc        xxx
+
+已选择10行、
+
+SQL> commit;
+
+提交完成、
+
+SQL> select * from mylog;
+
+CURR_USER
+CURR_DATE          A
+-----------------------------------------------------------------------------------
+-------------- -
+SCOTT
+11-12月-10     I
+SCOTT
+11-12月-10     U
+SCOTT
+11-12月-10     D
+
+SQL> col curr_user format a10
+SQL> col curr_date format a10
+SQL> col act format a3
+SQL> select * from mylog;
+
+CURR_USER  CURR_DATE  ACT
+---------- ---------- ---
+SCOTT      11-12月-10 I
+SCOTT      11-12月-10 U
+SCOTT      11-12月-10 D
+
+SQL> select curr_user "用户",to_char(curr_date,'yyyy-mm-dd hh24:mi:ss') "时间",act "操作" from mylog;
+
+用户       时间                 操作
+---------- -------------------- ----------
+SCOTT      2010-12-11 21:31:40  I
+SCOTT      2010-12-11 21:32:17  U
+SCOTT      2010-12-11 21:32:48  D
+
+
+利用触发器实现自增
+
+SQL> l
+ 1  create or replace trigger set_no
+ 2  before insert on auto
+ 3  for each row
+ 4  declare
+ 5  sn number(5);
+ 6  begin
+ 7  select myseq.nextval into sn from dual;
+ 8  :new.a:=sn;
+ 9* end set_no;
+SQL> /
+
+触发器已创建
+
+SQL> select * from auto;
+
+        A B
+---------- ----------
+       21 abc
+       22 abc
+       23 abc
+       24 abc
+
+SQL> insert into auto values(1,'hh');
+
+已创建 1 行、
+
+SQL> select * from auto;
+
+        A B
+---------- ----------
+       21 abc
+       22 abc
+       23 abc
+       24 abc
+       87 hh
+
+SQL> insert into auto(b) values ('hhh');
+
+已创建 1 行、
+
+SQL> select * from auto;
+
+        A B
+---------- ----------
+       21 abc
+       22 abc
+       23 abc
+       24 abc
+       87 hh
+       90 hhh
+
+已选择6行、
+
+SQL> alter sequence myseq increment by 1;
+
+序列已更改、
+
+SQL> insert into auto(b) values ('hhhh');
+
+已创建 1 行、
+
+SQL> select * from auto;
+
+        A B
+---------- ----------
+       21 abc
+       22 abc
+       23 abc
+       24 abc
+       87 hh
+       90 hhh
+       91 hhhh
+
+已选择7行、
+
+
+
+
+替换触发器 解决视图 多表更新问题，只能建在视图上
+
+SQL> @trigger_07
+
+触发器已创建
+
+SQL> l
+ 1  create or replace trigger tr_v_e_d
+ 2  instead of insert on v_e_d
+ 3  for each row
+ 4  begin
+ 5  insert into d values(:new.id,:new.name);
+ 6  insert into e(eid,ename,sex,did) values(:new.eid,:new.ename,:new.sex,:new.id);
+ 7* end tr_v_e_d;
+SQL> /
+
+触发器已创建
+
+SQL> select * from d;
+
+       ID NAME
+---------- ----------
+       55 hh
+       20 hh
+       10 hh
+        1 A部门_t
+        2 B部门_t
+        3 C部门_t
+        4 D部门_t
+        5 E部门_t
+        6 F部门_t
+        7 G部门_t
+
+已选择10行、
+
+SQL> select * from e;
+
+      EID ENAME      SEX         DID
+---------- ---------- ---- ----------
+        1 赵1        男            1
+        2 钱1        女            2
+        3 孙1        女            3
+        3 李1        男            4
+        3 周1        女            5
+        4 周2        女
+
+已选择6行、
+
+SQL> select * from v_e_d;
+
+      EID ENAME      SEX          ID NAME
+---------- ---------- ---- ---------- ----------
+        1 赵1        男            1 A部门_t
+        2 钱1        女            2 B部门_t
+        3 孙1        女            3 C部门_t
+        3 李1        男            4 D部门_t
+        3 周1        女            5 E部门_t
+
+SQL> insert into v_e_d values(15,'aa','b',25,'gg');
+
+已创建 1 行、
+
+SQL> select * from v_e_d;
+
+      EID ENAME      SEX          ID NAME
+---------- ---------- ---- ---------- ----------
+       15 aa         b            25 gg
+       10 aaa        男           25 gg
+        1 赵1        男            1 A部门_t
+        2 钱1        女            2 B部门_t
+        3 孙1        女            3 C部门_t
+        3 李1        男            4 D部门_t
+        3 周1        女            5 E部门_t
+
+已选择7行、
+
+SQL> select * from e;
+
+      EID ENAME      SEX         DID
+---------- ---------- ---- ----------
+       10 aaa        男           25
+       15 aa         b            25
+        1 赵1        男            1
+        2 钱1        女            2
+        3 孙1        女            3
+        3 李1        男            4
+        3 周1        女            5
+        4 周2        女
+
+已选择8行、
+
+SQL> select * from d;
+
+       ID NAME
+---------- ----------
+       55 hh
+       20 hh
+       10 hh
+       25 gg
+        1 A部门_t
+        2 B部门_t
+        3 C部门_t
+        4 D部门_t
+        5 E部门_t
+        6 F部门_t
+        7 G部门_t
+
+已选择11行、
+
+
+8.安全管理
+
+使用oem管理工具(web管理)
+
+创建用户
+
+CREATE USER "rptdba"  PROFILE "DEFAULT" IDENTIFIED BY "rptdba" DEFAULT TABLESPACE "RPTTSP" TEMPORARY TABLESPACE "TEMP"  ACCOUNT UNLOCK;
+GRANT"CONNECT" TO "rptdba" WITH ADMIN OPTION;
+GRANT"DBA" TO "rptdba" WITH ADMIN OPTION;
+
+grant oem_monitor to rptdba;
+grant create session to rptdba; 
+grant create table to rptdba; 
+grant create tablespace to rptdba; 
+grant create view to rptdba; 
+
+
+test/test1234
+
+
+conn sys/ora as sysdba
+grant select on scott.dept to test;
+
+SQL> conn test/test1234
+已连接、
+SQL> conn sys/ora as sysdba
+已连接、
+SQL> grant select on scott.dept to test;
+
+授权成功、
+
+SQL> conn test/test1234
+已连接、
+SQL> select * from scott.dept;
+
+   DEPTNO DNAME          LOC
+---------- -------------- -------------
+       10 ACCOUNTING     NEW YORK
+       20 RESEARCH       DALLAS
+       30 SALES          CHICAGO
+       40 OPERATIONS     BOSTON
+
+
+锁定用户和解锁用户
+alter user test account lock;
+alter user test account unlock;
+
+
+
+
+把权限下放给用户
+
+SQL> grant select on scott.dept to test with grant option;
+
+授权成功、
+
+SQL> conn test/test1234
+已连接、
+SQL> grant select on scott.dept to decoration;
+
+授权成功、
+
+SQL> conn decoration/decoration;
+已连接、
+SQL> select * from scott.dept;
+
+   DEPTNO DNAME          LOC
+---------- -------------- -------------
+       10 ACCOUNTING     NEW YORK
+       20 RESEARCH       DALLAS
+       30 SALES          CHICAGO
+       40 OPERATIONS     BOSTON
+
+
+这也叫 级联授权 、
+
+
+grant create user to test;
+grant drop user to test;
+grant create user to test with admin option;
+
+
+
+创建概要文件mypro
+设置登录3次不正确，锁定用户
+
+设置test用户的概要文件为mypro
+
+
+SQL> conn test/12
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+警告: 您不再连接到 ORACLE、
+SQL> conn test/124
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+SQL> conn test/1244
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+SQL>
+SQL> conn test/124444
+ERROR:
+ORA-28000: the account is locked
+
+
+SQL> conn test/test1234
+ERROR:
+ORA-28000: the account is locked
+
+解锁用户test
+
+SQL> conn test/test1234
+已连接、
+
+
+
+一、ORACLE中的实体完整性 
+　　ORACLE在CREATE TABLE语句中提供了PRIMARY KEY子句，供用户在建表时指定关系的主码列、例如在学生选课数据库
+　　中，要定义Student 表的Sno属性为主码，可使用下列语句：
+　　　　　　　　　　　CREATE TABLE Student
+　　　　　　　　　　　(Sno NUMBER(8),
+　　　　　　　　　　　Sname VARCHAR(20),
+　　　　　　　　　　　Sage NUMBER(20),
+　　　　　　　　　　　CONSTRAINT PK_SNO PRIMARY KEY (Sno)); 
+　　其中，PRIMARY KEY(Sno)是Student表的主码、PK_SNO是主码的约束名、
+　　若要在SC表中定义(Sno, Cno)为主码，则用下面语句建立SC表、
+　　　　　　　　　　　CREATE TABLE SC
+　　　　　　　　　　　(Sno NUMBER(8),
+　　　　　　　　　　　Cno NUMBER(2),
+　　　　　　　　　　　Grade NUMBER(2),
+　　　　　　　　　　　CONSTRAINT PK_SC PRIMARY KEY (Sno, Cno));
+　　当用户程序对主码列进行更新操作时，系统自动进行完整性检查，凡操作使主属性值为空值的操作或使主码值在表中
+　　不唯一，系统拒绝此操作，从而保证了实体完整性、
+二、ORACLE中的参照完整性
+　　ORACLE在CREATE TABLE语句用FOREIGN KEY子句定义哪些为外码列，用REFERENCES子句指明外码相应于哪个表的主码，
+　　用ON DELETE CASCADE子语指明在删除被参照关系的元组时，同时删除参照关系中外码值等于被参照关系的元组中主
+　　码值的元组、
+　　　例1：建立表EMP表
+　　　　　　　　　　　　　CREATE TABLE EMP
+　　　　　　　　　　　　　(Empno NUMBER(4),
+　　　　　　　　　　　　　Ename VARCHAR(10),
+　　　　　　　　　　　　　Job VERCHAR2(9),
+　　　　　　　　　　　　　Mgr NUMBER(4),
+　　　　　　　　　　　　　Sal NUMBER(7,2),
+　　　　　　　　　　　　　Deptno NUMBER(2),
+　　　　　　　　　　　　　CONSTRAINT FK_DEPTNO
+　　　　　　　　　　　　　FOREIGN KEY (Deptno)
+　　　　　　　　　　　　　REFERENCES DEPT(Deptno));
+　　　这时EMP表中外码为Deptno，它相应于DEPT表中的主码Deptno、当要修改DEPT表中的DEPTNO值时，先要检查EMP表中
+　　　有无元组的Deptno值与之对应、若没有，系统接受这个修改操作、否则，系统拒绝此操作 、
+　　　例2：或用SQL语句建立EMP表：
+　　　　　　　　　　　　　CREATE TABLE EMP
+　　　　　　　　　　　　　(Empno NUMBER(4),
+　　　　　　　　　　　　　Ename VARCHAR(10),
+　　　　　　　　　　　　　Job VERCHAR2(9),
+　　　　　　　　　　　　　Mgr NUMBER(4),
+　　　　　　　　　　　　　Sal NUMBER(7,2),
+　　　　　　　　　　　　　Deptno NUMBER(2) CONSTRAINT FK_DEPTNO
+　　　　　　　　　　　　　FOREIGN KEY REFERENCES DEPT(Deptno));
+　　　当要删除DEPT表中某个元组时，系统要检查EMP表，若找到相应元组即将其随之删除、当要插入EMP表中某个元组时
+　　　系统要检查DEPT表 ，先要检查DEPT表中有无元组的Deptno值与之对应、若没有，系统拒绝此插入操作，否则，系
+　　　统接受此操作、
+三、ORACLE中用户定义的完整性 
+　　ORACLE中定义用户完整性的两类方法
+　　1. 用CREATE TABLE语句在建表时定义用户完整性约束，可定义三类完整性约束
+　　　　　列值非空（NOT NULL短语）
+　　　　　列值唯一（UNIQUE短语）
+　　　　　检查列值是否满足一个布尔表达式（CHECK短语）
+　　　例1：建立部门表DEPT，要求部门名称Dname列取值唯一，部门编号Deptno列为主码
+　　　　　　　　　　　CREATE TABLE DEPT
+　　　　　　　　　　　(Deptno NUMBER,
+　　　　　　　　　　　Dname VARCHAR(9) CONSTRAINT U1 UNIQUE,
+　　　　　　　　　　　Loc VARCHAR(10),
+　　　　　　　　　　　CONSTRAINT PK_DEPT PRIMARY KEY (Deptno));
+　　　其中 CONSTRAINT U1 UNIQUE 表示约束名为U1，该约束要求Dname列值唯一、
+　　　例2：建立学生登记表Student，要求学号在900000至999999之间，年龄<29，性别只能是‘男’或‘女’，姓名非空
+　　　　　　　　　　　CREATE TABLE Student
+　　　　　　　　　　　(Sno NUMBER(5)
+　　　　　　　　　　　CONSTRAINT C1 CHECK 
+　　　　　　　　　　　(Sno BETWEEN 10000 AND 99999),
+　　　　　　　　　　　Sname VARCHAR(20) CONSTRAINT C2 NOT NULL,
+　　　　　　　　　　　Sage NUMBER(3) CONSTRAINT C3 CHECK (Sage < 29),
+　　　　　　　　　　　Ssex VARCHAR(2)
+　　　　　　　　　　　CONSTRAINT C4 CHECK (Ssex IN ('男', '女'));
+　　　例3 ：建立职工表EMP，要求每个职工的应发工资不得超过3000元、 应发工资实际上就是实发工资列Sal与扣除项
+　　　　　Deduct之和、
+　　　　　　　　　　　　CREATE TABLE EMP
+　　　　　　　　　　　　(Eno NUMBER(4)
+　　　　　　　　　　　　Ename VARCHAR(10),
+　　　　　　　　　　　　Job VARCHAR(8),
+　　　　　　　　　　　　Sal NUMBER(7,2),
+　　　　　　　　　　　　Deduct NUMBER(7,2)
+　　　　　　　　　　　　Deptno NUMBER(2),
+　　　　　　　　　　　　CONSTRAINTS C1 CHECK (Sal + Deduct <=3000));
+　　2. 通过触发器来定义用户的完整性规则
+　　　定义其它的完整性约束时，需要用数据库触发器（Trigger）来实现、
+　　　数据库触发器：一类靠事务驱动的特殊过程
+　　　一旦由某个用户定义，任何用户对该数据的增、删、改操作均由服务器自动激活相应的触发子，在核心层进行集中
+　　　的完整性控制
+　　　定义数据库触发器的语句：CREATE [OR REPLACE] TRIGGER
+　　　例4： 为教师表Teacher定义完整性规则“教授的工资不得低于800元，如果低于800元，自动改为800元”
+　　　　　　　　　　　　　CREATE TRIGGER UPDATE_SAL
+　　　　　　　　　　　　　BEFORE INSERT OR UPDATE OF Sal, Pos ON Teacher
+　　　　　　　　　　　　　FOR EACH ROW
+　　　　　　　　　　　　　WHEN (:new.Pos='教授')
+　　　　　　　　　　　　　BEGIN
+　　　　　　　　　　　　　　　　IF :new.sal<800 
+　　　　　　　　　　　　　　　　THEN　:new.Sal:=800;
+　　　　　　　　　　　　　　　　END IF;
+　　　　　　　　　　　　　END;
+　　　综上所述，ORACLE提供了CREATE TABLE语句和CREATE TRIGGER语句，其中CREATE TRIGGER语句可以定义很复杂的完
+　　　整性约束条件、完整性约束条件一旦定义好，ORACLE自动执行相应的完整性检查，对于违反完整性约束条件的操作
+　　　或者拒绝执行或者执行事先定义的操作、 
+
+接 oracle-学习笔记-3 
+
+-------------------------------------
+
+
+
+9.查看Oracle的datafile地址，查看表空间地址
+
+set lines 1000 pages 1000
+column file_name format A70
+column tablespace_name format A30
+column status for a15
+select status, file_name, tablespace_name, bytes/1024/1024 "Size(M)", AUTOEXTENSIBLE from dba_data_files
+union all
+select status, file_name, tablespace_name, bytes/1024/1024 "Size(M)", AUTOEXTENSIBLE from dba_temp_files
+order by tablespace_name, file_name;
+
+
+select tablespace_name,
+      file_id,
+      file_name,
+      　　 round(bytes / (1024 * 1024), 0) total_space 　　
+ from dba_data_files 　　
+order by tablespace_name;
+
+
+
+创建表空间
+CREATE TABLESPACE rpttsp DATAFILE 'C:\Program Files\Oracle\dataspace\DATA01.dbf' SIZE 500M UNIFORM SIZE 64k;
+
+
+10.改变表空间某个数据文件大小
+
+ALTER DATABASE  DATAFILE '/oracle/oradata/yqmora92/ts_yqm.dbf' RESIZE  150M;
+
+
+alter database datafile 'd:\oracle\product\10.2.0\oradata\test1\test6k.dbf' autoextend on next 50m maxsize 200m;
+
+
+查看用户表空间的限额
+
+　　select * from user_ts_quotas;
+
+　　max_bytes字段就是了
+
+　　-1是代表没有限制,其它值多少就是多少了.
+
+不对用户做表空间限额控制:
+
+　　GRANT UNLIMITED TABLESPACE TO ***(用户);
+
+　　这种方式是全局性的.
+
+　　或者
+
+　　alter user ***(用户名) quota unlimited on ***(表空间);
+
+　　这种方式是针对特定的表空间的.
+
+　　可以分配自然也可以回收了:
+
+　　revoke unlimited tablespace from ***(用户)
+
+　　或者
+
+　　alter user *** quota 0 on ***
+
+
+
+11.1主键约束 实体完整性
+
+create table nn(n1 varchar2(10) not null,n2 char(10)) tablespace spacename;
+insert into nn values ('abc','def');
+alter table nn add constraint pk_nn primary key(n1);
+
+SQL> show user
+USER 为 "SCOTT"
+SQL> create table nn(n1 varchar2(10) not null,n2 char(10));
+
+表已创建、
+
+SQL> insert into nn values ('abc','def');
+
+已创建 1 行、
+
+SQL> insert into nn values ('abc','def');
+
+已创建 1 行、
+SQL> rollback;
+回退完成、
+
+SQL> alter table nn add constraint pk_nn primary key(n1);
+
+表已更改、
+
+SQL> insert into nn values ('abc','def');
+
+已创建 1 行、
+
+SQL> insert into nn values ('abc','def');
+insert into nn values ('abc','def')
+*
+第 1 行出现错误:
+ORA-00001: 违反唯一约束条件 (SCOTT.PK_NN)
+
+
+
+11.2 外键约束  参照完整性
+
+SQL> create table mm(m1 char(10),m2 varchar2(10),n1 varchar2(10));
+
+表已创建、
+
+SQL> alter table mm add constraint fk_mn foreign key(n1) references nn(n1);
+
+表已更改、
+
+SQL> insert into mm values ('aav','dd','ds');
+insert into mm values ('aav','dd','ds')
+*
+第 1 行出现错误:
+ORA-02291: 违反完整约束条件 (SCOTT.FK_MN) - 未找到父项关键字
+
+
+SQL> insert into mm values ('aav','dd','abc');
+
+已创建 1 行、
+
+SQL> commit;
+
+提交完成、
+
+11.3 check 约束
+
+SQL> select * from e;
+
+      EID ENAME      SEX         DID
+---------- ---------- ---- ----------
+       10 aaa        男           25
+       15 aa         b            25
+        1 赵1        男            1
+        2 钱1        女            2
+        3 孙1        女            3
+        3 李1        男            4
+        3 周1        女            5
+        4 周2        女
+
+已选择8行、
+
+SQL> update e set sex = '男' where eid = 15;
+
+已更新 1 行、
+
+SQL> commit;
+
+提交完成、
+
+SQL> alter table e add constraint ck_e_sex check(sex = '男' or sex = '女');
+
+表已更改、
+
+SQL> update e set sex = 'aa' where eid = 15;
+update e set sex = 'aa' where eid = 15
+*
+第 1 行出现错误:
+ORA-02290: 违反检查约束条件 (SCOTT.CK_E_SEX)
+
+
+SQL> select * from e;
+
+      EID ENAME      SEX         DID
+---------- ---------- ---- ----------
+       10 aaa        男           25
+       15 aa         男           25
+        1 赵1        男            1
+        2 钱1        女            2
+        3 孙1        女            3
+        3 李1        男            4
+        3 周1        女            5
+        4 周2        女
+
+已选择8行、
+
+11.4 查看约束
+
+SQL> select constraint_name,constraint_type from user_constraints where table_name='MM';
+
+CONSTRAINT_NAME                C
+------------------------------ -
+FK_MN                          R
+
+SQL> select constraint_name,constraint_type from user_constraints where table_name='E';
+
+CONSTRAINT_NAME                C
+------------------------------ -
+CK_E_SEX                       C
+
+SQL> select constraint_name,constraint_type from user_constraints where table_name='NN';
+
+CONSTRAINT_NAME                C
+------------------------------ -
+SYS_C005167                    C
+PK_NN                          P
+
+
+
+12. 表 索引
+
+表 没建索引之前是按堆存放数据的、
+
+
+在表的经常查询的列上建立索引
+
+SQL> create index my_mm_idx on mm(m1);
+
+索引已创建、
+
+SQL> select * from mm where m1 ='aav';
+
+M1         M2         N1
+---------- ---------- ----------
+aav        dd         abc
+
+
+12.1 位图索引
+
+为了解决 表里面数据很多，但是唯一值很少的情况，例如：有一万条记录，sex列 只有 两个不同的值 ：男和女
+
+SQL> create bitmap index bit_e on e(sex);
+
+索引已创建、
+
+
+Oracle中NVARCHAR2与VARCHAR2的区别
+
+VARCHAR2是Oracle提供的特定数据类型，Oracle可以保证VARCHAR2在任何版本中该数据类型都可以向上和向下兼容、
+VARCHAR在Oracle中不建议使用、
+
+具体到NVARCHAR2和VARCHAR2的区别，从使用角度来看区别在于：NVARCHAR2在计算长度时和字符集相关的，例如数据库是中文字符集时以长度10为例，则
+
+1、NVARCHAR2(10)是可以存进去10个汉字的，如果用来存英文也只能存10个字符、
+
+2、而VARCHAR2(10)的话，则只能存进5个汉字，英文则可以存10个、
+
+
+
+13. SQL Loader
+
+先创建两个文件：
+
+loader.txt 内容：
+
+abc,xyz
+avf,ddd
+des,ggf
+
+cont.ctl 内容：
+
+load data
+infile 'E:\WorkPlace\OracleWork\loader.txt'
+append
+into table scott.mm(
+m1 position(1:3) char,
+m2 position(5:7) char)
+
+
+
+打开一个cmd窗口，执行：
+
+E:\>sqlldr scott/tiger control=E:\WorkPlace\OracleWork\cont.ctl data=E:\WorkPlace\OracleWork\loader.txt
+
+SQL*Loader: Release 10.2.0.1.0 - Production on 星期二 12月 14 17:32:39 2010
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+达到提交点 - 逻辑记录计数 2
+达到提交点 - 逻辑记录计数 3
+
+
+进入sql/plus
+
+查看：
+
+SQL> select * from mm;
+
+M1         M2         N1
+---------- ---------- ----------
+aav        dd         abc
+ddd        ss         abc
+abc        xyz
+avf        ddd
+des        ggf
+
+
+已经添加了3条记录、
+
+
+
+以上是处理规则数据，下面处理不规则数据：
+
+loader.txt 内容：
+
+abcddd,xyz
+avff,dfddd
+d,ggfd
+
+
+cont.ctl 内容:
+
+load data
+infile 'E:\WorkPlace\OracleWork\loader1.txt'
+append
+into table scott.mm(
+m1 terminated by ',',
+m2 terminated by ',')
+
+打开一个cmd窗口，执行：
+
+E:\>sqlldr scott/tiger control=E:\WorkPlace\OracleWork\cont1.ctl data=E:\WorkPlace\OracleWork\loader1.txt
+
+SQL*Loader: Release 10.2.0.1.0 - Production on 星期二 12月 14 18:11:40 2010
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+达到提交点 - 逻辑记录计数 2
+达到提交点 - 逻辑记录计数 3
+
+
+
+进入sql/plus
+
+查看：
+
+SQL> select * from mm;
+
+M1         M2         N1
+---------- ---------- ----------
+aav        dd         abc
+ddd        ss         abc
+abc        xyz
+avf        ddd
+des        ggf
+abcddd     xyz
+avff       dfddd
+d          ggfd
+
+已选择8行、
+
+14. OEM配置使用
+
+
+15. 数据库的备份与恢复
+
+
+逻辑备份，逻辑恢复
+物理备份，物理恢复
+
+导出
+
+F:\>exp scott/tiger@ora
+
+Export: Release 10.2.0.1.0 - Production on 星期二 12月 14 20:47:22 2010
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+
+连接到: Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+输入数组提取缓冲区大小: 4096 > 5000
+
+导出文件: EXPDAT.DMP > c:\mybak.dmp
+
+(2)U(用户), 或 (3)T(表): (2)U > t
+
+导出表数据 (yes/no): yes > yes
+
+压缩区 (yes/no): yes > yes
+
+已导出 ZHS16GBK 字符集和 AL16UTF16 NCHAR 字符集
+
+即将导出指定的表通过常规路径...
+要导出的表 (T) 或分区 (T: P): (按 RETURN 退出) > e
+
+. . 正在导出表                               E导出了           8 行
+
+要导出的表 (T) 或分区 (T: P): (按 RETURN 退出) >
+
+导出成功终止, 但出现警告、
+
+
+F:\>exp scott/tiger@ora
+
+Export: Release 10.2.0.1.0 - Production on 星期二 12月 14 20:48:48 2010
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+
+连接到: Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+输入数组提取缓冲区大小: 4096 > 5000
+
+导出文件: EXPDAT.DMP > c:\scott.dmp
+
+(2)U(用户), 或 (3)T(表): (2)U > u
+
+导出权限 (yes/no): yes > yes
+
+导出表数据 (yes/no): yes > yes
+
+压缩区 (yes/no): yes > yes
+
+已导出 ZHS16GBK 字符集和 AL16UTF16 NCHAR 字符集
+. 正在导出 pre-schema 过程对象和操作
+. 正在导出用户 SCOTT 的外部函数库名
+. 导出 PUBLIC 类型同义词
+. 正在导出专用类型同义词
+. 正在导出用户 SCOTT 的对象类型定义
+即将导出 SCOTT 的对象...
+. 正在导出数据库链接
+. 正在导出序号
+. 正在导出簇定义
+. 即将导出 SCOTT 的表通过常规路径...
+. . 正在导出表                              AA导出了          10 行
+. . 正在导出表                             ABC导出了           1 行
+. . 正在导出表                            AUTO导出了           7 行
+. . 正在导出表                           BONUS导出了           0 行
+. . 正在导出表                           BOOKS导出了           8 行
+. . 正在导出表                               D导出了          11 行
+. . 正在导出表                            DEPT导出了           4 行
+. . 正在导出表                               E导出了           8 行
+. . 正在导出表                              EE导出了           6 行
+. . 正在导出表                             EMP导出了          14 行
+. . 正在导出表                              MM导出了           8 行
+. . 正在导出表                           MYLOG导出了           3 行
+. . 正在导出表                              NN导出了           2 行
+. . 正在导出表                        SALGRADE导出了           5 行
+. . 正在导出表                               T导出了           2 行
+. . 正在导出表                              TT导出了          13 行
+. 正在导出同义词
+. 正在导出视图
+. 正在导出存储过程
+. 正在导出运算符
+. 正在导出引用完整性约束条件
+. 正在导出触发器
+. 正在导出索引类型
+. 正在导出位图, 功能性索引和可扩展索引
+. 正在导出后期表活动
+. 正在导出实体化视图
+. 正在导出快照日志
+. 正在导出作业队列
+. 正在导出刷新组和子组
+. 正在导出维
+. 正在导出 post-schema 过程对象和操作
+. 正在导出统计信息
+成功终止导出, 没有出现警告、
+
+
+导入：
+
+SQL> select * from e;
+
+      EID ENAME      SE        DID
+---------- ---------- -- ----------
+       10 aaa        男         25
+       15 aa         女         25
+        1 赵1        女          1
+        2 钱1        女          2
+        3 孙1        男          3
+        3 李1        男          4
+        3 周1        男          5
+        4 周2        男
+
+已选择8行、
+
+SQL> delete from e;
+
+已删除8行、
+
+SQL> commit;
+
+提交完成、
+
+SQL> select * from e;
+
+未选定行
+
+
+打开一个cmd窗口，
+
+E:\>imp scott/tiger
+
+Import: Release 10.2.0.1.0 - Production on 星期三 12月 15 18:53:44 2010
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+
+连接到: Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+
+导入文件: EXPDAT.DMP> mybak.dmp
+
+输入插入缓冲区大小 (最小为 8192) 30720>
+
+经由常规路径由 EXPORT:V10.02.01 创建的导出文件
+已经完成 ZHS16GBK 字符集和 AL16UTF16 NCHAR 字符集中的导入
+只列出导入文件的内容 (yes/no): no >
+
+由于对象已存在, 忽略创建错误 (yes/no): no > yes
+
+导入权限 (yes/no): yes >
+
+导入表数据 (yes/no): yes >
+
+导入整个导出文件 (yes/no): no > yes
+
+. 正在将 SCOTT 的对象导入到 SCOTT
+. 正在将 SCOTT 的对象导入到 SCOTT
+. . 正在导入表                             "E"导入了           8 行
+IMP-00017: 由于 ORACLE 错误 2264, 以下语句失败:
+"ALTER TABLE "E" ADD CONSTRAINT "CK_E_SEX" CHECK (sex = '男' or sex = '女') "
+"ENABLE NOVALIDATE"
+IMP-00003: 遇到 ORACLE 错误 2264
+ORA-02264: 名称已被一现有约束条件占用
+即将启用约束条件...
+成功终止导入, 但出现警告、
+
+E:\>
+
+
+
+回到sql窗口：
+
+SQL> select * from e;
+
+      EID ENAME      SE        DID
+---------- ---------- -- ----------
+       10 aaa        男         25
+       15 aa         女         25
+        1 赵1        女          1
+        2 钱1        女          2
+        3 孙1        男          3
+        3 李1        男          4
+        3 周1        男          5
+        4 周2        男
+
+已选择8行、
+
+
+
+
+物理备份
+分为：冷备份和热备份
+
+
+冷备份，就是把数据库停掉，手动拷贝数据文件
+
+热备份，要把日志模式改为 存档模式
+
+
+SQL> conn sys/ora as sysdba
+已连接、
+SQL> archive log list
+数据库日志模式             非存档模式
+自动存档             禁用
+存档终点            USE_DB_RECOVERY_FILE_DEST
+最早的联机日志序列     11
+当前日志序列           13
+
+
+第一步，改为存档模式
+
+alter system set log_archive_start=true scope=pfile;
+
+第二步，停掉数据库
+
+shutdown immediate
+
+第三步，启动数据
+
+startup mount
+
+表示，打开控制文件，不打开数据文件
+
+第四步，将数据库切换到归档方式
+
+alter database archivelog;
+
+第五步，打开数据文件
+
+alter database open;
+
+第六步，查看模式
+
+SQL> archive log list
+数据库日志模式             存档模式
+自动存档             启用
+存档终点            USE_DB_RECOVERY_FILE_DEST
+最早的联机日志序列     11
+当前日志序列           13
+
+第七步，
+
+alter tablespace TRAINING begin backup;
+
+第八步，手动拷贝
+
+把数据库实例目录下的数据文件 TRAINING 拷贝备份
+
+第九步，
+
+alter tablespace TRAINING end backup;
+
+alter system archive log current;
+
+alter system switch logfile;
+
+alter system switch logfile;
+
+注意要切换两次！
+
+完成、
+
+
+
+
+如果数据库出现问题
+
+select * from v$recover_file;
+
+假如 第6号 TRAINING 丢失
+
+alter database datafile 6 offline drop;
+
+alter database open;
+
+把以前手工备份的TRAINING拷贝到实例数据文件目录下
+
+recover datafile 6;
+auto
+
+alter database datafile 6 online;
+
+恢复完成、
+
+
+备份控制文件
+
+SQL> alter database backup controlfile to trace;
+
+数据库已更改、
+
+然后，到下面目录下，可以看到产生的脚本，用于以后备份；
+E:\oracle\product\10.2.0\admin\ora\udump
+
+ora_ora_1896.trc
+
+
+
+
+恢复控制文件
+
+把 ora_ora_1896.trc 另存为 create_ctl.sql
+
+SQL> @create_ctl.sql
+
+
+完成、
+
+
+
+假定日志文件丢失
+
+第一步：
+
+recover database until cancle
+
+第二步：
+
+alter database onpen resetlogs
+
+
+
+接 oracle-学习笔记-4 
+
+-------------------------------------
+
+16.Oracle 小问题
+
+Oracle Package有哪些作用呢？ 
+
+简化应用设计、提高应用性能、实现信息隐藏、子程序重载、 
+
+ORACLE中的function   、package、package   bodies、procedure的有什么区别和相同的地方？
+
+function有返回值，有参数；procedure无返回值，有参数；package、package   body是同时存在的，就像.h和.cpp文件，如果要外部调用的，就在package里声明一下，包内调用的，只要在body里写就行了、package可包括function,procedure
+
+
+问题一：以前在sqlserver中，我直接写个存储过程就可以调用、但是在oracle中，我看好多资料上说要想调用存储过程必须把存储过程放进包中才能调用？是否是这样？  
+  
+ 不是，过程也可以单独写，单独调用  
+  
+ 问题二：packages   与package   bodies有什么区别？  
+  
+ packages中只有各个方法的定义，bodies中涉及具体的实现  
+  
+ 问题三：我在存储过程就是procedures中写了个存储过程，再写个包名包含进去吗？还是可以直接在包中写包名：再把想写的存储过程直接写进包中就行啦呢？  
+  
+ 不用  
+  
+ 问题四：写进包，要写进哪个？packages   ?还是package   bodies  
+  
+ 这两个是一体的，必须同时存在  
+
+package   body和package都需要手工去写、  
+ 需要先创建package(也就是包的定义)，再创建body、增加包中的过程或者修改包中过程的输入参数个数等也是要先改package再改body、
+
+
+17.Oracle程序包 简单使用
+
+程序包是对相关过程、函数、变量、游标和异常等对象的封装 
+程序包由规范和主体两部分组成 
+(1)    包规范 (package)：
+包规范部分声明包内变量，常量，游标，子程序和异常错误处理等元素，这些元素为包的公有元素、语法如下：
+CREATE [OR REPLACE]
+PACKAGE 
+package_name IS|AS
+[Public item declarations]
+[Subprogram specification]
+END [package_name];
+       
+
+(2)    包主体（package body）：
+
+包主体是包规范部分的具体实现，它定义了包定义部分所有声明的游标和子程序等，在包主体中还可以声明包的私有元素、它的语法形式如下：
+CREATE [OR REPLACE] PACKAGE BODY package_name IS|AS
+[Private item declarations]
+[Subprogram bodies]
+[BEGIN
+Initialization]
+END [package_name];
+
+创建包 
+例1（包含过程和函数）：
+包规范：
+create or replace package find_emp
+as
+procedure find_emp_proc(mes varchar2);
+function find_emp_fun(mes varchar2)return varchar2;
+end find_emp;
+    
+
+     包主体：
+
+       
+create or replace package body find_emp
+as
+procedure find_emp_proc(mes varchar2)
+as
+begin
+dbms_output.put_line(mes);
+end find_emp_proc;
+
+function find_emp_fun(mes varchar2)return varchar2
+as
+begin
+ return '你好:'||mes;
+end find_emp_fun;
+end find_emp;
+
+     在SQL:>提示符下调用包中的过程和函数、
+(1)    调用过程
+       execute find_emp.find_emp_proc('fuxiange');
+(2)    调用函数
+  select find_emp.find_emp_fun('fuxiange') from dual;
+
+
+
+
+17.查看当前用户下指定表大小
+
+col segment_name format a10
+
+select ts.* from
+(select segment_name,sum(bytes)/1024/1024 as "SIZE(M)"
+from user_extents group by segment_name) ts
+where ts.segment_name = '&TABLE_NAME';
+

@@ -1,0 +1,354 @@
+
+**************************************************************************************************************************************
+
+常用命令
+
+1.创建表空间
+create tablespace 表空间名
+default ‘filename’/path’服务器端路径’ [size integer [k | m]] [autoextend [off | on]];
+size:制定文件的大小，autoextend：用来启动或禁用数据文件的自动扩展。
+
+2.创建新用户
+create user 用户名
+identified by 密码
+[default tablespace 表空间]
+[temporary tablespace 临时表空间];
+
+3.为用户授权
+grant 权限 to 用户
+grant 权限 on 表名 to 用户
+
+4.修改用户密码
+alter user 用户名
+identified by 密码;
+
+5.删除用户
+drop user 用户名 casaed;
+
+6.查看当前用户
+show user
+
+7.查看当前时间
+select sysdate from dual;
+
+8.查看当前用户下的所有表
+select table_name from user_tables;
+
+9.查看当前表的结构
+desc 表名
+
+10.修改上一条的内容
+edit;
+
+Oracle 数据库对象
+
+1．同义词
+   a.创建同义词
+        私有同义词
+          create [or replace] synonym 同义词名 for 对象名；
+        共有同义词
+          create [or replace] public synonym 同义词名 for 对象名；
+   b.删除同义词
+          drop synonym同义词名;
+
+2．序列
+   a．创建序列
+      create sequence 序列名
+         [start with integer]
+         [increment by integer]
+         [maxvalue integer | nomaxvalue]
+         [minvalue   integer | nominvalue]
+         [cycle | nocycle]
+         [cache integer | nocache];
+   b．访问序列
+      select 序列名.nextval from dual;
+      select 序列名.currval from dual;
+   c．根改序列
+      alter sequence 序列名
+         [increment by integer]
+         [maxvalue integer | nomaxvalue]
+         [minvalue   integer | nominvalue]
+         [cycle | nocycle]
+         [cache integer | nocache];
+   d．删除序列
+      drop sequence序列名;
+
+Oracle 数据表管理(一)
+
+1．创建表
+   create table 表名
+(字段名1 类型，
+   字段名2   类型…);
+2．修改表命令
+   更改现有列
+       alter table 表名 modify (column definition….);
+   向表中添加新列
+      alter table 表名 add (column definition….);
+   删除表中现有的列
+      alter table 表名 drop column 列名;
+3．删除表中的记录而不删除表结构
+      truncate table 表名;
+4．删除与表的所有内容
+      drop table 表名 cascade;
+5．数据操作语言（DML）
+   SELECT
+     Select * | {[distinct] 字段名 | 表达式[列别名],…}
+     From 表明
+     [where 条件]
+     [order by 字段名];
+                distinct:限制只返回不同的列
+   CTAS
+     Create table 新表名 as select 字段名 from 旧表名；
+     //拷贝旧表的结构和记录，不拷贝约束
+   INSERT
+      Insert into 表名 [(字段名)] values (值)；
+   IIS
+      Insert into 表名1(字段名1) select 字段名2 from 表名2;
+       //表结构已存在，从另一个表中复制记录
+   UPDATE
+      Update 表名
+      Set 字段名＝新值
+       [where 条件];
+   DELETE
+      Delete 表名
+       [where 条件];
+
+6．事务控制语言
+COMMIT
+    Commit;//提交
+SAVEPOINT
+    Savepoint 保存点;
+ROLLBACK
+    Rollback or Rollback work;
+
+7．数据控制语言
+GRANT
+    grant 权限 on 表名 to 用户；
+REVOKE
+    Revoke 权限 on 表名 from 用户；
+
+8．集合操作符
+UNION :合并查询结果，并删除重复的行
+Select 字段名1 from 表名1
+   Union
+Select 字段名2 from 表名2；
+UNION ALL：合并查询结果，并包括重复的行
+Select 字段名1 from 表名1
+   Union all
+Select 字段名2 from 表名2；
+INTERSECT：返回两个查询都有的行
+Select 字段名1 from 表名1
+   Intersect
+Select 字段名2 from 表名2；
+MINUS：返回第一个查询有而第二个查询中没有的行
+Select 字段名1 from 表名1
+   Minus
+Select 字段名2 from 表名2；
+
+Oracle 数据表管理(二)
+
+9．锁和表分区
+A．锁
+    行级锁
+     select …for update[of 字段] [wait n | nowait]；
+      wait n :等待的秒数
+    表级锁
+     lock 表名 in 锁定模式 mode [nowait]
+       表级锁的模式：
+              行共享     (row share,rs)
+              行排他     (row exclusive,rx)
+              共享       (share,s)
+              共享行排他 (share row exclusive,srx)
+              排他       (exclusive,x)
+B．表分区
+     范围分区
+     partition by range (column_name)
+     (
+    partition 分区名1 value less then(分区的边界值) [tablespace 表空间1],
+    partition 分区名2 value less then(分区的边界值) [tablespace 表空间2]
+)；
+
+     散列分区
+      partition by hash (column_name)
+      partitions 散列分区的数目 [store in (分区使用的表空间)]；
+          or
+      partition by hash (column_name)
+     (
+      partition 分区名1 [tablespace 表空间1],
+      partition 分区名1 [tablespace 表空间1]
+     )；
+
+      复合分区
+      partition by range (column_name1)
+      subpartition by hash (column_name2)
+         subpartitions 散列分区的数目 [store in (分区使用的表空间)]；
+        (
+         partition 分区名1 value less then(分区的边界值),
+         partition 分区名2 value less then(分区的边界值),
+         partition 分区名N value less then(maxvalue)
+         )；
+
+      列表分区
+       partition by list (column_name)
+       (
+       partition分区名1 values (分区键值的列表1)，
+       partition分区名2 values (分区键值的列表2)，
+       partition分区名N values (default)
+       );
+      default:允许存储前面的分区不能存储的记录
+
+10.分区维护操作
+添加分区
+    alter table 表名 add partition 分区名 values less then(分区的边界值);
+删除分区
+    alter table 表名 drop partition 分区名；
+截断分区
+    alter table 表名 truncate partition 分区名;
+合并分区
+    alter table 表名 merge partitions 分区名1, 分区名2 into 分区名；
+   拆分分区
+    alter table 表名 split partition 分区名at (value) into (partition分区名1,partition 分区名2)；
+   分区重命名
+    alter table 表名 rename partition 旧分区名 to 新分区名 ;
+
+11． 视图
+a． 创建视图
+    create [or replace] [force | noforce] view 视图名[列别名]
+         as select 字段名 from 表名
+     [with check option [constraint 约束名]]
+     [with read only];
+     with check option:指定只能插入或更新视图可以访问的行，
+     with read only：确保不能在此视图上执行任何修改操作。
+b． 创建带有错误的视图
+     create [or replace] force view 视图名[列别名]
+         as select 字段名 from 表名
+      [with check option [constraint 约束名]]
+    [with read only];
+      with check option:指定只能插入或更新视图可以访问的行，
+    with read only：确保不能在此视图上执行任何修改操作。
+C．删除视图
+     drop view 视图名;
+
+12． 索引
+A． 普通索引
+     create index 索引名 on 表名 (字段名) [tablespace 表空间];
+B． 唯一索引
+     create uniqe index 索引名 on 表名 (字段名);
+C． 组合索引
+     create index 索引名 on 表名(字段名1,字段名2);
+D． 反向键索引
+     create index 索引名 on表名 (字段名) revser;
+E． 位图索引
+     create bitmap index 索引名 on 表名 (字段名);
+F． 索引组织表
+     create table table_name (字段名 类型 约束) organization index;
+G． 索引中的分区
+    a．局部分区索引
+       create index 索引名 on表名 (字段名) local;
+     b．全局分区索引
+       create index 索引名 on表名 (字段名) global;
+     c．全局非分区索引
+      create index 索引名 on表名 (字段名) ;
+------------------------------------------------------------------------------------------------------------
+
+规则表---〉分区表
+索引组织表
+簇
+修改列名
+alter table 表明 rename column rename 老列名 to 新列名
+添加 字段
+alter table 表名 add(字段名 类型)；
+删除字段
+alter table 表名 drop column 字段名
+修改列属性
+alter table 表名 modify （字段名 新属性）
+设置某一个字段为无用状态
+alter table 表名 set unuesed column 字段名
+删除无用字段
+alert table 表名 drop unused cloumns
+添加主键
+alert table 表名 add constraint pkKey primary key（字段列表）
+表分区
+oracle 允许用户对标进一步的规划，即对标进一步的拆分，将表分成若干个逻辑部分，
+每个部分成其为标的分区
+表分区的优点
+增强可用性。单个分区出现故障不会影响到其它分区
+均衡IO。不同的分区可以影射到不同的磁盘中
+改善性能
+范围分区法
+这种分区方法是根据表中的列值的范围对标进行分区
+分区时， 首先依据列中得值的可能的范围进行划分
+例：
+create table student
+（
+studentId integer not null,
+studentName varchar2(20),
+scroe integer
+）
+partition by rang(Score)
+(
+partition p1 values lessthan(60),
+partition p2 values lessthan(70),
+partition p3 values lessthan(80),
+partition p4 values lessthan(maxvalue),
+) ;
+散列分区
+散列分区法提供了一种通过制定分区编号来均匀地分布数据的方法
+他通过hash 函数间数据映射到相应的分区上
+它使得数据均匀的分配到各分区上，各分区大小趋向一致
+例：
+create table department
+（
+depno integer not null,
+depname varchar2(20),
+）
+partition by hash(depno)
+(
+partition p1 ,
+partition p2,
+) ;
+复合分区
+复合分区是先对数据进行范围分区，然后在每个字分区理由进行散列分区的一种分区方法
+例：
+create table salgrade 
+（grade number ,losal number hisal number , hisal number ）
+partition by rang(grade)
+subpartition by hash (losal, hisal)(
+partition p1 value lessthan (10),
+(subpartition sp1,subpartition sp2),
+partition p1 value lessthan (20),
+(subpartition sp3,subpartition sp4),
+)
+列表分区
+列表分区允许用户明确的控制行到分区的映射
+不同的范围分区或列分区，他运许按自然的方式对无序和不相干的数据集进行分组的组织
+例如：
+partition by list(字段)
+(
+partition 列名称 values (值列表)，
+partition 列名称 values (值列表)，
+。。。
+。。。
+partition 列名称 values (值列表)
+)
+指定的分区中查询
+select * from tableName partition(p1)
+表分区的维护
+移动，添加，删除，结合， 截断，拆分，合并，交换
+ 
+
+
+
+
+ORACLE导入导出命令解析2009-04-30 15:33  查看文章    
+[转][Oracle]使用Oracle 的 imp ,exp 命令实现数据的导入导出2009年04月13日 星期一 21:31本文对Oracle数据的导入导出 imp ,exp 两个命令进行了介绍, 并对其相应的参数进行了说明,然后通过一些示例进行演练,加深理解.
+文章最后对运用这两个命令可能出现的问题(如权限不够,不同oracle版本)进行了探讨,并提出了相应的解决方案;
+本文部分内容摘录自网络,感谢网友的经验总结;
+
+
+一.说明
+
+ 
+ 
+
+
