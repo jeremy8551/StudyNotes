@@ -1,0 +1,8 @@
+
+
+切换用户权限 执行SHELL语句：
+
+# 只有udsf用户才能连数据库
+su - udsf "-c /home/udsf/shell/qyzx/m_file/loadToInterface.sh $1 $2 $3 $4 -9 -u"
+
+

@@ -1,0 +1,57 @@
+
+配置环境变量
+在 startup.sh 中最前面添加：
+export TOMCAT_HOME=$HOME/rptsys/Tomcat-5.0
+export CATALINA_HOME=$HOME/rptsys/Tomcat-5.0
+export CATALINA_BASE=$HOME/rptsys/Tomcat-5.0
+
+
+线程设置：
+<Connector 
+    port="80"                    // 访问端口
+    protocol="HTTP/1.1"          // 
+    enableLookups="false"        // 如果为true，则可以通过调用request.getRemoteHost()进行DNS查询来得到远程客户端的实际主机名，若为false则不进行DNS查询，而是返回其ip地址
+    debug="0"                    // 
+    redirectPort="8443"          // 指定服务器正在处理http请求时收到了一个SSL传输请求后重定向的端口号
+    maxThreads="600"             // 最大线程数
+    minSpareThreads="100"        // 最小空闲线程数，Tomcat初始化时创建的线程数
+    maxSpareThreads="500"        // 最多空闲连接数一旦创建的线程超过这个值，Tomcat就会关闭不再需要的socket线程。
+    acceptCount="700"            // 指定当所有可以使用的处理请求的线程数都被使用时，可以放到处理队列中的请求数，超过这个数的请求将不予处理
+    connectionTimeout="20000"    // 网络连接超时，单位：毫秒。设置为0表示永不超时，这样设置有隐患的。通常可设置为30000毫秒。
+    URIEncoding="gbk"            // 指定Tomcat容器的URL编码格式
+    disableUploadTimeout="true"  // 上传时是否使用超时机制
+   />
+
+* keepAliveTimeout  - 长连接最大保持时间（毫秒）。此处为15秒。
+* maxKeepAliveRequests  - 最大长连接个数（1表示禁用，-1表示不限制个数，默认100个。一般设置在100~200之间） the maximum number of HTTP requests that can be held in the pipeline until the connection is closed by the server. Setting this attribute to 1 disables HTTP/1.0 keep-alive, as well as HTTP/1.1 keep-alive and pipelining. Setting this to -1 allows an unlimited number of pipelined or keep-alive HTTP requests. If not specified, this attribute is set to 100.
+* maxHttpHeaderSize     - http请求头信息的最大程度，超过此长度的部分不予处理。一般8K。
+* enableLookups - 是否反查域名，取值为：true或false。为了提高处理能力，应设置为false
+* bufferSize - defines the size (in bytes) of the buffer to be provided for input streams created by this connector. By default, buffers of 2048 bytes are provided.
+* maxSpareThreads - 做多空闲连接数，一旦创建的线程超过这个值，Tomcat就会关闭不再需要的socket线程 the maximum number of unused request processing threads that are allowed to exist until the thread pool starts stopping the unnecessary threads. The default value is 50.
+* minProcessors - 服务器启动时创建的处理请求的线程数 最小空闲连接线程数，用于提高系统处理性能，默认值为10。（用于Tomcat4中）
+* maxProcessors - 最大可以创建的处理请求的线程数 最大连接线程数，即：并发处理的最大请求数，默认值为75。（用于Tomcat4中）
+
+
+
+
+TOMCAT JVM参数，在catalina.sh 开始出加
+JAVA_OPTS="-server -Xms256m -Xmx800m -XX:PermSize=64M -XX:MaxNewSize=256m -XX:MaxPermSize=128m "
+
+
+
+
+
+<1> 老的Tomcat版本虚拟路径配置方法：
+
+打开D:\Program Files\Apache Group\Tomcat 4.1\conf\server.xml，
+
+查找<Host>，在</Host>前加入<Context path="/qa" docBase="D:\MyDocuments\QA"></Context>，path代表虚拟路径的名字，docBase代表Jsp文件夹路径。
+
+如果没有<Host>，可能是因为使用的Tomcat版本较高，设置方法见<2>。
+
+<2> 较新版本5.5以上的虚拟路径设置：
+
+打开安装目录D:\Program Files\Apache Software Foundation\Tomcat 5.5\conf\Catalina\localhost，
+
+新建文件取名为qa.xml（xml文件的名称必须和虚拟路径的名称相同），将<Context path="/qa" docBase="D:\MyDocuments\QA"></Context>写入xml文件，保存即可。
+

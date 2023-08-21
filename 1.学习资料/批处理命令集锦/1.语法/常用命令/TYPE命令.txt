@@ -1,0 +1,2 @@
+type *.txt /w [/p]
+type *.doc /w [/p]

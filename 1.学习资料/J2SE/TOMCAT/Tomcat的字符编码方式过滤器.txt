@@ -1,0 +1,180 @@
+
+Tomcat+MySql+Struts中文问题绝妙的解决方案
+	开发Web应用程序时，无论是用什么样的框架技术来开发，一碰从数据库存取涉及到中文的数据，
+	就要面对中文乱码或者是各种编码方式不匹配的异常，
+	今天晚上终于搞定了Tomcat+MySql+Struts的中文问题，用到了很简单的方法，很快就能搞定。    在做以下工作之前，
+	所有的HTML/JSP的charset都设为charset=gb2312。
+  	第一个要解决的是表单提交乱码问题。在使用Struts提供的ActionForm过程中，无论表单采用的是Struts标签还是Html标签，
+	都可以用ActionForm的Get/Set来获取和设置表单的元素值（它们的作用效果与request.getParameter()方法一样），
+	但提取出来的数据不经过处理的话就是乱码，主要的原因是1.Tomcat的J2EE实现对表单提交即Post方法提交时，
+	处理参数采用默认的ISO8859_1来处理2.Tomcat对Get方法提交的请求在query-string处理时采用了和Post方法不一样的处理方式。
+	所以如果要正确地显示和获取中文数据采用的解决方案：（1）对于Post方法提交的表单通过编写一个过滤器（filer）的方法解决，
+	过滤器在用户提交的数据被处理之前被调用，可以通过这个Java代码改变参数的编码方式（目标编码方式可以通过Web.xml文件里面的参数指定）。
+	过滤器的代码如下：
+import java.io.IOException;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.UnavailableException;
+
+/**
+* <p>Example filter that sets the character encoding to be used in parsing the
+* incoming request, either unconditionally or only if the client did not
+* specify a character encoding.  Configuration of this filter is based on
+* the following initialization parameters:</p>
+* <ul>
+* <li><strong>encoding</strong> - The character encoding to be configured
+*     for this request, either conditionally or unconditionally based on
+*     the <code>ignore</code> initialization parameter.  This parameter
+*     is required, so there is no default.</li>
+* <li><strong>ignore</strong> - If set to "true", any character encoding
+*     specified by the client is ignored, and the value returned by the
+*     <code>selectEncoding()</code> method is set.  If set to "false,
+*     <code>selectEncoding()</code> is called <strong>only</strong> if the
+*     client has not already specified an encoding.  By default, this
+*     parameter is set to "true".</li>
+* </ul>
+*
+* <p>Although this filter can be used unchanged, it is also easy to
+* subclass it and make the <code>selectEncoding()</code> method more
+* intelligent about what encoding to choose, based on characteristics of
+* the incoming request (such as the values of the <code>Accept-Language</code>
+* and <code>User-Agent</code> headers, or a value stashed in the current
+* user's session.</p>
+*
+* @author Craig McClanahan
+* @version $Revision: 1.2 $ $Date: 2004/03/18 16:40:33 $
+*/
+public class SetCharacterEncodingFilter implements Filter {
+
+    // ----------------------------------------------------- Instance Variables
+
+    /**
+     * The default character encoding to set for requests that pass through
+     * this filter.
+     */
+    protected String encoding = null;
+
+    /**
+     * The filter configuration object we are associated with.  If this value
+     * is null, this filter instance is not currently configured.
+     */
+    protected FilterConfig filterConfig = null;
+
+    /**
+     * Should a character encoding specified by the client be ignored?
+     */
+    protected boolean ignore = true;
+
+    // --------------------------------------------------------- Public Methods
+
+    /**
+     * Take this filter out of service.
+     */
+    public void destroy() {
+        this.encoding = null;
+        this.filterConfig = null;
+    }
+
+    /**
+     * Select and set (if specified) the character encoding to be used to
+     * interpret request parameters for this request.
+     *
+     * @param request The servlet request we are processing
+     * @param result The servlet response we are creating
+     * @param chain The filter chain we are processing
+     *
+     * @exception IOException if an input/output error occurs
+     * @exception ServletException if a servlet error occurs
+     */
+    public void doFilter(ServletRequest request, ServletResponse response,
+                         FilterChain chain)
+throws IOException, ServletException {
+        // Conditionally select and set the character encoding to be used
+        if (ignore || (request.getCharacterEncoding() == null)) {
+            String encoding = selectEncoding(request);
+            if (encoding != null)
+                request.setCharacterEncoding(encoding);
+        }
+// Pass control on to the next filter
+        chain.doFilter(request, response);
+    }
+
+    /**
+     * Place this filter into service.
+     *
+     * @param filterConfig The filter configuration object
+     */
+    public void init(FilterConfig filterConfig) throws ServletException {
+this.filterConfig = filterConfig;
+        this.encoding = filterConfig.getInitParameter("encoding");
+        String value = filterConfig.getInitParameter("ignore");
+        if (value == null)
+            this.ignore = true;
+        else if (value.equalsIgnoreCase("true"))
+            this.ignore = true;
+        else if (value.equalsIgnoreCase("yes"))
+            this.ignore = true;
+        else
+            this.ignore = false;
+    }
+
+    // ------------------------------------------------------ Protected Methods
+
+    /**
+     * Select an appropriate character encoding to be used, based on the
+     * characteristics of the current request and/or filter initialization
+     * parameters.  If no character encoding should be set, return
+     * <code>null</code>.
+     * <p>
+     * The default implementation unconditionally returns the value configured
+     * by the <strong>encoding</strong> initialization parameter for this
+     * filter.
+     *
+     * @param request The servlet request we are processing
+     */
+    protected String selectEncoding(ServletRequest request) {
+        return (this.encoding);
+    }
+}
+编绎后把class文件放在classes目录下，并在Web应用的web.xml文件中添加如下代码：
+<filter>
+  <filter-name>Set Character Encoding</filter-name>
+  <filter-class>com.neusoft.equipment.controller.SetCharacterEncodingFilter</filter-class>
+  <init-param>
+   <param-name>encoding</param-name>
+   <param-value>gbk</param-value>
+  </init-param>
+</filter>
+<filter-mapping>
+  <filter-name>Set Character Encoding</filter-name>
+  <url-pattern>/*</url-pattern>
+</filter-mapping>
+
+只要是gb2312,gbk,utf8等支持多字节编码的字符集都可以储存汉字，当然，gb2312中的汉字数量远少于gbk，而gb2312,gbk等都可在utf8下编码，
+这里指定目标编码方式是gbk，重新启动Tomcat后就可以了。
+（2）对Get方法提交的表单，由于参数是紧跟在用户的URL请求后面，Tomcat对其的处理方法与Post方法不一样。
+所以上面设置的过滤器对Get方法没有作用，它需要在其他地方设置。
+找到Tomca的server.xml配置文件，找到对80（或者是8080等别的，这个是自己修改后的）的Connector组件的设置部分，
+给这个Connector组件添加一个属性：URIEncoding＝"GBK"。修改后的Connector组件是这样的：
+
+<!-- Define a non-SSL HTTP/1.1 Connector on port 80-->
+    <Connector port="80" maxHttpHeaderSize="8192"
+	maxThreads="150" minSpareThreads="25" maxSpareThreads="75"
+	enableLookups="false" redirectPort="8443" acceptCount="100"
+ 	disableUploadTimeout="true"  URIEncoding＝"GBK"/>
+	这样修改后，重启Tomcat就可以正确处理GET方法提交的表单数据了。
+
+    	第二个要解决的是数据库存取数据出现的乱码等情况。对于不同的数据库往往支持不同的编码，
+	造成了应用时比较混乱，不同的数据库的解决方法往往是不同的，针对MySql，网上也有各种各样的解决方案，
+	但个人觉得那些太繁了，现在有一个极其简单的解决办法：
+	修改MySql的配置文件，打开MySql安装后的根目录，找到my.init文件，
+	把[mysqld]区的如下语句：default-character-set=latin1修改为：default-character-set=gbk，
+	然后在[client]区增加：default-character-set=gbk，修改后记得做一件事情，到Widows控制面板的管理工具下的服务程序，
+	把Mysql服务停止了重新启动，这样就根本解决了MySql的数据库乱码问题，很简单～～～～
+	
+
+

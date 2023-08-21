@@ -1,0 +1,786 @@
+************************************************************************
+*                 【征信接口】开始执行企业征信接口程序                 *
+************************************************************************
+***系统启动时间: 2009-11-30_10:26:17
+正在初始化数据源...
+数据仓库当前日期【2009-11-29】 数据源当前日期【2009-11-28】 
+初始化表: O_LNA_CM_CSTAPPLY_QYZX
+初始化表: O_LNA_CM_CSTBASE_QYZX
+初始化表: O_LNA_CM_CAPITALSTR_QYZX
+初始化表: O_LNA_CM_MEMORABILIA_QYZX
+初始化表: O_LNA_CM_ARTIFICAL_QYZX
+初始化表: O_LNA_CM_INCSTRU_QYZX
+初始化表: O_LNA_CM_INVESTPOOL_QYZX
+初始化表: O_LNA_CM_SUITINFO_QYZX
+初始化表: O_LNA_CM_PRINNAME_QYZX
+初始化表: O_LNA_LA_LOANCONTR_QYZX
+初始化表: O_LNA_LA_DUEBILL_QYZX
+初始化表: O_LNA_LA_REPAY_QYZX
+初始化表: O_LNA_LA_EXTENDCONTR_QYZX
+初始化表: O_LNA_LA_OWEINTEREST_QYZX
+初始化表: O_LNA_LA_IMPORTPUR_QYZX
+初始化表: O_LNA_LA_EXPORTPUR_QYZX
+初始化表: O_LNA_LA_PACKLOAN_QYZX
+初始化表: O_LNA_LA_DRAFTCONT_QYZX
+初始化表: O_LNA_LA_DRAFTCONTR_QYZX
+初始化表: O_LNA_LA_LGCONTR_QYZX
+初始化表: O_LNA_AF_CREDITDETAIL_QYZX
+初始化表: O_LNA_LA_ASSURECONTR_QYZX
+初始化表: O_LNA_LA_ASSURECOLLATE_QYZX
+初始化表: O_LNA_AF_CAUTIONER_QYZX
+初始化表: O_LNA_AF_ASSUREPAWN_QYZX
+初始化表: O_LNA_AF_RIGHTPAWN_QYZX
+初始化表: O_LNA_AF_PAWN_QYZX
+初始化表: O_LNA_LA_LETTERCREDIT_QYZX
+初始化表: O_LNA_CM_CARDCHANGE_QYZX
+数据源初始化完毕.
+____卸载数据源所有信息
+____正在卸载: 0 - 客户登记表 O_LNA_CM_CSTAPPLY_QYZX
+____执行完毕, 用时=0分4秒
+____正在卸载: 1 - 客户基本信息表 O_LNA_CM_CSTBASE_QYZX
+____执行完毕, 用时=0分1秒
+____正在卸载: 2 - 企业资本结构表 O_LNA_CM_CAPITALSTR_QYZX
+____执行完毕, 用时=0分0秒
+____正在卸载: 3 - 客户大事记与违规记录表 O_LNA_CM_MEMORABILIA_QYZX
+____执行完毕, 用时=0分1秒
+____正在卸载: 4 - 法人代表家族成员信息 O_LNA_CM_ARTIFICAL_QYZX
+____执行完毕, 用时=0分0秒
+____正在卸载: 5 - 公司结构情况表 O_LNA_CM_INCSTRU_QYZX
+____执行完毕, 用时=0分0秒
+____正在卸载: 6 - 投资联营概况表 O_LNA_CM_INVESTPOOL_QYZX
+____执行完毕, 用时=0分0秒
+____正在卸载: 7 - 借款人诉讼信息表 O_LNA_CM_SUITINFO_QYZX
+____执行完毕, 用时=0分0秒
+____正在卸载: 8 - 主要负责人信息表 O_LNA_CM_PRINNAME_QYZX
+____执行完毕, 用时=0分1秒
+____正在卸载: 9 - 公司贷款合同表 O_LNA_LA_LOANCONTR_QYZX
+____执行完毕, 用时=0分1秒
+____正在卸载: 10 - 借据信息表 O_LNA_LA_DUEBILL_QYZX
+____执行完毕, 用时=0分15秒
+____正在卸载: 11 - 还本还息信息表 O_LNA_LA_REPAY_QYZX
+____执行完毕, 用时=2分8秒
+____正在卸载: 12 - 展期合同表 O_LNA_LA_EXTENDCONTR_QYZX
+____执行完毕, 用时=0分1秒
+____正在卸载: 13 - 欠息信息表 O_LNA_LA_OWEINTEREST_QYZX
+____执行完毕, 用时=0分0秒
+____正在卸载: 14 - 进口押汇信息表 O_LNA_LA_IMPORTPUR_QYZX
+____执行完毕, 用时=0分1秒
+____正在卸载: 15 - 出口押汇信息表 O_LNA_LA_EXPORTPUR_QYZX
+____执行完毕, 用时=0分0秒
+____正在卸载: 16 - 打包放款信息表 O_LNA_LA_PACKLOAN_QYZX
+____执行完毕, 用时=0分0秒
+____正在卸载: 17 - 汇票表 O_LNA_LA_DRAFTCONT_QYZX
+____执行完毕, 用时=0分4秒
+____正在卸载: 18 - 汇票合同表 O_LNA_LA_DRAFTCONTR_QYZX
+____执行完毕, 用时=0分2秒
+____正在卸载: 19 - 保函合同表 O_LNA_LA_LGCONTR_QYZX
+____执行完毕, 用时=0分1秒
+____正在卸载: 20 - 授信额度明细表 O_LNA_AF_CREDITDETAIL_QYZX
+____执行完毕, 用时=0分0秒
+____正在卸载: 21 - 担保合同台账 O_LNA_LA_ASSURECONTR_QYZX
+____执行完毕, 用时=0分8秒
+____正在卸载: 22 - 担保合同对接表 O_LNA_LA_ASSURECOLLATE_QYZX
+____执行完毕, 用时=0分1秒
+____正在卸载: 23 - 担保人信息表 O_LNA_AF_CAUTIONER_QYZX
+____执行完毕, 用时=0分8秒
+____正在卸载: 24 - 担保抵质押物对照表 O_LNA_AF_ASSUREPAWN_QYZX
+____执行完毕, 用时=0分2秒
+____正在卸载: 25 - 质押物信息表 O_LNA_AF_RIGHTPAWN_QYZX
+____执行完毕, 用时=0分0秒
+____正在卸载: 26 - 抵押物信息表 O_LNA_AF_PAWN_QYZX
+____执行完毕, 用时=0分3秒
+____正在卸载: 27 - 信用证合同信息表 O_LNA_LA_LETTERCREDIT_QYZX
+____执行完毕, 用时=0分0秒
+____正在卸载: 28 - 贷款卡编码变更表 O_LNA_CM_CARDCHANGE_QYZX
+____执行完毕, 用时=0分1秒
+【初始化操作 - PROC_QYZX_INIT】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分56秒
+【贷款业务信 - PROC_QYZX_LOAN_ALL】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=1分9秒
+【欠息业务信息 - PROC_QYZX_ECC_LACKOFINTERESTS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分2秒
+【汇票业务信息 - PROC_QYZX_ECC_BANKACCEPTS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=1分17秒
+【保函业务信息 - PROC_QYZX_ECC_BAOHANS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分2秒
+【借款人概况信息 - PROC_QYZX_ECC_BORROWERS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分5秒
+【出资资本构成情况 - PROC_QYZX_ECC_BINVCAPITALS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分2秒
+【大事信息 - PROC_QYZX_ECC_EVENTINFORMATION】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分2秒
+【法人代表家族企业成员情况 - PROC_QYZX_ECC_FAMILYMEMBERS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分1秒
+【财务部联系方式 - PROC_QYZX_ECC_FINANCECONTACTS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分0秒
+【集团公司信息 - PROC_QYZX_ECC_GRPCORPS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分1秒
+【对外投资情况 - PROC_QYZX_ECC_INVCAPITALS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分0秒
+【借款人注册资本情况 - PROC_QYZX_ECC_REGCAPITALS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分0秒
+【股票信息 - PROC_QYZX_ECC_STOCKS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分1秒
+【高级管理人情况 - PROC_QYZX_ECC_SUPERMANS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分1秒
+【保证合同信息 - PROC_QYZX_ECC_ENSURECONTRACTS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分24秒
+【质押合同信息 - PROC_QYZX_ECC_IMPAWNCONTRACT】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分9秒
+【抵押合同信息 - PROC_QYZX_ECC_PLEDGECONTRACTS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分16秒
+【垫款信息 - PROC_QYZX_ECC_DKMESSAGES】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分4秒
+【存储过程执行完毕,执行的操作 - PROC_QYZX_STOP】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分1秒
+中间表当前数据的信息:任务号【290】数据日期【2009-11-29】
+____新建目录【/home/udsf/shell/qyzx/m_file/20091129】
+____正在卸载: 1 - QYZX_ECC_BORROWERS
+____执行完毕, 用时=0分1秒
+____正在卸载: 2 - QYZX_ECC_FINANCECONTACTS
+____执行完毕, 用时=0分0秒
+____正在卸载: 3 - QYZX_ECC_STOCKS
+____执行完毕, 用时=0分0秒
+____正在卸载: 4 - QYZX_ECC_REGCAPITALS
+____执行完毕, 用时=0分1秒
+____正在卸载: 5 - QYZX_ECC_BINVCAPITALS
+____执行完毕, 用时=0分0秒
+____正在卸载: 6 - QYZX_ECC_INVCAPITALS
+____执行完毕, 用时=0分0秒
+____正在卸载: 7 - QYZX_ECC_GRPCORPS
+____执行完毕, 用时=0分0秒
+____正在卸载: 8 - QYZX_ECC_SUPERMANS
+____执行完毕, 用时=0分0秒
+____正在卸载: 9 - QYZX_ECC_FAMILYMEMBERS
+____执行完毕, 用时=0分0秒
+____正在卸载: 10 - QYZX_ECC_LAWINFORMATION
+____执行完毕, 用时=0分1秒
+____正在卸载: 11 - QYZX_ECC_EVENTINFORMATION
+____执行完毕, 用时=0分0秒
+____正在卸载: 12 - QYZX_ECC_BILLEXPS
+____执行完毕, 用时=0分0秒
+____正在卸载: 13 - QYZX_ECC_LOANBILLS
+____执行完毕, 用时=0分1秒
+____正在卸载: 14 - QYZX_ECC_LOANCONTRACTS
+____执行完毕, 用时=0分0秒
+____正在卸载: 15 - QYZX_ECC_LOANMONEYS
+____执行完毕, 用时=0分1秒
+____正在卸载: 16 - QYZX_ECC_LOANRETURNS
+____执行完毕, 用时=0分0秒
+____正在卸载: 17 - QYZX_ECC_BAOLIS
+____执行完毕, 用时=0分0秒
+____正在卸载: 18 - QYZX_ECC_BILLDISCOUNTS
+____执行完毕, 用时=0分0秒
+____正在卸载: 19 - QYZX_ECC_FINANCEBUSINESS
+____执行完毕, 用时=0分0秒
+____正在卸载: 20 - QYZX_ECC_FINANCEEXPS
+____执行完毕, 用时=0分0秒
+____正在卸载: 21 - QYZX_ECC_FINANCEMONEYS
+____执行完毕, 用时=0分1秒
+____正在卸载: 22 - QYZX_ECC_FINANCEPROTOS
+____执行完毕, 用时=0分0秒
+____正在卸载: 23 - QYZX_ECC_FINANCERETURNS
+____执行完毕, 用时=0分0秒
+____正在卸载: 24 - QYZX_ECC_CREDITBUSINESS
+____执行完毕, 用时=0分0秒
+____正在卸载: 25 - QYZX_ECC_BAOHANS
+____执行完毕, 用时=0分0秒
+____正在卸载: 26 - QYZX_ECC_BANKACCEPTS
+____执行完毕, 用时=0分3秒
+____正在卸载: 27 - QYZX_ECC_OPENAWARDTRUSTS
+____执行完毕, 用时=0分0秒
+____正在卸载: 28 - QYZX_ECC_ENSURECONTRACTS
+____执行完毕, 用时=0分1秒
+____正在卸载: 29 - QYZX_ECC_IMPAWNCONTRACT
+____执行完毕, 用时=0分1秒
+____正在卸载: 30 - QYZX_ECC_PLEDGECONTRACTS
+____执行完毕, 用时=0分1秒
+____正在卸载: 31 - QYZX_ECC_DKMESSAGES
+____执行完毕, 用时=0分0秒
+____正在卸载: 32 - QYZX_ECC_DKRETURNS
+____执行完毕, 用时=0分0秒
+____正在卸载: 33 - QYZX_ECC_LACKOFINTERESTS
+____执行完毕, 用时=0分1秒
+mv /home/udsf/shell/qyzx/m_file/20091128 /home/udsf/shell/qyzx/m_file/20091128_temp 返回值【0】
+mv /home/udsf/shell/qyzx/m_file/20091126 /home/udsf/shell/qyzx/m_file/20091128 返回值【0】
+____剥离增量数据, 命令: incrMainXml 20091129 /home/udsf/shell/qyzx/QYZX.cfg
+____执行完毕, 用时=0分44秒
+mv /home/udsf/shell/qyzx/m_file/20091128 /home/udsf/shell/qyzx/m_file/20091126 返回值【0】
+mv /home/udsf/shell/qyzx/m_file/20091128_temp /home/udsf/shell/qyzx/m_file/20091128 返回值【0】
+***执行结束时间: 2009-11-30_10:39:38
+************************************************************************
+*                 【征信接口】开始执行企业征信接口程序                 *
+************************************************************************
+***系统启动时间: 2009-11-30_11:25:38
+正在初始化数据源...
+数据仓库当前日期【2009-11-29】 数据源当前日期【2009-11-29】 
+初始化数据源失败,原因: 数据仓库日期 2009-11-29 必须大于 数据源日期 2009-11-29
+初始化数据源发生错误,返回值【54】,错误信息【】
+***执行结束时间: 2009-11-30_11:25:40
+************************************************************************
+*                 【征信接口】开始执行企业征信接口程序                 *
+************************************************************************
+***系统启动时间: 2009-11-30_11:26:48
+正在初始化数据源...
+数据仓库当前日期【2009-11-29】 数据源当前日期【2009-11-29】 
+初始化数据源失败,原因: 数据仓库日期 2009-11-29 必须大于 数据源日期 2009-11-29
+初始化数据源发生错误,返回值【54】,错误信息【】
+***执行结束时间: 2009-11-30_11:26:51
+************************************************************************
+*                 【征信接口】开始执行企业征信接口程序                 *
+************************************************************************
+***系统启动时间: 2009-11-30_11:31:29
+正在初始化数据源...
+数据仓库当前日期【2009-11-29】 数据源当前日期【2009-11-29】 
+初始化数据源失败,原因: 数据仓库日期 2009-11-29 必须大于 数据源日期 2009-11-29
+初始化数据源发生错误,返回值【54】,错误信息【】
+***执行结束时间: 2009-11-30_11:31:31
+************************************************************************
+*                 【征信接口】开始执行企业征信接口程序                 *
+************************************************************************
+***系统启动时间: 2009-11-30_11:32:22
+正在初始化数据源...
+数据仓库当前日期【2009-11-29】 数据源当前日期【2009-11-29】 
+初始化数据源失败,原因: 数据仓库日期 2009-11-29 必须大于 数据源日期 2009-11-29
+初始化数据源发生错误,返回值【54】,错误信息【】
+***执行结束时间: 2009-11-30_11:32:24
+************************************************************************
+*                 【征信接口】开始执行企业征信接口程序                 *
+************************************************************************
+***系统启动时间: 2009-12-01_13:33:58
+正在初始化数据源...
+数据仓库当前日期【2009-11-30】 数据源当前日期【2009-11-29】 
+初始化表: O_LNA_CM_CSTAPPLY_QYZX
+初始化表: O_LNA_CM_CSTBASE_QYZX
+初始化表: O_LNA_CM_CAPITALSTR_QYZX
+初始化表: O_LNA_CM_MEMORABILIA_QYZX
+初始化表: O_LNA_CM_ARTIFICAL_QYZX
+初始化表: O_LNA_CM_INCSTRU_QYZX
+初始化表: O_LNA_CM_INVESTPOOL_QYZX
+初始化表: O_LNA_CM_SUITINFO_QYZX
+初始化表: O_LNA_CM_PRINNAME_QYZX
+初始化表: O_LNA_LA_LOANCONTR_QYZX
+初始化表: O_LNA_LA_DUEBILL_QYZX
+初始化表: O_LNA_LA_REPAY_QYZX
+初始化表: O_LNA_LA_EXTENDCONTR_QYZX
+初始化表: O_LNA_LA_OWEINTEREST_QYZX
+初始化表: O_LNA_LA_IMPORTPUR_QYZX
+初始化表: O_LNA_LA_EXPORTPUR_QYZX
+初始化表: O_LNA_LA_PACKLOAN_QYZX
+初始化表: O_LNA_LA_DRAFTCONT_QYZX
+初始化表: O_LNA_LA_DRAFTCONTR_QYZX
+初始化表: O_LNA_LA_LGCONTR_QYZX
+初始化表: O_LNA_AF_CREDITDETAIL_QYZX
+初始化表: O_LNA_LA_ASSURECONTR_QYZX
+初始化表: O_LNA_LA_ASSURECOLLATE_QYZX
+初始化表: O_LNA_AF_CAUTIONER_QYZX
+初始化表: O_LNA_AF_ASSUREPAWN_QYZX
+初始化表: O_LNA_AF_RIGHTPAWN_QYZX
+初始化表: O_LNA_AF_PAWN_QYZX
+初始化表: O_LNA_LA_LETTERCREDIT_QYZX
+初始化表: O_LNA_CM_CARDCHANGE_QYZX
+数据源初始化完毕.
+____卸载数据源所有信息
+____正在卸载: 0 - 客户登记表 O_LNA_CM_CSTAPPLY_QYZX
+____执行完毕, 用时=0分4秒
+____正在卸载: 1 - 客户基本信息表 O_LNA_CM_CSTBASE_QYZX
+____执行完毕, 用时=0分1秒
+____正在卸载: 2 - 企业资本结构表 O_LNA_CM_CAPITALSTR_QYZX
+____执行完毕, 用时=0分1秒
+____正在卸载: 3 - 客户大事记与违规记录表 O_LNA_CM_MEMORABILIA_QYZX
+____执行完毕, 用时=0分0秒
+____正在卸载: 4 - 法人代表家族成员信息 O_LNA_CM_ARTIFICAL_QYZX
+____执行完毕, 用时=0分0秒
+____正在卸载: 5 - 公司结构情况表 O_LNA_CM_INCSTRU_QYZX
+____执行完毕, 用时=0分0秒
+____正在卸载: 6 - 投资联营概况表 O_LNA_CM_INVESTPOOL_QYZX
+____执行完毕, 用时=0分0秒
+____正在卸载: 7 - 借款人诉讼信息表 O_LNA_CM_SUITINFO_QYZX
+____执行完毕, 用时=0分1秒
+____正在卸载: 8 - 主要负责人信息表 O_LNA_CM_PRINNAME_QYZX
+____执行完毕, 用时=0分0秒
+____正在卸载: 9 - 公司贷款合同表 O_LNA_LA_LOANCONTR_QYZX
+____执行完毕, 用时=0分2秒
+____正在卸载: 10 - 借据信息表 O_LNA_LA_DUEBILL_QYZX
+____执行完毕, 用时=0分16秒
+____正在卸载: 11 - 还本还息信息表 O_LNA_LA_REPAY_QYZX
+____执行完毕, 用时=2分38秒
+____正在卸载: 12 - 展期合同表 O_LNA_LA_EXTENDCONTR_QYZX
+____执行完毕, 用时=0分0秒
+____正在卸载: 13 - 欠息信息表 O_LNA_LA_OWEINTEREST_QYZX
+____执行完毕, 用时=0分1秒
+____正在卸载: 14 - 进口押汇信息表 O_LNA_LA_IMPORTPUR_QYZX
+____执行完毕, 用时=0分0秒
+____正在卸载: 15 - 出口押汇信息表 O_LNA_LA_EXPORTPUR_QYZX
+____执行完毕, 用时=0分0秒
+____正在卸载: 16 - 打包放款信息表 O_LNA_LA_PACKLOAN_QYZX
+____执行完毕, 用时=0分1秒
+____正在卸载: 17 - 汇票表 O_LNA_LA_DRAFTCONT_QYZX
+____执行完毕, 用时=0分3秒
+____正在卸载: 18 - 汇票合同表 O_LNA_LA_DRAFTCONTR_QYZX
+____执行完毕, 用时=0分3秒
+____正在卸载: 19 - 保函合同表 O_LNA_LA_LGCONTR_QYZX
+____执行完毕, 用时=0分0秒
+____正在卸载: 20 - 授信额度明细表 O_LNA_AF_CREDITDETAIL_QYZX
+____执行完毕, 用时=0分1秒
+____正在卸载: 21 - 担保合同台账 O_LNA_LA_ASSURECONTR_QYZX
+____执行完毕, 用时=0分8秒
+____正在卸载: 22 - 担保合同对接表 O_LNA_LA_ASSURECOLLATE_QYZX
+____执行完毕, 用时=0分2秒
+____正在卸载: 23 - 担保人信息表 O_LNA_AF_CAUTIONER_QYZX
+____执行完毕, 用时=0分8秒
+____正在卸载: 24 - 担保抵质押物对照表 O_LNA_AF_ASSUREPAWN_QYZX
+____执行完毕, 用时=0分2秒
+____正在卸载: 25 - 质押物信息表 O_LNA_AF_RIGHTPAWN_QYZX
+____执行完毕, 用时=0分1秒
+____正在卸载: 26 - 抵押物信息表 O_LNA_AF_PAWN_QYZX
+____执行完毕, 用时=0分3秒
+____正在卸载: 27 - 信用证合同信息表 O_LNA_LA_LETTERCREDIT_QYZX
+____执行完毕, 用时=0分1秒
+____正在卸载: 28 - 贷款卡编码变更表 O_LNA_CM_CARDCHANGE_QYZX
+____执行完毕, 用时=0分0秒
+【初始化操作 - PROC_QYZX_INIT】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分45秒
+【贷款业务信 - PROC_QYZX_LOAN_ALL】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分37秒
+【欠息业务信息 - PROC_QYZX_ECC_LACKOFINTERESTS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分1秒
+【汇票业务信息 - PROC_QYZX_ECC_BANKACCEPTS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分34秒
+【保函业务信息 - PROC_QYZX_ECC_BAOHANS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分2秒
+【借款人概况信息 - PROC_QYZX_ECC_BORROWERS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分4秒
+【出资资本构成情况 - PROC_QYZX_ECC_BINVCAPITALS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分2秒
+【大事信息 - PROC_QYZX_ECC_EVENTINFORMATION】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分2秒
+【法人代表家族企业成员情况 - PROC_QYZX_ECC_FAMILYMEMBERS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分0秒
+【财务部联系方式 - PROC_QYZX_ECC_FINANCECONTACTS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分3秒
+【集团公司信息 - PROC_QYZX_ECC_GRPCORPS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分1秒
+【对外投资情况 - PROC_QYZX_ECC_INVCAPITALS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分1秒
+【借款人注册资本情况 - PROC_QYZX_ECC_REGCAPITALS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分0秒
+【股票信息 - PROC_QYZX_ECC_STOCKS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分2秒
+【高级管理人情况 - PROC_QYZX_ECC_SUPERMANS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分2秒
+【保证合同信息 - PROC_QYZX_ECC_ENSURECONTRACTS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分22秒
+【质押合同信息 - PROC_QYZX_ECC_IMPAWNCONTRACT】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分4秒
+【抵押合同信息 - PROC_QYZX_ECC_PLEDGECONTRACTS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分10秒
+【垫款信息 - PROC_QYZX_ECC_DKMESSAGES】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分2秒
+【存储过程执行完毕,执行的操作 - PROC_QYZX_STOP】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分0秒
+中间表当前数据的信息:任务号【291】数据日期【2009-11-30】
+____新建目录【/home/udsf/shell/qyzx/m_file/20091130】
+____正在卸载: 1 - QYZX_ECC_BORROWERS
+____执行完毕, 用时=0分1秒
+____正在卸载: 2 - QYZX_ECC_FINANCECONTACTS
+____执行完毕, 用时=0分0秒
+____正在卸载: 3 - QYZX_ECC_STOCKS
+____执行完毕, 用时=0分0秒
+____正在卸载: 4 - QYZX_ECC_REGCAPITALS
+____执行完毕, 用时=0分0秒
+____正在卸载: 5 - QYZX_ECC_BINVCAPITALS
+____执行完毕, 用时=0分0秒
+____正在卸载: 6 - QYZX_ECC_INVCAPITALS
+____执行完毕, 用时=0分1秒
+____正在卸载: 7 - QYZX_ECC_GRPCORPS
+____执行完毕, 用时=0分0秒
+____正在卸载: 8 - QYZX_ECC_SUPERMANS
+____执行完毕, 用时=0分0秒
+____正在卸载: 9 - QYZX_ECC_FAMILYMEMBERS
+____执行完毕, 用时=0分0秒
+____正在卸载: 10 - QYZX_ECC_LAWINFORMATION
+____执行完毕, 用时=0分0秒
+____正在卸载: 11 - QYZX_ECC_EVENTINFORMATION
+____执行完毕, 用时=0分1秒
+____正在卸载: 12 - QYZX_ECC_BILLEXPS
+____执行完毕, 用时=0分0秒
+____正在卸载: 13 - QYZX_ECC_LOANBILLS
+____执行完毕, 用时=0分1秒
+____正在卸载: 14 - QYZX_ECC_LOANCONTRACTS
+____执行完毕, 用时=0分1秒
+____正在卸载: 15 - QYZX_ECC_LOANMONEYS
+____执行完毕, 用时=0分1秒
+____正在卸载: 16 - QYZX_ECC_LOANRETURNS
+____执行完毕, 用时=0分0秒
+____正在卸载: 17 - QYZX_ECC_BAOLIS
+____执行完毕, 用时=0分0秒
+____正在卸载: 18 - QYZX_ECC_BILLDISCOUNTS
+____执行完毕, 用时=0分1秒
+____正在卸载: 19 - QYZX_ECC_FINANCEBUSINESS
+____执行完毕, 用时=0分0秒
+____正在卸载: 20 - QYZX_ECC_FINANCEEXPS
+____执行完毕, 用时=0分0秒
+____正在卸载: 21 - QYZX_ECC_FINANCEMONEYS
+____执行完毕, 用时=0分0秒
+____正在卸载: 22 - QYZX_ECC_FINANCEPROTOS
+____执行完毕, 用时=0分0秒
+____正在卸载: 23 - QYZX_ECC_FINANCERETURNS
+____执行完毕, 用时=0分1秒
+____正在卸载: 24 - QYZX_ECC_CREDITBUSINESS
+____执行完毕, 用时=0分0秒
+____正在卸载: 25 - QYZX_ECC_BAOHANS
+____执行完毕, 用时=0分0秒
+____正在卸载: 26 - QYZX_ECC_BANKACCEPTS
+____执行完毕, 用时=0分5秒
+____正在卸载: 27 - QYZX_ECC_OPENAWARDTRUSTS
+____执行完毕, 用时=0分0秒
+____正在卸载: 28 - QYZX_ECC_ENSURECONTRACTS
+____执行完毕, 用时=0分2秒
+____正在卸载: 29 - QYZX_ECC_IMPAWNCONTRACT
+____执行完毕, 用时=0分2秒
+____正在卸载: 30 - QYZX_ECC_PLEDGECONTRACTS
+____执行完毕, 用时=0分1秒
+____正在卸载: 31 - QYZX_ECC_DKMESSAGES
+____执行完毕, 用时=0分0秒
+____正在卸载: 32 - QYZX_ECC_DKRETURNS
+____执行完毕, 用时=0分0秒
+____正在卸载: 33 - QYZX_ECC_LACKOFINTERESTS
+____执行完毕, 用时=0分0秒
+mv /home/udsf/shell/qyzx/m_file/20091129 /home/udsf/shell/qyzx/m_file/20091129_temp 返回值【0】
+mv /home/udsf/shell/qyzx/m_file/20091126 /home/udsf/shell/qyzx/m_file/20091129 返回值【0】
+____剥离增量数据, 命令: incrMainXml 20091130 /home/udsf/shell/qyzx/QYZX.cfg
+____执行完毕, 用时=0分43秒
+mv /home/udsf/shell/qyzx/m_file/20091129 /home/udsf/shell/qyzx/m_file/20091126 返回值【0】
+mv /home/udsf/shell/qyzx/m_file/20091129_temp /home/udsf/shell/qyzx/m_file/20091129 返回值【0】
+***执行结束时间: 2009-12-01_13:45:58
+************************************************************************
+*                 【征信接口】开始执行企业征信接口程序                 *
+************************************************************************
+***系统启动时间: 2009-12-02_10:12:11
+正在初始化数据源...
+数据仓库当前日期【2009-12-01】 数据源当前日期【2009-11-30】 
+初始化表: O_LNA_CM_CSTAPPLY_QYZX
+初始化表: O_LNA_CM_CSTBASE_QYZX
+初始化表: O_LNA_CM_CAPITALSTR_QYZX
+初始化表: O_LNA_CM_MEMORABILIA_QYZX
+初始化表: O_LNA_CM_ARTIFICAL_QYZX
+初始化表: O_LNA_CM_INCSTRU_QYZX
+初始化表: O_LNA_CM_INVESTPOOL_QYZX
+初始化表: O_LNA_CM_SUITINFO_QYZX
+初始化表: O_LNA_CM_PRINNAME_QYZX
+初始化表: O_LNA_LA_LOANCONTR_QYZX
+初始化表: O_LNA_LA_DUEBILL_QYZX
+初始化表: O_LNA_LA_REPAY_QYZX
+初始化表: O_LNA_LA_EXTENDCONTR_QYZX
+初始化表: O_LNA_LA_OWEINTEREST_QYZX
+初始化表: O_LNA_LA_IMPORTPUR_QYZX
+初始化表: O_LNA_LA_EXPORTPUR_QYZX
+初始化表: O_LNA_LA_PACKLOAN_QYZX
+初始化表: O_LNA_LA_DRAFTCONT_QYZX
+初始化表: O_LNA_LA_DRAFTCONTR_QYZX
+初始化表: O_LNA_LA_LGCONTR_QYZX
+初始化表: O_LNA_AF_CREDITDETAIL_QYZX
+初始化表: O_LNA_LA_ASSURECONTR_QYZX
+初始化表: O_LNA_LA_ASSURECOLLATE_QYZX
+初始化表: O_LNA_AF_CAUTIONER_QYZX
+初始化表: O_LNA_AF_ASSUREPAWN_QYZX
+初始化表: O_LNA_AF_RIGHTPAWN_QYZX
+初始化表: O_LNA_AF_PAWN_QYZX
+初始化表: O_LNA_LA_LETTERCREDIT_QYZX
+初始化表: O_LNA_CM_CARDCHANGE_QYZX
+数据源初始化完毕.
+____卸载数据源所有信息
+____正在卸载: 0 - 客户登记表 O_LNA_CM_CSTAPPLY_QYZX
+____执行完毕, 用时=0分3秒
+____正在卸载: 1 - 客户基本信息表 O_LNA_CM_CSTBASE_QYZX
+____执行完毕, 用时=0分2秒
+____正在卸载: 2 - 企业资本结构表 O_LNA_CM_CAPITALSTR_QYZX
+____执行完毕, 用时=0分0秒
+____正在卸载: 3 - 客户大事记与违规记录表 O_LNA_CM_MEMORABILIA_QYZX
+____执行完毕, 用时=0分0秒
+____正在卸载: 4 - 法人代表家族成员信息 O_LNA_CM_ARTIFICAL_QYZX
+____执行完毕, 用时=0分1秒
+____正在卸载: 5 - 公司结构情况表 O_LNA_CM_INCSTRU_QYZX
+____执行完毕, 用时=0分0秒
+____正在卸载: 6 - 投资联营概况表 O_LNA_CM_INVESTPOOL_QYZX
+____执行完毕, 用时=0分0秒
+____正在卸载: 7 - 借款人诉讼信息表 O_LNA_CM_SUITINFO_QYZX
+____执行完毕, 用时=0分1秒
+____正在卸载: 8 - 主要负责人信息表 O_LNA_CM_PRINNAME_QYZX
+____执行完毕, 用时=0分0秒
+____正在卸载: 9 - 公司贷款合同表 O_LNA_LA_LOANCONTR_QYZX
+____执行完毕, 用时=0分2秒
+____正在卸载: 10 - 借据信息表 O_LNA_LA_DUEBILL_QYZX
+____执行完毕, 用时=0分14秒
+____正在卸载: 11 - 还本还息信息表 O_LNA_LA_REPAY_QYZX
+____执行完毕, 用时=2分6秒
+____正在卸载: 12 - 展期合同表 O_LNA_LA_EXTENDCONTR_QYZX
+____执行完毕, 用时=0分0秒
+____正在卸载: 13 - 欠息信息表 O_LNA_LA_OWEINTEREST_QYZX
+____执行完毕, 用时=0分0秒
+____正在卸载: 14 - 进口押汇信息表 O_LNA_LA_IMPORTPUR_QYZX
+____执行完毕, 用时=0分0秒
+____正在卸载: 15 - 出口押汇信息表 O_LNA_LA_EXPORTPUR_QYZX
+____执行完毕, 用时=0分0秒
+____正在卸载: 16 - 打包放款信息表 O_LNA_LA_PACKLOAN_QYZX
+____执行完毕, 用时=0分1秒
+____正在卸载: 17 - 汇票表 O_LNA_LA_DRAFTCONT_QYZX
+____执行完毕, 用时=0分3秒
+____正在卸载: 18 - 汇票合同表 O_LNA_LA_DRAFTCONTR_QYZX
+____执行完毕, 用时=0分2秒
+____正在卸载: 19 - 保函合同表 O_LNA_LA_LGCONTR_QYZX
+____执行完毕, 用时=0分0秒
+____正在卸载: 20 - 授信额度明细表 O_LNA_AF_CREDITDETAIL_QYZX
+____执行完毕, 用时=0分1秒
+____正在卸载: 21 - 担保合同台账 O_LNA_LA_ASSURECONTR_QYZX
+____执行完毕, 用时=0分8秒
+____正在卸载: 22 - 担保合同对接表 O_LNA_LA_ASSURECOLLATE_QYZX
+____执行完毕, 用时=0分1秒
+____正在卸载: 23 - 担保人信息表 O_LNA_AF_CAUTIONER_QYZX
+____执行完毕, 用时=0分8秒
+____正在卸载: 24 - 担保抵质押物对照表 O_LNA_AF_ASSUREPAWN_QYZX
+____执行完毕, 用时=0分2秒
+____正在卸载: 25 - 质押物信息表 O_LNA_AF_RIGHTPAWN_QYZX
+____执行完毕, 用时=0分1秒
+____正在卸载: 26 - 抵押物信息表 O_LNA_AF_PAWN_QYZX
+____执行完毕, 用时=0分5秒
+____正在卸载: 27 - 信用证合同信息表 O_LNA_LA_LETTERCREDIT_QYZX
+____执行完毕, 用时=0分0秒
+____正在卸载: 28 - 贷款卡编码变更表 O_LNA_CM_CARDCHANGE_QYZX
+____执行完毕, 用时=0分0秒
+【初始化操作 - PROC_QYZX_INIT】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分58秒
+【贷款业务信 - PROC_QYZX_LOAN_ALL】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=1分28秒
+【欠息业务信息 - PROC_QYZX_ECC_LACKOFINTERESTS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分3秒
+【汇票业务信息 - PROC_QYZX_ECC_BANKACCEPTS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分47秒
+【保函业务信息 - PROC_QYZX_ECC_BAOHANS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分2秒
+【借款人概况信息 - PROC_QYZX_ECC_BORROWERS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分2秒
+【出资资本构成情况 - PROC_QYZX_ECC_BINVCAPITALS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分3秒
+【大事信息 - PROC_QYZX_ECC_EVENTINFORMATION】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分2秒
+【法人代表家族企业成员情况 - PROC_QYZX_ECC_FAMILYMEMBERS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分0秒
+【财务部联系方式 - PROC_QYZX_ECC_FINANCECONTACTS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分3秒
+【集团公司信息 - PROC_QYZX_ECC_GRPCORPS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分0秒
+【对外投资情况 - PROC_QYZX_ECC_INVCAPITALS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分0秒
+【借款人注册资本情况 - PROC_QYZX_ECC_REGCAPITALS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分1秒
+【股票信息 - PROC_QYZX_ECC_STOCKS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分2秒
+【高级管理人情况 - PROC_QYZX_ECC_SUPERMANS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分2秒
+【保证合同信息 - PROC_QYZX_ECC_ENSURECONTRACTS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分23秒
+【质押合同信息 - PROC_QYZX_ECC_IMPAWNCONTRACT】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分12秒
+【抵押合同信息 - PROC_QYZX_ECC_PLEDGECONTRACTS】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分19秒
+【垫款信息 - PROC_QYZX_ECC_DKMESSAGES】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分3秒
+【存储过程执行完毕,执行的操作 - PROC_QYZX_STOP】
+____正在编译...
+____正在执行...
+____执行完毕, 用时=0分0秒
+中间表当前数据的信息:任务号【301】数据日期【2009-12-01】
+____新建目录【/home/udsf/shell/qyzx/m_file/20091201】
+____正在卸载: 1 - QYZX_ECC_BORROWERS
+____执行完毕, 用时=0分0秒
+____正在卸载: 2 - QYZX_ECC_FINANCECONTACTS
+____执行完毕, 用时=0分1秒
+____正在卸载: 3 - QYZX_ECC_STOCKS
+____执行完毕, 用时=0分0秒
+____正在卸载: 4 - QYZX_ECC_REGCAPITALS
+____执行完毕, 用时=0分0秒
+____正在卸载: 5 - QYZX_ECC_BINVCAPITALS
+____执行完毕, 用时=0分1秒
+____正在卸载: 6 - QYZX_ECC_INVCAPITALS
+____执行完毕, 用时=0分0秒
+____正在卸载: 7 - QYZX_ECC_GRPCORPS
+____执行完毕, 用时=0分1秒
+____正在卸载: 8 - QYZX_ECC_SUPERMANS
+____执行完毕, 用时=0分0秒
+____正在卸载: 9 - QYZX_ECC_FAMILYMEMBERS
+____执行完毕, 用时=0分1秒
+____正在卸载: 10 - QYZX_ECC_LAWINFORMATION
+____执行完毕, 用时=0分0秒
+____正在卸载: 11 - QYZX_ECC_EVENTINFORMATION
+____执行完毕, 用时=0分0秒
+____正在卸载: 12 - QYZX_ECC_BILLEXPS
+____执行完毕, 用时=0分2秒
+____正在卸载: 13 - QYZX_ECC_LOANBILLS
+____执行完毕, 用时=0分0秒
+____正在卸载: 14 - QYZX_ECC_LOANCONTRACTS
+____执行完毕, 用时=0分1秒
+____正在卸载: 15 - QYZX_ECC_LOANMONEYS
+____执行完毕, 用时=0分1秒
+____正在卸载: 16 - QYZX_ECC_LOANRETURNS
+____执行完毕, 用时=0分0秒
+____正在卸载: 17 - QYZX_ECC_BAOLIS
+____执行完毕, 用时=0分0秒
+____正在卸载: 18 - QYZX_ECC_BILLDISCOUNTS
+____执行完毕, 用时=0分0秒
+____正在卸载: 19 - QYZX_ECC_FINANCEBUSINESS
+____执行完毕, 用时=0分1秒
+____正在卸载: 20 - QYZX_ECC_FINANCEEXPS
+____执行完毕, 用时=0分0秒
+____正在卸载: 21 - QYZX_ECC_FINANCEMONEYS
+____执行完毕, 用时=0分0秒
+____正在卸载: 22 - QYZX_ECC_FINANCEPROTOS
+____执行完毕, 用时=0分0秒
+____正在卸载: 23 - QYZX_ECC_FINANCERETURNS
+____执行完毕, 用时=0分0秒
+____正在卸载: 24 - QYZX_ECC_CREDITBUSINESS
+____执行完毕, 用时=0分0秒
+____正在卸载: 25 - QYZX_ECC_BAOHANS
+____执行完毕, 用时=0分1秒
+____正在卸载: 26 - QYZX_ECC_BANKACCEPTS
+____执行完毕, 用时=0分2秒
+____正在卸载: 27 - QYZX_ECC_OPENAWARDTRUSTS
+____执行完毕, 用时=0分1秒
+____正在卸载: 28 - QYZX_ECC_ENSURECONTRACTS
+____执行完毕, 用时=0分2秒
+____正在卸载: 29 - QYZX_ECC_IMPAWNCONTRACT
+____执行完毕, 用时=0分3秒
+____正在卸载: 30 - QYZX_ECC_PLEDGECONTRACTS
+____执行完毕, 用时=0分0秒
+____正在卸载: 31 - QYZX_ECC_DKMESSAGES
+____执行完毕, 用时=0分0秒
+____正在卸载: 32 - QYZX_ECC_DKRETURNS
+____执行完毕, 用时=0分1秒
+____正在卸载: 33 - QYZX_ECC_LACKOFINTERESTS
+____执行完毕, 用时=0分0秒
+mv /home/udsf/shell/qyzx/m_file/20091130 /home/udsf/shell/qyzx/m_file/20091130_temp 返回值【0】
+mv /home/udsf/shell/qyzx/m_file/20091126 /home/udsf/shell/qyzx/m_file/20091130 返回值【0】
+____剥离增量数据, 命令: incrMainXml 20091201 /home/udsf/shell/qyzx/QYZX.cfg
+____执行完毕, 用时=0分45秒
+mv /home/udsf/shell/qyzx/m_file/20091130 /home/udsf/shell/qyzx/m_file/20091126 返回值【0】
+mv /home/udsf/shell/qyzx/m_file/20091130_temp /home/udsf/shell/qyzx/m_file/20091130 返回值【0】
+***执行结束时间: 2009-12-02_10:25:30
