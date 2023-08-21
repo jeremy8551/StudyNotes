@@ -1,0 +1,24 @@
+REGION_NAME   = CICS01
+DBNAME        = pzhccb
+PROG_PATH     = /home/pzhccb/bin
+REGIONPATH    = /var/cics_regions
+CICS_PG       = PGDSYW
+
+all:dinstall
+
+dinstall :
+   cicsdelete -c pd -r $(REGION_NAME) -B $(CICS_PG)
+
+
+
+REGION_NAME   = CICS01
+DBNAME        = pzhccb
+PROG_PATH     = /home/pzhccb/bin
+CICS_PG       = PGDSYW
+PROGRAM       = dsywcics
+
+all:install
+
+install :
+   cicsadd -c pd -r $(REGION_NAME) -B $(CICS_PG) GroupName=Samples \
+   PathName=$(PROG_PATH)/$(PROGRAM) ProgType=program RSLKey=public

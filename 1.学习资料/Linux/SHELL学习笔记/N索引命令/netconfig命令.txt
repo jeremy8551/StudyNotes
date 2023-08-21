@@ -1,0 +1,43 @@
+
+1.常用网络命令：
+  netconfig 命令配置IP
+  ifconfig 查看IP
+  
+  修改IP后需要重启网络服务，命令是 service network restart 
+  如果要用终端 连接 SSH,必须把 VMware Network Adapter VMnet1 启动
+  
+
+2.FTP服务
+    ps -e|grep vsftpd 查看是否运行服务
+    service vsftpd start 启动vsftpd服务
+　　注.如果访问不了的时候请大家要把linux的防火墙也要关闭:　iptables -F 清除防火墙
+　　
+    安装好ftp会产生几个文件：
+　　/etc/vsftpd/vsftpd.conf 主配置文件
+　　/etc/vsftpd.ftpusers 指定哪些用户不能访问FTP服务器
+　　/etc/vsftpd.user_list 文件中指定的用户是否可以访问ftp服务器由vsftpd.conf文件中的userlist_deny的取值来决定。
+　　这几个文件就是整个ftp控制和禁止用户的权限配置
+
+
+3. 远程解决终端中文乱码问题: 
+  # vi /etc/sysconfig/i18n
+  LANG="zh_CN.GBK"
+  LANGUAGE="zh_CN.GBK:zh_CN.GB2312:zh_CN"
+  SUPPORTED="zh_CN.GBK:zh_CN:zh:en_US.UTF-8:en_US:en"
+  SYSFONT="lat0-sun16"
+  
+4. ROOT用户终端中文乱码问题
+   修改/root/.bash_profile文件，增加export LANG=zh_CN.GB18030 
+   
+   
+5. 字符集问题:
+  查看系统支持的字符集:locale -a 
+
+
+6.添加自动启动服务
+  /etc/rc.d/rc.local 文件中最后一行添加
+
+  
+  
+  
+  

@@ -1,0 +1,66 @@
+
+===  SQL历史知识 ===================================================================================================================================================
+
+1970： E.J. Codd 发表了关系数据库理论(relational database theory)； 　　
+
+1974-79： IBM 以Codd的理论为基础开发了“Sequel”,并重命名为"SQL"； 　　
+
+1979： Oracle 发布了商业版SQL 　　
+
+1981-84： 出现了其他商业版本，分别来自 IBM(DB2),Data General(DG/SQL),Relational Technology(INGRES)； 　　
+    SQL/86：ANSI 跟 ISO的第一个标准； 　　
+    SQL/89：增加了引用完整性(referential integrity)； 　　
+    SQL/92(aka SQL2)：被数据库管理系统（DBMS）生产商广发接受； 　　
+
+1997+：成为动态网站(Dynamic web content)的后台支持； 　　
+    SQL/99：Core level跟其他8种相应的level，包括递归查询，程序跟流程控制，基本的对象（object）支持包括oids； 　　
+    SQL/2003：包含了XML相关内容,自动生成列值(column values)； 　　
+
+2005-09-30：“Data is the next generation inside...SQL is the new HTML”! Tim O'eilly提出了Web 2.0理念，称数据将是核心，SQL将成为“新的HTML"； 　　
+    SQL/2006：定义了SQL与XML(包含XQuery)的关联应用； 　　
+
+2006：Sun公司将以SQL基础的数据库管理系统嵌入Java V6 　　
+
+2007 ：SQL Server 2008（Katmi）在过去的SQL2005基础上增强了它的安全性，主要在：简单的数据加密，外键管理，增强了审查，改进了数据库镜像，加强了可支持性。
+
+SQL扩展语言：PL/SQL, T-SQL
+PL/SQL: 全称为 Procedural Language/Structured Query Language，过程语言/结构化查询语言
+T-SQL: Transact Structured Query Language 它是ANSI和ISO SQL 标准的Microsoft SQL Server方言或扩展
+
+=== PL/SQL工具 ===================================================================================================================================================
+
+sqlplus: 在命令行中使用 [username]/[password][@server]
+
+isqlplus: 在网页上执行PL/SQL的工具，访问 http://192.168.1.59:5560/isqlplus
+
+
+
+======================================================================================================================================================
+
+
+--第一个PL/SQL
+declare 
+ v_ename varchar2(20);
+begin
+ select USER_NAME into v_ename from dmd_user_info where user_id = 'admin';
+ dbms_output.put_line('用户:'||v_ename);
+end;
+
+
+--第二个
+DECLARE
+    CURSOR C1 IS
+        select table_name from user_tables;
+    cursor_record C1%ROWTYPE;
+BEGIN
+    OPEN C1;
+    LOOP
+        FETCH C1 INTO cursor_record;
+        EXIT WHEN C1%NOTFOUND;
+        dbms_output.put_line('drop table '||cursor_record.table_name||';');
+    END LOOP;
+END;
+
+
+
+
