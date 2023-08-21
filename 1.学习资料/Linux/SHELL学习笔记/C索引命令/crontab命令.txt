@@ -1,0 +1,31 @@
+
+crontab 日程表命令
+
+crontab: usage error: unrecognized option
+usage:  crontab [-u user] file
+        crontab [-u user] [ -e | -l | -r ]
+                (default operation is replace, per 1003.2)
+        -e      (edit user's crontab)
+        -l      (list user's crontab)
+        -r      (delete user's crontab)
+        -i      (prompt before deleting user's crontab)
+        -s      (selinux context)
+
+
+例如：要实现每天1点1份时自动执行某一个脚本
+[udsf@UDSF_CZ m_file]$ crontab -e
+进入vi编辑器后复制下面内容并保存
+1 1 * * * sh /home/udsf/shell/qyzx/common/qyzx_dailybackup.sh >> /home/udsf/shell/qyzx/common/qyzx_dailybackup.log 2>&1
+
+
+
+查看日程表中的计划
+[udsf@UDSF_CZ m_file]$ crontab -l
+1 1 * * * sh /home/udsf/shell/qyzx/common/qyzx_dailybackup.sh >> /home/udsf/shell/qyzx/common/qyzx_dailybackup.log 2>&1
+
+
+
+
+
+
+

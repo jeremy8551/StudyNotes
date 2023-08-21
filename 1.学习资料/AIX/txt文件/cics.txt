@@ -1,0 +1,28 @@
+1.将pkg（/home/hssh/user/setup)放在/var/spool下
+
+2.运行pkgadd安装           （pkgrm删除）
+
+3.scoadmin
+    Hardware/Kernel Manager
+      Tune Parameters..
+
+     15
+      400  500 100 100
+     13
+      512 32767 65532 4096
+
+    Relink Kernel
+4 
+  /opt/K/SCO/cics/bin/CICSCLI.INI
+中加入
+   Server = HSSH                  ; Arbitrary name for the server
+   Description = TCP/IP Server ; Arbitrary description for the server
+   Protocol = TCPIP            ; Matches with a Driver section below
+   NetName = 100.100.50.2      ; The server's TCP/IP address
+   Port = 4436                 ; Use the default TCP/IP CICS port
+   InitialTransid = CESN
+
+
+5
+  /etc/rc.d/0/sysinit  加入
+            ksh -c "cicscli /S=HSSH"

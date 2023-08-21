@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>51du.cn-代码演示专用页面</title>
+<style type="text/css">
+body {
+        margin: 0 !important;
+        padding: 0 !important;
+}
+/* A fake IE information bar */
+#infobar {
+        font: message-box;
+}
+/* Please adjust the values if the infobar is not looking good */
+#infobar a, #infobar a:link, #infobar a:visited, #infobar a:active {
+        display: block;
+        float: left;
+        clear: both;
+        width: 100%;
+        color: InfoText;
+        background: InfoBackground url(http://www.51du.cn/img/warning.gif) no-repeat fixed .3em .3em;
+        padding: .45em .3em .45em 2em;
+        border-bottom: .16em outset;
+        text-decoration: none;
+        cursor: default;
+}
+#infobar a:hover {
+        color: HighlightText;
+        background: Highlight url(http://www.51du.cn/img/warning2.gif) no-repeat fixed .3em .3em;
+}
+/* A fake viewplot for IE information bar */
+#viewplot {
+        width: 100%;
+        height: expression(this.parentNode.offsetHeight - this.offsetTop);
+        overflow-x: hidden;
+        overflow-y: scroll;
+        padding: 1em;   /* Please set this to the value as that of your <body> */
+}
+</style>
+</head>
+<body>
+<div id="infobar" align=center><a rel="nofollow" href="http://www.51du.cn/">欢迎访问独来读网的BLOG</a></div>
+</body>
+</html>

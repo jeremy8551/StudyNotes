@@ -1,0 +1,193 @@
+建立标准日志文件系统(必须按顺序创建)
+	/var/cics_regions 	SIZE of file system    81920
+	/var/cics_servers       SIZE of file system      8192
+	/var/cics_servers/backups   SIZE of file system   8192
+	/var/cics_servers/archives  SIZE of file system   81920 
+	以 root 登录到要安装 CICS 的机器上。 
+	smit crtjfs
+	注意修改SIZE of file system 参上	
+		MOUNT POINT  参上 
+		Mount AUTOMATICALLY at system restart?    yes
+		PERMISSIONS                               read/write
+	然后mount文件系统:
+		# mount mount_point(目录的全路径名)
+
+建立组
+	smitty  mkgroup
+	cics:   admin=false users=root,cics,SFS_SERV adms=root registry=files
+	cicsterm:  admin=false users=root,cics,SFS_SERV adms=root registry=files
+
+建立cics用户
+	smitty	mkuser
+	为cics创建用户:	Primary GROUP  [cics]
+			Group SET      [cics,cicsterm]
+	注意修改口令
+	smitty	chuser
+
+	修改root用户属性：primary group [cics,cicsterm]
+			  Group Set     [cics,cicsterm]
+安装DCE
+	dce.client
+	dce.compat
+	dce.pthreads
+	dce.tools
+
+安装CICS
+	cics.base
+	cics.client
+	cics.server
+	encina.client
+	encina.ppcexec
+	encina.server
+	encina.sfs
+
+设置环境变量(将root用户指定为cics系统管理员,可设置.cshrc .login .profile或Korn shell的/etc/environment)
+	修改/etc/enviroment文件
+		在PATH变量后添加/usr/lpp/cics/bin
+		CICSPATH=/usr/lpp/cics
+		ENCINA_BINDING_FILE=/var/cics_servers/server_bindings
+		CICSREGION=
+		CICS_SFS_SERVER=
+
+	修改/etc/services
+		在最后追加一行增加sfs_port                 6066/udp
+				  tcpip1		   1435/tcp
+	修改/var/cics_servers/server_bindings
+		在最后追加一行增加/.:/cics/sfs/<sfs_name>    ncadg_ip_udp:[6066]
+
+配置DCE
+	用root重新登录
+	确定DCE配置：
+	#lsdce
+	#/usr/lpp/dce/bin/lsdce
+
+	删除DCE配置：
+	#/usr/lpp/dce/bin/dce.clean
+	#/usr/lpp/dce/bin/rmdce.all
+
+	执行cicscp -v -l log_file create dce -R
+
+配置sfs_server
+	执行cicscp -v create sfs_server <host_name>
+	host_name为正在创建的SFS服务器名称的前八个字符，当你第一次运行cicscp start 	region命令时，它检查本地SFS服务器是否存在。如果在机器上没有配置SFS服务器，	cicscp start region 命令自动创建SFS服务器，它的名称基于主机名称的前八个字		符。如果你指定的host_name不是机器名的前八个字符，cicscp start region创建两		个SFS服务器。结果，创建了SFS服务器的重复服务器绑定文件和重复逻辑卷。
+
+	修改sfs_server定义(Collating language  [en_US])
+
+	冷启动sfs_server
+	cicscp -v start sfs_server <sfs_name> starttype = cold
+	验证SFS服务器正在运行：
+	sfsadmin list lvols －server 
+	/.:/cics/sfs/sfs_name
+
+配置Regions
+	Regions
+* Name of Region to be Created                       [HSSH]
+  Action to be Taken for Resolving Links              mandatory               +
+  Force redefinition of region?                       no                      +
+  Group Id. for Region Data                          []
+* Input file                                         [/usr/lpp/cics/DEFAULT]   /
+  Force use or non-use of DCE servers?                do not use DCE servers  +
+
+	Configure CICS Resources on a File Server
+
+	Define Resources for a CICS Region
+		进入Define Resources for a CICS Region
+		进入Manage Resource(s)
+	1.	Listeners
+		New Listener Identifier    [LSNR]（可任意制定）
+		* Listener Identifier       LSNR
+		* Region name               rsdb2(Regions name)
+		Update Permanent Database OR Install OR Both	Update+
+  		Group to which resource belongs                    []
+  		Activate resource at cold start?       yes
+  		Resource description       [Listener Definition]
+		* Number of updates        0
+		Protect resource from modification?     no
+  		Protocol type              TCP
+  		TCP adapter address        [128.1.2.54]（你的主机地址）
+  		TCP service name           [cicsport1]（需要在/erc/services中指定，通常使用1435）
+  		local SNA Server Protocol Type   TCP
+	2.	XA Definitions
+		在编辑此项前首先完成下述步骤：
+			vi  /var/cics_regions/<region name>/environment
+			INFORMIXSERVER=infor7
+			INFORMIXDIR=/usr/informix
+			cd /usr/lpp/cics/src/examples/RM_support/Informix
+			cp infor* /usr/lpp/cics/bin
+			cd /usr/lpp/cics/bin
+			make –f informxa7.mk
+		* New XA Definition Identifier    [inf7xa]（名称可任意指定）
+		* XA Definition Identifier        “”
+		* Region name                      rsdb2
+		Update Permanent Database OR Install OR Both          Update
+  		Group to which resource belongs    []
+  		Activate resource at cold start?    yes
+  		Resource description               [XA Product Definition]
+		* Number of updates                 12
+  		Protect resource from modification?   no
+  		Switch Load File Path Name         [/usr/lpp/cics/bin/informxa7]刚才编译的文件的全路径）
+  		Resource Manager Initialization String   [hssh]（使用的数据库）
+  		Resource Manager Termination String      []
+  		Resource Manager Serialization Attribute all_operations
+
+修改/var/cics_regions/region_name/environment
+		INFORMIXDIR=
+		INFORMIXSERVER=
+		DB_LOCALE=
+		CLIENT_LOCALE=
+
+
+冷启动region
+	cicscp -v start region <region_name> starttype = cold
+
+
+
+
+
+
+
+/**删除**删除**删除**删除**删除**删除**删除**删除**删除**删除**/
+
+用下面的命令停止regions,sfs,dce
+cicscp -v stop all
+
+用下面的命令检查
+cicslssrc -a |grep cics
+lsdce -r
+
+用下面的命令删除regions和sfs
+cicscp -v destroy region <region_name>
+cicscp -v destroy sfs_server <sfs_name>
+
+用下面的命令检查
+cicslssrc -a |grep cics
+
+用下面的命令删除dce
+rmdce -o local all
+
+
+用smit remove 删除软件
+cics , encina , dce
+
+删除逻辑日志
+sfs_<sfs shortname>
+log_<sfs shortname>
+
+删除文件系统
+/var/cics_servers/backups 
+/var/cics_servers/archives
+/var/cics_servers
+/var/cics_regions
+
+
+删除cics用户的目录和文件
+find . -user <cics user ID>
+
+
+
+删除用户和组
+S<sfs shortname>
+cics
+cicsterm
+
+删除目录/home/cics

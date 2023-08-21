@@ -1,0 +1,123 @@
+0.预安装步骤
+编辑环境配置/etc/environment
+PATH加入:/usr/lpp/encina/bin:/usr/lpp/cics/bin
+# ENV VAR FOR CICS
+RPC_UNSUPPORTED_NETADDRS=xx.xx.xx.xx
+RPC_SUPPORTED_PROTSEQS=ncadg_ip_udp
+ENCINA_BINDING_FILE=/var/cics_servers/server_bindings
+
+注:xx.xx.xx.xx是netstat -ni的输出中不是service的IP地址
+
+root用户退出并重新登录,使环境变量生效.
+
+1.安装IBM DCE32
+smitty install_latest
+选择 安装代码源路径
+* INPUT device / directory for software              [/cdrom]
+在SOFTWARE to install行按F4选择软件安装包
+> dce.bundles                                         ALL
+> dce.client                                          ALL
+> dce.compat                                          ALL
+> dce.doc.en_US                                       ALL
+> dce.doc.rte                                         ALL
+> dce.priv                                            ALL
+> dce.sysmgmt                                         ALL
+> dce.tools                                           ALL
+
+2.创建cics组和cicsterm组
+smitty mkgroup
+   Group Name 						[cics]
+  User list							root
+    Adminstrative user list					root
+smitty mkgroup
+   Group Name 						[cicsterm]
+    User list							root
+    Adminstrative user list					root
+
+3.创建cics用户
+smitty mkuser
+  User NAME                                           [cics]
+  User ID                                             [402]                                        
+  ADMINISTRATIVE USER?                                false                                       
+  Primary GROUP                                       [cics]                                       
+  Group SET                                           [cicsterm]                                   
+
+4.创建/var/cics_regions文件系统
+smitty crjfsstd
+  Volume group name                                   rootvg
+* SIZE of file system (in 512-byte blocks)            [200000]                                    
+* MOUNT POINT                                         [/var/cics_regions]
+  Mount AUTOMATICALLY at system restart?              yes                                         
+
+5.创建/var/cics_servers文件系统
+smitty crjfsstd
+  Volume group name                                   rootvg
+* SIZE of file system (in 512-byte blocks)            [100000]
+* MOUNT POINT                                         [/var/cics_servers]
+  Mount AUTOMATICALLY at system restart?              yes
+
+6.安装TXSeries
+smitty install_latest
+选择 安装但码源路径
+* INPUT device / directory for software               [/cdrom]
+在SOFTWARE to install行按F4选择软件安装包
+> cics.base                                           ALL
+> cics.client                                         ALL
+> cics.server                                         ALL
+> encina.appdev                                       ALL
+> encina.client                                       ALL
+> encina.common                                       ALL
+> encina.ppcexec                                      ALL
+> encina.server                                       ALL
+> encina.sfs                                          ALL
+
+7创建SFS_SERV用户
+smitty mkuser
+  User NAME                                           [SFS_SERV]
+  User ID                                             [403]                                        
+  ADMINISTRATIVE USER?                                false                                       
+  Primary GROUP                                       [cics]                                       
+  Group SET                                           [cicsterm]                                   
+
+8检查物理分区PP大小
+lsvg rootvg
+PP SIZE:        32 megabyte(s)
+
+9创建结构化文件系统使用的逻辑卷裸设备sfs_SFS_SERV
+smitty mklv
+选择vg
+* VOLUME GROUP name                                   [rootvg]                                     
+设置
+  Logical volume NAME                                 [sfs_SFS_SERV]
+* VOLUME GROUP name                                   rootvg
+* Number of LOGICAL PARTITIONS                        [8]                                          
+
+10创建结构化文件系统的日志使用的逻辑卷裸设备log_SFS_SERV
+smitty mklv
+选择vg
+* VOLUME GROUP name                                   [rootvg]                                     
+设置
+  Logical volume NAME                                 [log_SFS_SERV]
+* VOLUME GROUP name                                   rootvg
+* Number of LOGICAL PARTITIONS                        [8]                                           
+
+11改变结构化文件系统所使用的逻辑卷裸设备的用户和组
+chown SFS_SERV:cics /dev/*SFS_SERV
+
+12删除原有DCE配置
+rmdce all
+
+13创建DCE RPC Only环境
+cicscp -v create dce -R
+
+14创建机构化文件服务器
+cicscp -v create sfs_server /.:/cics/sfs/SFS_SERV ShortName=SFS_SERV
+cicscp -v start sfs_server /.:/cics/sfs/pbc StartType=cold
+
+14创建cics区域region
+cicscp -v create region cicstest DefaultFileServer=/.:/cics/sfs/SFS_SERV
+cicscp -v start region cicstest StartType=cold
+cicstail -r cicstest
+
+
+

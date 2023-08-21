@@ -1,0 +1,35 @@
+下面将介绍在管理CICS时最常用到的适用于各种平台（NT，AIX，Solaries，HP-unix）的命令，如果只是某个平台适用，会特别加以说明。
+
+1. 启动CICS域。
+cicscp　-v start region <regionname> StartType=cold
+其中 -v 表示显示启动过程信息，StartType=cold 表示使用冷启方式，需要特别注意的S和T必须大写，如果是热启，则不需要加上此参数。 
+
+2. 启动SFS服务器。
+cicscp -v start sfs_server /.:/cics/sfs/<SFS服务器名>　StartType=cold
+其中/.:/cics/sfs/<主机名> 为SFS服务器的缺省名字，也可以是客户自己选择的名字。同样　StartType=cold 表示使用冷启方式。冷启SFS_SERVER 一定要慎重，因为它将清空所有SFS服务器上的文件，临时存储队列，临时数据队列。 
+
+3. 如何查看CICS 和SFS服务器状态。
+cicslssrc -a | grep　cics
+此命令只适用于unix 平台，对于NT平台，只需用Txseries administration　utility 图形界面即可。 
+
+4. 即时查看CICS系统信息，此信息来自于console.nnnnnn 和CSMT.out 的信息。
+cicstail -r <regionname> 
+
+5. 停止CICS 域
+cicscp　-v start region <regionname> 
+
+6. 停止 SFS服务器。
+cicscp　-v stop sfs_server /.:/cics/sfs/<SFS服务器名>
+
+7. 增加，显示，删除，修改cics 资源定义。这里以程序为例。
+下例是将向REGIONA中加入一个名为PROGRAM1的程序定义。
+cicsadd -c pd -r REGIONA PROGRAM1 PathName=prog1 RSLKey=public 
+其中 PathName=prog1 表示可执行的CICS服务器程序位于/var/cics_regions/REGIONA 目录下，RSLKey=public 表示任何用户都可访问。
+下例是显示刚才加入的程序定义：
+cicsget -c pd -r REGIONA PROGRAM1
+下例是修改此PROGRAM1 程序定义的属性RSLKey，
+cicsupdate -c pd -r REGIONA PROGRAM1 RSLKey=2
+RSLKey=2 表示 程序的资源安全键修改为2。
+下例表示删除此程序定义。
+cicsdelete -c pd -r REGIONA PROGRAM1
+详细的命令参数含义请参考CICS文档 《CICS Administration　reference》。   

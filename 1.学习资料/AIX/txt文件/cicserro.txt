@@ -1,0 +1,51 @@
+To : 张衍承
+From:赵波
+
+AIX H80 的错误信息如下：/var/cics_regions/cics01/console.000040
+
+ERZ010054I/0205 12/11/02 08:11:43 cics01       : CICS self consistency checking completed
+ERZ010030I/0204 12/11/02 08:21:43 cics01       : CICS self consistency checking started.
+ERZ010054I/0205 12/11/02 08:21:43 cics01       : CICS self consistency checking completed
+ERZ010030I/0204 12/11/02 08:31:43 cics01       : CICS self consistency checking started.
+ERZ010054I/0205 12/11/02 08:31:43 cics01       : CICS self consistency checking completed
+ERZ010030I/0204 12/11/02 08:41:43 cics01       : CICS self consistency checking started.
+ERZ010054I/0205 12/11/02 08:41:43 cics01       : CICS self consistency checking completed
+ERZ014016E/0036 12/11/02 08:45:52 cics01       : Transaction 'CPMI', Abend 'ATNI', at '????'.
+ERZ014016E/0036 12/11/02 08:45:52 cics01       : Transaction 'CPMI', Abend 'ATNI', at '????'.
+ERZ014016E/0036 12/11/02 08:45:52 cics01       : Transaction 'CPMI', Abend 'ATNI', at '????'.
+ERZ034114E/0731 12/11/02 08:45:52 cics01       : Unsuccessful attempt to uninstall entry '@TON' from the Runti
+me Database.  Entry is marked as in use.
+ERZ014016E/0036 12/11/02 08:45:53 cics01       : Transaction 'CPMI', Abend 'ATNI', at '????'.
+ERZ010030I/0204 12/11/02 08:51:43 cics01       : CICS self consistency checking started.
+ERZ010054I/0205 12/11/02 08:51:43 cics01       : CICS self consistency checking completed
+ERZ010030I/0204 12/11/02 09:01:43 cics01       : CICS self consistency checking started.
+ERZ010054I/0205 12/11/02 09:01:43 cics01       : CICS self consistency checking completed
+ERZ034114E/0731 12/11/02 09:06:10 cics01       : Unsuccessful attempt to uninstall entry '@VON' from the Runti
+me Database.  Entry is marked as in use.
+ERZ034114E/0731 12/11/02 09:06:15 cics01       : Unsuccessful attempt to uninstall entry '@VON' from the Runti
+me Database.  Entry is marked as in use.
+ERZ034114E/0731 12/11/02 09:06:20 cics01       : Unsuccessful attempt to uninstall entry '@VON' from the Runti
+me Database.  Entry is marked as in use.
+ERZ034114E/0731 12/11/02 09:06:25 cics01       : Unsuccessful attempt to uninstall entry '@VON' from the Runti
+me Database.  Entry is marked as in use.
+ERZ014016E/0036 12/11/02 09:06:30 cics01       : Transaction 'CPMI', Abend 'A147', at '????'.
+ERZ010030I/0204 12/11/02 09:11:43 cics01       : CICS self consistency checking started.
+ERZ010054I/0205 12/11/02 09:11:43 cics01       : CICS self consistency checking completed
+ERZ010030I/0204 12/11/02 09:21:43 cics01       : CICS self consistency checking started.
+ERZ010054I/0205 12/11/02 09:21:43 cics01       : CICS self consistency checking completed
+ERZ010030I/0204 12/11/02 09:31:43 cics01       : CICS self consistency checking started.
+ERZ010054I/0205 12/11/02 09:31:43 cics01       : CICS self consistency checking completed
+ERZ010030I/0204 12/11/02 09:41:43 cics01       : CICS self consistency checking started.
+ERZ010054I/0205 12/11/02 09:41:43 cics01       : CICS self consistency checking completed
+ERZ010030I/0204 12/11/02 09:51:43 cics01       : CICS self consistency checking started.
+ERZ010054I/0205 12/11/02 09:51:43 cics01       : CICS self consistency checking completed
+ERZ010017I/0195 12/11/02 09:51:45 cics01       : CICS is performing a normal shutdown of region 'cics01'
+ERZ010007I/0193 12/11/02 09:51:45 cics01       : About to run shutdown phase 1 programs
+ERZ010120I/0243 12/11/02 09:51:45 cics01       : Completed processing startup or shutdown program list
+ERZ010035I/0042 12/11/02 09:51:45 cics01       : Waiting for user tasks to complete
+ERZ010035I/0042 12/11/02 09:52:15 cics01       : Waiting for user tasks to complete
+ERZ010041I/0214 12/11/02 09:52:31 cics01       : CICS has received a region stop request during region shutdown
+ERZ010043I/0175 12/11/02 09:52:31 cics01       : Shutdown of CICS region 'cics01' is complete
+
+ＳＣＯ　ｕｎｉｘ　错误如下：　CICSCLI.LOG
+12/11/02 11:40:09 [2005] CCL2012 Unable to find session entry (2603, 2)

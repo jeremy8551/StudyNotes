@@ -1,0 +1,7027 @@
+%PDF-1.3
+1 0 obj
+<< /Type /Catalog
+/Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages
+/Count 13
+/Kids [20 0 R 22 0 R 24 0 R 26 0 R 28 0 R 30 0 R 32 0 R 34 0 R 36 0 R 38 0 R 40 0 R 42 0 R 44 0 R ] >>
+endobj
+3 0 obj
+<< /Type /Info
+/Producer (FOP-0_14_0) >>
+endobj
+4 0 obj
+<< 
+/Font << /F3 5 0 R /F2 6 0 R /F1 7 0 R /F14 8 0 R /F13 9 0 R /F12 10 0 R /F11 11 0 R /F10 12 0 R /F9 13 0 R /F8 14 0 R /F7 15 0 R /F6 16 0 R /F5 17 0 R /F4 18 0 R >> 
+/ProcSet [ /PDF /ImageC /Text ] >> 
+endobj
+5 0 obj
+<< /Type /Font
+/Subtype /Type1
+/Name /F3
+/BaseFont /Helvetica-Bold
+/Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Type /Font
+/Subtype /Type1
+/Name /F2
+/BaseFont /Helvetica-Oblique
+/Encoding /WinAnsiEncoding >>
+endobj
+7 0 obj
+<< /Type /Font
+/Subtype /Type1
+/Name /F1
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding >>
+endobj
+8 0 obj
+<< /Type /Font
+/Subtype /Type1
+/Name /F14
+/BaseFont /ZapfDingbats
+/Encoding /StandardEncoding >>
+endobj
+9 0 obj
+<< /Type /Font
+/Subtype /Type1
+/Name /F13
+/BaseFont /Symbol
+/Encoding /StandardEncoding >>
+endobj
+10 0 obj
+<< /Type /Font
+/Subtype /Type1
+/Name /F12
+/BaseFont /Courier-BoldOblique
+/Encoding /WinAnsiEncoding >>
+endobj
+11 0 obj
+<< /Type /Font
+/Subtype /Type1
+/Name /F11
+/BaseFont /Courier-Bold
+/Encoding /WinAnsiEncoding >>
+endobj
+12 0 obj
+<< /Type /Font
+/Subtype /Type1
+/Name /F10
+/BaseFont /Courier-Oblique
+/Encoding /WinAnsiEncoding >>
+endobj
+13 0 obj
+<< /Type /Font
+/Subtype /Type1
+/Name /F9
+/BaseFont /Courier
+/Encoding /WinAnsiEncoding >>
+endobj
+14 0 obj
+<< /Type /Font
+/Subtype /Type1
+/Name /F8
+/BaseFont /Times-BoldItalic
+/Encoding /WinAnsiEncoding >>
+endobj
+15 0 obj
+<< /Type /Font
+/Subtype /Type1
+/Name /F7
+/BaseFont /Times-Bold
+/Encoding /WinAnsiEncoding >>
+endobj
+16 0 obj
+<< /Type /Font
+/Subtype /Type1
+/Name /F6
+/BaseFont /Times-Italic
+/Encoding /WinAnsiEncoding >>
+endobj
+17 0 obj
+<< /Type /Font
+/Subtype /Type1
+/Name /F5
+/BaseFont /Times-Roman
+/Encoding /WinAnsiEncoding >>
+endobj
+18 0 obj
+<< /Type /Font
+/Subtype /Type1
+/Name /F4
+/BaseFont /Helvetica-BoldOblique
+/Encoding /WinAnsiEncoding >>
+endobj
+19 0 obj
+<< /Length 7748 >>
+stream
+BT
+/F1 24 Tf
+0 g
+1 0 0 1 85.272 698.268 Tm (Compiling) Tj
+0 g
+1 0 0 1 198.624 698.268 Tm (and) Tj
+0 g
+1 0 0 1 245.328 698.268 Tm (installing) Tj
+0 g
+1 0 0 1 345.36 698.268 Tm (software) Tj
+0 g
+1 0 0 1 442.728 698.268 Tm (from) Tj
+0 g
+1 0 0 1 245.988 673.068 Tm (sources) Tj
+/F1 18 Tf
+0 g
+1 0 0 1 75.0 616.176 Tm (Section) Tj
+0 g
+1 0 0 1 140.034 616.176 Tm (1.) Tj
+0 g
+1 0 0 1 160.05 616.176 Tm (Tutorial) Tj
+0 g
+1 0 0 1 225.066 616.176 Tm (tips) Tj
+0 g
+1 0 0 1 75.0 575.526 Tm (Should) Tj
+0 g
+1 0 0 1 136.038 575.526 Tm (I) Tj
+0 g
+1 0 0 1 146.046 575.526 Tm (take) Tj
+0 g
+1 0 0 1 185.07 575.526 Tm (this) Tj
+0 g
+1 0 0 1 218.082 575.526 Tm (tutorial?) Tj
+/F3 11 Tf
+0 g
+1 0 0 1 75.0 560.902 Tm (Do) Tj
+0 g
+1 0 0 1 92.721 560.902 Tm (I) Tj
+0 g
+1 0 0 1 98.837 560.902 Tm (need) Tj
+0 g
+1 0 0 1 127.569 560.902 Tm (experience?) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 75.0 533.727 Tm (If) Tj
+0 g
+1 0 0 1 84.174 533.727 Tm (you're) Tj
+0 g
+1 0 0 1 116.844 533.727 Tm (relatively) Tj
+0 g
+1 0 0 1 163.297 533.727 Tm (new) Tj
+0 g
+1 0 0 1 186.529 533.727 Tm (to) Tj
+0 g
+1 0 0 1 198.761 533.727 Tm (Linux,) Tj
+0 g
+1 0 0 1 231.167 533.727 Tm (or) Tj
+0 g
+1 0 0 1 244.004 533.727 Tm (any) Tj
+0 g
+1 0 0 1 264.794 533.727 Tm (other) Tj
+0 g
+1 0 0 1 292.921 533.727 Tm (Unix) Tj
+0 g
+1 0 0 1 317.979 533.727 Tm (or) Tj
+0 g
+1 0 0 1 330.816 533.727 Tm (Unix-like) Tj
+0 g
+1 0 0 1 378.798 533.727 Tm (operating) Tj
+0 g
+1 0 0 1 427.715 533.727 Tm (system,) Tj
+0 g
+1 0 0 1 468.668 533.727 Tm (and) Tj
+0 g
+1 0 0 1 75.0 520.552 Tm (would) Tj
+0 g
+1 0 0 1 106.79 520.552 Tm (like) Tj
+0 g
+1 0 0 1 126.348 520.552 Tm (to) Tj
+0 g
+1 0 0 1 138.58 520.552 Tm (learn) Tj
+0 g
+1 0 0 1 166.091 520.552 Tm (how) Tj
+0 g
+1 0 0 1 189.323 520.552 Tm (to) Tj
+0 g
+1 0 0 1 201.555 520.552 Tm (compile) Tj
+0 g
+1 0 0 1 242.508 520.552 Tm (and) Tj
+0 g
+1 0 0 1 263.914 520.552 Tm (install) Tj
+0 g
+1 0 0 1 295.088 520.552 Tm (open) Tj
+0 g
+1 0 0 1 322.61 520.552 Tm (source) Tj
+0 g
+1 0 0 1 358.679 520.552 Tm (programs) Tj
+0 g
+1 0 0 1 408.19 520.552 Tm (from) Tj
+0 g
+1 0 0 1 433.248 520.552 Tm (their) Tj
+0 g
+1 0 0 1 457.701 520.552 Tm (original) Tj
+0 g
+1 0 0 1 75.0 507.377 Tm (source) Tj
+0 g
+1 0 0 1 111.069 507.377 Tm (code,) Tj
+0 g
+1 0 0 1 141.033 507.377 Tm (then) Tj
+0 g
+1 0 0 1 165.497 507.377 Tm (this) Tj
+0 g
+1 0 0 1 185.671 507.377 Tm (tutorial) Tj
+0 g
+1 0 0 1 221.74 507.377 Tm (is) Tj
+0 g
+1 0 0 1 232.74 507.377 Tm (for) Tj
+0 g
+1 0 0 1 248.635 507.377 Tm (you.) Tj
+0 g
+1 0 0 1 272.483 507.377 Tm (In) Tj
+0 g
+1 0 0 1 284.715 507.377 Tm (it,) Tj
+0 g
+1 0 0 1 296.331 507.377 Tm (you'll) Tj
+0 g
+1 0 0 1 324.106 507.377 Tm (learn) Tj
+0 g
+1 0 0 1 351.617 507.377 Tm (how) Tj
+0 g
+1 0 0 1 374.849 507.377 Tm (to) Tj
+0 g
+1 0 0 1 387.081 507.377 Tm (compile) Tj
+0 g
+1 0 0 1 428.034 507.377 Tm (the) Tj
+0 g
+1 0 0 1 446.382 507.377 Tm (vast) Tj
+0 g
+1 0 0 1 75.0 494.202 Tm (majority) Tj
+0 g
+1 0 0 1 116.558 494.202 Tm (of) Tj
+0 g
+1 0 0 1 128.79 494.202 Tm (Unix) Tj
+0 g
+1 0 0 1 153.848 494.202 Tm (sources.) Tj
+0 g
+1 0 0 1 198.475 494.202 Tm (The) Tj
+0 g
+1 0 0 1 220.486 494.202 Tm (unpacking,) Tj
+0 g
+1 0 0 1 276.74 494.202 Tm (inspection,) Tj
+0 g
+1 0 0 1 332.378 494.202 Tm (configuration,) Tj
+0 g
+1 0 0 1 401.469 494.202 Tm (compilation,) Tj
+0 g
+1 0 0 1 463.212 494.202 Tm (and) Tj
+0 g
+1 0 0 1 75.0 481.027 Tm (installation) Tj
+0 g
+1 0 0 1 130.022 481.027 Tm (steps) Tj
+0 g
+1 0 0 1 159.37 481.027 Tm (will) Tj
+0 g
+1 0 0 1 177.696 481.027 Tm (be) Tj
+0 g
+1 0 0 1 192.986 481.027 Tm (covered) Tj
+0 g
+1 0 0 1 235.171 481.027 Tm (in) Tj
+0 g
+1 0 0 1 246.787 481.027 Tm (detail.) Tj
+0 g
+1 0 0 1 75.0 453.852 Tm (If) Tj
+0 g
+1 0 0 1 84.174 453.852 Tm (you're) Tj
+0 g
+1 0 0 1 116.844 453.852 Tm (an) Tj
+0 g
+1 0 0 1 132.134 453.852 Tm (intermediate) Tj
+0 g
+1 0 0 1 195.714 453.852 Tm (Unix) Tj
+0 g
+1 0 0 1 220.772 453.852 Tm (user,) Tj
+0 g
+1 0 0 1 248.283 453.852 Tm (and) Tj
+0 g
+1 0 0 1 269.689 453.852 Tm (only) Tj
+0 g
+1 0 0 1 292.921 453.852 Tm (rarely) Tj
+0 g
+1 0 0 1 323.479 453.852 Tm (compile) Tj
+0 g
+1 0 0 1 364.432 453.852 Tm (programs) Tj
+0 g
+1 0 0 1 413.943 453.852 Tm (from) Tj
+0 g
+1 0 0 1 439.001 453.852 Tm (their) Tj
+0 g
+1 0 0 1 463.454 453.852 Tm (original) Tj
+0 g
+1 0 0 1 75.0 440.677 Tm (sources,) Tj
+0 g
+1 0 0 1 119.627 440.677 Tm (you) Tj
+0 g
+1 0 0 1 140.417 440.677 Tm (may) Tj
+0 g
+1 0 0 1 164.254 440.677 Tm (find) Tj
+0 g
+1 0 0 1 185.044 440.677 Tm (this) Tj
+0 g
+1 0 0 1 205.218 440.677 Tm (tutorial) Tj
+0 g
+1 0 0 1 241.287 440.677 Tm (to) Tj
+0 g
+1 0 0 1 253.519 440.677 Tm (be) Tj
+0 g
+1 0 0 1 268.809 440.677 Tm (a) Tj
+0 g
+1 0 0 1 277.983 440.677 Tm (good) Tj
+0 g
+1 0 0 1 305.505 440.677 Tm (refresher) Tj
+0 g
+1 0 0 1 352.574 440.677 Tm (course.) Tj
+ET
+q
+0 G
+75.0 419.9 m 501.0 419.9 l 1.0 w S
+Q
+BT
+/F1 18 Tf
+0 g
+1 0 0 1 75.0 381.476 Tm (Navigation) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 75.0 366.852 Tm (Navigating) Tj
+0 g
+1 0 0 1 130.022 366.852 Tm (through) Tj
+0 g
+1 0 0 1 170.381 366.852 Tm (the) Tj
+0 g
+1 0 0 1 188.729 366.852 Tm (tutorial) Tj
+0 g
+1 0 0 1 224.798 366.852 Tm (is) Tj
+0 g
+1 0 0 1 235.798 366.852 Tm (easy:) Tj
+0 g
+1 0 0 1 75.0 339.677 Tm (1.) Tj
+0 g
+1 0 0 1 99.0 339.677 Tm (Use) Tj
+0 g
+1 0 0 1 121.616 339.677 Tm (the) Tj
+0 g
+1 0 0 1 139.964 339.677 Tm (Next) Tj
+0 g
+1 0 0 1 165.638 339.677 Tm (and) Tj
+0 g
+1 0 0 1 187.044 339.677 Tm (Previous) Tj
+0 g
+1 0 0 1 232.892 339.677 Tm (buttons) Tj
+0 g
+1 0 0 1 272.03 339.677 Tm (to) Tj
+0 g
+1 0 0 1 284.262 339.677 Tm (move) Tj
+0 g
+1 0 0 1 314.215 339.677 Tm (forward) Tj
+0 g
+1 0 0 1 353.947 339.677 Tm (and) Tj
+0 g
+1 0 0 1 375.353 339.677 Tm (backward) Tj
+0 g
+1 0 0 1 425.48 339.677 Tm (through) Tj
+0 g
+1 0 0 1 465.839 339.677 Tm (the) Tj
+0 g
+1 0 0 1 99.0 326.502 Tm (tutorial.) Tj
+0 g
+1 0 0 1 75.0 313.327 Tm (2.) Tj
+0 g
+1 0 0 1 99.0 313.327 Tm (Use) Tj
+0 g
+1 0 0 1 121.616 313.327 Tm (the) Tj
+0 g
+1 0 0 1 139.964 313.327 Tm (Menu) Tj
+0 g
+1 0 0 1 170.533 313.327 Tm (button) Tj
+0 g
+1 0 0 1 204.171 313.327 Tm (to) Tj
+0 g
+1 0 0 1 216.403 313.327 Tm (return) Tj
+0 g
+1 0 0 1 248.193 313.327 Tm (to) Tj
+0 g
+1 0 0 1 260.425 313.327 Tm (the) Tj
+0 g
+1 0 0 1 278.773 313.327 Tm (tutorial) Tj
+0 g
+1 0 0 1 314.842 313.327 Tm (menu.) Tj
+0 g
+1 0 0 1 75.0 300.152 Tm (3.) Tj
+0 g
+1 0 0 1 99.0 300.152 Tm (If) Tj
+0 g
+1 0 0 1 108.174 300.152 Tm (you'd) Tj
+0 g
+1 0 0 1 137.181 300.152 Tm (like) Tj
+0 g
+1 0 0 1 156.739 300.152 Tm (to) Tj
+0 g
+1 0 0 1 168.971 300.152 Tm (tell) Tj
+0 g
+1 0 0 1 186.087 300.152 Tm (us) Tj
+0 g
+1 0 0 1 200.761 300.152 Tm (what) Tj
+0 g
+1 0 0 1 227.051 300.152 Tm (you) Tj
+0 g
+1 0 0 1 247.841 300.152 Tm (think,) Tj
+0 g
+1 0 0 1 277.189 300.152 Tm (use) Tj
+0 g
+1 0 0 1 297.979 300.152 Tm (the) Tj
+0 g
+1 0 0 1 316.327 300.152 Tm (Feedback) Tj
+0 g
+1 0 0 1 367.686 300.152 Tm (button.) Tj
+0 g
+1 0 0 1 75.0 286.977 Tm (4.) Tj
+0 g
+1 0 0 1 99.0 286.977 Tm (If) Tj
+0 g
+1 0 0 1 108.174 286.977 Tm (you) Tj
+0 g
+1 0 0 1 128.964 286.977 Tm (have) Tj
+0 g
+1 0 0 1 155.87 286.977 Tm (a) Tj
+0 g
+1 0 0 1 165.044 286.977 Tm (question) Tj
+0 g
+1 0 0 1 209.682 286.977 Tm (for) Tj
+0 g
+1 0 0 1 225.577 286.977 Tm (the) Tj
+0 g
+1 0 0 1 243.925 286.977 Tm (author) Tj
+0 g
+1 0 0 1 278.168 286.977 Tm (about) Tj
+0 g
+1 0 0 1 308.748 286.977 Tm (the) Tj
+0 g
+1 0 0 1 327.096 286.977 Tm (content) Tj
+0 g
+1 0 0 1 366.234 286.977 Tm (of) Tj
+0 g
+1 0 0 1 378.466 286.977 Tm (the) Tj
+0 g
+1 0 0 1 396.814 286.977 Tm (tutorial,) Tj
+0 g
+1 0 0 1 435.941 286.977 Tm (use) Tj
+0 g
+1 0 0 1 456.731 286.977 Tm (the) Tj
+0 g
+1 0 0 1 99.0 273.802 Tm (Contact) Tj
+0 g
+1 0 0 1 139.964 273.802 Tm (button.) Tj
+ET
+q
+0 G
+75.0 253.025 m 501.0 253.025 l 1.0 w S
+Q
+BT
+/F1 10 Tf
+0 g
+1 0 0 1 75.0 40.62 Tm (Compiling) Tj
+0 g
+1 0 0 1 122.23 40.62 Tm (and) Tj
+0 g
+1 0 0 1 141.69 40.62 Tm (installing) Tj
+0 g
+1 0 0 1 183.37 40.62 Tm (software) Tj
+0 g
+1 0 0 1 223.94 40.62 Tm (from) Tj
+0 g
+1 0 0 1 246.72 40.62 Tm (sources) Tj
+0 g
+1 0 0 1 465.53 40.62 Tm (Page) Tj
+0 g
+1 0 0 1 491.66 40.62 Tm (1) Tj
+ET
+
+endstream
+endobj
+20 0 obj
+<< /Type /Page
+/Parent 2 0 R
+/MediaBox [ 0 0 576 792 ]
+/Resources 4 0 R
+/Contents 19 0 R
+>>
+endobj
+21 0 obj
+<< /Length 6099 >>
+stream
+BT
+/F1 18 Tf
+0 g
+1 0 0 1 75.0 699.576 Tm (Contact) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 75.0 684.952 Tm (For) Tj
+0 g
+1 0 0 1 94.558 684.952 Tm (technical) Tj
+0 g
+1 0 0 1 141.022 684.952 Tm (questions) Tj
+0 g
+1 0 0 1 191.16 684.952 Tm (about) Tj
+0 g
+1 0 0 1 221.74 684.952 Tm (the) Tj
+0 g
+1 0 0 1 240.088 684.952 Tm (content) Tj
+0 g
+1 0 0 1 279.226 684.952 Tm (of) Tj
+0 g
+1 0 0 1 291.458 684.952 Tm (this) Tj
+0 g
+1 0 0 1 311.632 684.952 Tm (tutorial,) Tj
+0 g
+1 0 0 1 350.759 684.952 Tm (contact) Tj
+0 g
+1 0 0 1 389.281 684.952 Tm (the) Tj
+0 g
+1 0 0 1 407.629 684.952 Tm (author,) Tj
+0 g
+1 0 0 1 444.93 684.952 Tm (Daniel) Tj
+0 g
+1 0 0 1 75.0 671.777 Tm (Robbins,) Tj
+0 g
+1 0 0 1 121.464 671.777 Tm (at) Tj
+/F2 11 Tf
+0 g
+1 0 0 1 133.696 671.777 Tm (drobbins@gentoo.org) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 239.637 671.777 Tm (.) Tj
+0 g
+1 0 0 1 75.0 644.602 Tm (Daniel) Tj
+0 g
+1 0 0 1 109.232 644.602 Tm (resides) Tj
+0 g
+1 0 0 1 147.743 644.602 Tm (in) Tj
+0 g
+1 0 0 1 159.359 644.602 Tm (Albuquerque,) Tj
+0 g
+1 0 0 1 227.845 644.602 Tm (New) Tj
+0 g
+1 0 0 1 252.903 644.602 Tm (Mexico.) Tj
+0 g
+1 0 0 1 293.856 644.602 Tm (He) Tj
+0 g
+1 0 0 1 310.972 644.602 Tm (is) Tj
+0 g
+1 0 0 1 321.972 644.602 Tm (the) Tj
+0 g
+1 0 0 1 340.32 644.602 Tm (President/CEO) Tj
+0 g
+1 0 0 1 416.737 644.602 Tm (of) Tj
+0 g
+1 0 0 1 428.969 644.602 Tm (Gentoo) Tj
+0 g
+1 0 0 1 75.0 631.427 Tm (Technologies,) Tj
+0 g
+1 0 0 1 146.533 631.427 Tm (Inc.,) Tj
+0 g
+1 0 0 1 170.381 631.427 Tm (the) Tj
+0 g
+1 0 0 1 188.729 631.427 Tm (Chief) Tj
+0 g
+1 0 0 1 217.461 631.427 Tm (Architect) Tj
+0 g
+1 0 0 1 263.309 631.427 Tm (of) Tj
+0 g
+1 0 0 1 275.541 631.427 Tm (the) Tj
+/F2 11 Tf
+0 g
+1 0 0 1 293.889 631.427 Tm (Gentoo) Tj
+0 g
+1 0 0 1 333.027 631.427 Tm (Project) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 370.317 631.427 Tm (and) Tj
+0 g
+1 0 0 1 391.723 631.427 Tm (a) Tj
+0 g
+1 0 0 1 400.897 631.427 Tm (contributing) Tj
+0 g
+1 0 0 1 460.814 631.427 Tm (author) Tj
+0 g
+1 0 0 1 75.0 618.252 Tm (of) Tj
+0 g
+1 0 0 1 87.232 618.252 Tm (several) Tj
+0 g
+1 0 0 1 125.743 618.252 Tm (books) Tj
+0 g
+1 0 0 1 158.149 618.252 Tm (published) Tj
+0 g
+1 0 0 1 208.287 618.252 Tm (by) Tj
+0 g
+1 0 0 1 222.961 618.252 Tm (MacMillan:) Tj
+/F2 11 Tf
+0 g
+1 0 0 1 278.577 618.252 Tm (Caldera) Tj
+0 g
+1 0 0 1 320.146 618.252 Tm (OpenLinux) Tj
+0 g
+1 0 0 1 376.4 618.252 Tm (Unleashed) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 428.98 618.252 Tm (,) Tj
+/F2 11 Tf
+0 g
+1 0 0 1 435.096 618.252 Tm (SuSE) Tj
+0 g
+1 0 0 1 466.281 618.252 Tm (Linux) Tj
+0 g
+1 0 0 1 75.0 605.077 Tm (Unleashed) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 127.58 605.077 Tm (,) Tj
+0 g
+1 0 0 1 133.696 605.077 Tm (and) Tj
+/F2 11 Tf
+0 g
+1 0 0 1 155.102 605.077 Tm (Samba) Tj
+0 g
+1 0 0 1 193.008 605.077 Tm (Unleashed) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 245.588 605.077 Tm (.) Tj
+0 g
+1 0 0 1 251.704 605.077 Tm (Daniel) Tj
+0 g
+1 0 0 1 285.936 605.077 Tm (has) Tj
+0 g
+1 0 0 1 306.726 605.077 Tm (been) Tj
+0 g
+1 0 0 1 334.248 605.077 Tm (involved) Tj
+0 g
+1 0 0 1 377.654 605.077 Tm (with) Tj
+0 g
+1 0 0 1 400.27 605.077 Tm (computers) Tj
+0 g
+1 0 0 1 454.676 605.077 Tm (in) Tj
+0 g
+1 0 0 1 466.292 605.077 Tm (some) Tj
+0 g
+1 0 0 1 75.0 591.902 Tm (fashion) Tj
+0 g
+1 0 0 1 113.522 591.902 Tm (since) Tj
+0 g
+1 0 0 1 142.254 591.902 Tm (the) Tj
+0 g
+1 0 0 1 160.602 591.902 Tm (second) Tj
+0 g
+1 0 0 1 199.124 591.902 Tm (grade,) Tj
+0 g
+1 0 0 1 233.367 591.902 Tm (when) Tj
+0 g
+1 0 0 1 262.715 591.902 Tm (he) Tj
+0 g
+1 0 0 1 278.005 591.902 Tm (was) Tj
+0 g
+1 0 0 1 300.621 591.902 Tm (first) Tj
+0 g
+1 0 0 1 321.4 591.902 Tm (exposed) Tj
+0 g
+1 0 0 1 366.038 591.902 Tm (to) Tj
+0 g
+1 0 0 1 378.27 591.902 Tm (the) Tj
+0 g
+1 0 0 1 396.618 591.902 Tm (Logo) Tj
+0 g
+1 0 0 1 424.14 591.902 Tm (programming) Tj
+0 g
+1 0 0 1 75.0 578.727 Tm (language) Tj
+0 g
+1 0 0 1 123.312 578.727 Tm (as) Tj
+0 g
+1 0 0 1 137.986 578.727 Tm (well) Tj
+0 g
+1 0 0 1 159.986 578.727 Tm (as) Tj
+0 g
+1 0 0 1 174.66 578.727 Tm (a) Tj
+0 g
+1 0 0 1 183.834 578.727 Tm (potentially) Tj
+0 g
+1 0 0 1 236.414 578.727 Tm (dangerous) Tj
+0 g
+1 0 0 1 291.447 578.727 Tm (dose) Tj
+0 g
+1 0 0 1 318.353 578.727 Tm (of) Tj
+0 g
+1 0 0 1 330.585 578.727 Tm (Pac) Tj
+0 g
+1 0 0 1 352.596 578.727 Tm (Man.) Tj
+0 g
+1 0 0 1 380.107 578.727 Tm (This) Tj
+0 g
+1 0 0 1 403.944 578.727 Tm (probably) Tj
+0 g
+1 0 0 1 449.187 578.727 Tm (explains) Tj
+0 g
+1 0 0 1 75.0 565.552 Tm (why) Tj
+0 g
+1 0 0 1 97.616 565.552 Tm (he) Tj
+0 g
+1 0 0 1 112.906 565.552 Tm (has) Tj
+0 g
+1 0 0 1 133.696 565.552 Tm (since) Tj
+0 g
+1 0 0 1 162.428 565.552 Tm (served) Tj
+0 g
+1 0 0 1 198.497 565.552 Tm (as) Tj
+0 g
+1 0 0 1 213.171 565.552 Tm (a) Tj
+0 g
+1 0 0 1 222.345 565.552 Tm (Lead) Tj
+0 g
+1 0 0 1 249.867 565.552 Tm (Graphic) Tj
+0 g
+1 0 0 1 291.436 565.552 Tm (Artist) Tj
+0 g
+1 0 0 1 319.552 565.552 Tm (at) Tj
+0 g
+1 0 0 1 331.784 565.552 Tm (SONY) Tj
+0 g
+1 0 0 1 366.016 565.552 Tm (Electronic) Tj
+0 g
+1 0 0 1 75.0 552.377 Tm (Publishing/Psygnosis.) Tj
+0 g
+1 0 0 1 185.044 552.377 Tm (Daniel) Tj
+0 g
+1 0 0 1 219.276 552.377 Tm (enjoys) Tj
+0 g
+1 0 0 1 254.124 552.377 Tm (spending) Tj
+0 g
+1 0 0 1 301.82 552.377 Tm (time) Tj
+0 g
+1 0 0 1 325.657 552.377 Tm (with) Tj
+0 g
+1 0 0 1 348.273 552.377 Tm (his) Tj
+0 g
+1 0 0 1 365.389 552.377 Tm (wife,) Tj
+0 g
+1 0 0 1 391.063 552.377 Tm (Mary,) Tj
+0 g
+1 0 0 1 421.621 552.377 Tm (and) Tj
+0 g
+1 0 0 1 443.027 552.377 Tm (his) Tj
+0 g
+1 0 0 1 460.143 552.377 Tm (new) Tj
+0 g
+1 0 0 1 75.0 539.202 Tm (baby) Tj
+0 g
+1 0 0 1 101.906 539.202 Tm (daughter,) Tj
+0 g
+1 0 0 1 151.439 539.202 Tm (Hadassah.) Tj
+/F1 10 Tf
+0 g
+1 0 0 1 75.0 757.62 Tm (Presented) Tj
+0 g
+1 0 0 1 123.36 757.62 Tm (by) Tj
+0 g
+1 0 0 1 136.7 757.62 Tm (developerWorks,) Tj
+0 g
+1 0 0 1 214.5 757.62 Tm (your) Tj
+0 g
+1 0 0 1 236.73 757.62 Tm (source) Tj
+0 g
+1 0 0 1 269.52 757.62 Tm (for) Tj
+0 g
+1 0 0 1 283.97 757.62 Tm (great) Tj
+0 g
+1 0 0 1 309.54 757.62 Tm (tutorials) Tj
+/F9 10 Tf
+0 g
+1 0 0 1 398.0 758.51 Tm (ibm.com/developer) Tj
+/F1 10 Tf
+0 g
+1 0 0 1 75.0 40.62 Tm (Compiling) Tj
+0 g
+1 0 0 1 122.23 40.62 Tm (and) Tj
+0 g
+1 0 0 1 141.69 40.62 Tm (installing) Tj
+0 g
+1 0 0 1 183.37 40.62 Tm (software) Tj
+0 g
+1 0 0 1 223.94 40.62 Tm (from) Tj
+0 g
+1 0 0 1 246.72 40.62 Tm (sources) Tj
+0 g
+1 0 0 1 465.53 40.62 Tm (Page) Tj
+0 g
+1 0 0 1 491.66 40.62 Tm (2) Tj
+ET
+
+endstream
+endobj
+22 0 obj
+<< /Type /Page
+/Parent 2 0 R
+/MediaBox [ 0 0 576 792 ]
+/Resources 4 0 R
+/Contents 21 0 R
+>>
+endobj
+23 0 obj
+<< /Length 16357 >>
+stream
+BT
+/F1 18 Tf
+0 g
+1 0 0 1 75.0 702.576 Tm (Section) Tj
+0 g
+1 0 0 1 140.034 702.576 Tm (2.) Tj
+0 g
+1 0 0 1 160.05 702.576 Tm (First) Tj
+0 g
+1 0 0 1 200.046 702.576 Tm (steps) Tj
+0 g
+1 0 0 1 75.0 661.926 Tm (Introduction) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 75.0 647.302 Tm (Let's) Tj
+0 g
+1 0 0 1 100.949 647.302 Tm (say) Tj
+0 g
+1 0 0 1 121.123 647.302 Tm (that) Tj
+0 g
+1 0 0 1 142.529 647.302 Tm (you) Tj
+0 g
+1 0 0 1 163.319 647.302 Tm (find) Tj
+0 g
+1 0 0 1 184.109 647.302 Tm (a) Tj
+0 g
+1 0 0 1 193.283 647.302 Tm (particular) Tj
+0 g
+1 0 0 1 241.573 647.302 Tm (application) Tj
+0 g
+1 0 0 1 297.211 647.302 Tm (that) Tj
+0 g
+1 0 0 1 318.617 647.302 Tm (you'd) Tj
+0 g
+1 0 0 1 347.624 647.302 Tm (like) Tj
+0 g
+1 0 0 1 367.182 647.302 Tm (to) Tj
+0 g
+1 0 0 1 379.414 647.302 Tm (install) Tj
+0 g
+1 0 0 1 410.588 647.302 Tm (on) Tj
+0 g
+1 0 0 1 425.878 647.302 Tm (your) Tj
+0 g
+1 0 0 1 450.331 647.302 Tm (system.) Tj
+0 g
+1 0 0 1 75.0 634.127 Tm (Maybe) Tj
+0 g
+1 0 0 1 111.069 634.127 Tm (you) Tj
+0 g
+1 0 0 1 131.859 634.127 Tm (need) Tj
+0 g
+1 0 0 1 159.381 634.127 Tm (to) Tj
+0 g
+1 0 0 1 171.613 634.127 Tm (run) Tj
+0 g
+1 0 0 1 190.566 634.127 Tm (a) Tj
+0 g
+1 0 0 1 199.74 634.127 Tm (very) Tj
+0 g
+1 0 0 1 223.577 634.127 Tm (recent) Tj
+0 g
+1 0 0 1 257.204 634.127 Tm (version) Tj
+0 g
+1 0 0 1 295.715 634.127 Tm (of) Tj
+0 g
+1 0 0 1 307.947 634.127 Tm (this) Tj
+0 g
+1 0 0 1 328.121 634.127 Tm (program,) Tj
+0 g
+1 0 0 1 375.19 634.127 Tm (and) Tj
+0 g
+1 0 0 1 396.596 634.127 Tm (this) Tj
+0 g
+1 0 0 1 416.77 634.127 Tm (most) Tj
+0 g
+1 0 0 1 443.665 634.127 Tm (recent) Tj
+0 g
+1 0 0 1 75.0 620.952 Tm (version) Tj
+0 g
+1 0 0 1 113.511 620.952 Tm (isn't) Tj
+0 g
+1 0 0 1 135.786 620.952 Tm (yet) Tj
+0 g
+1 0 0 1 153.518 620.952 Tm (available) Tj
+0 g
+1 0 0 1 199.982 620.952 Tm (in) Tj
+0 g
+1 0 0 1 211.598 620.952 Tm (a) Tj
+0 g
+1 0 0 1 220.772 620.952 Tm (packaging) Tj
+0 g
+1 0 0 1 273.968 620.952 Tm (format) Tj
+0 g
+1 0 0 1 308.2 620.952 Tm (such) Tj
+0 g
+1 0 0 1 334.49 620.952 Tm (as) Tj
+0 g
+1 0 0 1 349.164 620.952 Tm (RPM.) Tj
+0 g
+1 0 0 1 379.722 620.952 Tm (Perhaps) Tj
+0 g
+1 0 0 1 423.744 620.952 Tm (this) Tj
+0 g
+1 0 0 1 443.918 620.952 Tm (particular) Tj
+0 g
+1 0 0 1 75.0 607.777 Tm (application) Tj
+0 g
+1 0 0 1 130.638 607.777 Tm (is) Tj
+0 g
+1 0 0 1 141.638 607.777 Tm (only) Tj
+0 g
+1 0 0 1 164.87 607.777 Tm (available) Tj
+0 g
+1 0 0 1 211.334 607.777 Tm (in) Tj
+0 g
+1 0 0 1 222.95 607.777 Tm (source) Tj
+0 g
+1 0 0 1 259.019 607.777 Tm (form,) Tj
+0 g
+1 0 0 1 287.135 607.777 Tm (or) Tj
+0 g
+1 0 0 1 299.972 607.777 Tm (you) Tj
+0 g
+1 0 0 1 320.762 607.777 Tm (need) Tj
+0 g
+1 0 0 1 348.284 607.777 Tm (to) Tj
+0 g
+1 0 0 1 360.516 607.777 Tm (enable) Tj
+0 g
+1 0 0 1 396.596 607.777 Tm (certain) Tj
+0 g
+1 0 0 1 432.665 607.777 Tm (features) Tj
+0 g
+1 0 0 1 475.466 607.777 Tm (of) Tj
+0 g
+1 0 0 1 75.0 594.602 Tm (the) Tj
+0 g
+1 0 0 1 93.348 594.602 Tm (program) Tj
+0 g
+1 0 0 1 137.359 594.602 Tm (that) Tj
+0 g
+1 0 0 1 158.765 594.602 Tm (are) Tj
+0 g
+1 0 0 1 177.718 594.602 Tm (not) Tj
+0 g
+1 0 0 1 196.066 594.602 Tm (enabled) Tj
+0 g
+1 0 0 1 238.262 594.602 Tm (in) Tj
+0 g
+1 0 0 1 249.878 594.602 Tm (the) Tj
+0 g
+1 0 0 1 268.226 594.602 Tm (RPM) Tj
+0 g
+1 0 0 1 295.726 594.602 Tm (by) Tj
+0 g
+1 0 0 1 310.4 594.602 Tm (default.) Tj
+0 g
+1 0 0 1 75.0 567.427 Tm (Whatever) Tj
+0 g
+1 0 0 1 125.127 567.427 Tm (the) Tj
+0 g
+1 0 0 1 143.475 567.427 Tm (reason,) Tj
+0 g
+1 0 0 1 183.218 567.427 Tm (whether) Tj
+0 g
+1 0 0 1 225.403 567.427 Tm (of) Tj
+0 g
+1 0 0 1 237.635 567.427 Tm (necessity) Tj
+0 g
+1 0 0 1 286.541 567.427 Tm (or) Tj
+0 g
+1 0 0 1 299.378 567.427 Tm (simply) Tj
+0 g
+1 0 0 1 333.599 567.427 Tm (just) Tj
+0 g
+1 0 0 1 353.773 567.427 Tm (because) Tj
+0 g
+1 0 0 1 398.411 567.427 Tm (you) Tj
+/F2 11 Tf
+0 g
+1 0 0 1 419.201 567.427 Tm (want) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 445.491 567.427 Tm (to) Tj
+0 g
+1 0 0 1 457.723 567.427 Tm (compile) Tj
+0 g
+1 0 0 1 75.0 554.252 Tm (the) Tj
+0 g
+1 0 0 1 93.348 554.252 Tm (program) Tj
+0 g
+1 0 0 1 137.359 554.252 Tm (from) Tj
+0 g
+1 0 0 1 162.417 554.252 Tm (its) Tj
+0 g
+1 0 0 1 176.475 554.252 Tm (sources,) Tj
+0 g
+1 0 0 1 221.102 554.252 Tm (this) Tj
+0 g
+1 0 0 1 241.276 554.252 Tm (tutorial) Tj
+0 g
+1 0 0 1 277.345 554.252 Tm (will) Tj
+0 g
+1 0 0 1 295.671 554.252 Tm (show) Tj
+0 g
+1 0 0 1 324.403 554.252 Tm (you) Tj
+0 g
+1 0 0 1 345.193 554.252 Tm (how.) Tj
+ET
+q
+0 G
+75.0 533.475 m 501.0 533.475 l 1.0 w S
+Q
+BT
+/F1 18 Tf
+0 g
+1 0 0 1 75.0 495.051 Tm (Downloading) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 75.0 480.427 Tm (Your) Tj
+0 g
+1 0 0 1 101.29 480.427 Tm (first) Tj
+0 g
+1 0 0 1 122.069 480.427 Tm (step) Tj
+0 g
+1 0 0 1 145.917 480.427 Tm (will) Tj
+0 g
+1 0 0 1 164.243 480.427 Tm (be) Tj
+0 g
+1 0 0 1 179.533 480.427 Tm (to) Tj
+0 g
+1 0 0 1 191.765 480.427 Tm (locate) Tj
+0 g
+1 0 0 1 224.171 480.427 Tm (and) Tj
+0 g
+1 0 0 1 245.577 480.427 Tm (download) Tj
+0 g
+1 0 0 1 295.715 480.427 Tm (the) Tj
+0 g
+1 0 0 1 314.063 480.427 Tm (sources) Tj
+0 g
+1 0 0 1 355.632 480.427 Tm (that) Tj
+0 g
+1 0 0 1 377.038 480.427 Tm (you) Tj
+0 g
+1 0 0 1 397.828 480.427 Tm (want) Tj
+0 g
+1 0 0 1 424.118 480.427 Tm (to) Tj
+0 g
+1 0 0 1 436.35 480.427 Tm (compile.) Tj
+0 g
+1 0 0 1 75.0 467.252 Tm (They'll) Tj
+0 g
+1 0 0 1 109.496 467.252 Tm (probably) Tj
+0 g
+1 0 0 1 154.739 467.252 Tm (be) Tj
+0 g
+1 0 0 1 170.029 467.252 Tm (in) Tj
+0 g
+1 0 0 1 181.645 467.252 Tm (a) Tj
+0 g
+1 0 0 1 190.819 467.252 Tm (single) Tj
+0 g
+1 0 0 1 222.609 467.252 Tm (archive) Tj
+0 g
+1 0 0 1 261.12 467.252 Tm (with) Tj
+0 g
+1 0 0 1 283.736 467.252 Tm (a) Tj
+0 g
+1 0 0 1 292.91 467.252 Tm (trailing) Tj
+0 g
+1 0 0 1 328.363 467.252 Tm (.tar.gz,) Tj
+0 g
+1 0 0 1 365.048 467.252 Tm (tar.Z,) Tj
+0 g
+1 0 0 1 393.78 467.252 Tm (tar.bz2,) Tj
+0 g
+1 0 0 1 433.523 467.252 Tm (or) Tj
+0 g
+1 0 0 1 446.36 467.252 Tm (.tgz) Tj
+0 g
+1 0 0 1 75.0 454.077 Tm (extension.) Tj
+0 g
+1 0 0 1 128.196 454.077 Tm (Go) Tj
+0 g
+1 0 0 1 145.928 454.077 Tm (ahead) Tj
+0 g
+1 0 0 1 179.566 454.077 Tm (and) Tj
+0 g
+1 0 0 1 200.972 454.077 Tm (download) Tj
+0 g
+1 0 0 1 251.11 454.077 Tm (the) Tj
+0 g
+1 0 0 1 269.458 454.077 Tm (archive) Tj
+0 g
+1 0 0 1 307.969 454.077 Tm (with) Tj
+0 g
+1 0 0 1 330.585 454.077 Tm (your) Tj
+0 g
+1 0 0 1 355.038 454.077 Tm (favorite) Tj
+0 g
+1 0 0 1 394.165 454.077 Tm (browser) Tj
+0 g
+1 0 0 1 436.339 454.077 Tm (or) Tj
+0 g
+1 0 0 1 449.176 454.077 Tm (ftp) Tj
+0 g
+1 0 0 1 75.0 440.902 Tm (program.) Tj
+0 g
+1 0 0 1 122.069 440.902 Tm (If) Tj
+0 g
+1 0 0 1 131.243 440.902 Tm (the) Tj
+0 g
+1 0 0 1 149.591 440.902 Tm (program) Tj
+0 g
+1 0 0 1 193.602 440.902 Tm (happens) Tj
+0 g
+1 0 0 1 238.856 440.902 Tm (to) Tj
+0 g
+1 0 0 1 251.088 440.902 Tm (have) Tj
+0 g
+1 0 0 1 277.994 440.902 Tm (a) Tj
+0 g
+1 0 0 1 287.168 440.902 Tm (Web) Tj
+0 g
+1 0 0 1 312.842 440.902 Tm (page,) Tj
+0 g
+1 0 0 1 343.422 440.902 Tm (this) Tj
+0 g
+1 0 0 1 363.596 440.902 Tm (would) Tj
+0 g
+1 0 0 1 395.386 440.902 Tm (be) Tj
+0 g
+1 0 0 1 410.676 440.902 Tm (a) Tj
+0 g
+1 0 0 1 419.85 440.902 Tm (good) Tj
+0 g
+1 0 0 1 447.372 440.902 Tm (time) Tj
+0 g
+1 0 0 1 471.209 440.902 Tm (to) Tj
+0 g
+1 0 0 1 75.0 427.727 Tm (visit) Tj
+0 g
+1 0 0 1 97.0 427.727 Tm (it) Tj
+0 g
+1 0 0 1 105.558 427.727 Tm (to) Tj
+0 g
+1 0 0 1 117.79 427.727 Tm (familiarize) Tj
+0 g
+1 0 0 1 170.348 427.727 Tm (yourself) Tj
+0 g
+1 0 0 1 211.917 427.727 Tm (with) Tj
+0 g
+1 0 0 1 234.533 427.727 Tm (any) Tj
+0 g
+1 0 0 1 255.323 427.727 Tm (installation) Tj
+0 g
+1 0 0 1 310.345 427.727 Tm (documentation) Tj
+0 g
+1 0 0 1 385.552 427.727 Tm (that) Tj
+0 g
+1 0 0 1 406.958 427.727 Tm (may) Tj
+0 g
+1 0 0 1 430.795 427.727 Tm (be) Tj
+0 g
+1 0 0 1 446.085 427.727 Tm (available.) Tj
+0 g
+1 0 0 1 75.0 400.552 Tm (The) Tj
+0 g
+1 0 0 1 97.011 400.552 Tm (program) Tj
+0 g
+1 0 0 1 141.022 400.552 Tm (you're) Tj
+0 g
+1 0 0 1 173.692 400.552 Tm (installing) Tj
+0 g
+1 0 0 1 219.54 400.552 Tm (could) Tj
+0 g
+1 0 0 1 248.888 400.552 Tm (depend) Tj
+0 g
+1 0 0 1 288.642 400.552 Tm (on) Tj
+0 g
+1 0 0 1 303.932 400.552 Tm (the) Tj
+0 g
+1 0 0 1 322.28 400.552 Tm (existence) Tj
+0 g
+1 0 0 1 371.802 400.552 Tm (of) Tj
+0 g
+1 0 0 1 384.034 400.552 Tm (any) Tj
+0 g
+1 0 0 1 404.824 400.552 Tm (number) Tj
+0 g
+1 0 0 1 445.172 400.552 Tm (of) Tj
+0 g
+1 0 0 1 457.404 400.552 Tm (existing) Tj
+0 g
+1 0 0 1 75.0 387.377 Tm (programs) Tj
+0 g
+1 0 0 1 124.511 387.377 Tm (that) Tj
+0 g
+1 0 0 1 145.917 387.377 Tm (may) Tj
+0 g
+1 0 0 1 169.754 387.377 Tm (or) Tj
+0 g
+1 0 0 1 182.591 387.377 Tm (may) Tj
+0 g
+1 0 0 1 206.428 387.377 Tm (not) Tj
+0 g
+1 0 0 1 224.776 387.377 Tm (be) Tj
+0 g
+1 0 0 1 240.066 387.377 Tm (currently) Tj
+0 g
+1 0 0 1 285.298 387.377 Tm (installed) Tj
+0 g
+1 0 0 1 328.704 387.377 Tm (on) Tj
+0 g
+1 0 0 1 343.994 387.377 Tm (your) Tj
+0 g
+1 0 0 1 368.447 387.377 Tm (system.) Tj
+0 g
+1 0 0 1 409.4 387.377 Tm (If) Tj
+0 g
+1 0 0 1 418.574 387.377 Tm (you) Tj
+0 g
+1 0 0 1 439.364 387.377 Tm (know) Tj
+0 g
+1 0 0 1 468.096 387.377 Tm (for) Tj
+0 g
+1 0 0 1 75.0 374.202 Tm (sure) Tj
+0 g
+1 0 0 1 99.453 374.202 Tm (that) Tj
+0 g
+1 0 0 1 120.859 374.202 Tm (your) Tj
+0 g
+1 0 0 1 145.312 374.202 Tm (program) Tj
+0 g
+1 0 0 1 189.323 374.202 Tm (depends) Tj
+0 g
+1 0 0 1 234.577 374.202 Tm (on) Tj
+0 g
+1 0 0 1 249.867 374.202 Tm (other) Tj
+0 g
+1 0 0 1 277.994 374.202 Tm (programs) Tj
+0 g
+1 0 0 1 327.505 374.202 Tm (or) Tj
+0 g
+1 0 0 1 340.342 374.202 Tm (libraries) Tj
+0 g
+1 0 0 1 381.9 374.202 Tm (that) Tj
+0 g
+1 0 0 1 403.306 374.202 Tm (are) Tj
+0 g
+1 0 0 1 422.259 374.202 Tm (not) Tj
+0 g
+1 0 0 1 440.607 374.202 Tm (currently) Tj
+0 g
+1 0 0 1 75.0 361.027 Tm (installed,) Tj
+0 g
+1 0 0 1 121.464 361.027 Tm (you'll) Tj
+0 g
+1 0 0 1 149.239 361.027 Tm (need) Tj
+0 g
+1 0 0 1 176.761 361.027 Tm (to) Tj
+0 g
+1 0 0 1 188.993 361.027 Tm (get) Tj
+0 g
+1 0 0 1 207.341 361.027 Tm (these) Tj
+0 g
+1 0 0 1 237.305 361.027 Tm (packages) Tj
+0 g
+1 0 0 1 287.443 361.027 Tm (installed) Tj
+0 g
+1 0 0 1 330.849 361.027 Tm (first) Tj
+0 g
+1 0 0 1 351.628 361.027 Tm (\(either) Tj
+0 g
+1 0 0 1 385.86 361.027 Tm (from) Tj
+0 g
+1 0 0 1 410.918 361.027 Tm (a) Tj
+0 g
+1 0 0 1 420.092 361.027 Tm (binary) Tj
+0 g
+1 0 0 1 453.103 361.027 Tm (package) Tj
+0 g
+1 0 0 1 75.0 347.852 Tm (like) Tj
+0 g
+1 0 0 1 94.558 347.852 Tm (RPM) Tj
+0 g
+1 0 0 1 122.058 347.852 Tm (or) Tj
+0 g
+1 0 0 1 134.895 347.852 Tm (by) Tj
+0 g
+1 0 0 1 149.569 347.852 Tm (compiling) Tj
+0 g
+1 0 0 1 199.08 347.852 Tm (them) Tj
+0 g
+1 0 0 1 226.591 347.852 Tm (from) Tj
+0 g
+1 0 0 1 251.649 347.852 Tm (their) Tj
+0 g
+1 0 0 1 276.102 347.852 Tm (sources) Tj
+0 g
+1 0 0 1 317.671 347.852 Tm (too\).) Tj
+0 g
+1 0 0 1 342.74 347.852 Tm (Then,) Tj
+0 g
+1 0 0 1 373.925 347.852 Tm (you'll) Tj
+0 g
+1 0 0 1 401.7 347.852 Tm (be) Tj
+0 g
+1 0 0 1 416.99 347.852 Tm (in) Tj
+0 g
+1 0 0 1 428.606 347.852 Tm (a) Tj
+0 g
+1 0 0 1 437.78 347.852 Tm (great) Tj
+0 g
+1 0 0 1 75.0 334.677 Tm (position) Tj
+0 g
+1 0 0 1 115.964 334.677 Tm (to) Tj
+0 g
+1 0 0 1 128.196 334.677 Tm (get) Tj
+0 g
+1 0 0 1 146.544 334.677 Tm (your) Tj
+0 g
+1 0 0 1 170.997 334.677 Tm (original) Tj
+0 g
+1 0 0 1 209.508 334.677 Tm (source) Tj
+0 g
+1 0 0 1 245.577 334.677 Tm (file) Tj
+0 g
+1 0 0 1 262.693 334.677 Tm (successfully) Tj
+0 g
+1 0 0 1 325.041 334.677 Tm (installed.) Tj
+ET
+q
+0 G
+75.0 313.9 m 501.0 313.9 l 1.0 w S
+Q
+BT
+/F1 18 Tf
+0 g
+1 0 0 1 75.0 275.476 Tm (Unpacking) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 75.0 260.852 Tm (Unpacking) Tj
+0 g
+1 0 0 1 130.022 260.852 Tm (the) Tj
+0 g
+1 0 0 1 148.37 260.852 Tm (source) Tj
+0 g
+1 0 0 1 184.439 260.852 Tm (archive) Tj
+0 g
+1 0 0 1 222.95 260.852 Tm (is) Tj
+0 g
+1 0 0 1 233.95 260.852 Tm (relatively) Tj
+0 g
+1 0 0 1 280.403 260.852 Tm (easy.) Tj
+0 g
+1 0 0 1 309.751 260.852 Tm (If) Tj
+0 g
+1 0 0 1 318.925 260.852 Tm (the) Tj
+0 g
+1 0 0 1 337.273 260.852 Tm (name) Tj
+0 g
+1 0 0 1 367.842 260.852 Tm (of) Tj
+0 g
+1 0 0 1 380.074 260.852 Tm (your) Tj
+0 g
+1 0 0 1 404.527 260.852 Tm (archive) Tj
+0 g
+1 0 0 1 443.038 260.852 Tm (ends) Tj
+0 g
+1 0 0 1 469.944 260.852 Tm (with) Tj
+0 g
+1 0 0 1 75.0 247.677 Tm (.tar.gz,) Tj
+0 g
+1 0 0 1 111.685 247.677 Tm (.tar.Z,) Tj
+0 g
+1 0 0 1 143.475 247.677 Tm (or) Tj
+0 g
+1 0 0 1 156.312 247.677 Tm (.tgz,) Tj
+0 g
+1 0 0 1 180.16 247.677 Tm (you) Tj
+0 g
+1 0 0 1 200.95 247.677 Tm (should) Tj
+0 g
+1 0 0 1 236.414 247.677 Tm (be) Tj
+0 g
+1 0 0 1 251.704 247.677 Tm (able) Tj
+0 g
+1 0 0 1 275.552 247.677 Tm (to) Tj
+0 g
+1 0 0 1 287.784 247.677 Tm (unpack) Tj
+0 g
+1 0 0 1 326.306 247.677 Tm (the) Tj
+0 g
+1 0 0 1 344.654 247.677 Tm (archive) Tj
+0 g
+1 0 0 1 383.165 247.677 Tm (by) Tj
+0 g
+1 0 0 1 397.839 247.677 Tm (typing:) Tj
+0 g
+1 0 0 1 75.0 220.502 Tm ($) Tj
+0 g
+1 0 0 1 84.174 220.502 Tm (tar) Tj
+0 g
+1 0 0 1 100.069 220.502 Tm (xzvf) Tj
+0 g
+1 0 0 1 122.685 220.502 Tm (archivename.tar.gz) Tj
+0 g
+1 0 0 1 75.0 207.327 Tm (\(x) Tj
+0 g
+1 0 0 1 87.221 207.327 Tm (is) Tj
+0 g
+1 0 0 1 98.221 207.327 Tm (for) Tj
+0 g
+1 0 0 1 114.116 207.327 Tm (extract,) Tj
+0 g
+1 0 0 1 153.243 207.327 Tm (z) Tj
+0 g
+1 0 0 1 161.801 207.327 Tm (is) Tj
+0 g
+1 0 0 1 172.801 207.327 Tm (for) Tj
+0 g
+1 0 0 1 188.696 207.327 Tm (gzip) Tj
+0 g
+1 0 0 1 211.928 207.327 Tm (decompression,) Tj
+0 g
+1 0 0 1 292.624 207.327 Tm (v) Tj
+0 g
+1 0 0 1 301.182 207.327 Tm (is) Tj
+0 g
+1 0 0 1 312.182 207.327 Tm (for) Tj
+0 g
+1 0 0 1 328.077 207.327 Tm (verbose) Tj
+0 g
+1 0 0 1 370.262 207.327 Tm (\(print) Tj
+0 g
+1 0 0 1 398.378 207.327 Tm (the) Tj
+0 g
+1 0 0 1 416.726 207.327 Tm (files) Tj
+0 g
+1 0 0 1 439.342 207.327 Tm (that) Tj
+0 g
+1 0 0 1 460.748 207.327 Tm (are) Tj
+0 g
+1 0 0 1 75.0 194.152 Tm (extracted\),) Tj
+0 g
+1 0 0 1 130.022 194.152 Tm (and) Tj
+0 g
+1 0 0 1 151.428 194.152 Tm (f) Tj
+0 g
+1 0 0 1 157.544 194.152 Tm (means) Tj
+0 g
+1 0 0 1 193.613 194.152 Tm (that) Tj
+0 g
+1 0 0 1 215.019 194.152 Tm (the) Tj
+0 g
+1 0 0 1 233.367 194.152 Tm (filename) Tj
+0 g
+1 0 0 1 277.994 194.152 Tm (will) Tj
+0 g
+1 0 0 1 296.32 194.152 Tm (appear) Tj
+0 g
+1 0 0 1 333.621 194.152 Tm (next) Tj
+0 g
+1 0 0 1 357.469 194.152 Tm (on) Tj
+0 g
+1 0 0 1 372.759 194.152 Tm (the) Tj
+0 g
+1 0 0 1 391.107 194.152 Tm (command) Tj
+0 g
+1 0 0 1 442.455 194.152 Tm (line.\)) Tj
+0 g
+1 0 0 1 75.0 166.977 Tm (Nearly) Tj
+0 g
+1 0 0 1 109.837 166.977 Tm (all) Tj
+0 g
+1 0 0 1 123.895 166.977 Tm ("source) Tj
+0 g
+1 0 0 1 163.869 166.977 Tm (tarballs") Tj
+0 g
+1 0 0 1 206.285 166.977 Tm (will) Tj
+0 g
+1 0 0 1 224.611 166.977 Tm (create) Tj
+0 g
+1 0 0 1 258.238 166.977 Tm (one) Tj
+0 g
+1 0 0 1 279.644 166.977 Tm (main) Tj
+0 g
+1 0 0 1 306.539 166.977 Tm (directory) Tj
+0 g
+1 0 0 1 351.771 166.977 Tm (that) Tj
+0 g
+1 0 0 1 373.177 166.977 Tm (contains) Tj
+0 g
+1 0 0 1 417.199 166.977 Tm (all) Tj
+0 g
+1 0 0 1 431.257 166.977 Tm (the) Tj
+0 g
+1 0 0 1 449.605 166.977 Tm (program's) Tj
+0 g
+1 0 0 1 75.0 153.802 Tm (sources.) Tj
+0 g
+1 0 0 1 119.627 153.802 Tm (This) Tj
+0 g
+1 0 0 1 143.464 153.802 Tm (way,) Tj
+0 g
+1 0 0 1 169.138 153.802 Tm (when) Tj
+0 g
+1 0 0 1 198.486 153.802 Tm (you) Tj
+0 g
+1 0 0 1 219.276 153.802 Tm (unpack) Tj
+0 g
+1 0 0 1 257.798 153.802 Tm (the) Tj
+0 g
+1 0 0 1 276.146 153.802 Tm (archive,) Tj
+0 g
+1 0 0 1 317.715 153.802 Tm (your) Tj
+0 g
+1 0 0 1 342.168 153.802 Tm (current) Tj
+0 g
+1 0 0 1 379.458 153.802 Tm (working) Tj
+0 g
+1 0 0 1 420.411 153.802 Tm (directory) Tj
+0 g
+1 0 0 1 465.643 153.802 Tm (isn't) Tj
+0 g
+1 0 0 1 75.0 140.627 Tm (cluttered) Tj
+0 g
+1 0 0 1 120.243 140.627 Tm (with) Tj
+0 g
+1 0 0 1 142.859 140.627 Tm (lots) Tj
+0 g
+1 0 0 1 163.033 140.627 Tm (of) Tj
+0 g
+1 0 0 1 175.265 140.627 Tm (files) Tj
+0 g
+1 0 0 1 197.881 140.627 Tm (--) Tj
+0 g
+1 0 0 1 213.787 140.627 Tm (instead,) Tj
+0 g
+1 0 0 1 255.367 140.627 Tm (all) Tj
+0 g
+1 0 0 1 269.425 140.627 Tm (files) Tj
+0 g
+1 0 0 1 292.041 140.627 Tm (are) Tj
+0 g
+1 0 0 1 310.994 140.627 Tm (neatly) Tj
+0 g
+1 0 0 1 343.4 140.627 Tm (organized) Tj
+0 g
+1 0 0 1 394.759 140.627 Tm (and) Tj
+0 g
+1 0 0 1 416.165 140.627 Tm (don't) Tj
+0 g
+1 0 0 1 442.73 140.627 Tm (get) Tj
+0 g
+1 0 0 1 461.078 140.627 Tm (in) Tj
+0 g
+1 0 0 1 472.694 140.627 Tm (the) Tj
+0 g
+1 0 0 1 75.0 127.452 Tm (way.) Tj
+ET
+q
+0 G
+75.0 106.675 m 501.0 106.675 l 1.0 w S
+Q
+BT
+/F1 10 Tf
+0 g
+1 0 0 1 75.0 757.62 Tm (Presented) Tj
+0 g
+1 0 0 1 123.36 757.62 Tm (by) Tj
+0 g
+1 0 0 1 136.7 757.62 Tm (developerWorks,) Tj
+0 g
+1 0 0 1 214.5 757.62 Tm (your) Tj
+0 g
+1 0 0 1 236.73 757.62 Tm (source) Tj
+0 g
+1 0 0 1 269.52 757.62 Tm (for) Tj
+0 g
+1 0 0 1 283.97 757.62 Tm (great) Tj
+0 g
+1 0 0 1 309.54 757.62 Tm (tutorials) Tj
+/F9 10 Tf
+0 g
+1 0 0 1 398.0 758.51 Tm (ibm.com/developer) Tj
+/F1 10 Tf
+0 g
+1 0 0 1 75.0 40.62 Tm (Compiling) Tj
+0 g
+1 0 0 1 122.23 40.62 Tm (and) Tj
+0 g
+1 0 0 1 141.69 40.62 Tm (installing) Tj
+0 g
+1 0 0 1 183.37 40.62 Tm (software) Tj
+0 g
+1 0 0 1 223.94 40.62 Tm (from) Tj
+0 g
+1 0 0 1 246.72 40.62 Tm (sources) Tj
+0 g
+1 0 0 1 465.53 40.62 Tm (Page) Tj
+0 g
+1 0 0 1 491.66 40.62 Tm (3) Tj
+ET
+
+endstream
+endobj
+24 0 obj
+<< /Type /Page
+/Parent 2 0 R
+/MediaBox [ 0 0 576 792 ]
+/Resources 4 0 R
+/Contents 23 0 R
+>>
+endobj
+25 0 obj
+<< /Length 12974 >>
+stream
+BT
+/F1 18 Tf
+0 g
+1 0 0 1 75.0 699.576 Tm (Listing) Tj
+0 g
+1 0 0 1 132.024 699.576 Tm (archives) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 75.0 684.952 Tm (Every) Tj
+0 g
+1 0 0 1 106.174 684.952 Tm (now) Tj
+0 g
+1 0 0 1 129.406 684.952 Tm (and) Tj
+0 g
+1 0 0 1 150.812 684.952 Tm (then,) Tj
+0 g
+1 0 0 1 178.334 684.952 Tm (you) Tj
+0 g
+1 0 0 1 199.124 684.952 Tm (may) Tj
+0 g
+1 0 0 1 222.961 684.952 Tm (come) Tj
+0 g
+1 0 0 1 252.914 684.952 Tm (across) Tj
+0 g
+1 0 0 1 288.367 684.952 Tm (an) Tj
+0 g
+1 0 0 1 303.657 684.952 Tm (archive) Tj
+0 g
+1 0 0 1 342.168 684.952 Tm (that,) Tj
+0 g
+1 0 0 1 366.632 684.952 Tm (when) Tj
+0 g
+1 0 0 1 395.98 684.952 Tm (decompressed,) Tj
+0 g
+1 0 0 1 75.0 671.777 Tm (creates) Tj
+0 g
+1 0 0 1 114.127 671.777 Tm (tons) Tj
+0 g
+1 0 0 1 137.975 671.777 Tm (of) Tj
+0 g
+1 0 0 1 150.207 671.777 Tm (files) Tj
+0 g
+1 0 0 1 172.823 671.777 Tm (in) Tj
+0 g
+1 0 0 1 184.439 671.777 Tm (your) Tj
+0 g
+1 0 0 1 208.892 671.777 Tm (current) Tj
+0 g
+1 0 0 1 246.182 671.777 Tm (working) Tj
+0 g
+1 0 0 1 287.135 671.777 Tm (directory.) Tj
+0 g
+1 0 0 1 335.425 671.777 Tm (While) Tj
+0 g
+1 0 0 1 365.983 671.777 Tm (most) Tj
+0 g
+1 0 0 1 392.878 671.777 Tm (tarballs) Tj
+0 g
+1 0 0 1 431.389 671.777 Tm (aren't) Tj
+0 g
+1 0 0 1 461.617 671.777 Tm (created) Tj
+0 g
+1 0 0 1 75.0 658.602 Tm (this) Tj
+0 g
+1 0 0 1 95.174 658.602 Tm (way,) Tj
+0 g
+1 0 0 1 120.848 658.602 Tm (it's) Tj
+0 g
+1 0 0 1 137.007 658.602 Tm (been) Tj
+0 g
+1 0 0 1 164.529 658.602 Tm (known) Tj
+0 g
+1 0 0 1 199.377 658.602 Tm (to) Tj
+0 g
+1 0 0 1 211.609 658.602 Tm (happen.) Tj
+0 g
+1 0 0 1 254.421 658.602 Tm (If) Tj
+0 g
+1 0 0 1 263.595 658.602 Tm (you) Tj
+0 g
+1 0 0 1 284.385 658.602 Tm (want) Tj
+0 g
+1 0 0 1 310.675 658.602 Tm (to) Tj
+0 g
+1 0 0 1 322.907 658.602 Tm (verify) Tj
+0 g
+1 0 0 1 352.244 658.602 Tm (that) Tj
+0 g
+1 0 0 1 373.65 658.602 Tm (your) Tj
+0 g
+1 0 0 1 398.103 658.602 Tm (particular) Tj
+0 g
+1 0 0 1 446.393 658.602 Tm (tarball) Tj
+0 g
+1 0 0 1 479.404 658.602 Tm (was) Tj
+0 g
+1 0 0 1 75.0 645.427 Tm (put) Tj
+0 g
+1 0 0 1 93.348 645.427 Tm (together) Tj
+0 g
+1 0 0 1 136.765 645.427 Tm (correctly) Tj
+0 g
+1 0 0 1 181.381 645.427 Tm (and) Tj
+0 g
+1 0 0 1 202.787 645.427 Tm (creates) Tj
+0 g
+1 0 0 1 241.914 645.427 Tm (a) Tj
+0 g
+1 0 0 1 251.088 645.427 Tm (main) Tj
+0 g
+1 0 0 1 277.983 645.427 Tm (directory) Tj
+0 g
+1 0 0 1 323.215 645.427 Tm (to) Tj
+0 g
+1 0 0 1 335.447 645.427 Tm (hold) Tj
+0 g
+1 0 0 1 359.295 645.427 Tm (the) Tj
+0 g
+1 0 0 1 377.643 645.427 Tm (sources,) Tj
+0 g
+1 0 0 1 422.27 645.427 Tm (you) Tj
+0 g
+1 0 0 1 443.06 645.427 Tm (can) Tj
+0 g
+1 0 0 1 463.85 645.427 Tm (view) Tj
+0 g
+1 0 0 1 488.908 645.427 Tm (its) Tj
+0 g
+1 0 0 1 75.0 632.252 Tm (contents) Tj
+0 g
+1 0 0 1 119.638 632.252 Tm (by) Tj
+0 g
+1 0 0 1 134.312 632.252 Tm (typing:) Tj
+0 g
+1 0 0 1 75.0 605.077 Tm ($) Tj
+0 g
+1 0 0 1 84.174 605.077 Tm (tar) Tj
+0 g
+1 0 0 1 100.069 605.077 Tm (tzvf) Tj
+0 g
+1 0 0 1 120.243 605.077 Tm (archivename.tar.gz) Tj
+0 g
+1 0 0 1 216.834 605.077 Tm (|) Tj
+0 g
+1 0 0 1 222.752 605.077 Tm (more) Tj
+0 g
+1 0 0 1 75.0 591.902 Tm (\(t) Tj
+0 g
+1 0 0 1 84.779 591.902 Tm (is) Tj
+0 g
+1 0 0 1 95.779 591.902 Tm (for) Tj
+0 g
+1 0 0 1 111.674 591.902 Tm (a) Tj
+/F2 11 Tf
+0 g
+1 0 0 1 120.848 591.902 Tm (text) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 141.638 591.902 Tm (listing) Tj
+0 g
+1 0 0 1 172.812 591.902 Tm (of) Tj
+0 g
+1 0 0 1 185.044 591.902 Tm (the) Tj
+0 g
+1 0 0 1 203.392 591.902 Tm (archive.) Tj
+0 g
+1 0 0 1 244.961 591.902 Tm (No) Tj
+0 g
+1 0 0 1 262.077 591.902 Tm (extraction) Tj
+0 g
+1 0 0 1 312.82 591.902 Tm (occurs.\)) Tj
+0 g
+1 0 0 1 75.0 564.727 Tm (If) Tj
+0 g
+1 0 0 1 84.174 564.727 Tm (there) Tj
+0 g
+1 0 0 1 112.301 564.727 Tm (is) Tj
+0 g
+1 0 0 1 123.301 564.727 Tm (no) Tj
+0 g
+1 0 0 1 138.591 564.727 Tm (common) Tj
+0 g
+1 0 0 1 183.823 564.727 Tm (directory) Tj
+0 g
+1 0 0 1 229.055 564.727 Tm (listed) Tj
+0 g
+1 0 0 1 257.787 564.727 Tm (on) Tj
+0 g
+1 0 0 1 273.077 564.727 Tm (the) Tj
+0 g
+1 0 0 1 291.425 564.727 Tm (left) Tj
+0 g
+1 0 0 1 309.157 564.727 Tm (side) Tj
+0 g
+1 0 0 1 332.389 564.727 Tm (of) Tj
+0 g
+1 0 0 1 344.621 564.727 Tm (the) Tj
+0 g
+1 0 0 1 362.969 564.727 Tm (archive) Tj
+0 g
+1 0 0 1 401.48 564.727 Tm (listing,) Tj
+0 g
+1 0 0 1 435.712 564.727 Tm (you'll) Tj
+0 g
+1 0 0 1 463.487 564.727 Tm (want) Tj
+0 g
+1 0 0 1 489.777 564.727 Tm (to) Tj
+0 g
+1 0 0 1 75.0 551.552 Tm (create) Tj
+0 g
+1 0 0 1 108.627 551.552 Tm (a) Tj
+0 g
+1 0 0 1 117.801 551.552 Tm (new) Tj
+0 g
+1 0 0 1 141.033 551.552 Tm (directory,) Tj
+0 g
+1 0 0 1 189.323 551.552 Tm (move) Tj
+0 g
+1 0 0 1 219.276 551.552 Tm (the) Tj
+0 g
+1 0 0 1 237.624 551.552 Tm (tarball) Tj
+0 g
+1 0 0 1 270.635 551.552 Tm (inside) Tj
+0 g
+1 0 0 1 302.425 551.552 Tm (it,) Tj
+0 g
+1 0 0 1 314.041 551.552 Tm (enter) Tj
+0 g
+1 0 0 1 342.168 551.552 Tm (the) Tj
+0 g
+1 0 0 1 360.516 551.552 Tm (directory,) Tj
+0 g
+1 0 0 1 408.806 551.552 Tm (and) Tj
+0 g
+1 0 0 1 430.212 551.552 Tm (only) Tj
+0 g
+1 0 0 1 453.444 551.552 Tm (then) Tj
+0 g
+1 0 0 1 75.0 538.377 Tm (extract) Tj
+0 g
+1 0 0 1 111.069 538.377 Tm (the) Tj
+0 g
+1 0 0 1 129.417 538.377 Tm (tarball.) Tj
+0 g
+1 0 0 1 165.486 538.377 Tm (Otherwise,) Tj
+0 g
+1 0 0 1 221.113 538.377 Tm (you'll) Tj
+0 g
+1 0 0 1 248.888 538.377 Tm (be) Tj
+0 g
+1 0 0 1 264.178 538.377 Tm (in) Tj
+0 g
+1 0 0 1 275.794 538.377 Tm (for) Tj
+0 g
+1 0 0 1 291.689 538.377 Tm (a) Tj
+0 g
+1 0 0 1 300.863 538.377 Tm (mess!) Tj
+ET
+q
+0 G
+75.0 517.6 m 501.0 517.6 l 1.0 w S
+Q
+BT
+/F1 18 Tf
+0 g
+1 0 0 1 75.0 479.176 Tm (Unpacking) Tj
+0 g
+1 0 0 1 165.036 479.176 Tm (bzip2-compressed) Tj
+0 g
+1 0 0 1 321.6 479.176 Tm (archives) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 75.0 464.552 Tm (It's) Tj
+0 g
+1 0 0 1 91.775 464.552 Tm (possible) Tj
+0 g
+1 0 0 1 135.181 464.552 Tm (that) Tj
+0 g
+1 0 0 1 156.587 464.552 Tm (your) Tj
+0 g
+1 0 0 1 181.04 464.552 Tm (archive) Tj
+0 g
+1 0 0 1 219.551 464.552 Tm (may) Tj
+0 g
+1 0 0 1 243.388 464.552 Tm (be) Tj
+0 g
+1 0 0 1 258.678 464.552 Tm (in) Tj
+0 g
+1 0 0 1 270.294 464.552 Tm (.tar.bz2) Tj
+0 g
+1 0 0 1 310.037 464.552 Tm (format.) Tj
+0 g
+1 0 0 1 347.327 464.552 Tm (Archives) Tj
+0 g
+1 0 0 1 392.559 464.552 Tm (with) Tj
+0 g
+1 0 0 1 415.175 464.552 Tm (this) Tj
+0 g
+1 0 0 1 435.349 464.552 Tm (extension) Tj
+0 g
+1 0 0 1 75.0 451.377 Tm (have) Tj
+0 g
+1 0 0 1 101.906 451.377 Tm (been) Tj
+0 g
+1 0 0 1 129.428 451.377 Tm (compressed) Tj
+0 g
+1 0 0 1 192.392 451.377 Tm (with) Tj
+0 g
+1 0 0 1 215.008 451.377 Tm (bzip2.) Tj
+0 g
+1 0 0 1 247.414 451.377 Tm (Bzip2) Tj
+0 g
+1 0 0 1 277.983 451.377 Tm (generally) Tj
+0 g
+1 0 0 1 325.668 451.377 Tm (compresses) Tj
+0 g
+1 0 0 1 388.016 451.377 Tm (significantly) Tj
+0 g
+1 0 0 1 447.922 451.377 Tm (better) Tj
+0 g
+1 0 0 1 75.0 438.202 Tm (than) Tj
+0 g
+1 0 0 1 99.464 438.202 Tm (gzip) Tj
+0 g
+1 0 0 1 122.696 438.202 Tm (--) Tj
+0 g
+1 0 0 1 138.602 438.202 Tm (its) Tj
+0 g
+1 0 0 1 152.66 438.202 Tm (only) Tj
+0 g
+1 0 0 1 175.892 438.202 Tm (disadvantage) Tj
+0 g
+1 0 0 1 244.378 438.202 Tm (is) Tj
+0 g
+1 0 0 1 255.378 438.202 Tm (that) Tj
+0 g
+1 0 0 1 276.784 438.202 Tm (compression) Tj
+0 g
+1 0 0 1 342.19 438.202 Tm (and) Tj
+0 g
+1 0 0 1 363.596 438.202 Tm (decompression) Tj
+0 g
+1 0 0 1 441.234 438.202 Tm (are) Tj
+0 g
+1 0 0 1 460.187 438.202 Tm (slower,) Tj
+0 g
+1 0 0 1 75.0 425.027 Tm (and) Tj
+0 g
+1 0 0 1 96.406 425.027 Tm (bzip2) Tj
+0 g
+1 0 0 1 125.754 425.027 Tm (consumes) Tj
+0 g
+1 0 0 1 178.939 425.027 Tm (more) Tj
+0 g
+1 0 0 1 207.055 425.027 Tm (memory) Tj
+0 g
+1 0 0 1 249.834 425.027 Tm (than) Tj
+0 g
+1 0 0 1 274.298 425.027 Tm (gzip) Tj
+0 g
+1 0 0 1 297.53 425.027 Tm (while) Tj
+0 g
+1 0 0 1 325.646 425.027 Tm (running.) Tj
+0 g
+1 0 0 1 368.447 425.027 Tm (For) Tj
+0 g
+1 0 0 1 388.005 425.027 Tm (modern) Tj
+0 g
+1 0 0 1 428.353 425.027 Tm (computers,) Tj
+0 g
+1 0 0 1 75.0 411.852 Tm (this) Tj
+0 g
+1 0 0 1 95.174 411.852 Tm (isn't) Tj
+0 g
+1 0 0 1 117.449 411.852 Tm (much) Tj
+0 g
+1 0 0 1 147.402 411.852 Tm (of) Tj
+0 g
+1 0 0 1 159.634 411.852 Tm (an) Tj
+0 g
+1 0 0 1 174.924 411.852 Tm (issue,) Tj
+0 g
+1 0 0 1 206.714 411.852 Tm (which) Tj
+0 g
+1 0 0 1 237.888 411.852 Tm (is) Tj
+0 g
+1 0 0 1 248.888 411.852 Tm (why) Tj
+0 g
+1 0 0 1 271.504 411.852 Tm (you) Tj
+0 g
+1 0 0 1 292.294 411.852 Tm (can) Tj
+0 g
+1 0 0 1 313.084 411.852 Tm (expect) Tj
+0 g
+1 0 0 1 348.548 411.852 Tm (bzip2) Tj
+0 g
+1 0 0 1 377.896 411.852 Tm (to) Tj
+0 g
+1 0 0 1 390.128 411.852 Tm (become) Tj
+0 g
+1 0 0 1 432.313 411.852 Tm (more) Tj
+0 g
+1 0 0 1 460.429 411.852 Tm (and) Tj
+0 g
+1 0 0 1 75.0 398.677 Tm (more) Tj
+0 g
+1 0 0 1 103.116 398.677 Tm (popular) Tj
+0 g
+1 0 0 1 142.859 398.677 Tm (as) Tj
+0 g
+1 0 0 1 157.533 398.677 Tm (time) Tj
+0 g
+1 0 0 1 181.37 398.677 Tm (goes) Tj
+0 g
+1 0 0 1 208.276 398.677 Tm (on.) Tj
+0 g
+1 0 0 1 75.0 371.502 Tm (Because) Tj
+0 g
+1 0 0 1 120.859 371.502 Tm (bzip2) Tj
+0 g
+1 0 0 1 150.207 371.502 Tm (has) Tj
+0 g
+1 0 0 1 170.997 371.502 Tm (been) Tj
+0 g
+1 0 0 1 198.519 371.502 Tm (gaining) Tj
+0 g
+1 0 0 1 237.041 371.502 Tm (popularity,) Tj
+0 g
+1 0 0 1 290.842 371.502 Tm (many) Tj
+0 g
+1 0 0 1 320.795 371.502 Tm (Linux) Tj
+0 g
+1 0 0 1 350.143 371.502 Tm (distributions) Tj
+0 g
+1 0 0 1 411.886 371.502 Tm (come) Tj
+0 g
+1 0 0 1 441.839 371.502 Tm (with) Tj
+0 g
+1 0 0 1 75.0 358.327 Tm (versions) Tj
+0 g
+1 0 0 1 119.011 358.327 Tm (of) Tj
+0 g
+1 0 0 1 131.243 358.327 Tm (tar) Tj
+0 g
+1 0 0 1 147.138 358.327 Tm (that) Tj
+0 g
+1 0 0 1 168.544 358.327 Tm (have) Tj
+0 g
+1 0 0 1 195.45 358.327 Tm (been) Tj
+0 g
+1 0 0 1 222.972 358.327 Tm (patched) Tj
+0 g
+1 0 0 1 265.168 358.327 Tm (so) Tj
+0 g
+1 0 0 1 279.842 358.327 Tm (that) Tj
+0 g
+1 0 0 1 301.248 358.327 Tm (passing) Tj
+0 g
+1 0 0 1 342.212 358.327 Tm ("y") Tj
+0 g
+1 0 0 1 358.58 358.327 Tm (or) Tj
+0 g
+1 0 0 1 371.417 358.327 Tm ("i") Tj
+0 g
+1 0 0 1 384.727 358.327 Tm (option) Tj
+0 g
+1 0 0 1 417.749 358.327 Tm (will) Tj
+0 g
+1 0 0 1 436.075 358.327 Tm (inform) Tj
+0 g
+1 0 0 1 469.691 358.327 Tm (tar) Tj
+0 g
+1 0 0 1 75.0 345.152 Tm (that) Tj
+0 g
+1 0 0 1 96.406 345.152 Tm (the) Tj
+0 g
+1 0 0 1 114.754 345.152 Tm (archive) Tj
+0 g
+1 0 0 1 153.265 345.152 Tm (is) Tj
+0 g
+1 0 0 1 164.265 345.152 Tm (in) Tj
+0 g
+1 0 0 1 175.881 345.152 Tm (bzip2) Tj
+0 g
+1 0 0 1 205.229 345.152 Tm (format) Tj
+0 g
+1 0 0 1 239.461 345.152 Tm (and) Tj
+0 g
+1 0 0 1 260.867 345.152 Tm (needs) Tj
+0 g
+1 0 0 1 293.889 345.152 Tm (to) Tj
+0 g
+1 0 0 1 306.121 345.152 Tm (be) Tj
+0 g
+1 0 0 1 321.411 345.152 Tm (automatically) Tj
+0 g
+1 0 0 1 388.654 345.152 Tm (decompressed) Tj
+0 g
+1 0 0 1 463.85 345.152 Tm (with) Tj
+0 g
+1 0 0 1 75.0 331.977 Tm (the) Tj
+0 g
+1 0 0 1 93.348 331.977 Tm ("bzip2") Tj
+0 g
+1 0 0 1 130.506 331.977 Tm (program.) Tj
+0 g
+1 0 0 1 177.575 331.977 Tm (To) Tj
+0 g
+1 0 0 1 193.47 331.977 Tm (see) Tj
+0 g
+1 0 0 1 214.26 331.977 Tm (if) Tj
+0 g
+1 0 0 1 222.818 331.977 Tm (you) Tj
+0 g
+1 0 0 1 243.608 331.977 Tm (have) Tj
+0 g
+1 0 0 1 270.514 331.977 Tm (a) Tj
+0 g
+1 0 0 1 279.688 331.977 Tm (patched) Tj
+0 g
+1 0 0 1 321.884 331.977 Tm (version) Tj
+0 g
+1 0 0 1 360.395 331.977 Tm (of) Tj
+0 g
+1 0 0 1 372.627 331.977 Tm (tar,) Tj
+0 g
+1 0 0 1 391.58 331.977 Tm (try) Tj
+0 g
+1 0 0 1 406.859 331.977 Tm (typing:) Tj
+0 g
+1 0 0 1 75.0 304.802 Tm ($) Tj
+0 g
+1 0 0 1 84.174 304.802 Tm (tar) Tj
+0 g
+1 0 0 1 100.069 304.802 Tm (tyvf) Tj
+0 g
+1 0 0 1 120.243 304.802 Tm (archive.tar.bz2) Tj
+0 g
+1 0 0 1 195.439 304.802 Tm (|) Tj
+0 g
+1 0 0 1 201.357 304.802 Tm (more) Tj
+0 g
+1 0 0 1 75.0 291.627 Tm (or) Tj
+0 g
+1 0 0 1 75.0 264.452 Tm ($) Tj
+0 g
+1 0 0 1 84.174 264.452 Tm (tar) Tj
+0 g
+1 0 0 1 100.069 264.452 Tm (tivf) Tj
+0 g
+1 0 0 1 117.185 264.452 Tm (archive.tar.bz2) Tj
+0 g
+1 0 0 1 192.381 264.452 Tm (|) Tj
+0 g
+1 0 0 1 198.299 264.452 Tm (more) Tj
+0 g
+1 0 0 1 75.0 251.277 Tm (If) Tj
+0 g
+1 0 0 1 84.174 251.277 Tm (neither) Tj
+0 g
+1 0 0 1 120.859 251.277 Tm (of) Tj
+0 g
+1 0 0 1 133.091 251.277 Tm (these) Tj
+0 g
+1 0 0 1 163.055 251.277 Tm (commands) Tj
+0 g
+1 0 0 1 219.903 251.277 Tm (work) Tj
+0 g
+1 0 0 1 246.182 251.277 Tm (\(and) Tj
+0 g
+1 0 0 1 271.251 251.277 Tm (tar) Tj
+0 g
+1 0 0 1 287.146 251.277 Tm (complains) Tj
+0 g
+1 0 0 1 339.715 251.277 Tm (of) Tj
+0 g
+1 0 0 1 351.947 251.277 Tm (an) Tj
+0 g
+1 0 0 1 367.237 251.277 Tm (invalid) Tj
+0 g
+1 0 0 1 401.469 251.277 Tm (argument\),) Tj
+0 g
+1 0 0 1 457.712 251.277 Tm (there) Tj
+0 g
+1 0 0 1 485.839 251.277 Tm (is) Tj
+0 g
+1 0 0 1 75.0 238.102 Tm (still) Tj
+0 g
+1 0 0 1 93.942 238.102 Tm (hope) Tj
+0 g
+1 0 0 1 121.464 238.102 Tm (--) Tj
+0 g
+1 0 0 1 137.37 238.102 Tm (read) Tj
+0 g
+1 0 0 1 162.439 238.102 Tm (on.) Tj
+ET
+q
+0 G
+75.0 217.325 m 501.0 217.325 l 1.0 w S
+Q
+BT
+/F1 10 Tf
+0 g
+1 0 0 1 75.0 757.62 Tm (Presented) Tj
+0 g
+1 0 0 1 123.36 757.62 Tm (by) Tj
+0 g
+1 0 0 1 136.7 757.62 Tm (developerWorks,) Tj
+0 g
+1 0 0 1 214.5 757.62 Tm (your) Tj
+0 g
+1 0 0 1 236.73 757.62 Tm (source) Tj
+0 g
+1 0 0 1 269.52 757.62 Tm (for) Tj
+0 g
+1 0 0 1 283.97 757.62 Tm (great) Tj
+0 g
+1 0 0 1 309.54 757.62 Tm (tutorials) Tj
+/F9 10 Tf
+0 g
+1 0 0 1 398.0 758.51 Tm (ibm.com/developer) Tj
+/F1 10 Tf
+0 g
+1 0 0 1 75.0 40.62 Tm (Compiling) Tj
+0 g
+1 0 0 1 122.23 40.62 Tm (and) Tj
+0 g
+1 0 0 1 141.69 40.62 Tm (installing) Tj
+0 g
+1 0 0 1 183.37 40.62 Tm (software) Tj
+0 g
+1 0 0 1 223.94 40.62 Tm (from) Tj
+0 g
+1 0 0 1 246.72 40.62 Tm (sources) Tj
+0 g
+1 0 0 1 465.53 40.62 Tm (Page) Tj
+0 g
+1 0 0 1 491.66 40.62 Tm (4) Tj
+ET
+
+endstream
+endobj
+26 0 obj
+<< /Type /Page
+/Parent 2 0 R
+/MediaBox [ 0 0 576 792 ]
+/Resources 4 0 R
+/Contents 25 0 R
+>>
+endobj
+27 0 obj
+<< /Length 13277 >>
+stream
+BT
+/F1 18 Tf
+0 g
+1 0 0 1 75.0 699.576 Tm (bzip2) Tj
+0 g
+1 0 0 1 123.024 699.576 Tm (pipelines) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 75.0 684.952 Tm (So,) Tj
+0 g
+1 0 0 1 94.569 684.952 Tm (your) Tj
+0 g
+1 0 0 1 119.022 684.952 Tm (version) Tj
+0 g
+1 0 0 1 157.533 684.952 Tm (of) Tj
+0 g
+1 0 0 1 169.765 684.952 Tm (tar) Tj
+0 g
+1 0 0 1 185.66 684.952 Tm (doesn't) Tj
+0 g
+1 0 0 1 223.841 684.952 Tm (recognize) Tj
+0 g
+1 0 0 1 274.584 684.952 Tm (those) Tj
+0 g
+1 0 0 1 304.548 684.952 Tm (handy) Tj
+0 g
+1 0 0 1 337.57 684.952 Tm (bzip2) Tj
+0 g
+1 0 0 1 366.918 684.952 Tm (shortcuts) Tj
+0 g
+1 0 0 1 414.603 684.952 Tm (--) Tj
+0 g
+1 0 0 1 430.509 684.952 Tm (what) Tj
+0 g
+1 0 0 1 456.799 684.952 Tm (can) Tj
+0 g
+1 0 0 1 477.589 684.952 Tm (be) Tj
+0 g
+1 0 0 1 75.0 671.777 Tm (done?) Tj
+0 g
+1 0 0 1 108.638 671.777 Tm (Fortunately,) Tj
+0 g
+1 0 0 1 169.776 671.777 Tm (there's) Tj
+0 g
+1 0 0 1 205.504 671.777 Tm (an) Tj
+0 g
+1 0 0 1 220.794 671.777 Tm (easy) Tj
+0 g
+1 0 0 1 247.084 671.777 Tm (way) Tj
+0 g
+1 0 0 1 269.7 671.777 Tm (to) Tj
+0 g
+1 0 0 1 281.932 671.777 Tm (extract) Tj
+0 g
+1 0 0 1 318.001 671.777 Tm (the) Tj
+0 g
+1 0 0 1 336.349 671.777 Tm (contents) Tj
+0 g
+1 0 0 1 380.987 671.777 Tm (of) Tj
+0 g
+1 0 0 1 393.219 671.777 Tm (bzip2) Tj
+0 g
+1 0 0 1 422.567 671.777 Tm (tarballs) Tj
+0 g
+1 0 0 1 461.078 671.777 Tm (that) Tj
+0 g
+1 0 0 1 482.484 671.777 Tm (will) Tj
+0 g
+1 0 0 1 75.0 658.602 Tm (work) Tj
+0 g
+1 0 0 1 101.279 658.602 Tm (on) Tj
+0 g
+1 0 0 1 116.569 658.602 Tm (nearly) Tj
+0 g
+1 0 0 1 149.58 658.602 Tm (all) Tj
+0 g
+1 0 0 1 163.638 658.602 Tm (Unix) Tj
+0 g
+1 0 0 1 188.696 658.602 Tm (systems,) Tj
+0 g
+1 0 0 1 235.149 658.602 Tm (even) Tj
+0 g
+1 0 0 1 262.055 658.602 Tm (if) Tj
+0 g
+1 0 0 1 270.613 658.602 Tm (the) Tj
+0 g
+1 0 0 1 288.961 658.602 Tm (system) Tj
+0 g
+1 0 0 1 326.856 658.602 Tm (in) Tj
+0 g
+1 0 0 1 338.472 658.602 Tm (question) Tj
+0 g
+1 0 0 1 383.11 658.602 Tm (happens) Tj
+0 g
+1 0 0 1 428.364 658.602 Tm (to) Tj
+0 g
+1 0 0 1 440.596 658.602 Tm (have) Tj
+0 g
+1 0 0 1 467.502 658.602 Tm (a) Tj
+0 g
+1 0 0 1 75.0 645.427 Tm (non-GNU) Tj
+0 g
+1 0 0 1 127.272 645.427 Tm (version) Tj
+0 g
+1 0 0 1 165.783 645.427 Tm (of) Tj
+0 g
+1 0 0 1 178.015 645.427 Tm (tar.) Tj
+0 g
+1 0 0 1 196.968 645.427 Tm (To) Tj
+0 g
+1 0 0 1 212.863 645.427 Tm (extract) Tj
+0 g
+1 0 0 1 248.932 645.427 Tm (a) Tj
+0 g
+1 0 0 1 258.106 645.427 Tm (bzip2) Tj
+0 g
+1 0 0 1 287.454 645.427 Tm (file,) Tj
+0 g
+1 0 0 1 307.628 645.427 Tm (we) Tj
+0 g
+1 0 0 1 324.744 645.427 Tm (can) Tj
+0 g
+1 0 0 1 345.534 645.427 Tm (create) Tj
+0 g
+1 0 0 1 379.161 645.427 Tm (a) Tj
+0 g
+1 0 0 1 388.335 645.427 Tm (pipeline:) Tj
+0 g
+1 0 0 1 75.0 618.252 Tm ($) Tj
+0 g
+1 0 0 1 84.174 618.252 Tm (cat) Tj
+0 g
+1 0 0 1 101.906 618.252 Tm (archive.tar.bz2) Tj
+0 g
+1 0 0 1 177.102 618.252 Tm (|) Tj
+0 g
+1 0 0 1 183.02 618.252 Tm (bzip2) Tj
+0 g
+1 0 0 1 212.368 618.252 Tm (-d) Tj
+0 g
+1 0 0 1 227.966 618.252 Tm (|) Tj
+0 g
+1 0 0 1 233.884 618.252 Tm (tar) Tj
+0 g
+1 0 0 1 249.779 618.252 Tm (tvf) Tj
+0 g
+1 0 0 1 264.453 618.252 Tm (-) Tj
+0 g
+1 0 0 1 273.935 618.252 Tm (|) Tj
+0 g
+1 0 0 1 279.853 618.252 Tm (most) Tj
+0 g
+1 0 0 1 75.0 605.077 Tm (The) Tj
+0 g
+1 0 0 1 97.011 605.077 Tm (above) Tj
+0 g
+1 0 0 1 130.033 605.077 Tm (pipeline) Tj
+0 g
+1 0 0 1 170.997 605.077 Tm (will) Tj
+0 g
+1 0 0 1 189.323 605.077 Tm (display) Tj
+0 g
+1 0 0 1 226.613 605.077 Tm (the) Tj
+0 g
+1 0 0 1 244.961 605.077 Tm (contents) Tj
+0 g
+1 0 0 1 289.599 605.077 Tm (of) Tj
+0 g
+1 0 0 1 301.831 605.077 Tm (archive.tar.bz2.) Tj
+0 g
+1 0 0 1 75.0 577.902 Tm ($) Tj
+0 g
+1 0 0 1 84.174 577.902 Tm (cat) Tj
+0 g
+1 0 0 1 101.906 577.902 Tm (archive.tar.bz2) Tj
+0 g
+1 0 0 1 177.102 577.902 Tm (|) Tj
+0 g
+1 0 0 1 183.02 577.902 Tm (bzip2) Tj
+0 g
+1 0 0 1 212.368 577.902 Tm (-d) Tj
+0 g
+1 0 0 1 227.966 577.902 Tm (|) Tj
+0 g
+1 0 0 1 233.884 577.902 Tm (tar) Tj
+0 g
+1 0 0 1 249.779 577.902 Tm (xvf) Tj
+0 g
+1 0 0 1 266.895 577.902 Tm (-) Tj
+0 g
+1 0 0 1 75.0 564.727 Tm (The) Tj
+0 g
+1 0 0 1 97.011 564.727 Tm (above) Tj
+0 g
+1 0 0 1 130.033 564.727 Tm (pipeline) Tj
+0 g
+1 0 0 1 170.997 564.727 Tm (will) Tj
+0 g
+1 0 0 1 189.323 564.727 Tm (extract) Tj
+0 g
+1 0 0 1 225.392 564.727 Tm (the) Tj
+0 g
+1 0 0 1 243.74 564.727 Tm (contents) Tj
+0 g
+1 0 0 1 288.378 564.727 Tm (of) Tj
+0 g
+1 0 0 1 300.61 564.727 Tm (archive.tar.bz2.) Tj
+ET
+q
+0 G
+75.0 543.95 m 501.0 543.95 l 1.0 w S
+Q
+BT
+/F1 18 Tf
+0 g
+1 0 0 1 75.0 505.526 Tm (bzip2) Tj
+0 g
+1 0 0 1 123.024 505.526 Tm (pipelines) Tj
+0 g
+1 0 0 1 199.056 505.526 Tm (\(continued\)) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 75.0 490.902 Tm (In) Tj
+0 g
+1 0 0 1 87.232 490.902 Tm (the) Tj
+0 g
+1 0 0 1 105.58 490.902 Tm (previous) Tj
+0 g
+1 0 0 1 150.207 490.902 Tm (two) Tj
+0 g
+1 0 0 1 170.381 490.902 Tm (examples,) Tj
+0 g
+1 0 0 1 223.566 490.902 Tm (we) Tj
+0 g
+1 0 0 1 240.682 490.902 Tm (created) Tj
+0 g
+1 0 0 1 280.425 490.902 Tm (a) Tj
+0 g
+1 0 0 1 289.599 490.902 Tm (standard) Tj
+0 g
+1 0 0 1 335.458 490.902 Tm (Unix) Tj
+0 g
+1 0 0 1 360.516 490.902 Tm (pipeline.) Tj
+0 g
+1 0 0 1 404.538 490.902 Tm (The) Tj
+0 g
+1 0 0 1 426.549 490.902 Tm (vertical) Tj
+0 g
+1 0 0 1 464.444 490.902 Tm (bar) Tj
+0 g
+1 0 0 1 75.0 477.727 Tm (character) Tj
+0 g
+1 0 0 1 123.906 477.727 Tm (tells) Tj
+0 g
+1 0 0 1 146.522 477.727 Tm (the) Tj
+0 g
+1 0 0 1 164.87 477.727 Tm (shell) Tj
+0 g
+1 0 0 1 190.544 477.727 Tm (to) Tj
+0 g
+1 0 0 1 202.776 477.727 Tm ("pipe") Tj
+0 g
+1 0 0 1 234.434 477.727 Tm (the) Tj
+0 g
+1 0 0 1 252.782 477.727 Tm (output) Tj
+0 g
+1 0 0 1 286.42 477.727 Tm (of) Tj
+0 g
+1 0 0 1 298.652 477.727 Tm (the) Tj
+0 g
+1 0 0 1 317.0 477.727 Tm (command) Tj
+0 g
+1 0 0 1 368.348 477.727 Tm (on) Tj
+0 g
+1 0 0 1 383.638 477.727 Tm (the) Tj
+0 g
+1 0 0 1 401.986 477.727 Tm (left) Tj
+0 g
+1 0 0 1 419.718 477.727 Tm (side) Tj
+0 g
+1 0 0 1 442.95 477.727 Tm (of) Tj
+0 g
+1 0 0 1 455.182 477.727 Tm (the) Tj
+0 g
+1 0 0 1 473.53 477.727 Tm (bar) Tj
+0 g
+1 0 0 1 75.0 464.552 Tm (to) Tj
+0 g
+1 0 0 1 87.232 464.552 Tm (the) Tj
+0 g
+1 0 0 1 105.58 464.552 Tm (input) Tj
+0 g
+1 0 0 1 132.486 464.552 Tm (of) Tj
+0 g
+1 0 0 1 144.718 464.552 Tm (the) Tj
+0 g
+1 0 0 1 163.066 464.552 Tm (command) Tj
+0 g
+1 0 0 1 214.414 464.552 Tm (on) Tj
+0 g
+1 0 0 1 229.704 464.552 Tm (the) Tj
+0 g
+1 0 0 1 248.052 464.552 Tm (right) Tj
+0 g
+1 0 0 1 272.505 464.552 Tm (side) Tj
+0 g
+1 0 0 1 295.737 464.552 Tm (of) Tj
+0 g
+1 0 0 1 307.969 464.552 Tm (the) Tj
+0 g
+1 0 0 1 326.317 464.552 Tm (bar.) Tj
+0 g
+1 0 0 1 75.0 437.377 Tm (The) Tj
+0 g
+1 0 0 1 97.011 437.377 Tm ("cat") Tj
+0 g
+1 0 0 1 122.553 437.377 Tm (command) Tj
+0 g
+1 0 0 1 173.901 437.377 Tm (dumps) Tj
+0 g
+1 0 0 1 209.97 437.377 Tm (the) Tj
+0 g
+1 0 0 1 228.318 437.377 Tm (contents) Tj
+0 g
+1 0 0 1 272.956 437.377 Tm (of) Tj
+0 g
+1 0 0 1 285.188 437.377 Tm (archive.tar.bz2) Tj
+0 g
+1 0 0 1 360.384 437.377 Tm (to) Tj
+0 g
+1 0 0 1 372.616 437.377 Tm (standard) Tj
+0 g
+1 0 0 1 418.475 437.377 Tm (output.) Tj
+0 g
+1 0 0 1 455.171 437.377 Tm (This) Tj
+0 g
+1 0 0 1 75.0 424.202 Tm (data) Tj
+0 g
+1 0 0 1 99.464 424.202 Tm (is) Tj
+0 g
+1 0 0 1 110.464 424.202 Tm (piped) Tj
+0 g
+1 0 0 1 140.428 424.202 Tm (to) Tj
+0 g
+1 0 0 1 152.66 424.202 Tm (bzip2's) Tj
+0 g
+1 0 0 1 189.609 424.202 Tm (stdin.) Tj
+0 g
+1 0 0 1 218.957 424.202 Tm (Then,) Tj
+0 g
+1 0 0 1 250.142 424.202 Tm (bzip2) Tj
+0 g
+1 0 0 1 279.49 424.202 Tm (reads) Tj
+0 g
+1 0 0 1 310.059 424.202 Tm (the) Tj
+0 g
+1 0 0 1 328.407 424.202 Tm (data) Tj
+0 g
+1 0 0 1 352.871 424.202 Tm (in,) Tj
+0 g
+1 0 0 1 367.545 424.202 Tm (and) Tj
+0 g
+1 0 0 1 388.951 424.202 Tm (dumps) Tj
+0 g
+1 0 0 1 425.02 424.202 Tm (the) Tj
+0 g
+1 0 0 1 75.0 411.027 Tm (decompressed) Tj
+0 g
+1 0 0 1 150.196 411.027 Tm (data) Tj
+0 g
+1 0 0 1 174.66 411.027 Tm (to) Tj
+0 g
+1 0 0 1 186.892 411.027 Tm (stdout.) Tj
+0 g
+1 0 0 1 222.972 411.027 Tm (bzip2's) Tj
+0 g
+1 0 0 1 259.921 411.027 Tm (stdout) Tj
+0 g
+1 0 0 1 292.943 411.027 Tm (is) Tj
+0 g
+1 0 0 1 303.943 411.027 Tm (redirected) Tj
+0 g
+1 0 0 1 355.907 411.027 Tm (to) Tj
+0 g
+1 0 0 1 368.139 411.027 Tm (tar.) Tj
+0 g
+1 0 0 1 387.092 411.027 Tm (Since) Tj
+0 g
+1 0 0 1 417.661 411.027 Tm (tar) Tj
+0 g
+1 0 0 1 433.556 411.027 Tm (is) Tj
+0 g
+1 0 0 1 444.556 411.027 Tm (called) Tj
+0 g
+1 0 0 1 476.346 411.027 Tm (with) Tj
+0 g
+1 0 0 1 75.0 397.852 Tm (the) Tj
+0 g
+1 0 0 1 93.348 397.852 Tm ("f) Tj
+0 g
+1 0 0 1 103.369 397.852 Tm (-") Tj
+0 g
+1 0 0 1 116.756 397.852 Tm (option,) Tj
+0 g
+1 0 0 1 152.836 397.852 Tm (it) Tj
+0 g
+1 0 0 1 161.394 397.852 Tm (knows) Tj
+0 g
+1 0 0 1 195.626 397.852 Tm (to) Tj
+0 g
+1 0 0 1 207.858 397.852 Tm (read) Tj
+0 g
+1 0 0 1 232.927 397.852 Tm (tar) Tj
+0 g
+1 0 0 1 248.822 397.852 Tm (data) Tj
+0 g
+1 0 0 1 273.286 397.852 Tm (from) Tj
+0 g
+1 0 0 1 298.344 397.852 Tm (stdin,) Tj
+0 g
+1 0 0 1 327.692 397.852 Tm (rather) Tj
+0 g
+1 0 0 1 359.482 397.852 Tm (than) Tj
+0 g
+1 0 0 1 383.946 397.852 Tm (from) Tj
+0 g
+1 0 0 1 409.004 397.852 Tm (file) Tj
+0 g
+1 0 0 1 426.12 397.852 Tm (on) Tj
+0 g
+1 0 0 1 441.41 397.852 Tm (disk.) Tj
+0 g
+1 0 0 1 467.084 397.852 Tm (Then,) Tj
+0 g
+1 0 0 1 75.0 384.677 Tm (tar) Tj
+0 g
+1 0 0 1 90.895 384.677 Tm (either) Tj
+0 g
+1 0 0 1 121.464 384.677 Tm (displays) Tj
+0 g
+1 0 0 1 164.254 384.677 Tm (or) Tj
+0 g
+1 0 0 1 177.091 384.677 Tm (extracts) Tj
+0 g
+1 0 0 1 218.66 384.677 Tm (the) Tj
+0 g
+1 0 0 1 237.008 384.677 Tm (contents) Tj
+0 g
+1 0 0 1 281.646 384.677 Tm (of) Tj
+0 g
+1 0 0 1 293.878 384.677 Tm (the) Tj
+0 g
+1 0 0 1 312.226 384.677 Tm (archive,) Tj
+0 g
+1 0 0 1 353.795 384.677 Tm (depending) Tj
+0 g
+1 0 0 1 408.223 384.677 Tm (on) Tj
+0 g
+1 0 0 1 423.513 384.677 Tm (how) Tj
+0 g
+1 0 0 1 446.745 384.677 Tm (it) Tj
+0 g
+1 0 0 1 455.303 384.677 Tm (was) Tj
+0 g
+1 0 0 1 75.0 371.502 Tm (called.) Tj
+ET
+q
+0 G
+75.0 350.725 m 501.0 350.725 l 1.0 w S
+Q
+BT
+/F1 18 Tf
+0 g
+1 0 0 1 75.0 312.301 Tm (No) Tj
+0 g
+1 0 0 1 103.008 312.301 Tm (bzip2!) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 75.0 297.677 Tm (If) Tj
+0 g
+1 0 0 1 84.174 297.677 Tm (you) Tj
+0 g
+1 0 0 1 104.964 297.677 Tm (used) Tj
+0 g
+1 0 0 1 131.87 297.677 Tm (the) Tj
+0 g
+1 0 0 1 150.218 297.677 Tm (pipeline) Tj
+0 g
+1 0 0 1 191.182 297.677 Tm (method) Tj
+0 g
+1 0 0 1 230.925 297.677 Tm (to) Tj
+0 g
+1 0 0 1 243.157 297.677 Tm (try) Tj
+0 g
+1 0 0 1 258.436 297.677 Tm (to) Tj
+0 g
+1 0 0 1 270.668 297.677 Tm (extract) Tj
+0 g
+1 0 0 1 306.737 297.677 Tm (the) Tj
+0 g
+1 0 0 1 325.085 297.677 Tm (contents) Tj
+0 g
+1 0 0 1 369.723 297.677 Tm (of) Tj
+0 g
+1 0 0 1 381.955 297.677 Tm (your) Tj
+0 g
+1 0 0 1 406.408 297.677 Tm (archive) Tj
+0 g
+1 0 0 1 444.919 297.677 Tm (and) Tj
+0 g
+1 0 0 1 466.325 297.677 Tm (your) Tj
+0 g
+1 0 0 1 75.0 284.502 Tm (system) Tj
+0 g
+1 0 0 1 112.895 284.502 Tm (complained) Tj
+0 g
+1 0 0 1 172.196 284.502 Tm (that) Tj
+0 g
+1 0 0 1 193.602 284.502 Tm (bzip2) Tj
+0 g
+1 0 0 1 222.95 284.502 Tm (couldn't) Tj
+0 g
+1 0 0 1 263.573 284.502 Tm (be) Tj
+0 g
+1 0 0 1 278.863 284.502 Tm (found,) Tj
+0 g
+1 0 0 1 312.501 284.502 Tm (it's) Tj
+0 g
+1 0 0 1 328.66 284.502 Tm (possible) Tj
+0 g
+1 0 0 1 372.066 284.502 Tm (that) Tj
+0 g
+1 0 0 1 393.472 284.502 Tm (bzip2) Tj
+0 g
+1 0 0 1 422.82 284.502 Tm (isn't) Tj
+0 g
+1 0 0 1 445.095 284.502 Tm (installed) Tj
+0 g
+1 0 0 1 75.0 271.327 Tm (on) Tj
+0 g
+1 0 0 1 90.29 271.327 Tm (your) Tj
+0 g
+1 0 0 1 114.743 271.327 Tm (system.) Tj
+0 g
+1 0 0 1 155.696 271.327 Tm (You) Tj
+0 g
+1 0 0 1 178.323 271.327 Tm (can) Tj
+0 g
+1 0 0 1 199.113 271.327 Tm (download) Tj
+0 g
+1 0 0 1 249.251 271.327 Tm (the) Tj
+0 g
+1 0 0 1 267.599 271.327 Tm (sources) Tj
+0 g
+1 0 0 1 309.168 271.327 Tm (to) Tj
+0 g
+1 0 0 1 321.4 271.327 Tm (bzip2) Tj
+0 g
+1 0 0 1 350.748 271.327 Tm (from) Tj
+/F2 11 Tf
+0 g
+1 0 0 1 75.0 258.152 Tm (http://sourceware.cygnus.com/bzip2) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 250.461 258.152 Tm (.) Tj
+0 g
+1 0 0 1 256.577 258.152 Tm (After) Tj
+0 g
+1 0 0 1 282.867 258.152 Tm (installing) Tj
+0 g
+1 0 0 1 328.715 258.152 Tm (the) Tj
+0 g
+1 0 0 1 347.063 258.152 Tm (bzip2) Tj
+0 g
+1 0 0 1 376.411 258.152 Tm (sources) Tj
+0 g
+1 0 0 1 417.98 258.152 Tm (\(by) Tj
+0 g
+1 0 0 1 436.317 258.152 Tm (following) Tj
+0 g
+1 0 0 1 482.165 258.152 Tm (this) Tj
+0 g
+1 0 0 1 75.0 244.977 Tm (tutorial\),) Tj
+0 g
+1 0 0 1 117.79 244.977 Tm (you'll) Tj
+0 g
+1 0 0 1 145.565 244.977 Tm (then) Tj
+0 g
+1 0 0 1 170.029 244.977 Tm (be) Tj
+0 g
+1 0 0 1 185.319 244.977 Tm (able) Tj
+0 g
+1 0 0 1 209.167 244.977 Tm (to) Tj
+0 g
+1 0 0 1 221.399 244.977 Tm (unpack) Tj
+0 g
+1 0 0 1 259.921 244.977 Tm (and) Tj
+0 g
+1 0 0 1 281.327 244.977 Tm (install) Tj
+0 g
+1 0 0 1 312.501 244.977 Tm (the) Tj
+0 g
+1 0 0 1 330.849 244.977 Tm (application) Tj
+0 g
+1 0 0 1 386.487 244.977 Tm (you) Tj
+0 g
+1 0 0 1 407.277 244.977 Tm (wanted) Tj
+0 g
+1 0 0 1 445.799 244.977 Tm (to) Tj
+0 g
+1 0 0 1 458.031 244.977 Tm (install) Tj
+0 g
+1 0 0 1 489.205 244.977 Tm (in) Tj
+0 g
+1 0 0 1 75.0 231.802 Tm (the) Tj
+0 g
+1 0 0 1 93.348 231.802 Tm (first) Tj
+0 g
+1 0 0 1 114.127 231.802 Tm (place.) Tj
+/F1 10 Tf
+0 g
+1 0 0 1 75.0 757.62 Tm (Presented) Tj
+0 g
+1 0 0 1 123.36 757.62 Tm (by) Tj
+0 g
+1 0 0 1 136.7 757.62 Tm (developerWorks,) Tj
+0 g
+1 0 0 1 214.5 757.62 Tm (your) Tj
+0 g
+1 0 0 1 236.73 757.62 Tm (source) Tj
+0 g
+1 0 0 1 269.52 757.62 Tm (for) Tj
+0 g
+1 0 0 1 283.97 757.62 Tm (great) Tj
+0 g
+1 0 0 1 309.54 757.62 Tm (tutorials) Tj
+/F9 10 Tf
+0 g
+1 0 0 1 398.0 758.51 Tm (ibm.com/developer) Tj
+/F1 10 Tf
+0 g
+1 0 0 1 75.0 40.62 Tm (Compiling) Tj
+0 g
+1 0 0 1 122.23 40.62 Tm (and) Tj
+0 g
+1 0 0 1 141.69 40.62 Tm (installing) Tj
+0 g
+1 0 0 1 183.37 40.62 Tm (software) Tj
+0 g
+1 0 0 1 223.94 40.62 Tm (from) Tj
+0 g
+1 0 0 1 246.72 40.62 Tm (sources) Tj
+0 g
+1 0 0 1 465.53 40.62 Tm (Page) Tj
+0 g
+1 0 0 1 491.66 40.62 Tm (5) Tj
+ET
+
+endstream
+endobj
+28 0 obj
+<< /Type /Page
+/Parent 2 0 R
+/MediaBox [ 0 0 576 792 ]
+/Resources 4 0 R
+/Contents 27 0 R
+>>
+endobj
+29 0 obj
+<< /Length 15818 >>
+stream
+BT
+/F1 18 Tf
+0 g
+1 0 0 1 75.0 702.576 Tm (Section) Tj
+0 g
+1 0 0 1 140.034 702.576 Tm (3.) Tj
+0 g
+1 0 0 1 160.05 702.576 Tm (Inspection) Tj
+0 g
+1 0 0 1 247.098 702.576 Tm (and) Tj
+0 g
+1 0 0 1 282.126 702.576 Tm (configuration) Tj
+0 g
+1 0 0 1 75.0 661.926 Tm (Inspecting) Tj
+0 g
+1 0 0 1 162.048 661.926 Tm (sources) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 75.0 647.302 Tm (Once) Tj
+0 g
+1 0 0 1 104.348 647.302 Tm (you've) Tj
+0 g
+1 0 0 1 138.855 647.302 Tm (unpacked) Tj
+0 g
+1 0 0 1 189.609 647.302 Tm (your) Tj
+0 g
+1 0 0 1 214.062 647.302 Tm (sources,) Tj
+0 g
+1 0 0 1 258.689 647.302 Tm (you'll) Tj
+0 g
+1 0 0 1 286.464 647.302 Tm (want) Tj
+0 g
+1 0 0 1 312.754 647.302 Tm (to) Tj
+0 g
+1 0 0 1 324.986 647.302 Tm (enter) Tj
+0 g
+1 0 0 1 353.113 647.302 Tm (the) Tj
+0 g
+1 0 0 1 371.461 647.302 Tm (unpacked) Tj
+0 g
+1 0 0 1 422.215 647.302 Tm (directory) Tj
+0 g
+1 0 0 1 467.447 647.302 Tm (and) Tj
+0 g
+1 0 0 1 75.0 634.127 Tm (check) Tj
+0 g
+1 0 0 1 106.79 634.127 Tm (things) Tj
+0 g
+1 0 0 1 139.196 634.127 Tm (out.) Tj
+0 g
+1 0 0 1 160.602 634.127 Tm (It's) Tj
+0 g
+1 0 0 1 177.377 634.127 Tm (always) Tj
+0 g
+1 0 0 1 214.051 634.127 Tm (a) Tj
+0 g
+1 0 0 1 223.225 634.127 Tm (good) Tj
+0 g
+1 0 0 1 250.747 634.127 Tm (idea) Tj
+0 g
+1 0 0 1 274.595 634.127 Tm (to) Tj
+0 g
+1 0 0 1 286.827 634.127 Tm (locate) Tj
+0 g
+1 0 0 1 319.233 634.127 Tm (any) Tj
+0 g
+1 0 0 1 340.023 634.127 Tm (installation-related) Tj
+0 g
+1 0 0 1 75.0 620.952 Tm (documentation.) Tj
+0 g
+1 0 0 1 153.265 620.952 Tm (Typically,) Tj
+0 g
+1 0 0 1 202.16 620.952 Tm (this) Tj
+0 g
+1 0 0 1 222.334 620.952 Tm (information) Tj
+0 g
+1 0 0 1 279.798 620.952 Tm (can) Tj
+0 g
+1 0 0 1 300.588 620.952 Tm (be) Tj
+0 g
+1 0 0 1 315.878 620.952 Tm (found) Tj
+0 g
+1 0 0 1 346.458 620.952 Tm (in) Tj
+0 g
+1 0 0 1 358.074 620.952 Tm (a) Tj
+0 g
+1 0 0 1 367.248 620.952 Tm (README) Tj
+0 g
+1 0 0 1 417.364 620.952 Tm (or) Tj
+0 g
+1 0 0 1 430.201 620.952 Tm (INSTALL) Tj
+0 g
+1 0 0 1 477.886 620.952 Tm (file) Tj
+0 g
+1 0 0 1 75.0 607.777 Tm (located) Tj
+0 g
+1 0 0 1 113.522 607.777 Tm (in) Tj
+0 g
+1 0 0 1 125.138 607.777 Tm (the) Tj
+0 g
+1 0 0 1 143.486 607.777 Tm (main) Tj
+0 g
+1 0 0 1 170.381 607.777 Tm (source) Tj
+0 g
+1 0 0 1 206.45 607.777 Tm (directory.) Tj
+0 g
+1 0 0 1 254.74 607.777 Tm (Additionally,) Tj
+0 g
+1 0 0 1 317.099 607.777 Tm (look) Tj
+0 g
+1 0 0 1 340.331 607.777 Tm (for) Tj
+0 g
+1 0 0 1 356.226 607.777 Tm (README.platform) Tj
+0 g
+1 0 0 1 449.132 607.777 Tm (and) Tj
+0 g
+1 0 0 1 75.0 594.602 Tm (INSTALL.platform) Tj
+0 g
+1 0 0 1 165.475 594.602 Tm (files,) Tj
+0 g
+1 0 0 1 191.149 594.602 Tm (where) Tj
+0 g
+1 0 0 1 224.16 594.602 Tm (platform) Tj
+0 g
+1 0 0 1 266.95 594.602 Tm (is) Tj
+0 g
+1 0 0 1 277.95 594.602 Tm (the) Tj
+0 g
+1 0 0 1 296.298 594.602 Tm (name) Tj
+0 g
+1 0 0 1 326.867 594.602 Tm (of) Tj
+0 g
+1 0 0 1 339.099 594.602 Tm (your) Tj
+0 g
+1 0 0 1 363.552 594.602 Tm (particular) Tj
+0 g
+1 0 0 1 411.842 594.602 Tm (operating) Tj
+0 g
+1 0 0 1 460.759 594.602 Tm (system.) Tj
+ET
+q
+0 G
+75.0 573.825 m 501.0 573.825 l 1.0 w S
+Q
+BT
+/F1 18 Tf
+0 g
+1 0 0 1 75.0 535.401 Tm (Configuration) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 75.0 520.777 Tm (Many) Tj
+0 g
+1 0 0 1 104.953 520.777 Tm (modern) Tj
+0 g
+1 0 0 1 145.301 520.777 Tm (sources) Tj
+0 g
+1 0 0 1 186.87 520.777 Tm (contain) Tj
+0 g
+1 0 0 1 225.392 520.777 Tm (a) Tj
+0 g
+1 0 0 1 234.566 520.777 Tm ("configure") Tj
+0 g
+1 0 0 1 290.677 520.777 Tm (script) Tj
+0 g
+1 0 0 1 320.014 520.777 Tm (in) Tj
+0 g
+1 0 0 1 331.63 520.777 Tm (the) Tj
+0 g
+1 0 0 1 349.978 520.777 Tm (main) Tj
+0 g
+1 0 0 1 376.873 520.777 Tm (source) Tj
+0 g
+1 0 0 1 412.942 520.777 Tm (directory.) Tj
+0 g
+1 0 0 1 461.232 520.777 Tm (This) Tj
+0 g
+1 0 0 1 75.0 507.602 Tm (script) Tj
+0 g
+1 0 0 1 104.337 507.602 Tm (is) Tj
+0 g
+1 0 0 1 115.337 507.602 Tm (specially) Tj
+0 g
+1 0 0 1 160.569 507.602 Tm (designed) Tj
+0 g
+1 0 0 1 208.265 507.602 Tm (to) Tj
+0 g
+1 0 0 1 220.497 507.602 Tm (set) Tj
+0 g
+1 0 0 1 238.229 507.602 Tm (up) Tj
+0 g
+1 0 0 1 253.519 507.602 Tm (the) Tj
+0 g
+1 0 0 1 271.867 507.602 Tm (sources) Tj
+0 g
+1 0 0 1 313.436 507.602 Tm (so) Tj
+0 g
+1 0 0 1 328.11 507.602 Tm (that) Tj
+0 g
+1 0 0 1 349.516 507.602 Tm (they) Tj
+0 g
+1 0 0 1 373.364 507.602 Tm (compile) Tj
+0 g
+1 0 0 1 414.317 507.602 Tm (perfectly) Tj
+0 g
+1 0 0 1 458.944 507.602 Tm (on) Tj
+0 g
+1 0 0 1 474.234 507.602 Tm (your) Tj
+0 g
+1 0 0 1 75.0 494.427 Tm (system.) Tj
+0 g
+1 0 0 1 115.953 494.427 Tm (When) Tj
+0 g
+1 0 0 1 147.743 494.427 Tm (run,) Tj
+0 g
+1 0 0 1 169.754 494.427 Tm (the) Tj
+0 g
+1 0 0 1 188.102 494.427 Tm (configure) Tj
+0 g
+1 0 0 1 236.403 494.427 Tm (script) Tj
+0 g
+1 0 0 1 265.74 494.427 Tm (probes) Tj
+0 g
+1 0 0 1 302.425 494.427 Tm (your) Tj
+0 g
+1 0 0 1 326.878 494.427 Tm (system,) Tj
+0 g
+1 0 0 1 367.831 494.427 Tm (determining) Tj
+0 g
+1 0 0 1 428.353 494.427 Tm (its) Tj
+0 g
+1 0 0 1 442.411 494.427 Tm (capabilities,) Tj
+0 g
+1 0 0 1 75.0 481.252 Tm (and) Tj
+0 g
+1 0 0 1 96.406 481.252 Tm (creates) Tj
+0 g
+1 0 0 1 135.533 481.252 Tm ("makefiles") Tj
+0 g
+1 0 0 1 192.854 481.252 Tm (that) Tj
+0 g
+1 0 0 1 214.26 481.252 Tm (contain) Tj
+0 g
+1 0 0 1 252.782 481.252 Tm (instructions) Tj
+0 g
+1 0 0 1 311.467 481.252 Tm (for) Tj
+0 g
+1 0 0 1 327.362 481.252 Tm (building) Tj
+0 g
+1 0 0 1 368.326 481.252 Tm (and) Tj
+0 g
+1 0 0 1 389.732 481.252 Tm (installing) Tj
+0 g
+1 0 0 1 435.58 481.252 Tm (the) Tj
+0 g
+1 0 0 1 453.928 481.252 Tm (sources) Tj
+0 g
+1 0 0 1 75.0 468.077 Tm (on) Tj
+0 g
+1 0 0 1 90.29 468.077 Tm (your) Tj
+0 g
+1 0 0 1 114.743 468.077 Tm (system.) Tj
+0 g
+1 0 0 1 75.0 440.902 Tm (The) Tj
+0 g
+1 0 0 1 97.011 440.902 Tm (configure) Tj
+0 g
+1 0 0 1 145.312 440.902 Tm (script) Tj
+0 g
+1 0 0 1 174.649 440.902 Tm (is) Tj
+0 g
+1 0 0 1 185.649 440.902 Tm (always) Tj
+0 g
+1 0 0 1 222.323 440.902 Tm (called) Tj
+0 g
+1 0 0 1 254.113 440.902 Tm ("configure".) Tj
+0 g
+1 0 0 1 313.282 440.902 Tm (If) Tj
+0 g
+1 0 0 1 322.456 440.902 Tm (you) Tj
+0 g
+1 0 0 1 343.246 440.902 Tm (find) Tj
+0 g
+1 0 0 1 364.036 440.902 Tm (one) Tj
+0 g
+1 0 0 1 385.442 440.902 Tm (in) Tj
+0 g
+1 0 0 1 397.058 440.902 Tm (the) Tj
+0 g
+1 0 0 1 415.406 440.902 Tm (main) Tj
+0 g
+1 0 0 1 442.301 440.902 Tm (source) Tj
+0 g
+1 0 0 1 75.0 427.727 Tm (directory,) Tj
+0 g
+1 0 0 1 123.29 427.727 Tm (you'll) Tj
+0 g
+1 0 0 1 151.065 427.727 Tm (want) Tj
+0 g
+1 0 0 1 177.355 427.727 Tm (to) Tj
+0 g
+1 0 0 1 189.587 427.727 Tm (use) Tj
+0 g
+1 0 0 1 210.377 427.727 Tm (it) Tj
+0 g
+1 0 0 1 218.935 427.727 Tm (to) Tj
+0 g
+1 0 0 1 231.167 427.727 Tm (configure) Tj
+0 g
+1 0 0 1 279.468 427.727 Tm (your) Tj
+0 g
+1 0 0 1 303.921 427.727 Tm (sources) Tj
+0 g
+1 0 0 1 345.49 427.727 Tm (for) Tj
+0 g
+1 0 0 1 361.385 427.727 Tm (compilation.) Tj
+0 g
+1 0 0 1 423.128 427.727 Tm (If) Tj
+0 g
+1 0 0 1 432.302 427.727 Tm (you) Tj
+0 g
+1 0 0 1 453.092 427.727 Tm (can't) Tj
+0 g
+1 0 0 1 479.041 427.727 Tm (find) Tj
+0 g
+1 0 0 1 75.0 414.552 Tm (a) Tj
+0 g
+1 0 0 1 84.174 414.552 Tm ("configure") Tj
+0 g
+1 0 0 1 140.285 414.552 Tm (script,) Tj
+0 g
+1 0 0 1 172.68 414.552 Tm (then) Tj
+0 g
+1 0 0 1 197.144 414.552 Tm (your) Tj
+0 g
+1 0 0 1 221.597 414.552 Tm (sources) Tj
+0 g
+1 0 0 1 263.166 414.552 Tm (probably) Tj
+0 g
+1 0 0 1 308.409 414.552 Tm (come) Tj
+0 g
+1 0 0 1 338.362 414.552 Tm (with) Tj
+0 g
+1 0 0 1 360.978 414.552 Tm (a) Tj
+0 g
+1 0 0 1 370.152 414.552 Tm (standard) Tj
+0 g
+1 0 0 1 416.011 414.552 Tm ("Makefile") Tj
+0 g
+1 0 0 1 467.832 414.552 Tm (that) Tj
+0 g
+1 0 0 1 75.0 401.377 Tm (has) Tj
+0 g
+1 0 0 1 95.79 401.377 Tm (been) Tj
+0 g
+1 0 0 1 123.312 401.377 Tm (designed) Tj
+0 g
+1 0 0 1 171.008 401.377 Tm (to) Tj
+0 g
+1 0 0 1 183.24 401.377 Tm (work) Tj
+0 g
+1 0 0 1 209.519 401.377 Tm (across) Tj
+0 g
+1 0 0 1 244.972 401.377 Tm (a) Tj
+0 g
+1 0 0 1 254.146 401.377 Tm (variety) Tj
+0 g
+1 0 0 1 289.599 401.377 Tm (of) Tj
+0 g
+1 0 0 1 301.831 401.377 Tm (systems) Tj
+0 g
+1 0 0 1 345.226 401.377 Tm (--) Tj
+0 g
+1 0 0 1 361.132 401.377 Tm (this) Tj
+0 g
+1 0 0 1 381.306 401.377 Tm (means) Tj
+0 g
+1 0 0 1 417.375 401.377 Tm (that) Tj
+0 g
+1 0 0 1 438.781 401.377 Tm (you) Tj
+0 g
+1 0 0 1 459.571 401.377 Tm (can) Tj
+0 g
+1 0 0 1 480.361 401.377 Tm (skip) Tj
+0 g
+1 0 0 1 75.0 388.202 Tm (the) Tj
+0 g
+1 0 0 1 93.348 388.202 Tm (following) Tj
+0 g
+1 0 0 1 139.196 388.202 Tm (configuration) Tj
+0 g
+1 0 0 1 205.229 388.202 Tm (steps,) Tj
+0 g
+1 0 0 1 237.635 388.202 Tm (and) Tj
+0 g
+1 0 0 1 259.041 388.202 Tm (resume) Tj
+0 g
+1 0 0 1 298.773 388.202 Tm (this) Tj
+0 g
+1 0 0 1 318.947 388.202 Tm (tutorial) Tj
+0 g
+1 0 0 1 355.016 388.202 Tm (where) Tj
+0 g
+1 0 0 1 388.027 388.202 Tm (we) Tj
+0 g
+1 0 0 1 405.143 388.202 Tm (start) Tj
+0 g
+1 0 0 1 429.596 388.202 Tm (talking) Tj
+0 g
+1 0 0 1 464.444 388.202 Tm (about) Tj
+0 g
+1 0 0 1 75.0 375.027 Tm ("make".) Tj
+ET
+q
+0 G
+75.0 354.25 m 501.0 354.25 l 1.0 w S
+Q
+BT
+/F1 18 Tf
+0 g
+1 0 0 1 75.0 315.826 Tm (Using) Tj
+0 g
+1 0 0 1 126.012 315.826 Tm (configure) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 75.0 301.202 Tm (Before) Tj
+0 g
+1 0 0 1 110.464 301.202 Tm (running) Tj
+0 g
+1 0 0 1 150.207 301.202 Tm (the) Tj
+0 g
+1 0 0 1 168.555 301.202 Tm (configure) Tj
+0 g
+1 0 0 1 216.856 301.202 Tm (script,) Tj
+0 g
+1 0 0 1 249.251 301.202 Tm (it's) Tj
+0 g
+1 0 0 1 265.41 301.202 Tm (a) Tj
+0 g
+1 0 0 1 274.584 301.202 Tm (good) Tj
+0 g
+1 0 0 1 302.106 301.202 Tm (idea) Tj
+0 g
+1 0 0 1 325.954 301.202 Tm (to) Tj
+0 g
+1 0 0 1 338.186 301.202 Tm (get) Tj
+0 g
+1 0 0 1 356.534 301.202 Tm (familiar) Tj
+0 g
+1 0 0 1 395.034 301.202 Tm (with) Tj
+0 g
+1 0 0 1 417.65 301.202 Tm (it.) Tj
+0 g
+1 0 0 1 429.266 301.202 Tm (By) Tj
+0 g
+1 0 0 1 445.161 301.202 Tm (typing) Tj
+0 g
+1 0 0 1 75.0 288.027 Tm ("./configure) Tj
+0 g
+1 0 0 1 133.322 288.027 Tm (--help",) Tj
+0 g
+1 0 0 1 176.981 288.027 Tm (you) Tj
+0 g
+1 0 0 1 197.771 288.027 Tm (can) Tj
+0 g
+1 0 0 1 218.561 288.027 Tm (view) Tj
+0 g
+1 0 0 1 243.619 288.027 Tm (all) Tj
+0 g
+1 0 0 1 257.677 288.027 Tm (the) Tj
+0 g
+1 0 0 1 276.025 288.027 Tm (various) Tj
+0 g
+1 0 0 1 314.536 288.027 Tm (configuration) Tj
+0 g
+1 0 0 1 380.569 288.027 Tm (options) Tj
+0 g
+1 0 0 1 419.091 288.027 Tm (that) Tj
+0 g
+1 0 0 1 440.497 288.027 Tm (are) Tj
+0 g
+1 0 0 1 75.0 274.852 Tm (available) Tj
+0 g
+1 0 0 1 121.464 274.852 Tm (for) Tj
+0 g
+1 0 0 1 137.359 274.852 Tm (your) Tj
+0 g
+1 0 0 1 161.812 274.852 Tm (program.) Tj
+0 g
+1 0 0 1 208.881 274.852 Tm (Many) Tj
+0 g
+1 0 0 1 238.834 274.852 Tm (of) Tj
+0 g
+1 0 0 1 251.066 274.852 Tm (the) Tj
+0 g
+1 0 0 1 269.414 274.852 Tm (options,) Tj
+0 g
+1 0 0 1 310.994 274.852 Tm (especially) Tj
+0 g
+1 0 0 1 362.342 274.852 Tm (the) Tj
+0 g
+1 0 0 1 380.69 274.852 Tm (ones) Tj
+0 g
+1 0 0 1 407.596 274.852 Tm (listed) Tj
+0 g
+1 0 0 1 436.328 274.852 Tm (at) Tj
+0 g
+1 0 0 1 448.56 274.852 Tm (the) Tj
+0 g
+1 0 0 1 466.908 274.852 Tm (top,) Tj
+0 g
+1 0 0 1 75.0 261.677 Tm (are) Tj
+0 g
+1 0 0 1 93.953 261.677 Tm (standard) Tj
+0 g
+1 0 0 1 139.812 261.677 Tm (options) Tj
+0 g
+1 0 0 1 178.334 261.677 Tm (that) Tj
+0 g
+1 0 0 1 199.74 261.677 Tm (will) Tj
+0 g
+1 0 0 1 218.066 261.677 Tm (be) Tj
+0 g
+1 0 0 1 233.356 261.677 Tm (found) Tj
+0 g
+1 0 0 1 263.936 261.677 Tm (in) Tj
+0 g
+1 0 0 1 275.552 261.677 Tm (nearly) Tj
+0 g
+1 0 0 1 308.563 261.677 Tm (every) Tj
+0 g
+1 0 0 1 338.516 261.677 Tm (configure) Tj
+0 g
+1 0 0 1 386.817 261.677 Tm (script.) Tj
+0 g
+1 0 0 1 419.212 261.677 Tm (The) Tj
+0 g
+1 0 0 1 441.223 261.677 Tm (options) Tj
+0 g
+1 0 0 1 75.0 248.502 Tm (listed) Tj
+0 g
+1 0 0 1 103.732 248.502 Tm (near) Tj
+0 g
+1 0 0 1 128.801 248.502 Tm (the) Tj
+0 g
+1 0 0 1 147.149 248.502 Tm (end) Tj
+0 g
+1 0 0 1 168.555 248.502 Tm (are) Tj
+0 g
+1 0 0 1 187.508 248.502 Tm (often) Tj
+0 g
+1 0 0 1 215.03 248.502 Tm (related) Tj
+0 g
+1 0 0 1 251.715 248.502 Tm (to) Tj
+0 g
+1 0 0 1 263.947 248.502 Tm (the) Tj
+0 g
+1 0 0 1 282.295 248.502 Tm (particular) Tj
+0 g
+1 0 0 1 330.585 248.502 Tm (package) Tj
+0 g
+1 0 0 1 375.223 248.502 Tm (you're) Tj
+0 g
+1 0 0 1 407.893 248.502 Tm (trying) Tj
+0 g
+1 0 0 1 437.846 248.502 Tm (to) Tj
+0 g
+1 0 0 1 450.078 248.502 Tm (compile.) Tj
+0 g
+1 0 0 1 75.0 235.327 Tm (Take) Tj
+0 g
+1 0 0 1 102.511 235.327 Tm (a) Tj
+0 g
+1 0 0 1 111.685 235.327 Tm (look) Tj
+0 g
+1 0 0 1 134.917 235.327 Tm (at) Tj
+0 g
+1 0 0 1 147.149 235.327 Tm (them) Tj
+0 g
+1 0 0 1 174.66 235.327 Tm (and) Tj
+0 g
+1 0 0 1 196.066 235.327 Tm (note) Tj
+0 g
+1 0 0 1 220.53 235.327 Tm (any) Tj
+0 g
+1 0 0 1 241.32 235.327 Tm (ones) Tj
+0 g
+1 0 0 1 268.226 235.327 Tm (you'd) Tj
+0 g
+1 0 0 1 297.233 235.327 Tm (like) Tj
+0 g
+1 0 0 1 316.791 235.327 Tm (to) Tj
+0 g
+1 0 0 1 329.023 235.327 Tm (enable) Tj
+0 g
+1 0 0 1 365.103 235.327 Tm (or) Tj
+0 g
+1 0 0 1 377.94 235.327 Tm (disable.) Tj
+ET
+q
+0 G
+75.0 214.55 m 501.0 214.55 l 1.0 w S
+Q
+BT
+/F1 18 Tf
+0 g
+1 0 0 1 75.0 176.126 Tm (The) Tj
+0 g
+1 0 0 1 111.018 176.126 Tm (--prefix) Tj
+0 g
+1 0 0 1 181.056 176.126 Tm (option) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 75.0 161.502 Tm (Most) Tj
+0 g
+1 0 0 1 101.895 161.502 Tm (GNU) Tj
+0 g
+1 0 0 1 129.395 161.502 Tm (autoconf-based) Tj
+0 g
+1 0 0 1 211.037 161.502 Tm (configure) Tj
+0 g
+1 0 0 1 259.338 161.502 Tm (scripts) Tj
+0 g
+1 0 0 1 294.175 161.502 Tm (have) Tj
+0 g
+1 0 0 1 321.081 161.502 Tm (a) Tj
+0 g
+1 0 0 1 330.255 161.502 Tm ("--prefix") Tj
+0 g
+1 0 0 1 380.866 161.502 Tm (option) Tj
+0 g
+1 0 0 1 413.888 161.502 Tm (that) Tj
+0 g
+1 0 0 1 435.294 161.502 Tm (allows) Tj
+0 g
+1 0 0 1 468.91 161.502 Tm (you) Tj
+0 g
+1 0 0 1 489.7 161.502 Tm (to) Tj
+0 g
+1 0 0 1 75.0 148.327 Tm (control) Tj
+0 g
+1 0 0 1 111.069 148.327 Tm (where) Tj
+0 g
+1 0 0 1 144.08 148.327 Tm (your) Tj
+0 g
+1 0 0 1 168.533 148.327 Tm (program) Tj
+0 g
+1 0 0 1 212.544 148.327 Tm (gets) Tj
+0 g
+1 0 0 1 236.392 148.327 Tm (installed.) Tj
+0 g
+1 0 0 1 282.856 148.327 Tm (By) Tj
+0 g
+1 0 0 1 298.751 148.327 Tm (default,) Tj
+0 g
+1 0 0 1 337.889 148.327 Tm (most) Tj
+0 g
+1 0 0 1 364.784 148.327 Tm (sources) Tj
+0 g
+1 0 0 1 406.353 148.327 Tm (install) Tj
+0 g
+1 0 0 1 437.527 148.327 Tm (into) Tj
+0 g
+1 0 0 1 458.317 148.327 Tm (the) Tj
+0 g
+1 0 0 1 75.0 135.152 Tm ("/usr/local") Tj
+0 g
+1 0 0 1 129.879 135.152 Tm (prefix) Tj
+0 g
+1 0 0 1 159.832 135.152 Tm (--) Tj
+0 g
+1 0 0 1 175.738 135.152 Tm (this) Tj
+0 g
+1 0 0 1 195.912 135.152 Tm (means) Tj
+0 g
+1 0 0 1 231.981 135.152 Tm (that) Tj
+0 g
+1 0 0 1 253.387 135.152 Tm (binaries) Tj
+0 g
+1 0 0 1 294.956 135.152 Tm (end) Tj
+0 g
+1 0 0 1 316.362 135.152 Tm (up) Tj
+0 g
+1 0 0 1 331.652 135.152 Tm (in) Tj
+0 g
+1 0 0 1 343.268 135.152 Tm (/usr/local/bin,) Tj
+0 g
+1 0 0 1 411.127 135.152 Tm (man) Tj
+0 g
+1 0 0 1 435.58 135.152 Tm (pages) Tj
+0 g
+1 0 0 1 468.602 135.152 Tm (in) Tj
+0 g
+1 0 0 1 75.0 121.977 Tm (/usr/local/man,) Tj
+0 g
+1 0 0 1 149.58 121.977 Tm (etc.) Tj
+0 g
+1 0 0 1 170.37 121.977 Tm (This) Tj
+0 g
+1 0 0 1 194.207 121.977 Tm (is) Tj
+0 g
+1 0 0 1 205.207 121.977 Tm (normally) Tj
+0 g
+1 0 0 1 249.823 121.977 Tm (what) Tj
+0 g
+1 0 0 1 276.113 121.977 Tm (you) Tj
+0 g
+1 0 0 1 296.903 121.977 Tm (want) Tj
+0 g
+1 0 0 1 323.193 121.977 Tm (--) Tj
+0 g
+1 0 0 1 339.099 121.977 Tm (/usr/local) Tj
+0 g
+1 0 0 1 386.168 121.977 Tm (is) Tj
+0 g
+1 0 0 1 397.168 121.977 Tm (commonly) Tj
+0 g
+1 0 0 1 450.342 121.977 Tm (used) Tj
+0 g
+1 0 0 1 477.248 121.977 Tm (to) Tj
+0 g
+1 0 0 1 75.0 108.802 Tm (store) Tj
+0 g
+1 0 0 1 102.511 108.802 Tm (programs) Tj
+0 g
+1 0 0 1 152.022 108.802 Tm (that) Tj
+0 g
+1 0 0 1 173.428 108.802 Tm (you) Tj
+0 g
+1 0 0 1 194.218 108.802 Tm (compile) Tj
+0 g
+1 0 0 1 235.171 108.802 Tm (by) Tj
+0 g
+1 0 0 1 249.845 108.802 Tm (hand.) Tj
+ET
+q
+0 G
+75.0 88.025 m 501.0 88.025 l 1.0 w S
+Q
+BT
+/F1 10 Tf
+0 g
+1 0 0 1 75.0 757.62 Tm (Presented) Tj
+0 g
+1 0 0 1 123.36 757.62 Tm (by) Tj
+0 g
+1 0 0 1 136.7 757.62 Tm (developerWorks,) Tj
+0 g
+1 0 0 1 214.5 757.62 Tm (your) Tj
+0 g
+1 0 0 1 236.73 757.62 Tm (source) Tj
+0 g
+1 0 0 1 269.52 757.62 Tm (for) Tj
+0 g
+1 0 0 1 283.97 757.62 Tm (great) Tj
+0 g
+1 0 0 1 309.54 757.62 Tm (tutorials) Tj
+/F9 10 Tf
+0 g
+1 0 0 1 398.0 758.51 Tm (ibm.com/developer) Tj
+/F1 10 Tf
+0 g
+1 0 0 1 75.0 40.62 Tm (Compiling) Tj
+0 g
+1 0 0 1 122.23 40.62 Tm (and) Tj
+0 g
+1 0 0 1 141.69 40.62 Tm (installing) Tj
+0 g
+1 0 0 1 183.37 40.62 Tm (software) Tj
+0 g
+1 0 0 1 223.94 40.62 Tm (from) Tj
+0 g
+1 0 0 1 246.72 40.62 Tm (sources) Tj
+0 g
+1 0 0 1 465.53 40.62 Tm (Page) Tj
+0 g
+1 0 0 1 491.66 40.62 Tm (6) Tj
+ET
+
+endstream
+endobj
+30 0 obj
+<< /Type /Page
+/Parent 2 0 R
+/MediaBox [ 0 0 576 792 ]
+/Resources 4 0 R
+/Contents 29 0 R
+>>
+endobj
+31 0 obj
+<< /Length 10823 >>
+stream
+BT
+/F1 18 Tf
+0 g
+1 0 0 1 75.0 699.576 Tm (Using) Tj
+0 g
+1 0 0 1 126.012 699.576 Tm (--prefix) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 75.0 684.952 Tm (If) Tj
+0 g
+1 0 0 1 84.174 684.952 Tm (you'd) Tj
+0 g
+1 0 0 1 113.181 684.952 Tm (like) Tj
+0 g
+1 0 0 1 132.739 684.952 Tm (the) Tj
+0 g
+1 0 0 1 151.087 684.952 Tm (sources) Tj
+0 g
+1 0 0 1 192.656 684.952 Tm (to) Tj
+0 g
+1 0 0 1 204.888 684.952 Tm (install) Tj
+0 g
+1 0 0 1 236.062 684.952 Tm (somewhere) Tj
+0 g
+1 0 0 1 295.968 684.952 Tm (else,) Tj
+0 g
+1 0 0 1 322.258 684.952 Tm (say) Tj
+0 g
+1 0 0 1 342.432 684.952 Tm (in) Tj
+0 g
+1 0 0 1 354.048 684.952 Tm (/usr,) Tj
+0 g
+1 0 0 1 378.501 684.952 Tm (then) Tj
+0 g
+1 0 0 1 402.965 684.952 Tm (you'll) Tj
+0 g
+1 0 0 1 430.74 684.952 Tm (want) Tj
+0 g
+1 0 0 1 457.03 684.952 Tm (to) Tj
+0 g
+1 0 0 1 469.262 684.952 Tm (pass) Tj
+0 g
+1 0 0 1 75.0 671.777 Tm (the) Tj
+0 g
+1 0 0 1 93.348 671.777 Tm ("--prefix=/usr") Tj
+0 g
+1 0 0 1 168.72 671.777 Tm (option) Tj
+0 g
+1 0 0 1 201.742 671.777 Tm (to) Tj
+0 g
+1 0 0 1 213.974 671.777 Tm (configure.) Tj
+0 g
+1 0 0 1 265.333 671.777 Tm (Likewise,) Tj
+0 g
+1 0 0 1 313.623 671.777 Tm (you) Tj
+0 g
+1 0 0 1 334.413 671.777 Tm (could) Tj
+0 g
+1 0 0 1 363.761 671.777 Tm (also) Tj
+0 g
+1 0 0 1 386.993 671.777 Tm (tell) Tj
+0 g
+1 0 0 1 404.109 671.777 Tm (configure) Tj
+0 g
+1 0 0 1 452.41 671.777 Tm (to) Tj
+0 g
+1 0 0 1 464.642 671.777 Tm (install) Tj
+0 g
+1 0 0 1 75.0 658.602 Tm (to) Tj
+0 g
+1 0 0 1 87.232 658.602 Tm (your) Tj
+0 g
+1 0 0 1 111.685 658.602 Tm (/opt) Tj
+0 g
+1 0 0 1 133.091 658.602 Tm (tree,) Tj
+0 g
+1 0 0 1 158.16 658.602 Tm (by) Tj
+0 g
+1 0 0 1 172.834 658.602 Tm (using) Tj
+0 g
+1 0 0 1 202.182 658.602 Tm (the) Tj
+0 g
+1 0 0 1 220.53 658.602 Tm ("--prefix=/opt") Tj
+0 g
+1 0 0 1 295.913 658.602 Tm (option.) Tj
+ET
+q
+0 G
+75.0 637.825 m 501.0 637.825 l 1.0 w S
+Q
+BT
+/F1 18 Tf
+0 g
+1 0 0 1 75.0 599.401 Tm (Time) Tj
+0 g
+1 0 0 1 120.0 599.401 Tm (to) Tj
+0 g
+1 0 0 1 140.016 599.401 Tm (configure) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 75.0 584.777 Tm (Once) Tj
+0 g
+1 0 0 1 104.348 584.777 Tm (you've) Tj
+0 g
+1 0 0 1 138.855 584.777 Tm (taken) Tj
+0 g
+1 0 0 1 168.819 584.777 Tm (a) Tj
+0 g
+1 0 0 1 177.993 584.777 Tm (look) Tj
+0 g
+1 0 0 1 201.225 584.777 Tm (at) Tj
+0 g
+1 0 0 1 213.457 584.777 Tm (the) Tj
+0 g
+1 0 0 1 231.805 584.777 Tm (various) Tj
+0 g
+1 0 0 1 270.316 584.777 Tm (configure) Tj
+0 g
+1 0 0 1 318.617 584.777 Tm (options) Tj
+0 g
+1 0 0 1 357.139 584.777 Tm (and) Tj
+0 g
+1 0 0 1 378.545 584.777 Tm (determined) Tj
+0 g
+1 0 0 1 436.625 584.777 Tm (which) Tj
+0 g
+1 0 0 1 467.799 584.777 Tm (ones) Tj
+0 g
+1 0 0 1 75.0 571.602 Tm (you'd) Tj
+0 g
+1 0 0 1 104.007 571.602 Tm (like) Tj
+0 g
+1 0 0 1 123.565 571.602 Tm (to) Tj
+0 g
+1 0 0 1 135.797 571.602 Tm (use,) Tj
+0 g
+1 0 0 1 159.645 571.602 Tm (it's) Tj
+0 g
+1 0 0 1 175.804 571.602 Tm (time) Tj
+0 g
+1 0 0 1 199.641 571.602 Tm (to) Tj
+0 g
+1 0 0 1 211.873 571.602 Tm (run) Tj
+0 g
+1 0 0 1 230.826 571.602 Tm (configure.) Tj
+0 g
+1 0 0 1 282.185 571.602 Tm (Please) Tj
+0 g
+1 0 0 1 318.87 571.602 Tm (note) Tj
+0 g
+1 0 0 1 343.334 571.602 Tm (that) Tj
+0 g
+1 0 0 1 364.74 571.602 Tm (it's) Tj
+0 g
+1 0 0 1 380.899 571.602 Tm (possible) Tj
+0 g
+1 0 0 1 424.305 571.602 Tm (that) Tj
+0 g
+1 0 0 1 445.711 571.602 Tm (you) Tj
+0 g
+1 0 0 1 466.501 571.602 Tm (won't) Tj
+0 g
+1 0 0 1 75.0 558.427 Tm (need) Tj
+0 g
+1 0 0 1 102.522 558.427 Tm (to) Tj
+0 g
+1 0 0 1 114.754 558.427 Tm (include) Tj
+0 g
+1 0 0 1 152.66 558.427 Tm (any) Tj
+0 g
+1 0 0 1 173.45 558.427 Tm (command-line) Tj
+0 g
+1 0 0 1 248.338 558.427 Tm (options) Tj
+0 g
+1 0 0 1 286.86 558.427 Tm (when) Tj
+0 g
+1 0 0 1 316.208 558.427 Tm (you) Tj
+0 g
+1 0 0 1 336.998 558.427 Tm (run) Tj
+0 g
+1 0 0 1 355.951 558.427 Tm (configure) Tj
+0 g
+1 0 0 1 404.252 558.427 Tm (--) Tj
+0 g
+1 0 0 1 420.158 558.427 Tm (in) Tj
+0 g
+1 0 0 1 431.774 558.427 Tm (the) Tj
+0 g
+1 0 0 1 450.122 558.427 Tm (majority) Tj
+0 g
+1 0 0 1 75.0 545.252 Tm (of) Tj
+0 g
+1 0 0 1 87.232 545.252 Tm (situations,) Tj
+0 g
+1 0 0 1 139.812 545.252 Tm (the) Tj
+0 g
+1 0 0 1 158.16 545.252 Tm (defaults) Tj
+0 g
+1 0 0 1 199.74 545.252 Tm (will) Tj
+0 g
+1 0 0 1 218.066 545.252 Tm (work) Tj
+0 g
+1 0 0 1 244.345 545.252 Tm (\(but) Tj
+0 g
+1 0 0 1 266.356 545.252 Tm (may) Tj
+0 g
+1 0 0 1 290.193 545.252 Tm (not) Tj
+0 g
+1 0 0 1 308.541 545.252 Tm (be) Tj
+/F2 11 Tf
+0 g
+1 0 0 1 323.831 545.252 Tm (exactly) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 361.121 545.252 Tm (what) Tj
+0 g
+1 0 0 1 387.411 545.252 Tm (you) Tj
+0 g
+1 0 0 1 408.201 545.252 Tm (want\).) Tj
+ET
+q
+0 G
+75.0 524.475 m 501.0 524.475 l 1.0 w S
+Q
+BT
+/F1 18 Tf
+0 g
+1 0 0 1 75.0 486.051 Tm (Time) Tj
+0 g
+1 0 0 1 120.0 486.051 Tm (to) Tj
+0 g
+1 0 0 1 140.016 486.051 Tm (configure) Tj
+0 g
+1 0 0 1 219.054 486.051 Tm (\(continued\)) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 75.0 471.427 Tm (To) Tj
+0 g
+1 0 0 1 90.895 471.427 Tm (run) Tj
+0 g
+1 0 0 1 109.848 471.427 Tm (configure,) Tj
+0 g
+1 0 0 1 161.207 471.427 Tm (type:) Tj
+0 g
+1 0 0 1 75.0 444.252 Tm ($) Tj
+0 g
+1 0 0 1 84.174 444.252 Tm (./configure) Tj
+0 g
+1 0 0 1 138.591 444.252 Tm (<) Tj
+0 g
+1 0 0 1 145.015 444.252 Tm (options) Tj
+0 g
+1 0 0 1 180.479 444.252 Tm (>) Tj
+0 g
+1 0 0 1 75.0 431.077 Tm (This) Tj
+0 g
+1 0 0 1 98.837 431.077 Tm (might) Tj
+0 g
+1 0 0 1 128.79 431.077 Tm (look) Tj
+0 g
+1 0 0 1 152.022 431.077 Tm (like:) Tj
+0 g
+1 0 0 1 75.0 403.902 Tm ($) Tj
+0 g
+1 0 0 1 84.174 403.902 Tm (./configure) Tj
+0 g
+1 0 0 1 75.0 390.727 Tm (or) Tj
+0 g
+1 0 0 1 75.0 363.552 Tm ($) Tj
+0 g
+1 0 0 1 84.174 363.552 Tm (./configure) Tj
+0 g
+1 0 0 1 138.591 363.552 Tm (--prefix=/usr) Tj
+0 g
+1 0 0 1 206.153 363.552 Tm (--with-threads) Tj
+0 g
+1 0 0 1 75.0 350.377 Tm (It) Tj
+0 g
+1 0 0 1 84.174 350.377 Tm (all) Tj
+0 g
+1 0 0 1 98.232 350.377 Tm (depends) Tj
+0 g
+1 0 0 1 143.486 350.377 Tm (on) Tj
+0 g
+1 0 0 1 158.776 350.377 Tm (the) Tj
+0 g
+1 0 0 1 177.124 350.377 Tm (particular) Tj
+0 g
+1 0 0 1 225.414 350.377 Tm (package) Tj
+0 g
+1 0 0 1 270.052 350.377 Tm (you're) Tj
+0 g
+1 0 0 1 302.722 350.377 Tm (configuring.) Tj
+0 g
+1 0 0 1 362.639 350.377 Tm (When) Tj
+0 g
+1 0 0 1 394.429 350.377 Tm (you) Tj
+0 g
+1 0 0 1 415.219 350.377 Tm (run) Tj
+0 g
+1 0 0 1 434.172 350.377 Tm (configure,) Tj
+0 g
+1 0 0 1 485.531 350.377 Tm (it) Tj
+0 g
+1 0 0 1 75.0 337.202 Tm (will) Tj
+0 g
+1 0 0 1 93.326 337.202 Tm (spend) Tj
+0 g
+1 0 0 1 126.348 337.202 Tm (a) Tj
+0 g
+1 0 0 1 135.522 337.202 Tm (minute) Tj
+0 g
+1 0 0 1 171.591 337.202 Tm (or) Tj
+0 g
+1 0 0 1 184.428 337.202 Tm (two) Tj
+0 g
+1 0 0 1 204.602 337.202 Tm (detecting) Tj
+0 g
+1 0 0 1 252.298 337.202 Tm (what) Tj
+0 g
+1 0 0 1 278.588 337.202 Tm (particular) Tj
+0 g
+1 0 0 1 326.878 337.202 Tm (features) Tj
+0 g
+1 0 0 1 369.679 337.202 Tm (or) Tj
+0 g
+1 0 0 1 382.516 337.202 Tm (tools) Tj
+0 g
+1 0 0 1 408.806 337.202 Tm (are) Tj
+0 g
+1 0 0 1 427.759 337.202 Tm (available) Tj
+0 g
+1 0 0 1 474.223 337.202 Tm (on) Tj
+0 g
+1 0 0 1 75.0 324.027 Tm (your) Tj
+0 g
+1 0 0 1 99.453 324.027 Tm (system,) Tj
+0 g
+1 0 0 1 140.406 324.027 Tm (printing) Tj
+0 g
+1 0 0 1 179.533 324.027 Tm (out) Tj
+0 g
+1 0 0 1 197.881 324.027 Tm (the) Tj
+0 g
+1 0 0 1 216.229 324.027 Tm (results) Tj
+0 g
+1 0 0 1 251.682 324.027 Tm (of) Tj
+0 g
+1 0 0 1 263.914 324.027 Tm (its) Tj
+0 g
+1 0 0 1 277.972 324.027 Tm (various) Tj
+0 g
+1 0 0 1 316.483 324.027 Tm (configuration) Tj
+0 g
+1 0 0 1 382.516 324.027 Tm (checks) Tj
+0 g
+1 0 0 1 419.806 324.027 Tm (as) Tj
+0 g
+1 0 0 1 434.48 324.027 Tm (it) Tj
+0 g
+1 0 0 1 443.038 324.027 Tm (goes.) Tj
+ET
+q
+0 G
+75.0 303.25 m 501.0 303.25 l 1.0 w S
+Q
+BT
+/F1 18 Tf
+0 g
+1 0 0 1 75.0 264.826 Tm (config.cache) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 75.0 250.202 Tm (Once) Tj
+0 g
+1 0 0 1 104.348 250.202 Tm (the) Tj
+0 g
+1 0 0 1 122.696 250.202 Tm (configuration) Tj
+0 g
+1 0 0 1 188.729 250.202 Tm (process) Tj
+0 g
+1 0 0 1 230.298 250.202 Tm (is) Tj
+0 g
+1 0 0 1 241.298 250.202 Tm (complete,) Tj
+0 g
+1 0 0 1 292.041 250.202 Tm (the) Tj
+0 g
+1 0 0 1 310.389 250.202 Tm (configure) Tj
+0 g
+1 0 0 1 358.69 250.202 Tm (script) Tj
+0 g
+1 0 0 1 388.027 250.202 Tm (stores) Tj
+0 g
+1 0 0 1 421.038 250.202 Tm (all) Tj
+0 g
+1 0 0 1 435.096 250.202 Tm (its) Tj
+0 g
+1 0 0 1 75.0 237.027 Tm (configuration) Tj
+0 g
+1 0 0 1 141.033 237.027 Tm (data) Tj
+0 g
+1 0 0 1 165.497 237.027 Tm (in) Tj
+0 g
+1 0 0 1 177.113 237.027 Tm (a) Tj
+0 g
+1 0 0 1 186.287 237.027 Tm (file) Tj
+0 g
+1 0 0 1 203.403 237.027 Tm (called) Tj
+0 g
+1 0 0 1 235.193 237.027 Tm ("config.cache".) Tj
+0 g
+1 0 0 1 310.873 237.027 Tm (This) Tj
+0 g
+1 0 0 1 334.71 237.027 Tm (file) Tj
+0 g
+1 0 0 1 351.826 237.027 Tm (lives) Tj
+0 g
+1 0 0 1 376.884 237.027 Tm (in) Tj
+0 g
+1 0 0 1 388.5 237.027 Tm (the) Tj
+0 g
+1 0 0 1 406.848 237.027 Tm (same) Tj
+0 g
+1 0 0 1 436.801 237.027 Tm (directory) Tj
+0 g
+1 0 0 1 482.033 237.027 Tm (as) Tj
+0 g
+1 0 0 1 75.0 223.852 Tm (the) Tj
+0 g
+1 0 0 1 93.348 223.852 Tm (configure) Tj
+0 g
+1 0 0 1 141.649 223.852 Tm (script) Tj
+0 g
+1 0 0 1 170.986 223.852 Tm (itself.) Tj
+0 g
+1 0 0 1 199.718 223.852 Tm (If) Tj
+0 g
+1 0 0 1 208.892 223.852 Tm (you) Tj
+0 g
+1 0 0 1 229.682 223.852 Tm (ever) Tj
+0 g
+1 0 0 1 254.135 223.852 Tm (need) Tj
+0 g
+1 0 0 1 281.657 223.852 Tm (to) Tj
+0 g
+1 0 0 1 293.889 223.852 Tm (run) Tj
+0 g
+1 0 0 1 312.842 223.852 Tm ("./configure") Tj
+0 g
+1 0 0 1 375.069 223.852 Tm (again) Tj
+0 g
+1 0 0 1 405.033 223.852 Tm (after) Tj
+0 g
+1 0 0 1 430.102 223.852 Tm (you've) Tj
+0 g
+1 0 0 1 75.0 210.677 Tm (updated) Tj
+0 g
+1 0 0 1 117.812 210.677 Tm (your) Tj
+0 g
+1 0 0 1 142.265 210.677 Tm (system) Tj
+0 g
+1 0 0 1 180.16 210.677 Tm (configuration,) Tj
+0 g
+1 0 0 1 249.251 210.677 Tm (make) Tj
+0 g
+1 0 0 1 279.204 210.677 Tm (sure) Tj
+0 g
+1 0 0 1 303.657 210.677 Tm (you) Tj
+0 g
+1 0 0 1 324.447 210.677 Tm ("rm) Tj
+0 g
+1 0 0 1 344.236 210.677 Tm (config.cache") Tj
+0 g
+1 0 0 1 412.953 210.677 Tm (first;) Tj
+0 g
+1 0 0 1 436.79 210.677 Tm (otherwise,) Tj
+0 g
+1 0 0 1 75.0 197.502 Tm (configure) Tj
+0 g
+1 0 0 1 123.301 197.502 Tm (will) Tj
+0 g
+1 0 0 1 141.627 197.502 Tm (simply) Tj
+0 g
+1 0 0 1 175.848 197.502 Tm (use) Tj
+0 g
+1 0 0 1 196.638 197.502 Tm (the) Tj
+0 g
+1 0 0 1 214.986 197.502 Tm (old) Tj
+0 g
+1 0 0 1 232.718 197.502 Tm (settings) Tj
+0 g
+1 0 0 1 273.682 197.502 Tm (without) Tj
+0 g
+1 0 0 1 311.588 197.502 Tm (rechecking) Tj
+0 g
+1 0 0 1 367.831 197.502 Tm (your) Tj
+0 g
+1 0 0 1 392.284 197.502 Tm (system.) Tj
+ET
+q
+0 G
+75.0 176.725 m 501.0 176.725 l 1.0 w S
+Q
+BT
+/F1 10 Tf
+0 g
+1 0 0 1 75.0 757.62 Tm (Presented) Tj
+0 g
+1 0 0 1 123.36 757.62 Tm (by) Tj
+0 g
+1 0 0 1 136.7 757.62 Tm (developerWorks,) Tj
+0 g
+1 0 0 1 214.5 757.62 Tm (your) Tj
+0 g
+1 0 0 1 236.73 757.62 Tm (source) Tj
+0 g
+1 0 0 1 269.52 757.62 Tm (for) Tj
+0 g
+1 0 0 1 283.97 757.62 Tm (great) Tj
+0 g
+1 0 0 1 309.54 757.62 Tm (tutorials) Tj
+/F9 10 Tf
+0 g
+1 0 0 1 398.0 758.51 Tm (ibm.com/developer) Tj
+/F1 10 Tf
+0 g
+1 0 0 1 75.0 40.62 Tm (Compiling) Tj
+0 g
+1 0 0 1 122.23 40.62 Tm (and) Tj
+0 g
+1 0 0 1 141.69 40.62 Tm (installing) Tj
+0 g
+1 0 0 1 183.37 40.62 Tm (software) Tj
+0 g
+1 0 0 1 223.94 40.62 Tm (from) Tj
+0 g
+1 0 0 1 246.72 40.62 Tm (sources) Tj
+0 g
+1 0 0 1 465.53 40.62 Tm (Page) Tj
+0 g
+1 0 0 1 491.66 40.62 Tm (7) Tj
+ET
+
+endstream
+endobj
+32 0 obj
+<< /Type /Page
+/Parent 2 0 R
+/MediaBox [ 0 0 576 792 ]
+/Resources 4 0 R
+/Contents 31 0 R
+>>
+endobj
+33 0 obj
+<< /Length 2201 >>
+stream
+BT
+/F1 18 Tf
+0 g
+1 0 0 1 75.0 699.576 Tm (Progress) Tj
+0 g
+1 0 0 1 152.022 699.576 Tm (quiz) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 75.0 684.952 Tm (Let's) Tj
+0 g
+1 0 0 1 100.949 684.952 Tm (see) Tj
+0 g
+1 0 0 1 121.739 684.952 Tm (how) Tj
+0 g
+1 0 0 1 144.971 684.952 Tm (well) Tj
+0 g
+1 0 0 1 166.971 684.952 Tm (you) Tj
+0 g
+1 0 0 1 187.761 684.952 Tm (were) Tj
+0 g
+1 0 0 1 214.656 684.952 Tm (paying) Tj
+0 g
+1 0 0 1 250.12 684.952 Tm (attention) Tj
+0 g
+1 0 0 1 295.374 684.952 Tm (:\)) Tj
+0 g
+1 0 0 1 305.153 684.952 Tm (True) Tj
+0 g
+1 0 0 1 330.827 684.952 Tm (or) Tj
+0 g
+1 0 0 1 343.664 684.952 Tm (false:) Tj
+0 g
+1 0 0 1 373.012 684.952 Tm (when) Tj
+0 g
+1 0 0 1 402.36 684.952 Tm (you) Tj
+0 g
+1 0 0 1 423.15 684.952 Tm (call) Tj
+0 g
+1 0 0 1 75.0 671.777 Tm ("./configure",) Tj
+0 g
+1 0 0 1 140.285 671.777 Tm (you) Tj
+0 g
+1 0 0 1 161.075 671.777 Tm (must) Tj
+0 g
+1 0 0 1 187.97 671.777 Tm (always) Tj
+0 g
+1 0 0 1 224.644 671.777 Tm (specify) Tj
+0 g
+1 0 0 1 261.934 671.777 Tm (the) Tj
+0 g
+1 0 0 1 280.282 671.777 Tm (--prefix) Tj
+0 g
+1 0 0 1 323.083 671.777 Tm (option.) Tj
+0 g
+1 0 0 1 75.0 644.602 Tm (A.) Tj
+0 g
+1 0 0 1 99.0 644.602 Tm (True) Tj
+0 g
+1 0 0 1 75.0 631.427 Tm (B.) Tj
+0 g
+1 0 0 1 99.0 631.427 Tm (False) Tj
+/F2 11 Tf
+0 g
+1 0 0 1 75.0 604.252 Tm (\(The) Tj
+0 g
+1 0 0 1 100.674 604.252 Tm (correct) Tj
+0 g
+1 0 0 1 137.348 604.252 Tm (answer) Tj
+0 g
+1 0 0 1 175.859 604.252 Tm (is) Tj
+0 g
+1 0 0 1 186.859 604.252 Tm ("B.) Tj
+0 g
+1 0 0 1 204.217 604.252 Tm (False"\)) Tj
+/F1 10 Tf
+0 g
+1 0 0 1 75.0 757.62 Tm (Presented) Tj
+0 g
+1 0 0 1 123.36 757.62 Tm (by) Tj
+0 g
+1 0 0 1 136.7 757.62 Tm (developerWorks,) Tj
+0 g
+1 0 0 1 214.5 757.62 Tm (your) Tj
+0 g
+1 0 0 1 236.73 757.62 Tm (source) Tj
+0 g
+1 0 0 1 269.52 757.62 Tm (for) Tj
+0 g
+1 0 0 1 283.97 757.62 Tm (great) Tj
+0 g
+1 0 0 1 309.54 757.62 Tm (tutorials) Tj
+/F9 10 Tf
+0 g
+1 0 0 1 398.0 758.51 Tm (ibm.com/developer) Tj
+/F1 10 Tf
+0 g
+1 0 0 1 75.0 40.62 Tm (Compiling) Tj
+0 g
+1 0 0 1 122.23 40.62 Tm (and) Tj
+0 g
+1 0 0 1 141.69 40.62 Tm (installing) Tj
+0 g
+1 0 0 1 183.37 40.62 Tm (software) Tj
+0 g
+1 0 0 1 223.94 40.62 Tm (from) Tj
+0 g
+1 0 0 1 246.72 40.62 Tm (sources) Tj
+0 g
+1 0 0 1 465.53 40.62 Tm (Page) Tj
+0 g
+1 0 0 1 491.66 40.62 Tm (8) Tj
+ET
+
+endstream
+endobj
+34 0 obj
+<< /Type /Page
+/Parent 2 0 R
+/MediaBox [ 0 0 576 792 ]
+/Resources 4 0 R
+/Contents 33 0 R
+>>
+endobj
+35 0 obj
+<< /Length 11889 >>
+stream
+BT
+/F1 18 Tf
+0 g
+1 0 0 1 75.0 702.576 Tm (Section) Tj
+0 g
+1 0 0 1 140.034 702.576 Tm (4.) Tj
+0 g
+1 0 0 1 160.05 702.576 Tm (Compilation) Tj
+0 g
+1 0 0 1 260.076 702.576 Tm (and) Tj
+0 g
+1 0 0 1 295.104 702.576 Tm (installation) Tj
+0 g
+1 0 0 1 75.0 661.926 Tm (configure) Tj
+0 g
+1 0 0 1 154.038 661.926 Tm (and) Tj
+0 g
+1 0 0 1 189.066 661.926 Tm (Makefiles) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 75.0 647.302 Tm (After) Tj
+0 g
+1 0 0 1 101.29 647.302 Tm (the) Tj
+0 g
+1 0 0 1 119.638 647.302 Tm (configuration) Tj
+0 g
+1 0 0 1 185.671 647.302 Tm (completes,) Tj
+0 g
+1 0 0 1 241.914 647.302 Tm (it's) Tj
+0 g
+1 0 0 1 258.073 647.302 Tm (time) Tj
+0 g
+1 0 0 1 281.91 647.302 Tm (to) Tj
+0 g
+1 0 0 1 294.142 647.302 Tm (compile) Tj
+0 g
+1 0 0 1 335.095 647.302 Tm (the) Tj
+0 g
+1 0 0 1 353.443 647.302 Tm (sources) Tj
+0 g
+1 0 0 1 395.012 647.302 Tm (into) Tj
+0 g
+1 0 0 1 415.802 647.302 Tm (a) Tj
+0 g
+1 0 0 1 424.976 647.302 Tm (running) Tj
+0 g
+1 0 0 1 75.0 634.127 Tm (program.) Tj
+0 g
+1 0 0 1 122.069 634.127 Tm (A) Tj
+0 g
+1 0 0 1 132.464 634.127 Tm (program) Tj
+0 g
+1 0 0 1 176.475 634.127 Tm (called) Tj
+0 g
+1 0 0 1 208.265 634.127 Tm ("make") Tj
+0 g
+1 0 0 1 246.028 634.127 Tm (is) Tj
+0 g
+1 0 0 1 257.028 634.127 Tm (used) Tj
+0 g
+1 0 0 1 283.934 634.127 Tm (to) Tj
+0 g
+1 0 0 1 296.166 634.127 Tm (perform) Tj
+0 g
+1 0 0 1 337.119 634.127 Tm (this) Tj
+0 g
+1 0 0 1 357.293 634.127 Tm (step.) Tj
+0 g
+1 0 0 1 384.199 634.127 Tm (If) Tj
+0 g
+1 0 0 1 393.373 634.127 Tm (your) Tj
+0 g
+1 0 0 1 417.826 634.127 Tm (software) Tj
+0 g
+1 0 0 1 75.0 620.952 Tm (package) Tj
+0 g
+1 0 0 1 119.638 620.952 Tm (contained) Tj
+0 g
+1 0 0 1 170.392 620.952 Tm (a) Tj
+0 g
+1 0 0 1 179.566 620.952 Tm ("configure") Tj
+0 g
+1 0 0 1 235.677 620.952 Tm (script,) Tj
+0 g
+1 0 0 1 268.072 620.952 Tm (then) Tj
+0 g
+1 0 0 1 292.536 620.952 Tm (when) Tj
+0 g
+1 0 0 1 321.884 620.952 Tm (you) Tj
+0 g
+1 0 0 1 342.674 620.952 Tm (ran) Tj
+0 g
+1 0 0 1 361.627 620.952 Tm (it,) Tj
+0 g
+1 0 0 1 373.243 620.952 Tm ("configure") Tj
+0 g
+1 0 0 1 429.354 620.952 Tm (created) Tj
+0 g
+1 0 0 1 469.097 620.952 Tm (things) Tj
+0 g
+1 0 0 1 75.0 607.777 Tm (called) Tj
+0 g
+1 0 0 1 106.79 607.777 Tm ("Makefiles") Tj
+0 g
+1 0 0 1 164.111 607.777 Tm (that) Tj
+0 g
+1 0 0 1 185.517 607.777 Tm (were) Tj
+0 g
+1 0 0 1 212.412 607.777 Tm (specially) Tj
+0 g
+1 0 0 1 257.644 607.777 Tm (customized) Tj
+0 g
+1 0 0 1 316.329 607.777 Tm (for) Tj
+0 g
+1 0 0 1 332.224 607.777 Tm (your) Tj
+0 g
+1 0 0 1 356.677 607.777 Tm (system.) Tj
+0 g
+1 0 0 1 397.63 607.777 Tm (These) Tj
+0 g
+1 0 0 1 431.257 607.777 Tm (files) Tj
+0 g
+1 0 0 1 453.873 607.777 Tm (will) Tj
+0 g
+1 0 0 1 472.199 607.777 Tm (tell) Tj
+0 g
+1 0 0 1 75.0 594.602 Tm (the) Tj
+0 g
+1 0 0 1 93.348 594.602 Tm (make) Tj
+0 g
+1 0 0 1 123.301 594.602 Tm (program) Tj
+0 g
+1 0 0 1 167.312 594.602 Tm (how) Tj
+0 g
+1 0 0 1 190.544 594.602 Tm (to) Tj
+0 g
+1 0 0 1 202.776 594.602 Tm (build) Tj
+0 g
+1 0 0 1 229.066 594.602 Tm (the) Tj
+0 g
+1 0 0 1 247.414 594.602 Tm (sources) Tj
+0 g
+1 0 0 1 288.983 594.602 Tm (and) Tj
+0 g
+1 0 0 1 310.389 594.602 Tm (install) Tj
+0 g
+1 0 0 1 341.563 594.602 Tm (the) Tj
+0 g
+1 0 0 1 359.911 594.602 Tm (results.) Tj
+ET
+q
+0 G
+75.0 573.825 m 501.0 573.825 l 1.0 w S
+Q
+BT
+/F1 18 Tf
+0 g
+1 0 0 1 75.0 535.401 Tm (Makefile) Tj
+0 g
+1 0 0 1 147.018 535.401 Tm (intro) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 75.0 520.777 Tm (Makefiles) Tj
+0 g
+1 0 0 1 124.511 520.777 Tm (are) Tj
+0 g
+1 0 0 1 143.464 520.777 Tm (typically) Tj
+0 g
+1 0 0 1 185.638 520.777 Tm (called) Tj
+0 g
+1 0 0 1 217.428 520.777 Tm ("makefile") Tj
+0 g
+1 0 0 1 269.249 520.777 Tm (or) Tj
+0 g
+1 0 0 1 282.086 520.777 Tm ("Makefile".) Tj
+0 g
+1 0 0 1 336.965 520.777 Tm (There) Tj
+0 g
+1 0 0 1 368.755 520.777 Tm (will) Tj
+0 g
+1 0 0 1 387.081 520.777 Tm (normally) Tj
+0 g
+1 0 0 1 431.697 520.777 Tm (be) Tj
+0 g
+1 0 0 1 446.987 520.777 Tm (one) Tj
+0 g
+1 0 0 1 75.0 507.602 Tm (makefile) Tj
+0 g
+1 0 0 1 119.011 507.602 Tm (in) Tj
+0 g
+1 0 0 1 130.627 507.602 Tm (each) Tj
+0 g
+1 0 0 1 157.533 507.602 Tm (directory) Tj
+0 g
+1 0 0 1 202.765 507.602 Tm (that) Tj
+0 g
+1 0 0 1 224.171 507.602 Tm (contains) Tj
+0 g
+1 0 0 1 268.193 507.602 Tm (source) Tj
+0 g
+1 0 0 1 304.262 507.602 Tm (files,) Tj
+0 g
+1 0 0 1 329.936 507.602 Tm (including) Tj
+0 g
+1 0 0 1 376.4 507.602 Tm (the) Tj
+0 g
+1 0 0 1 394.748 507.602 Tm (main) Tj
+0 g
+1 0 0 1 421.643 507.602 Tm (program) Tj
+0 g
+1 0 0 1 75.0 494.427 Tm (directory.) Tj
+0 g
+1 0 0 1 123.29 494.427 Tm (Make) Tj
+0 g
+1 0 0 1 153.243 494.427 Tm (works) Tj
+0 g
+1 0 0 1 185.022 494.427 Tm (by) Tj
+0 g
+1 0 0 1 199.696 494.427 Tm (figuring) Tj
+0 g
+1 0 0 1 238.823 494.427 Tm (out) Tj
+0 g
+1 0 0 1 257.171 494.427 Tm (which) Tj
+0 g
+1 0 0 1 288.345 494.427 Tm (parts) Tj
+0 g
+1 0 0 1 315.856 494.427 Tm (of) Tj
+0 g
+1 0 0 1 328.088 494.427 Tm (a) Tj
+0 g
+1 0 0 1 337.262 494.427 Tm (program) Tj
+0 g
+1 0 0 1 381.273 494.427 Tm (need) Tj
+0 g
+1 0 0 1 408.795 494.427 Tm (to) Tj
+0 g
+1 0 0 1 421.027 494.427 Tm (be) Tj
+0 g
+1 0 0 1 436.317 494.427 Tm (compiled,) Tj
+0 g
+1 0 0 1 75.0 481.252 Tm (and) Tj
+0 g
+1 0 0 1 96.406 481.252 Tm (in) Tj
+0 g
+1 0 0 1 108.022 481.252 Tm (what) Tj
+0 g
+1 0 0 1 134.312 481.252 Tm (order.) Tj
+0 g
+1 0 0 1 166.102 481.252 Tm (The) Tj
+0 g
+1 0 0 1 188.113 481.252 Tm (software) Tj
+0 g
+1 0 0 1 232.74 481.252 Tm (developer) Tj
+0 g
+1 0 0 1 284.099 481.252 Tm (creates) Tj
+0 g
+1 0 0 1 323.226 481.252 Tm (Makefiles) Tj
+0 g
+1 0 0 1 372.737 481.252 Tm (that) Tj
+0 g
+1 0 0 1 394.143 481.252 Tm (contain) Tj
+0 g
+1 0 0 1 432.665 481.252 Tm (instructions) Tj
+0 g
+1 0 0 1 75.0 468.077 Tm (\(officially) Tj
+0 g
+1 0 0 1 120.837 468.077 Tm (called) Tj
+/F2 11 Tf
+0 g
+1 0 0 1 152.627 468.077 Tm (rules) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 176.464 468.077 Tm (\)) Tj
+0 g
+1 0 0 1 183.185 468.077 Tm (to) Tj
+0 g
+1 0 0 1 195.417 468.077 Tm (build) Tj
+0 g
+1 0 0 1 221.707 468.077 Tm (certain) Tj
+/F2 11 Tf
+0 g
+1 0 0 1 257.776 468.077 Tm (targets) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 291.403 468.077 Tm (,) Tj
+0 g
+1 0 0 1 297.519 468.077 Tm (like) Tj
+0 g
+1 0 0 1 317.077 468.077 Tm (the) Tj
+0 g
+1 0 0 1 335.425 468.077 Tm (program) Tj
+0 g
+1 0 0 1 379.436 468.077 Tm (you) Tj
+0 g
+1 0 0 1 400.226 468.077 Tm (want) Tj
+0 g
+1 0 0 1 426.516 468.077 Tm (to) Tj
+0 g
+1 0 0 1 438.748 468.077 Tm (install.) Tj
+ET
+q
+0 G
+75.0 447.3 m 501.0 447.3 l 1.0 w S
+Q
+BT
+/F1 18 Tf
+0 g
+1 0 0 1 75.0 408.876 Tm (Invoking) Tj
+0 g
+1 0 0 1 147.036 408.876 Tm (make) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 75.0 394.252 Tm (Invoking) Tj
+0 g
+1 0 0 1 119.022 394.252 Tm (make) Tj
+0 g
+1 0 0 1 148.975 394.252 Tm (is) Tj
+0 g
+1 0 0 1 159.975 394.252 Tm (easy,) Tj
+0 g
+1 0 0 1 189.323 394.252 Tm (just) Tj
+0 g
+1 0 0 1 209.497 394.252 Tm (type) Tj
+0 g
+1 0 0 1 233.345 394.252 Tm ("make") Tj
+0 g
+1 0 0 1 271.108 394.252 Tm (in) Tj
+0 g
+1 0 0 1 282.724 394.252 Tm (the) Tj
+0 g
+1 0 0 1 301.072 394.252 Tm (current) Tj
+0 g
+1 0 0 1 338.362 394.252 Tm (directory.) Tj
+0 g
+1 0 0 1 386.652 394.252 Tm (The) Tj
+0 g
+1 0 0 1 408.663 394.252 Tm (make) Tj
+0 g
+1 0 0 1 438.616 394.252 Tm (program) Tj
+0 g
+1 0 0 1 482.627 394.252 Tm (will) Tj
+0 g
+1 0 0 1 75.0 381.077 Tm (automatically) Tj
+0 g
+1 0 0 1 142.243 381.077 Tm (look) Tj
+0 g
+1 0 0 1 165.475 381.077 Tm (for) Tj
+0 g
+1 0 0 1 181.37 381.077 Tm (and) Tj
+0 g
+1 0 0 1 202.776 381.077 Tm (read) Tj
+0 g
+1 0 0 1 227.845 381.077 Tm (in) Tj
+0 g
+1 0 0 1 239.461 381.077 Tm (a) Tj
+0 g
+1 0 0 1 248.635 381.077 Tm (makefile) Tj
+0 g
+1 0 0 1 292.646 381.077 Tm (called) Tj
+0 g
+1 0 0 1 324.436 381.077 Tm ("makefile") Tj
+0 g
+1 0 0 1 376.257 381.077 Tm (or) Tj
+0 g
+1 0 0 1 389.094 381.077 Tm ("Makefile") Tj
+0 g
+1 0 0 1 440.915 381.077 Tm (in) Tj
+0 g
+1 0 0 1 452.531 381.077 Tm (the) Tj
+0 g
+1 0 0 1 75.0 367.902 Tm (current) Tj
+0 g
+1 0 0 1 112.29 367.902 Tm (directory.) Tj
+0 g
+1 0 0 1 160.58 367.902 Tm (If) Tj
+0 g
+1 0 0 1 169.754 367.902 Tm (you) Tj
+0 g
+1 0 0 1 190.544 367.902 Tm (type) Tj
+0 g
+1 0 0 1 214.392 367.902 Tm ("make") Tj
+0 g
+1 0 0 1 252.155 367.902 Tm (all) Tj
+0 g
+1 0 0 1 266.213 367.902 Tm (by) Tj
+0 g
+1 0 0 1 280.887 367.902 Tm (itself,) Tj
+0 g
+1 0 0 1 309.619 367.902 Tm (it) Tj
+0 g
+1 0 0 1 318.177 367.902 Tm (will) Tj
+0 g
+1 0 0 1 336.503 367.902 Tm (build) Tj
+0 g
+1 0 0 1 362.793 367.902 Tm (the) Tj
+/F2 11 Tf
+0 g
+1 0 0 1 381.141 367.902 Tm (default) Tj
+0 g
+1 0 0 1 417.221 367.902 Tm (target) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 445.348 367.902 Tm (.) Tj
+0 g
+1 0 0 1 75.0 354.727 Tm (Developers) Tj
+0 g
+1 0 0 1 133.685 354.727 Tm (normally) Tj
+0 g
+1 0 0 1 178.301 354.727 Tm (set) Tj
+0 g
+1 0 0 1 196.033 354.727 Tm (up) Tj
+0 g
+1 0 0 1 211.323 354.727 Tm (their) Tj
+0 g
+1 0 0 1 235.776 354.727 Tm (makefiles) Tj
+0 g
+1 0 0 1 285.287 354.727 Tm (so) Tj
+0 g
+1 0 0 1 299.961 354.727 Tm (that) Tj
+0 g
+1 0 0 1 321.367 354.727 Tm (the) Tj
+0 g
+1 0 0 1 339.715 354.727 Tm (default) Tj
+0 g
+1 0 0 1 375.795 354.727 Tm (target) Tj
+0 g
+1 0 0 1 406.98 354.727 Tm (compiles) Tj
+0 g
+1 0 0 1 453.433 354.727 Tm (all) Tj
+0 g
+1 0 0 1 467.491 354.727 Tm (the) Tj
+0 g
+1 0 0 1 75.0 341.552 Tm (sources:) Tj
+0 g
+1 0 0 1 75.0 314.377 Tm ($) Tj
+0 g
+1 0 0 1 84.174 314.377 Tm (make) Tj
+0 g
+1 0 0 1 75.0 301.202 Tm (Some) Tj
+0 g
+1 0 0 1 106.79 301.202 Tm (makefiles) Tj
+0 g
+1 0 0 1 156.301 301.202 Tm (won't) Tj
+0 g
+1 0 0 1 184.692 301.202 Tm (have) Tj
+0 g
+1 0 0 1 211.598 301.202 Tm (a) Tj
+0 g
+1 0 0 1 220.772 301.202 Tm (default) Tj
+0 g
+1 0 0 1 256.852 301.202 Tm (target,) Tj
+0 g
+1 0 0 1 291.095 301.202 Tm (and) Tj
+0 g
+1 0 0 1 312.501 301.202 Tm (you'll) Tj
+0 g
+1 0 0 1 340.276 301.202 Tm (need) Tj
+0 g
+1 0 0 1 367.798 301.202 Tm (to) Tj
+0 g
+1 0 0 1 380.03 301.202 Tm (type) Tj
+0 g
+1 0 0 1 403.878 301.202 Tm (this) Tj
+0 g
+1 0 0 1 424.052 301.202 Tm (compilation) Tj
+0 g
+1 0 0 1 75.0 288.027 Tm (started:) Tj
+0 g
+1 0 0 1 75.0 260.852 Tm ($) Tj
+0 g
+1 0 0 1 84.174 260.852 Tm (make) Tj
+0 g
+1 0 0 1 114.127 260.852 Tm (all) Tj
+0 g
+1 0 0 1 75.0 247.677 Tm (After) Tj
+0 g
+1 0 0 1 101.29 247.677 Tm (typing) Tj
+0 g
+1 0 0 1 133.696 247.677 Tm (one) Tj
+0 g
+1 0 0 1 155.102 247.677 Tm (of) Tj
+0 g
+1 0 0 1 167.334 247.677 Tm (these) Tj
+0 g
+1 0 0 1 197.298 247.677 Tm (commands,) Tj
+0 g
+1 0 0 1 257.204 247.677 Tm (your) Tj
+0 g
+1 0 0 1 281.657 247.677 Tm (computer) Tj
+0 g
+1 0 0 1 330.563 247.677 Tm (will) Tj
+0 g
+1 0 0 1 348.889 247.677 Tm (spend) Tj
+0 g
+1 0 0 1 381.911 247.677 Tm (several) Tj
+0 g
+1 0 0 1 420.422 247.677 Tm (minutes) Tj
+0 g
+1 0 0 1 75.0 234.502 Tm (compiling) Tj
+0 g
+1 0 0 1 124.511 234.502 Tm (your) Tj
+0 g
+1 0 0 1 148.964 234.502 Tm (program) Tj
+0 g
+1 0 0 1 192.975 234.502 Tm (into) Tj
+0 g
+1 0 0 1 213.765 234.502 Tm (object) Tj
+0 g
+1 0 0 1 246.171 234.502 Tm (code.) Tj
+0 g
+1 0 0 1 276.135 234.502 Tm (Assuming) Tj
+0 g
+1 0 0 1 327.483 234.502 Tm (it) Tj
+0 g
+1 0 0 1 336.041 234.502 Tm (completes) Tj
+0 g
+1 0 0 1 389.226 234.502 Tm (with) Tj
+0 g
+1 0 0 1 411.842 234.502 Tm (no) Tj
+0 g
+1 0 0 1 427.132 234.502 Tm (errors,) Tj
+0 g
+1 0 0 1 461.969 234.502 Tm (you'll) Tj
+0 g
+1 0 0 1 75.0 221.327 Tm (be) Tj
+0 g
+1 0 0 1 90.29 221.327 Tm (ready) Tj
+0 g
+1 0 0 1 120.859 221.327 Tm (to) Tj
+0 g
+1 0 0 1 133.091 221.327 Tm (install) Tj
+0 g
+1 0 0 1 164.265 221.327 Tm (the) Tj
+0 g
+1 0 0 1 182.613 221.327 Tm (compiled) Tj
+0 g
+1 0 0 1 229.682 221.327 Tm (program) Tj
+0 g
+1 0 0 1 273.693 221.327 Tm (on) Tj
+0 g
+1 0 0 1 288.983 221.327 Tm (to) Tj
+0 g
+1 0 0 1 301.215 221.327 Tm (your) Tj
+0 g
+1 0 0 1 325.668 221.327 Tm (system.) Tj
+ET
+q
+0 G
+75.0 200.55 m 501.0 200.55 l 1.0 w S
+Q
+BT
+/F1 10 Tf
+0 g
+1 0 0 1 75.0 757.62 Tm (Presented) Tj
+0 g
+1 0 0 1 123.36 757.62 Tm (by) Tj
+0 g
+1 0 0 1 136.7 757.62 Tm (developerWorks,) Tj
+0 g
+1 0 0 1 214.5 757.62 Tm (your) Tj
+0 g
+1 0 0 1 236.73 757.62 Tm (source) Tj
+0 g
+1 0 0 1 269.52 757.62 Tm (for) Tj
+0 g
+1 0 0 1 283.97 757.62 Tm (great) Tj
+0 g
+1 0 0 1 309.54 757.62 Tm (tutorials) Tj
+/F9 10 Tf
+0 g
+1 0 0 1 398.0 758.51 Tm (ibm.com/developer) Tj
+/F1 10 Tf
+0 g
+1 0 0 1 75.0 40.62 Tm (Compiling) Tj
+0 g
+1 0 0 1 122.23 40.62 Tm (and) Tj
+0 g
+1 0 0 1 141.69 40.62 Tm (installing) Tj
+0 g
+1 0 0 1 183.37 40.62 Tm (software) Tj
+0 g
+1 0 0 1 223.94 40.62 Tm (from) Tj
+0 g
+1 0 0 1 246.72 40.62 Tm (sources) Tj
+0 g
+1 0 0 1 465.53 40.62 Tm (Page) Tj
+0 g
+1 0 0 1 491.66 40.62 Tm (9) Tj
+ET
+
+endstream
+endobj
+36 0 obj
+<< /Type /Page
+/Parent 2 0 R
+/MediaBox [ 0 0 576 792 ]
+/Resources 4 0 R
+/Contents 35 0 R
+>>
+endobj
+37 0 obj
+<< /Length 9535 >>
+stream
+BT
+/F1 18 Tf
+0 g
+1 0 0 1 75.0 699.576 Tm (Installation) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 75.0 684.952 Tm (After) Tj
+0 g
+1 0 0 1 101.29 684.952 Tm (the) Tj
+0 g
+1 0 0 1 119.638 684.952 Tm (program) Tj
+0 g
+1 0 0 1 163.649 684.952 Tm (is) Tj
+0 g
+1 0 0 1 174.649 684.952 Tm (compiled,) Tj
+0 g
+1 0 0 1 224.776 684.952 Tm (there's) Tj
+0 g
+1 0 0 1 260.504 684.952 Tm (one) Tj
+0 g
+1 0 0 1 281.91 684.952 Tm (more) Tj
+0 g
+1 0 0 1 310.026 684.952 Tm (important) Tj
+0 g
+1 0 0 1 358.932 684.952 Tm (step) Tj
+0 g
+1 0 0 1 382.78 684.952 Tm (--) Tj
+0 g
+1 0 0 1 398.686 684.952 Tm (installation.) Tj
+0 g
+1 0 0 1 75.0 671.777 Tm (Although) Tj
+0 g
+1 0 0 1 121.475 671.777 Tm (the) Tj
+0 g
+1 0 0 1 139.823 671.777 Tm (program) Tj
+0 g
+1 0 0 1 183.834 671.777 Tm (is) Tj
+0 g
+1 0 0 1 194.834 671.777 Tm (compiled,) Tj
+0 g
+1 0 0 1 244.961 671.777 Tm (it's) Tj
+0 g
+1 0 0 1 261.12 671.777 Tm (not) Tj
+0 g
+1 0 0 1 279.468 671.777 Tm (yet) Tj
+0 g
+1 0 0 1 297.2 671.777 Tm (ready) Tj
+0 g
+1 0 0 1 327.769 671.777 Tm (for) Tj
+0 g
+1 0 0 1 343.664 671.777 Tm (you) Tj
+0 g
+1 0 0 1 364.454 671.777 Tm (to) Tj
+0 g
+1 0 0 1 376.686 671.777 Tm (use) Tj
+0 g
+1 0 0 1 397.476 671.777 Tm (--) Tj
+0 g
+1 0 0 1 413.382 671.777 Tm (all) Tj
+0 g
+1 0 0 1 427.44 671.777 Tm (its) Tj
+0 g
+1 0 0 1 75.0 658.602 Tm (components) Tj
+0 g
+1 0 0 1 137.975 658.602 Tm (need) Tj
+0 g
+1 0 0 1 165.497 658.602 Tm (to) Tj
+0 g
+1 0 0 1 177.729 658.602 Tm (be) Tj
+0 g
+1 0 0 1 193.019 658.602 Tm (copied) Tj
+0 g
+1 0 0 1 228.483 658.602 Tm (to) Tj
+0 g
+1 0 0 1 240.715 658.602 Tm (the) Tj
+0 g
+1 0 0 1 259.063 658.602 Tm (correct) Tj
+0 g
+1 0 0 1 295.737 658.602 Tm (locations) Tj
+0 g
+1 0 0 1 342.201 658.602 Tm (on) Tj
+0 g
+1 0 0 1 357.491 658.602 Tm (your) Tj
+0 g
+1 0 0 1 381.944 658.602 Tm (filesystem.) Tj
+0 g
+1 0 0 1 436.955 658.602 Tm (For) Tj
+0 g
+1 0 0 1 75.0 645.427 Tm (example,) Tj
+0 g
+1 0 0 1 122.685 645.427 Tm (all) Tj
+0 g
+1 0 0 1 136.743 645.427 Tm (binaries) Tj
+0 g
+1 0 0 1 178.312 645.427 Tm (need) Tj
+0 g
+1 0 0 1 205.834 645.427 Tm (to) Tj
+0 g
+1 0 0 1 218.066 645.427 Tm (be) Tj
+0 g
+1 0 0 1 233.356 645.427 Tm (copied) Tj
+0 g
+1 0 0 1 268.82 645.427 Tm (to) Tj
+0 g
+1 0 0 1 281.052 645.427 Tm (/usr/local/bin,) Tj
+0 g
+1 0 0 1 348.911 645.427 Tm (and) Tj
+0 g
+1 0 0 1 370.317 645.427 Tm (all) Tj
+0 g
+1 0 0 1 384.375 645.427 Tm (man) Tj
+0 g
+1 0 0 1 408.828 645.427 Tm (pages) Tj
+0 g
+1 0 0 1 441.85 645.427 Tm (need) Tj
+0 g
+1 0 0 1 469.372 645.427 Tm (to) Tj
+0 g
+1 0 0 1 481.604 645.427 Tm (be) Tj
+0 g
+1 0 0 1 75.0 632.252 Tm (installed) Tj
+0 g
+1 0 0 1 118.406 632.252 Tm (into) Tj
+0 g
+1 0 0 1 139.196 632.252 Tm (/usr/local/man,) Tj
+0 g
+1 0 0 1 213.776 632.252 Tm (etc.) Tj
+0 g
+1 0 0 1 75.0 605.077 Tm (Before) Tj
+0 g
+1 0 0 1 110.464 605.077 Tm (you) Tj
+0 g
+1 0 0 1 131.254 605.077 Tm (can) Tj
+0 g
+1 0 0 1 152.044 605.077 Tm (install) Tj
+0 g
+1 0 0 1 183.218 605.077 Tm (the) Tj
+0 g
+1 0 0 1 201.566 605.077 Tm (software,) Tj
+0 g
+1 0 0 1 249.251 605.077 Tm (you'll) Tj
+0 g
+1 0 0 1 277.026 605.077 Tm (need) Tj
+0 g
+1 0 0 1 304.548 605.077 Tm (to) Tj
+0 g
+1 0 0 1 316.78 605.077 Tm (become) Tj
+0 g
+1 0 0 1 358.965 605.077 Tm (root.) Tj
+0 g
+1 0 0 1 384.034 605.077 Tm (This) Tj
+0 g
+1 0 0 1 407.871 605.077 Tm (is) Tj
+0 g
+1 0 0 1 418.871 605.077 Tm (typically) Tj
+0 g
+1 0 0 1 461.045 605.077 Tm (done) Tj
+0 g
+1 0 0 1 75.0 591.902 Tm (by) Tj
+0 g
+1 0 0 1 89.674 591.902 Tm (either) Tj
+0 g
+1 0 0 1 120.243 591.902 Tm (logging) Tj
+0 g
+1 0 0 1 158.765 591.902 Tm (in) Tj
+0 g
+1 0 0 1 170.381 591.902 Tm (as) Tj
+0 g
+1 0 0 1 185.055 591.902 Tm (root) Tj
+0 g
+1 0 0 1 207.066 591.902 Tm (on) Tj
+0 g
+1 0 0 1 222.356 591.902 Tm (a) Tj
+0 g
+1 0 0 1 231.53 591.902 Tm (separate) Tj
+0 g
+1 0 0 1 277.389 591.902 Tm (terminal,) Tj
+0 g
+1 0 0 1 322.621 591.902 Tm (or) Tj
+0 g
+1 0 0 1 335.458 591.902 Tm (typing) Tj
+0 g
+1 0 0 1 367.864 591.902 Tm ("su",) Tj
+0 g
+1 0 0 1 393.406 591.902 Tm (at) Tj
+0 g
+1 0 0 1 405.638 591.902 Tm (which) Tj
+0 g
+1 0 0 1 436.812 591.902 Tm (point) Tj
+0 g
+1 0 0 1 463.718 591.902 Tm (you'll) Tj
+0 g
+1 0 0 1 75.0 578.727 Tm (be) Tj
+0 g
+1 0 0 1 90.29 578.727 Tm (prompted) Tj
+0 g
+1 0 0 1 139.812 578.727 Tm (for) Tj
+0 g
+1 0 0 1 155.707 578.727 Tm (root's) Tj
+0 g
+1 0 0 1 185.319 578.727 Tm (password.) Tj
+0 g
+1 0 0 1 238.504 578.727 Tm (After) Tj
+0 g
+1 0 0 1 264.794 578.727 Tm (typing) Tj
+0 g
+1 0 0 1 297.2 578.727 Tm (it) Tj
+0 g
+1 0 0 1 305.758 578.727 Tm (in,) Tj
+0 g
+1 0 0 1 320.432 578.727 Tm (you'll) Tj
+0 g
+1 0 0 1 348.207 578.727 Tm (have) Tj
+0 g
+1 0 0 1 375.113 578.727 Tm (root) Tj
+0 g
+1 0 0 1 397.124 578.727 Tm (privileges) Tj
+0 g
+1 0 0 1 446.635 578.727 Tm (until) Tj
+0 g
+1 0 0 1 469.867 578.727 Tm (you) Tj
+0 g
+1 0 0 1 75.0 565.552 Tm (exit) Tj
+0 g
+1 0 0 1 95.174 565.552 Tm (from) Tj
+0 g
+1 0 0 1 120.232 565.552 Tm (your) Tj
+0 g
+1 0 0 1 144.685 565.552 Tm (current) Tj
+0 g
+1 0 0 1 181.975 565.552 Tm (shell) Tj
+0 g
+1 0 0 1 207.649 565.552 Tm (session) Tj
+0 g
+1 0 0 1 247.997 565.552 Tm (by) Tj
+0 g
+1 0 0 1 262.671 565.552 Tm (typing) Tj
+0 g
+1 0 0 1 295.077 565.552 Tm ("exit") Tj
+0 g
+1 0 0 1 323.061 565.552 Tm (or) Tj
+0 g
+1 0 0 1 335.898 565.552 Tm (hitting) Tj
+0 g
+1 0 0 1 368.304 565.552 Tm (control-D.) Tj
+0 g
+1 0 0 1 421.797 565.552 Tm (If) Tj
+0 g
+1 0 0 1 430.971 565.552 Tm (you're) Tj
+0 g
+1 0 0 1 463.641 565.552 Tm (already) Tj
+0 g
+1 0 0 1 75.0 552.377 Tm (root,) Tj
+0 g
+1 0 0 1 100.069 552.377 Tm (you're) Tj
+0 g
+1 0 0 1 132.739 552.377 Tm (ready) Tj
+0 g
+1 0 0 1 163.308 552.377 Tm (to) Tj
+0 g
+1 0 0 1 175.54 552.377 Tm (go!) Tj
+ET
+q
+0 G
+75.0 531.6 m 501.0 531.6 l 1.0 w S
+Q
+BT
+/F1 18 Tf
+0 g
+1 0 0 1 75.0 493.176 Tm (make) Tj
+0 g
+1 0 0 1 124.014 493.176 Tm (install) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 75.0 478.552 Tm (Installing) Tj
+0 g
+1 0 0 1 121.464 478.552 Tm (sources) Tj
+0 g
+1 0 0 1 163.033 478.552 Tm (is) Tj
+0 g
+1 0 0 1 174.033 478.552 Tm (easy.) Tj
+0 g
+1 0 0 1 203.381 478.552 Tm (In) Tj
+0 g
+1 0 0 1 215.613 478.552 Tm (the) Tj
+0 g
+1 0 0 1 233.961 478.552 Tm (main) Tj
+0 g
+1 0 0 1 260.856 478.552 Tm (source) Tj
+0 g
+1 0 0 1 296.925 478.552 Tm (directory,) Tj
+0 g
+1 0 0 1 345.215 478.552 Tm (simply) Tj
+0 g
+1 0 0 1 379.436 478.552 Tm (type:) Tj
+0 g
+1 0 0 1 75.0 451.377 Tm (#) Tj
+0 g
+1 0 0 1 84.174 451.377 Tm (make) Tj
+0 g
+1 0 0 1 114.127 451.377 Tm (install) Tj
+0 g
+1 0 0 1 75.0 438.202 Tm (Typing) Tj
+0 g
+1 0 0 1 111.069 438.202 Tm ("make) Tj
+0 g
+1 0 0 1 144.927 438.202 Tm (install") Tj
+0 g
+1 0 0 1 180.006 438.202 Tm (will) Tj
+0 g
+1 0 0 1 198.332 438.202 Tm (cause) Tj
+0 g
+1 0 0 1 230.738 438.202 Tm (the) Tj
+0 g
+1 0 0 1 249.086 438.202 Tm (installation) Tj
+0 g
+1 0 0 1 304.108 438.202 Tm (process) Tj
+0 g
+1 0 0 1 345.677 438.202 Tm (to) Tj
+0 g
+1 0 0 1 357.909 438.202 Tm (begin) Tj
+0 g
+1 0 0 1 387.873 438.202 Tm (--) Tj
+0 g
+1 0 0 1 403.779 438.202 Tm (files) Tj
+0 g
+1 0 0 1 426.395 438.202 Tm (and) Tj
+0 g
+1 0 0 1 447.801 438.202 Tm (directories) Tj
+0 g
+1 0 0 1 75.0 425.027 Tm (will) Tj
+0 g
+1 0 0 1 93.326 425.027 Tm (be) Tj
+0 g
+1 0 0 1 108.616 425.027 Tm (copied) Tj
+0 g
+1 0 0 1 144.08 425.027 Tm (to) Tj
+0 g
+1 0 0 1 156.312 425.027 Tm (your) Tj
+0 g
+1 0 0 1 180.765 425.027 Tm (/usr/local) Tj
+0 g
+1 0 0 1 227.834 425.027 Tm (tree.) Tj
+0 g
+1 0 0 1 252.903 425.027 Tm (Depending) Tj
+0 g
+1 0 0 1 309.157 425.027 Tm (on) Tj
+0 g
+1 0 0 1 324.447 425.027 Tm (the) Tj
+0 g
+1 0 0 1 342.795 425.027 Tm (size) Tj
+0 g
+1 0 0 1 365.411 425.027 Tm (of) Tj
+0 g
+1 0 0 1 377.643 425.027 Tm (the) Tj
+0 g
+1 0 0 1 395.991 425.027 Tm (program,) Tj
+0 g
+1 0 0 1 443.06 425.027 Tm (this) Tj
+0 g
+1 0 0 1 463.234 425.027 Tm (may) Tj
+0 g
+1 0 0 1 75.0 411.852 Tm (take) Tj
+0 g
+1 0 0 1 98.848 411.852 Tm (anywhere) Tj
+0 g
+1 0 0 1 149.591 411.852 Tm (from) Tj
+0 g
+1 0 0 1 174.649 411.852 Tm (several) Tj
+0 g
+1 0 0 1 213.16 411.852 Tm (seconds) Tj
+0 g
+1 0 0 1 257.182 411.852 Tm (to) Tj
+0 g
+1 0 0 1 269.414 411.852 Tm (a) Tj
+0 g
+1 0 0 1 278.588 411.852 Tm (few) Tj
+0 g
+1 0 0 1 298.762 411.852 Tm (minutes.) Tj
+0 g
+1 0 0 1 75.0 384.677 Tm (In) Tj
+0 g
+1 0 0 1 87.232 384.677 Tm (addition,) Tj
+0 g
+1 0 0 1 131.87 384.677 Tm ("make) Tj
+0 g
+1 0 0 1 165.728 384.677 Tm (install") Tj
+0 g
+1 0 0 1 200.807 384.677 Tm (will) Tj
+0 g
+1 0 0 1 219.133 384.677 Tm (make) Tj
+0 g
+1 0 0 1 249.086 384.677 Tm (sure) Tj
+0 g
+1 0 0 1 273.539 384.677 Tm (the) Tj
+0 g
+1 0 0 1 291.887 384.677 Tm (installed) Tj
+0 g
+1 0 0 1 335.293 384.677 Tm (files) Tj
+0 g
+1 0 0 1 357.909 384.677 Tm (have) Tj
+0 g
+1 0 0 1 384.815 384.677 Tm (the) Tj
+0 g
+1 0 0 1 403.163 384.677 Tm (correct) Tj
+0 g
+1 0 0 1 439.837 384.677 Tm (ownership) Tj
+0 g
+1 0 0 1 75.0 371.502 Tm (and) Tj
+0 g
+1 0 0 1 96.406 371.502 Tm (permissions.) Tj
+0 g
+1 0 0 1 161.196 371.502 Tm (After) Tj
+0 g
+1 0 0 1 187.486 371.502 Tm ("make) Tj
+0 g
+1 0 0 1 221.344 371.502 Tm (install") Tj
+0 g
+1 0 0 1 256.423 371.502 Tm (completes) Tj
+0 g
+1 0 0 1 309.608 371.502 Tm (successfully,) Tj
+0 g
+1 0 0 1 375.014 371.502 Tm (the) Tj
+0 g
+1 0 0 1 393.362 371.502 Tm (program) Tj
+0 g
+1 0 0 1 437.373 371.502 Tm (is) Tj
+0 g
+1 0 0 1 448.373 371.502 Tm (installed!) Tj
+/F1 10 Tf
+0 g
+1 0 0 1 75.0 757.62 Tm (Presented) Tj
+0 g
+1 0 0 1 123.36 757.62 Tm (by) Tj
+0 g
+1 0 0 1 136.7 757.62 Tm (developerWorks,) Tj
+0 g
+1 0 0 1 214.5 757.62 Tm (your) Tj
+0 g
+1 0 0 1 236.73 757.62 Tm (source) Tj
+0 g
+1 0 0 1 269.52 757.62 Tm (for) Tj
+0 g
+1 0 0 1 283.97 757.62 Tm (great) Tj
+0 g
+1 0 0 1 309.54 757.62 Tm (tutorials) Tj
+/F9 10 Tf
+0 g
+1 0 0 1 398.0 758.51 Tm (ibm.com/developer) Tj
+/F1 10 Tf
+0 g
+1 0 0 1 75.0 40.62 Tm (Compiling) Tj
+0 g
+1 0 0 1 122.23 40.62 Tm (and) Tj
+0 g
+1 0 0 1 141.69 40.62 Tm (installing) Tj
+0 g
+1 0 0 1 183.37 40.62 Tm (software) Tj
+0 g
+1 0 0 1 223.94 40.62 Tm (from) Tj
+0 g
+1 0 0 1 246.72 40.62 Tm (sources) Tj
+0 g
+1 0 0 1 459.97 40.62 Tm (Page) Tj
+0 g
+1 0 0 1 486.1 40.62 Tm (10) Tj
+ET
+
+endstream
+endobj
+38 0 obj
+<< /Type /Page
+/Parent 2 0 R
+/MediaBox [ 0 0 576 792 ]
+/Resources 4 0 R
+/Contents 37 0 R
+>>
+endobj
+39 0 obj
+<< /Length 11516 >>
+stream
+BT
+/F1 18 Tf
+0 g
+1 0 0 1 75.0 702.576 Tm (Section) Tj
+0 g
+1 0 0 1 140.034 702.576 Tm (5.) Tj
+0 g
+1 0 0 1 160.05 702.576 Tm (Post-installation) Tj
+0 g
+1 0 0 1 296.616 702.576 Tm (and) Tj
+0 g
+1 0 0 1 331.644 702.576 Tm (troubleshooting) Tj
+0 g
+1 0 0 1 75.0 661.926 Tm (Once) Tj
+0 g
+1 0 0 1 123.024 661.926 Tm (it's) Tj
+0 g
+1 0 0 1 149.466 661.926 Tm (installed) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 75.0 647.302 Tm (Now) Tj
+0 g
+1 0 0 1 100.058 647.302 Tm (that) Tj
+0 g
+1 0 0 1 121.464 647.302 Tm (your) Tj
+0 g
+1 0 0 1 145.917 647.302 Tm (program) Tj
+0 g
+1 0 0 1 189.928 647.302 Tm (is) Tj
+0 g
+1 0 0 1 200.928 647.302 Tm (installed,) Tj
+0 g
+1 0 0 1 247.392 647.302 Tm (what's) Tj
+0 g
+1 0 0 1 281.283 647.302 Tm (next?) Tj
+0 g
+1 0 0 1 311.247 647.302 Tm (Running) Tj
+0 g
+1 0 0 1 355.269 647.302 Tm (it,) Tj
+0 g
+1 0 0 1 366.885 647.302 Tm (of) Tj
+0 g
+1 0 0 1 379.117 647.302 Tm (course!) Tj
+0 g
+1 0 0 1 418.244 647.302 Tm (If) Tj
+0 g
+1 0 0 1 427.418 647.302 Tm (you're) Tj
+0 g
+1 0 0 1 460.088 647.302 Tm (not) Tj
+0 g
+1 0 0 1 478.436 647.302 Tm (too) Tj
+0 g
+1 0 0 1 75.0 634.127 Tm (familiar) Tj
+0 g
+1 0 0 1 113.5 634.127 Tm (with) Tj
+0 g
+1 0 0 1 136.116 634.127 Tm (how) Tj
+0 g
+1 0 0 1 159.348 634.127 Tm (to) Tj
+0 g
+1 0 0 1 171.58 634.127 Tm (use) Tj
+0 g
+1 0 0 1 192.37 634.127 Tm (the) Tj
+0 g
+1 0 0 1 210.718 634.127 Tm (program) Tj
+0 g
+1 0 0 1 254.729 634.127 Tm (you) Tj
+0 g
+1 0 0 1 275.519 634.127 Tm (just) Tj
+0 g
+1 0 0 1 295.693 634.127 Tm (installed,) Tj
+0 g
+1 0 0 1 342.157 634.127 Tm (you'll) Tj
+0 g
+1 0 0 1 369.932 634.127 Tm (want) Tj
+0 g
+1 0 0 1 396.222 634.127 Tm (to) Tj
+0 g
+1 0 0 1 408.454 634.127 Tm (read) Tj
+0 g
+1 0 0 1 433.523 634.127 Tm (the) Tj
+0 g
+1 0 0 1 75.0 620.952 Tm (program's) Tj
+0 g
+1 0 0 1 126.612 620.952 Tm (man) Tj
+0 g
+1 0 0 1 151.065 620.952 Tm (page) Tj
+0 g
+1 0 0 1 178.587 620.952 Tm (by) Tj
+0 g
+1 0 0 1 193.261 620.952 Tm (typing:) Tj
+0 g
+1 0 0 1 75.0 593.777 Tm ($) Tj
+0 g
+1 0 0 1 84.174 593.777 Tm (man) Tj
+0 g
+1 0 0 1 108.627 593.777 Tm (programname) Tj
+0 g
+1 0 0 1 75.0 580.602 Tm (Your) Tj
+0 g
+1 0 0 1 101.29 580.602 Tm (program) Tj
+0 g
+1 0 0 1 145.301 580.602 Tm (may) Tj
+0 g
+1 0 0 1 169.138 580.602 Tm (require) Tj
+0 g
+1 0 0 1 206.428 580.602 Tm (additional) Tj
+0 g
+1 0 0 1 256.566 580.602 Tm (configuration) Tj
+0 g
+1 0 0 1 322.599 580.602 Tm (steps,) Tj
+0 g
+1 0 0 1 355.005 580.602 Tm (depending) Tj
+0 g
+1 0 0 1 409.433 580.602 Tm (on) Tj
+0 g
+1 0 0 1 424.723 580.602 Tm (what) Tj
+0 g
+1 0 0 1 451.013 580.602 Tm (type) Tj
+0 g
+1 0 0 1 474.861 580.602 Tm (it) Tj
+0 g
+1 0 0 1 483.419 580.602 Tm (is.) Tj
+0 g
+1 0 0 1 75.0 567.427 Tm (For) Tj
+0 g
+1 0 0 1 94.558 567.427 Tm (example,) Tj
+0 g
+1 0 0 1 142.243 567.427 Tm (if) Tj
+0 g
+1 0 0 1 150.801 567.427 Tm (you) Tj
+0 g
+1 0 0 1 171.591 567.427 Tm (installed) Tj
+0 g
+1 0 0 1 214.997 567.427 Tm (a) Tj
+0 g
+1 0 0 1 224.171 567.427 Tm (Web) Tj
+0 g
+1 0 0 1 249.845 567.427 Tm (server,) Tj
+0 g
+1 0 0 1 286.519 567.427 Tm (you'll) Tj
+0 g
+1 0 0 1 314.294 567.427 Tm (need) Tj
+0 g
+1 0 0 1 341.816 567.427 Tm (to) Tj
+0 g
+1 0 0 1 354.048 567.427 Tm (configure) Tj
+0 g
+1 0 0 1 402.349 567.427 Tm (it) Tj
+0 g
+1 0 0 1 410.907 567.427 Tm (to) Tj
+0 g
+1 0 0 1 423.139 567.427 Tm (start) Tj
+0 g
+1 0 0 1 75.0 554.252 Tm (automatically) Tj
+0 g
+1 0 0 1 142.243 554.252 Tm (when) Tj
+0 g
+1 0 0 1 171.591 554.252 Tm (your) Tj
+0 g
+1 0 0 1 196.044 554.252 Tm (system) Tj
+0 g
+1 0 0 1 233.939 554.252 Tm (boots.) Tj
+0 g
+1 0 0 1 266.961 554.252 Tm (You) Tj
+0 g
+1 0 0 1 289.588 554.252 Tm (may) Tj
+0 g
+1 0 0 1 313.425 554.252 Tm (also) Tj
+0 g
+1 0 0 1 336.657 554.252 Tm (need) Tj
+0 g
+1 0 0 1 364.179 554.252 Tm (to) Tj
+0 g
+1 0 0 1 376.411 554.252 Tm (set) Tj
+0 g
+1 0 0 1 394.143 554.252 Tm (up) Tj
+0 g
+1 0 0 1 409.433 554.252 Tm (a) Tj
+0 g
+1 0 0 1 418.607 554.252 Tm (configuration) Tj
+0 g
+1 0 0 1 484.64 554.252 Tm (file) Tj
+0 g
+1 0 0 1 75.0 541.077 Tm (for) Tj
+0 g
+1 0 0 1 90.895 541.077 Tm (your) Tj
+0 g
+1 0 0 1 115.348 541.077 Tm (Web) Tj
+0 g
+1 0 0 1 141.022 541.077 Tm (server) Tj
+0 g
+1 0 0 1 174.638 541.077 Tm (--) Tj
+0 g
+1 0 0 1 190.544 541.077 Tm (to) Tj
+0 g
+1 0 0 1 202.776 541.077 Tm (configure) Tj
+0 g
+1 0 0 1 251.077 541.077 Tm (CGI) Tj
+0 g
+1 0 0 1 273.693 541.077 Tm (support,) Tj
+0 g
+1 0 0 1 316.494 541.077 Tm (for) Tj
+0 g
+1 0 0 1 332.389 541.077 Tm (example.) Tj
+ET
+q
+0 G
+75.0 520.3 m 501.0 520.3 l 1.0 w S
+Q
+BT
+/F1 18 Tf
+0 g
+1 0 0 1 75.0 481.876 Tm (More) Tj
+0 g
+1 0 0 1 121.008 481.876 Tm (info) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 75.0 467.252 Tm (Some) Tj
+0 g
+1 0 0 1 106.79 467.252 Tm (programs) Tj
+0 g
+1 0 0 1 156.301 467.252 Tm (don't) Tj
+0 g
+1 0 0 1 182.866 467.252 Tm (include) Tj
+0 g
+1 0 0 1 220.772 467.252 Tm (man) Tj
+0 g
+1 0 0 1 245.225 467.252 Tm (pages,) Tj
+0 g
+1 0 0 1 281.305 467.252 Tm (but) Tj
+0 g
+1 0 0 1 299.653 467.252 Tm (include) Tj
+0 g
+1 0 0 1 337.559 467.252 Tm (info) Tj
+0 g
+1 0 0 1 358.349 467.252 Tm (documentation) Tj
+0 g
+1 0 0 1 433.556 467.252 Tm (instead.) Tj
+0 g
+1 0 0 1 75.0 454.077 Tm (These) Tj
+0 g
+1 0 0 1 108.627 454.077 Tm (programs) Tj
+0 g
+1 0 0 1 158.138 454.077 Tm (normally) Tj
+0 g
+1 0 0 1 202.754 454.077 Tm (include) Tj
+0 g
+1 0 0 1 240.66 454.077 Tm (a) Tj
+0 g
+1 0 0 1 249.834 454.077 Tm (basic) Tj
+0 g
+1 0 0 1 278.566 454.077 Tm ("stub") Tj
+0 g
+1 0 0 1 310.224 454.077 Tm (man) Tj
+0 g
+1 0 0 1 334.677 454.077 Tm (page,) Tj
+0 g
+1 0 0 1 365.257 454.077 Tm (referring) Tj
+0 g
+1 0 0 1 409.268 454.077 Tm (users) Tj
+0 g
+1 0 0 1 439.221 454.077 Tm (to) Tj
+0 g
+1 0 0 1 451.453 454.077 Tm (the) Tj
+0 g
+1 0 0 1 469.801 454.077 Tm (info) Tj
+0 g
+1 0 0 1 75.0 440.902 Tm (documentation.) Tj
+0 g
+1 0 0 1 153.265 440.902 Tm (To) Tj
+0 g
+1 0 0 1 169.16 440.902 Tm (see) Tj
+0 g
+1 0 0 1 189.95 440.902 Tm (if) Tj
+0 g
+1 0 0 1 198.508 440.902 Tm (your) Tj
+0 g
+1 0 0 1 222.961 440.902 Tm (program) Tj
+0 g
+1 0 0 1 266.972 440.902 Tm (installed) Tj
+0 g
+1 0 0 1 310.378 440.902 Tm (any) Tj
+0 g
+1 0 0 1 331.168 440.902 Tm (info) Tj
+0 g
+1 0 0 1 351.958 440.902 Tm (documentation,) Tj
+0 g
+1 0 0 1 430.223 440.902 Tm (type) Tj
+0 g
+1 0 0 1 454.071 440.902 Tm (the) Tj
+0 g
+1 0 0 1 75.0 427.727 Tm (following) Tj
+0 g
+1 0 0 1 120.848 427.727 Tm (command:) Tj
+0 g
+1 0 0 1 75.0 400.552 Tm ($) Tj
+0 g
+1 0 0 1 84.174 400.552 Tm (info) Tj
+0 g
+1 0 0 1 104.964 400.552 Tm (programname) Tj
+0 g
+1 0 0 1 75.0 387.377 Tm (If) Tj
+0 g
+1 0 0 1 84.174 387.377 Tm (documentation) Tj
+0 g
+1 0 0 1 159.381 387.377 Tm (was) Tj
+0 g
+1 0 0 1 181.997 387.377 Tm (available,) Tj
+0 g
+1 0 0 1 231.519 387.377 Tm (it'll) Tj
+0 g
+1 0 0 1 247.062 387.377 Tm (be) Tj
+0 g
+1 0 0 1 262.352 387.377 Tm (displayed.) Tj
+0 g
+1 0 0 1 314.932 387.377 Tm (If) Tj
+0 g
+1 0 0 1 324.106 387.377 Tm (no) Tj
+0 g
+1 0 0 1 339.396 387.377 Tm (documentation) Tj
+0 g
+1 0 0 1 414.603 387.377 Tm (was) Tj
+0 g
+1 0 0 1 437.219 387.377 Tm (available,) Tj
+0 g
+1 0 0 1 75.0 374.202 Tm ("info") Tj
+0 g
+1 0 0 1 103.6 374.202 Tm (may) Tj
+0 g
+1 0 0 1 127.437 374.202 Tm (have) Tj
+0 g
+1 0 0 1 154.343 374.202 Tm (found) Tj
+0 g
+1 0 0 1 184.923 374.202 Tm (the) Tj
+0 g
+1 0 0 1 203.271 374.202 Tm (closest) Tj
+0 g
+1 0 0 1 240.561 374.202 Tm (match) Tj
+0 g
+1 0 0 1 273.572 374.202 Tm (to) Tj
+0 g
+1 0 0 1 285.804 374.202 Tm (what) Tj
+0 g
+1 0 0 1 312.094 374.202 Tm (you) Tj
+0 g
+1 0 0 1 332.884 374.202 Tm (were) Tj
+0 g
+1 0 0 1 359.779 374.202 Tm (looking) Tj
+0 g
+1 0 0 1 397.685 374.202 Tm (for.) Tj
+0 g
+1 0 0 1 416.638 374.202 Tm (This) Tj
+0 g
+1 0 0 1 440.475 374.202 Tm (may) Tj
+0 g
+1 0 0 1 464.312 374.202 Tm (not) Tj
+0 g
+1 0 0 1 482.66 374.202 Tm (be) Tj
+0 g
+1 0 0 1 75.0 361.027 Tm (helpful) Tj
+0 g
+1 0 0 1 110.464 361.027 Tm (to) Tj
+0 g
+1 0 0 1 122.696 361.027 Tm (you,) Tj
+0 g
+1 0 0 1 146.544 361.027 Tm (so) Tj
+0 g
+1 0 0 1 161.218 361.027 Tm (make) Tj
+0 g
+1 0 0 1 191.171 361.027 Tm (sure) Tj
+0 g
+1 0 0 1 215.624 361.027 Tm (to) Tj
+0 g
+1 0 0 1 227.856 361.027 Tm (look) Tj
+0 g
+1 0 0 1 251.088 361.027 Tm (at) Tj
+0 g
+1 0 0 1 263.32 361.027 Tm (the) Tj
+0 g
+1 0 0 1 281.668 361.027 Tm (title) Tj
+0 g
+1 0 0 1 301.842 361.027 Tm (of) Tj
+0 g
+1 0 0 1 314.074 361.027 Tm (the) Tj
+0 g
+1 0 0 1 332.422 361.027 Tm (documentation) Tj
+0 g
+1 0 0 1 407.629 361.027 Tm (before) Tj
+0 g
+1 0 0 1 441.872 361.027 Tm (you) Tj
+0 g
+1 0 0 1 462.662 361.027 Tm (start) Tj
+0 g
+1 0 0 1 75.0 347.852 Tm (reading) Tj
+0 g
+1 0 0 1 114.743 347.852 Tm (it!) Tj
+ET
+q
+0 G
+75.0 327.075 m 501.0 327.075 l 1.0 w S
+Q
+BT
+/F1 18 Tf
+0 g
+1 0 0 1 75.0 288.651 Tm (Ta) Tj
+0 g
+1 0 0 1 101.01 288.651 Tm (da!) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 75.0 274.027 Tm (Now) Tj
+0 g
+1 0 0 1 100.058 274.027 Tm (that) Tj
+0 g
+1 0 0 1 121.464 274.027 Tm (you've) Tj
+0 g
+1 0 0 1 155.971 274.027 Tm (fully) Tj
+0 g
+1 0 0 1 178.587 274.027 Tm (installed) Tj
+0 g
+1 0 0 1 221.993 274.027 Tm (a) Tj
+0 g
+1 0 0 1 231.167 274.027 Tm (particular) Tj
+0 g
+1 0 0 1 279.457 274.027 Tm (software) Tj
+0 g
+1 0 0 1 324.084 274.027 Tm (package) Tj
+0 g
+1 0 0 1 368.722 274.027 Tm (from) Tj
+0 g
+1 0 0 1 393.78 274.027 Tm (its) Tj
+0 g
+1 0 0 1 407.838 274.027 Tm (sources,) Tj
+0 g
+1 0 0 1 452.465 274.027 Tm (you) Tj
+0 g
+1 0 0 1 473.255 274.027 Tm (can) Tj
+0 g
+1 0 0 1 75.0 260.852 Tm (now) Tj
+0 g
+1 0 0 1 98.232 260.852 Tm (run) Tj
+0 g
+1 0 0 1 117.185 260.852 Tm (it.) Tj
+0 g
+1 0 0 1 128.801 260.852 Tm (To) Tj
+0 g
+1 0 0 1 144.696 260.852 Tm (start) Tj
+0 g
+1 0 0 1 169.149 260.852 Tm (the) Tj
+0 g
+1 0 0 1 187.497 260.852 Tm (program,) Tj
+0 g
+1 0 0 1 234.566 260.852 Tm (type:) Tj
+0 g
+1 0 0 1 75.0 233.677 Tm ($) Tj
+0 g
+1 0 0 1 84.174 233.677 Tm (programname) Tj
+0 g
+1 0 0 1 75.0 220.502 Tm (Congratulations!) Tj
+ET
+q
+0 G
+75.0 199.725 m 501.0 199.725 l 1.0 w S
+Q
+BT
+/F1 18 Tf
+0 g
+1 0 0 1 75.0 161.301 Tm (Possible) Tj
+0 g
+1 0 0 1 148.026 161.301 Tm (problems) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 75.0 146.677 Tm (It's) Tj
+0 g
+1 0 0 1 91.775 146.677 Tm (very) Tj
+0 g
+1 0 0 1 115.612 146.677 Tm (possible) Tj
+0 g
+1 0 0 1 159.018 146.677 Tm (that) Tj
+0 g
+1 0 0 1 180.424 146.677 Tm ("configure") Tj
+0 g
+1 0 0 1 236.535 146.677 Tm (or) Tj
+0 g
+1 0 0 1 249.372 146.677 Tm ("make",) Tj
+0 g
+1 0 0 1 290.193 146.677 Tm (or) Tj
+0 g
+1 0 0 1 303.03 146.677 Tm (possibly) Tj
+0 g
+1 0 0 1 345.82 146.677 Tm (even) Tj
+0 g
+1 0 0 1 372.726 146.677 Tm ("make) Tj
+0 g
+1 0 0 1 406.584 146.677 Tm (install") Tj
+0 g
+1 0 0 1 441.663 146.677 Tm (aborted) Tj
+0 g
+1 0 0 1 75.0 133.502 Tm (with) Tj
+0 g
+1 0 0 1 97.616 133.502 Tm (some) Tj
+0 g
+1 0 0 1 127.569 133.502 Tm (kind) Tj
+0 g
+1 0 0 1 150.801 133.502 Tm (of) Tj
+0 g
+1 0 0 1 163.033 133.502 Tm (error) Tj
+0 g
+1 0 0 1 189.312 133.502 Tm (code.) Tj
+0 g
+1 0 0 1 219.276 133.502 Tm (This) Tj
+0 g
+1 0 0 1 243.113 133.502 Tm (section) Tj
+0 g
+1 0 0 1 281.019 133.502 Tm (is) Tj
+0 g
+1 0 0 1 292.019 133.502 Tm (intended) Tj
+0 g
+1 0 0 1 337.273 133.502 Tm (to) Tj
+0 g
+1 0 0 1 349.505 133.502 Tm (help) Tj
+0 g
+1 0 0 1 373.353 133.502 Tm (you) Tj
+0 g
+1 0 0 1 394.143 133.502 Tm (correct) Tj
+0 g
+1 0 0 1 430.817 133.502 Tm (several) Tj
+0 g
+1 0 0 1 75.0 120.327 Tm (common) Tj
+0 g
+1 0 0 1 120.232 120.327 Tm (problems.) Tj
+ET
+q
+0 G
+75.0 99.55 m 501.0 99.55 l 1.0 w S
+Q
+BT
+/F1 10 Tf
+0 g
+1 0 0 1 75.0 757.62 Tm (Presented) Tj
+0 g
+1 0 0 1 123.36 757.62 Tm (by) Tj
+0 g
+1 0 0 1 136.7 757.62 Tm (developerWorks,) Tj
+0 g
+1 0 0 1 214.5 757.62 Tm (your) Tj
+0 g
+1 0 0 1 236.73 757.62 Tm (source) Tj
+0 g
+1 0 0 1 269.52 757.62 Tm (for) Tj
+0 g
+1 0 0 1 283.97 757.62 Tm (great) Tj
+0 g
+1 0 0 1 309.54 757.62 Tm (tutorials) Tj
+/F9 10 Tf
+0 g
+1 0 0 1 398.0 758.51 Tm (ibm.com/developer) Tj
+/F1 10 Tf
+0 g
+1 0 0 1 75.0 40.62 Tm (Compiling) Tj
+0 g
+1 0 0 1 122.23 40.62 Tm (and) Tj
+0 g
+1 0 0 1 141.69 40.62 Tm (installing) Tj
+0 g
+1 0 0 1 183.37 40.62 Tm (software) Tj
+0 g
+1 0 0 1 223.94 40.62 Tm (from) Tj
+0 g
+1 0 0 1 246.72 40.62 Tm (sources) Tj
+0 g
+1 0 0 1 459.97 40.62 Tm (Page) Tj
+0 g
+1 0 0 1 486.1 40.62 Tm (11) Tj
+ET
+
+endstream
+endobj
+40 0 obj
+<< /Type /Page
+/Parent 2 0 R
+/MediaBox [ 0 0 576 792 ]
+/Resources 4 0 R
+/Contents 39 0 R
+>>
+endobj
+41 0 obj
+<< /Length 14291 >>
+stream
+BT
+/F1 18 Tf
+0 g
+1 0 0 1 75.0 699.576 Tm (Missing) Tj
+0 g
+1 0 0 1 141.006 699.576 Tm (libraries) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 75.0 684.952 Tm (Every) Tj
+0 g
+1 0 0 1 106.174 684.952 Tm (now) Tj
+0 g
+1 0 0 1 129.406 684.952 Tm (and) Tj
+0 g
+1 0 0 1 150.812 684.952 Tm (then,) Tj
+0 g
+1 0 0 1 178.334 684.952 Tm (you) Tj
+0 g
+1 0 0 1 199.124 684.952 Tm (may) Tj
+0 g
+1 0 0 1 222.961 684.952 Tm (experience) Tj
+0 g
+1 0 0 1 279.82 684.952 Tm (a) Tj
+0 g
+1 0 0 1 288.994 684.952 Tm (problem) Tj
+0 g
+1 0 0 1 331.784 684.952 Tm (where) Tj
+0 g
+1 0 0 1 364.795 684.952 Tm ("configure") Tj
+0 g
+1 0 0 1 420.906 684.952 Tm (bombs) Tj
+0 g
+1 0 0 1 456.975 684.952 Tm (out) Tj
+0 g
+1 0 0 1 75.0 671.777 Tm (because) Tj
+0 g
+1 0 0 1 119.638 671.777 Tm (you) Tj
+0 g
+1 0 0 1 140.428 671.777 Tm (don't) Tj
+0 g
+1 0 0 1 166.993 671.777 Tm (have) Tj
+0 g
+1 0 0 1 193.899 671.777 Tm (a) Tj
+0 g
+1 0 0 1 203.073 671.777 Tm (certain) Tj
+0 g
+1 0 0 1 239.142 671.777 Tm (library) Tj
+0 g
+1 0 0 1 272.142 671.777 Tm (installed.) Tj
+0 g
+1 0 0 1 318.606 671.777 Tm (To) Tj
+0 g
+1 0 0 1 334.501 671.777 Tm (continue) Tj
+0 g
+1 0 0 1 379.139 671.777 Tm (the) Tj
+0 g
+1 0 0 1 397.487 671.777 Tm (build) Tj
+0 g
+1 0 0 1 423.777 671.777 Tm (process,) Tj
+0 g
+1 0 0 1 468.404 671.777 Tm (you'll) Tj
+0 g
+1 0 0 1 75.0 658.602 Tm (need) Tj
+0 g
+1 0 0 1 102.522 658.602 Tm (to) Tj
+0 g
+1 0 0 1 114.754 658.602 Tm (temporarily) Tj
+0 g
+1 0 0 1 172.207 658.602 Tm (put) Tj
+0 g
+1 0 0 1 190.555 658.602 Tm (your) Tj
+0 g
+1 0 0 1 215.008 658.602 Tm (current) Tj
+0 g
+1 0 0 1 252.298 658.602 Tm (program) Tj
+0 g
+1 0 0 1 296.309 658.602 Tm (configuration) Tj
+0 g
+1 0 0 1 362.342 658.602 Tm (on) Tj
+0 g
+1 0 0 1 377.632 658.602 Tm (hold) Tj
+0 g
+1 0 0 1 401.48 658.602 Tm (and) Tj
+0 g
+1 0 0 1 422.886 658.602 Tm (track) Tj
+0 g
+1 0 0 1 449.781 658.602 Tm (down) Tj
+0 g
+1 0 0 1 479.129 658.602 Tm (the) Tj
+0 g
+1 0 0 1 75.0 645.427 Tm (sources) Tj
+0 g
+1 0 0 1 116.569 645.427 Tm (to) Tj
+0 g
+1 0 0 1 128.801 645.427 Tm (the) Tj
+0 g
+1 0 0 1 147.149 645.427 Tm (library.) Tj
+0 g
+1 0 0 1 75.0 618.252 Tm (If) Tj
+0 g
+1 0 0 1 84.174 618.252 Tm (you're) Tj
+0 g
+1 0 0 1 116.844 618.252 Tm (using) Tj
+0 g
+1 0 0 1 146.192 618.252 Tm (a) Tj
+0 g
+1 0 0 1 155.366 618.252 Tm (packaging) Tj
+0 g
+1 0 0 1 208.562 618.252 Tm (system) Tj
+0 g
+1 0 0 1 246.457 618.252 Tm (such) Tj
+0 g
+1 0 0 1 272.747 618.252 Tm (as) Tj
+0 g
+1 0 0 1 287.421 618.252 Tm (RPM,) Tj
+0 g
+1 0 0 1 317.979 618.252 Tm (you) Tj
+0 g
+1 0 0 1 338.769 618.252 Tm (may) Tj
+0 g
+1 0 0 1 362.606 618.252 Tm (want) Tj
+0 g
+1 0 0 1 388.896 618.252 Tm (to) Tj
+0 g
+1 0 0 1 401.128 618.252 Tm (check) Tj
+0 g
+1 0 0 1 432.918 618.252 Tm (to) Tj
+0 g
+1 0 0 1 445.15 618.252 Tm (see) Tj
+0 g
+1 0 0 1 75.0 605.077 Tm (whether) Tj
+0 g
+1 0 0 1 117.185 605.077 Tm (an) Tj
+0 g
+1 0 0 1 132.475 605.077 Tm (RPM) Tj
+0 g
+1 0 0 1 159.975 605.077 Tm (of) Tj
+0 g
+1 0 0 1 172.207 605.077 Tm (the) Tj
+0 g
+1 0 0 1 190.555 605.077 Tm (needed) Tj
+0 g
+1 0 0 1 230.309 605.077 Tm (library) Tj
+0 g
+1 0 0 1 263.309 605.077 Tm (is) Tj
+0 g
+1 0 0 1 274.309 605.077 Tm (available.) Tj
+0 g
+1 0 0 1 323.831 605.077 Tm (Whether) Tj
+0 g
+1 0 0 1 368.458 605.077 Tm (you) Tj
+0 g
+1 0 0 1 389.248 605.077 Tm (install) Tj
+0 g
+1 0 0 1 420.422 605.077 Tm (the) Tj
+0 g
+1 0 0 1 438.77 605.077 Tm (library) Tj
+0 g
+1 0 0 1 471.77 605.077 Tm (from) Tj
+0 g
+1 0 0 1 75.0 591.902 Tm (a) Tj
+0 g
+1 0 0 1 84.174 591.902 Tm (binary) Tj
+0 g
+1 0 0 1 117.185 591.902 Tm (package) Tj
+0 g
+1 0 0 1 161.823 591.902 Tm (or) Tj
+0 g
+1 0 0 1 174.66 591.902 Tm (from) Tj
+0 g
+1 0 0 1 199.718 591.902 Tm (sources) Tj
+0 g
+1 0 0 1 241.287 591.902 Tm (is) Tj
+0 g
+1 0 0 1 252.287 591.902 Tm (personal) Tj
+0 g
+1 0 0 1 297.53 591.902 Tm (preference) Tj
+0 g
+1 0 0 1 353.168 591.902 Tm (--) Tj
+0 g
+1 0 0 1 369.074 591.902 Tm (either) Tj
+0 g
+1 0 0 1 399.643 591.902 Tm (should) Tj
+0 g
+1 0 0 1 435.107 591.902 Tm (work.) Tj
+0 g
+1 0 0 1 464.444 591.902 Tm (Once) Tj
+0 g
+1 0 0 1 75.0 578.727 Tm (the) Tj
+0 g
+1 0 0 1 93.348 578.727 Tm (library) Tj
+0 g
+1 0 0 1 126.348 578.727 Tm (is) Tj
+0 g
+1 0 0 1 137.348 578.727 Tm (installed,) Tj
+0 g
+1 0 0 1 183.812 578.727 Tm (make) Tj
+0 g
+1 0 0 1 213.765 578.727 Tm (sure) Tj
+0 g
+1 0 0 1 238.218 578.727 Tm (to) Tj
+0 g
+1 0 0 1 250.45 578.727 Tm (type) Tj
+0 g
+1 0 0 1 274.298 578.727 Tm ("ldconfig") Tj
+0 g
+1 0 0 1 323.072 578.727 Tm (as) Tj
+0 g
+1 0 0 1 337.746 578.727 Tm (root) Tj
+0 g
+1 0 0 1 359.757 578.727 Tm (\(under) Tj
+0 g
+1 0 0 1 394.605 578.727 Tm (Linux\)) Tj
+0 g
+1 0 0 1 427.616 578.727 Tm (so) Tj
+0 g
+1 0 0 1 442.29 578.727 Tm (that) Tj
+0 g
+1 0 0 1 463.696 578.727 Tm (the) Tj
+0 g
+1 0 0 1 75.0 565.552 Tm (system) Tj
+0 g
+1 0 0 1 112.895 565.552 Tm (can) Tj
+0 g
+1 0 0 1 133.685 565.552 Tm (detect) Tj
+0 g
+1 0 0 1 166.707 565.552 Tm (the) Tj
+0 g
+1 0 0 1 185.055 565.552 Tm (newly) Tj
+0 g
+1 0 0 1 216.229 565.552 Tm (installed) Tj
+0 g
+1 0 0 1 259.635 565.552 Tm (library.) Tj
+0 g
+1 0 0 1 75.0 538.377 Tm (Then,) Tj
+0 g
+1 0 0 1 106.185 538.377 Tm (it's) Tj
+0 g
+1 0 0 1 122.344 538.377 Tm (time) Tj
+0 g
+1 0 0 1 146.181 538.377 Tm (to) Tj
+0 g
+1 0 0 1 158.413 538.377 Tm (get) Tj
+0 g
+1 0 0 1 176.761 538.377 Tm (back) Tj
+0 g
+1 0 0 1 203.051 538.377 Tm (to) Tj
+0 g
+1 0 0 1 215.283 538.377 Tm (your) Tj
+0 g
+1 0 0 1 239.736 538.377 Tm (original) Tj
+0 g
+1 0 0 1 278.247 538.377 Tm (program.) Tj
+0 g
+1 0 0 1 325.316 538.377 Tm (If) Tj
+0 g
+1 0 0 1 334.49 538.377 Tm (it) Tj
+0 g
+1 0 0 1 343.048 538.377 Tm (bombed) Tj
+0 g
+1 0 0 1 385.849 538.377 Tm (out) Tj
+0 g
+1 0 0 1 404.197 538.377 Tm (during) Tj
+0 g
+1 0 0 1 437.824 538.377 Tm ("configure",) Tj
+0 g
+1 0 0 1 75.0 525.202 Tm (run) Tj
+0 g
+1 0 0 1 93.953 525.202 Tm (configure) Tj
+0 g
+1 0 0 1 142.254 525.202 Tm (again.) Tj
+0 g
+1 0 0 1 175.276 525.202 Tm (If) Tj
+0 g
+1 0 0 1 184.45 525.202 Tm (it) Tj
+0 g
+1 0 0 1 193.008 525.202 Tm (bombed) Tj
+0 g
+1 0 0 1 235.809 525.202 Tm (out) Tj
+0 g
+1 0 0 1 254.157 525.202 Tm (during) Tj
+0 g
+1 0 0 1 287.784 525.202 Tm (a) Tj
+0 g
+1 0 0 1 296.958 525.202 Tm ("make",) Tj
+0 g
+1 0 0 1 337.779 525.202 Tm (type) Tj
+0 g
+1 0 0 1 361.627 525.202 Tm ("make") Tj
+0 g
+1 0 0 1 399.39 525.202 Tm (again.) Tj
+ET
+q
+0 G
+75.0 504.425 m 501.0 504.425 l 1.0 w S
+Q
+BT
+/F1 18 Tf
+0 g
+1 0 0 1 75.0 466.001 Tm (Other) Tj
+0 g
+1 0 0 1 125.022 466.001 Tm (problems) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 75.0 451.377 Tm (Sometimes,) Tj
+0 g
+1 0 0 1 136.127 451.377 Tm (you'll) Tj
+0 g
+1 0 0 1 163.902 451.377 Tm (run) Tj
+0 g
+1 0 0 1 182.855 451.377 Tm (into) Tj
+0 g
+1 0 0 1 203.645 451.377 Tm (some) Tj
+0 g
+1 0 0 1 233.598 451.377 Tm (kind) Tj
+0 g
+1 0 0 1 256.83 451.377 Tm (of) Tj
+0 g
+1 0 0 1 269.062 451.377 Tm (error) Tj
+0 g
+1 0 0 1 295.341 451.377 Tm (that) Tj
+0 g
+1 0 0 1 316.747 451.377 Tm (you) Tj
+0 g
+1 0 0 1 337.537 451.377 Tm (simply) Tj
+0 g
+1 0 0 1 371.758 451.377 Tm (don't) Tj
+0 g
+1 0 0 1 398.323 451.377 Tm (know) Tj
+0 g
+1 0 0 1 427.055 451.377 Tm (how) Tj
+0 g
+1 0 0 1 450.287 451.377 Tm (to) Tj
+0 g
+1 0 0 1 462.519 451.377 Tm (fix.) Tj
+0 g
+1 0 0 1 479.635 451.377 Tm (As) Tj
+0 g
+1 0 0 1 75.0 438.202 Tm (your) Tj
+0 g
+1 0 0 1 99.453 438.202 Tm (experience) Tj
+0 g
+1 0 0 1 156.312 438.202 Tm (with) Tj
+0 g
+1 0 0 1 178.928 438.202 Tm (Unix/Linux) Tj
+0 g
+1 0 0 1 233.334 438.202 Tm (grows,) Tj
+0 g
+1 0 0 1 268.787 438.202 Tm (you'll) Tj
+0 g
+1 0 0 1 296.562 438.202 Tm (be) Tj
+0 g
+1 0 0 1 311.852 438.202 Tm (able) Tj
+0 g
+1 0 0 1 335.7 438.202 Tm (to) Tj
+0 g
+1 0 0 1 347.932 438.202 Tm (diagnose) Tj
+0 g
+1 0 0 1 395.628 438.202 Tm (more) Tj
+0 g
+1 0 0 1 423.744 438.202 Tm (and) Tj
+0 g
+1 0 0 1 445.15 438.202 Tm (more) Tj
+0 g
+1 0 0 1 75.0 425.027 Tm (seemingly) Tj
+0 g
+1 0 0 1 127.569 425.027 Tm (cryptic) Tj
+0 g
+1 0 0 1 162.406 425.027 Tm (error) Tj
+0 g
+1 0 0 1 188.685 425.027 Tm (conditions.) Tj
+0 g
+1 0 0 1 75.0 397.852 Tm (Sometimes,) Tj
+0 g
+1 0 0 1 136.127 397.852 Tm (errors) Tj
+0 g
+1 0 0 1 167.906 397.852 Tm (happen) Tj
+0 g
+1 0 0 1 207.66 397.852 Tm (because) Tj
+0 g
+1 0 0 1 252.298 397.852 Tm (your) Tj
+0 g
+1 0 0 1 276.751 397.852 Tm (installed) Tj
+0 g
+1 0 0 1 320.157 397.852 Tm (compiler) Tj
+0 g
+1 0 0 1 364.773 397.852 Tm (is) Tj
+0 g
+1 0 0 1 375.773 397.852 Tm (too) Tj
+0 g
+1 0 0 1 394.121 397.852 Tm (old) Tj
+0 g
+1 0 0 1 411.853 397.852 Tm (\(or) Tj
+0 g
+1 0 0 1 428.353 397.852 Tm (even) Tj
+0 g
+1 0 0 1 455.259 397.852 Tm (possibly) Tj
+0 g
+1 0 0 1 75.0 384.677 Tm (too) Tj
+0 g
+1 0 0 1 93.348 384.677 Tm (new!\)) Tj
+0 g
+1 0 0 1 123.301 384.677 Tm (Other) Tj
+0 g
+1 0 0 1 153.87 384.677 Tm (times,) Tj
+0 g
+1 0 0 1 186.265 384.677 Tm (the) Tj
+0 g
+1 0 0 1 204.613 384.677 Tm (problem) Tj
+0 g
+1 0 0 1 247.403 384.677 Tm (you're) Tj
+0 g
+1 0 0 1 280.073 384.677 Tm (having) Tj
+0 g
+1 0 0 1 315.537 384.677 Tm (is) Tj
+0 g
+1 0 0 1 326.537 384.677 Tm (actually) Tj
+0 g
+1 0 0 1 366.885 384.677 Tm (the) Tj
+0 g
+1 0 0 1 385.233 384.677 Tm (fault) Tj
+0 g
+1 0 0 1 409.081 384.677 Tm (of) Tj
+0 g
+1 0 0 1 421.313 384.677 Tm (the) Tj
+0 g
+1 0 0 1 439.661 384.677 Tm (developers,) Tj
+0 g
+1 0 0 1 75.0 371.502 Tm (who) Tj
+0 g
+1 0 0 1 98.232 371.502 Tm (may) Tj
+0 g
+1 0 0 1 122.069 371.502 Tm (not) Tj
+0 g
+1 0 0 1 140.417 371.502 Tm (have) Tj
+0 g
+1 0 0 1 167.323 371.502 Tm (anticipated) Tj
+0 g
+1 0 0 1 223.577 371.502 Tm (their) Tj
+0 g
+1 0 0 1 248.03 371.502 Tm (program) Tj
+0 g
+1 0 0 1 292.041 371.502 Tm (running) Tj
+0 g
+1 0 0 1 331.784 371.502 Tm (on) Tj
+0 g
+1 0 0 1 347.074 371.502 Tm (a) Tj
+0 g
+1 0 0 1 356.248 371.502 Tm (system) Tj
+0 g
+1 0 0 1 394.143 371.502 Tm (such) Tj
+0 g
+1 0 0 1 420.433 371.502 Tm (as) Tj
+0 g
+1 0 0 1 435.107 371.502 Tm (yours) Tj
+0 g
+1 0 0 1 465.06 371.502 Tm (--) Tj
+0 g
+1 0 0 1 480.966 371.502 Tm (or) Tj
+0 g
+1 0 0 1 75.0 358.327 Tm (maybe) Tj
+0 g
+1 0 0 1 111.069 358.327 Tm (they) Tj
+0 g
+1 0 0 1 134.917 358.327 Tm (just) Tj
+0 g
+1 0 0 1 155.091 358.327 Tm (made) Tj
+0 g
+1 0 0 1 185.66 358.327 Tm (a) Tj
+0 g
+1 0 0 1 194.834 358.327 Tm (typo.) Tj
+ET
+q
+0 G
+75.0 337.55 m 501.0 337.55 l 1.0 w S
+Q
+BT
+/F1 18 Tf
+0 g
+1 0 0 1 75.0 299.126 Tm (Other) Tj
+0 g
+1 0 0 1 125.022 299.126 Tm (problems) Tj
+0 g
+1 0 0 1 204.042 299.126 Tm (\(continued\)) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 75.0 284.502 Tm (For) Tj
+0 g
+1 0 0 1 94.558 284.502 Tm (problems) Tj
+0 g
+1 0 0 1 142.848 284.502 Tm (such) Tj
+0 g
+1 0 0 1 169.138 284.502 Tm (as) Tj
+0 g
+1 0 0 1 183.812 284.502 Tm (these,) Tj
+0 g
+1 0 0 1 216.834 284.502 Tm (use) Tj
+0 g
+1 0 0 1 237.624 284.502 Tm (your) Tj
+0 g
+1 0 0 1 262.077 284.502 Tm (best) Tj
+0 g
+1 0 0 1 285.925 284.502 Tm (judgment) Tj
+0 g
+1 0 0 1 334.226 284.502 Tm (to) Tj
+0 g
+1 0 0 1 346.458 284.502 Tm (determine) Tj
+0 g
+1 0 0 1 398.422 284.502 Tm (where) Tj
+0 g
+1 0 0 1 431.433 284.502 Tm (to) Tj
+0 g
+1 0 0 1 443.665 284.502 Tm (go) Tj
+0 g
+1 0 0 1 458.955 284.502 Tm (for) Tj
+0 g
+1 0 0 1 474.85 284.502 Tm (help.) Tj
+0 g
+1 0 0 1 75.0 271.327 Tm (If) Tj
+0 g
+1 0 0 1 84.174 271.327 Tm (this) Tj
+0 g
+1 0 0 1 104.348 271.327 Tm (is) Tj
+0 g
+1 0 0 1 115.348 271.327 Tm (your) Tj
+0 g
+1 0 0 1 139.801 271.327 Tm (first) Tj
+0 g
+1 0 0 1 160.58 271.327 Tm (attempt) Tj
+0 g
+1 0 0 1 200.323 271.327 Tm (at) Tj
+0 g
+1 0 0 1 212.555 271.327 Tm (compiling) Tj
+0 g
+1 0 0 1 262.066 271.327 Tm (a) Tj
+0 g
+1 0 0 1 271.24 271.327 Tm (program) Tj
+0 g
+1 0 0 1 315.251 271.327 Tm (from) Tj
+0 g
+1 0 0 1 340.309 271.327 Tm (source,) Tj
+0 g
+1 0 0 1 379.436 271.327 Tm (this) Tj
+0 g
+1 0 0 1 399.61 271.327 Tm (may) Tj
+0 g
+1 0 0 1 423.447 271.327 Tm (be) Tj
+0 g
+1 0 0 1 438.737 271.327 Tm (a) Tj
+0 g
+1 0 0 1 447.911 271.327 Tm (good) Tj
+0 g
+1 0 0 1 475.433 271.327 Tm (time) Tj
+0 g
+1 0 0 1 75.0 258.152 Tm (to) Tj
+0 g
+1 0 0 1 87.232 258.152 Tm (select) Tj
+0 g
+1 0 0 1 119.022 258.152 Tm (another,) Tj
+0 g
+1 0 0 1 162.439 258.152 Tm ("easier") Tj
+0 g
+1 0 0 1 203.26 258.152 Tm (program) Tj
+0 g
+1 0 0 1 247.271 258.152 Tm (to) Tj
+0 g
+1 0 0 1 259.503 258.152 Tm (compile.) Tj
+0 g
+1 0 0 1 303.514 258.152 Tm (Once) Tj
+0 g
+1 0 0 1 332.862 258.152 Tm (you) Tj
+0 g
+1 0 0 1 353.652 258.152 Tm (get) Tj
+0 g
+1 0 0 1 372.0 258.152 Tm (the) Tj
+0 g
+1 0 0 1 390.348 258.152 Tm (simpler) Tj
+0 g
+1 0 0 1 428.848 258.152 Tm (program) Tj
+0 g
+1 0 0 1 75.0 244.977 Tm (compiled,) Tj
+0 g
+1 0 0 1 125.127 244.977 Tm (you) Tj
+0 g
+1 0 0 1 145.917 244.977 Tm (may) Tj
+0 g
+1 0 0 1 169.754 244.977 Tm (have) Tj
+0 g
+1 0 0 1 196.66 244.977 Tm (the) Tj
+0 g
+1 0 0 1 215.008 244.977 Tm (necessary) Tj
+0 g
+1 0 0 1 268.193 244.977 Tm (experience) Tj
+0 g
+1 0 0 1 325.052 244.977 Tm (to) Tj
+0 g
+1 0 0 1 337.284 244.977 Tm (fix) Tj
+0 g
+1 0 0 1 351.342 244.977 Tm (your) Tj
+0 g
+1 0 0 1 375.795 244.977 Tm (original) Tj
+0 g
+1 0 0 1 414.306 244.977 Tm (problem.) Tj
+0 g
+1 0 0 1 460.154 244.977 Tm (As) Tj
+0 g
+1 0 0 1 476.049 244.977 Tm (you) Tj
+0 g
+1 0 0 1 75.0 231.802 Tm (continue) Tj
+0 g
+1 0 0 1 119.638 231.802 Tm (to) Tj
+0 g
+1 0 0 1 131.87 231.802 Tm (learn) Tj
+0 g
+1 0 0 1 159.381 231.802 Tm (more) Tj
+0 g
+1 0 0 1 187.497 231.802 Tm (about) Tj
+0 g
+1 0 0 1 218.077 231.802 Tm (how) Tj
+0 g
+1 0 0 1 241.309 231.802 Tm (Unix) Tj
+0 g
+1 0 0 1 266.367 231.802 Tm (works,) Tj
+0 g
+1 0 0 1 301.204 231.802 Tm (you'll) Tj
+0 g
+1 0 0 1 328.979 231.802 Tm (get) Tj
+0 g
+1 0 0 1 347.327 231.802 Tm (closer) Tj
+0 g
+1 0 0 1 379.722 231.802 Tm (to) Tj
+0 g
+1 0 0 1 391.954 231.802 Tm (the) Tj
+0 g
+1 0 0 1 410.302 231.802 Tm (point) Tj
+0 g
+1 0 0 1 437.208 231.802 Tm (where) Tj
+0 g
+1 0 0 1 470.219 231.802 Tm (you) Tj
+0 g
+1 0 0 1 75.0 218.627 Tm (can) Tj
+0 g
+1 0 0 1 95.79 218.627 Tm (actually) Tj
+0 g
+1 0 0 1 136.138 218.627 Tm ("tweak") Tj
+0 g
+1 0 0 1 175.738 218.627 Tm (Makefiles) Tj
+0 g
+1 0 0 1 225.249 218.627 Tm (and) Tj
+0 g
+1 0 0 1 246.655 218.627 Tm (sources) Tj
+0 g
+1 0 0 1 288.224 218.627 Tm (to) Tj
+0 g
+1 0 0 1 300.456 218.627 Tm (get) Tj
+0 g
+1 0 0 1 318.804 218.627 Tm (even) Tj
+0 g
+1 0 0 1 345.71 218.627 Tm (flaky) Tj
+0 g
+1 0 0 1 371.384 218.627 Tm (code) Tj
+0 g
+1 0 0 1 398.29 218.627 Tm (to) Tj
+0 g
+1 0 0 1 410.522 218.627 Tm (compile!) Tj
+/F1 10 Tf
+0 g
+1 0 0 1 75.0 757.62 Tm (Presented) Tj
+0 g
+1 0 0 1 123.36 757.62 Tm (by) Tj
+0 g
+1 0 0 1 136.7 757.62 Tm (developerWorks,) Tj
+0 g
+1 0 0 1 214.5 757.62 Tm (your) Tj
+0 g
+1 0 0 1 236.73 757.62 Tm (source) Tj
+0 g
+1 0 0 1 269.52 757.62 Tm (for) Tj
+0 g
+1 0 0 1 283.97 757.62 Tm (great) Tj
+0 g
+1 0 0 1 309.54 757.62 Tm (tutorials) Tj
+/F9 10 Tf
+0 g
+1 0 0 1 398.0 758.51 Tm (ibm.com/developer) Tj
+/F1 10 Tf
+0 g
+1 0 0 1 75.0 40.62 Tm (Compiling) Tj
+0 g
+1 0 0 1 122.23 40.62 Tm (and) Tj
+0 g
+1 0 0 1 141.69 40.62 Tm (installing) Tj
+0 g
+1 0 0 1 183.37 40.62 Tm (software) Tj
+0 g
+1 0 0 1 223.94 40.62 Tm (from) Tj
+0 g
+1 0 0 1 246.72 40.62 Tm (sources) Tj
+0 g
+1 0 0 1 459.97 40.62 Tm (Page) Tj
+0 g
+1 0 0 1 486.1 40.62 Tm (12) Tj
+ET
+
+endstream
+endobj
+42 0 obj
+<< /Type /Page
+/Parent 2 0 R
+/MediaBox [ 0 0 576 792 ]
+/Resources 4 0 R
+/Contents 41 0 R
+>>
+endobj
+43 0 obj
+<< /Length 2310 >>
+stream
+BT
+/F1 18 Tf
+0 g
+1 0 0 1 75.0 702.576 Tm (Section) Tj
+0 g
+1 0 0 1 140.034 702.576 Tm (6.) Tj
+0 g
+1 0 0 1 160.05 702.576 Tm (Wrapup) Tj
+0 g
+1 0 0 1 75.0 661.926 Tm (Your) Tj
+0 g
+1 0 0 1 118.02 661.926 Tm (feedback) Tj
+/F1 11 Tf
+0 g
+1 0 0 1 75.0 647.302 Tm (Please) Tj
+0 g
+1 0 0 1 111.685 647.302 Tm (let) Tj
+0 g
+1 0 0 1 126.359 647.302 Tm (us) Tj
+0 g
+1 0 0 1 141.033 647.302 Tm (know) Tj
+0 g
+1 0 0 1 169.765 647.302 Tm (whether) Tj
+0 g
+1 0 0 1 211.95 647.302 Tm (this) Tj
+0 g
+1 0 0 1 232.124 647.302 Tm (tutorial) Tj
+0 g
+1 0 0 1 268.193 647.302 Tm (was) Tj
+0 g
+1 0 0 1 290.809 647.302 Tm (helpful) Tj
+0 g
+1 0 0 1 326.273 647.302 Tm (to) Tj
+0 g
+1 0 0 1 338.505 647.302 Tm (you) Tj
+0 g
+1 0 0 1 359.295 647.302 Tm (and) Tj
+0 g
+1 0 0 1 380.701 647.302 Tm (how) Tj
+0 g
+1 0 0 1 403.933 647.302 Tm (we) Tj
+0 g
+1 0 0 1 421.049 647.302 Tm (could) Tj
+0 g
+1 0 0 1 450.397 647.302 Tm (make) Tj
+0 g
+1 0 0 1 480.35 647.302 Tm (it) Tj
+0 g
+1 0 0 1 75.0 634.127 Tm (better.) Tj
+0 g
+1 0 0 1 109.243 634.127 Tm (We'd) Tj
+0 g
+1 0 0 1 137.018 634.127 Tm (also) Tj
+0 g
+1 0 0 1 160.25 634.127 Tm (like) Tj
+0 g
+1 0 0 1 179.808 634.127 Tm (to) Tj
+0 g
+1 0 0 1 192.04 634.127 Tm (hear) Tj
+0 g
+1 0 0 1 217.109 634.127 Tm (about) Tj
+0 g
+1 0 0 1 247.689 634.127 Tm (other) Tj
+0 g
+1 0 0 1 275.816 634.127 Tm (tutorial) Tj
+0 g
+1 0 0 1 311.885 634.127 Tm (topics) Tj
+0 g
+1 0 0 1 343.675 634.127 Tm (you'd) Tj
+0 g
+1 0 0 1 372.682 634.127 Tm (like) Tj
+0 g
+1 0 0 1 392.24 634.127 Tm (to) Tj
+0 g
+1 0 0 1 404.472 634.127 Tm (see) Tj
+0 g
+1 0 0 1 425.262 634.127 Tm (covered.) Tj
+0 g
+1 0 0 1 75.0 620.952 Tm (Thanks!) Tj
+/F1 10 Tf
+0 g
+1 0 0 1 75.0 757.62 Tm (Presented) Tj
+0 g
+1 0 0 1 123.36 757.62 Tm (by) Tj
+0 g
+1 0 0 1 136.7 757.62 Tm (developerWorks,) Tj
+0 g
+1 0 0 1 214.5 757.62 Tm (your) Tj
+0 g
+1 0 0 1 236.73 757.62 Tm (source) Tj
+0 g
+1 0 0 1 269.52 757.62 Tm (for) Tj
+0 g
+1 0 0 1 283.97 757.62 Tm (great) Tj
+0 g
+1 0 0 1 309.54 757.62 Tm (tutorials) Tj
+/F9 10 Tf
+0 g
+1 0 0 1 398.0 758.51 Tm (ibm.com/developer) Tj
+/F1 10 Tf
+0 g
+1 0 0 1 75.0 40.62 Tm (Compiling) Tj
+0 g
+1 0 0 1 122.23 40.62 Tm (and) Tj
+0 g
+1 0 0 1 141.69 40.62 Tm (installing) Tj
+0 g
+1 0 0 1 183.37 40.62 Tm (software) Tj
+0 g
+1 0 0 1 223.94 40.62 Tm (from) Tj
+0 g
+1 0 0 1 246.72 40.62 Tm (sources) Tj
+0 g
+1 0 0 1 459.97 40.62 Tm (Page) Tj
+0 g
+1 0 0 1 486.1 40.62 Tm (13) Tj
+ET
+
+endstream
+endobj
+44 0 obj
+<< /Type /Page
+/Parent 2 0 R
+/MediaBox [ 0 0 576 792 ]
+/Resources 4 0 R
+/Contents 43 0 R
+>>
+endobj
+xref
+0 45
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000202 00000 n 
+0000000258 00000 n 
+0000000480 00000 n 
+0000000592 00000 n 
+0000000707 00000 n 
+0000000814 00000 n 
+0000000926 00000 n 
+0000001032 00000 n 
+0000001151 00000 n 
+0000001263 00000 n 
+0000001378 00000 n 
+0000001484 00000 n 
+0000001599 00000 n 
+0000001708 00000 n 
+0000001819 00000 n 
+0000001929 00000 n 
+0000002049 00000 n 
+0000009849 00000 n 
+0000009957 00000 n 
+0000016108 00000 n 
+0000016216 00000 n 
+0000032626 00000 n 
+0000032734 00000 n 
+0000045761 00000 n 
+0000045869 00000 n 
+0000059199 00000 n 
+0000059307 00000 n 
+0000075178 00000 n 
+0000075286 00000 n 
+0000086162 00000 n 
+0000086270 00000 n 
+0000088523 00000 n 
+0000088631 00000 n 
+0000100573 00000 n 
+0000100681 00000 n 
+0000110268 00000 n 
+0000110376 00000 n 
+0000121945 00000 n 
+0000122053 00000 n 
+0000136397 00000 n 
+0000136505 00000 n 
+0000138867 00000 n 
+trailer
+<<
+/Size 45
+/Root 1 0 R
+/Info 3 0 R
+>>
+startxref
+138975
+%%EOF
