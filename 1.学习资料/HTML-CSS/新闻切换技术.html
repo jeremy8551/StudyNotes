@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>新闻切换技术</title>
+<style type="text/css">
+<!--
+body { text-align: center; margin:0; padding:0; background: #FFF; font-size:12px; color:#000;}
+div,form,img,ul,ol,li,dl,dt,dd {margin: 0; padding: 0; border: 0;}
+h1,h2,h3,h4,h5,h6 { margin:0; padding:0;}
+table,td,tr,th{font-size:12px;}
+a:link {color: #000; text-decoration:none;}
+a:visited {color: #83006f;text-decoration:none;}
+a:hover {color: #c00; text-decoration:underline;}
+a:active {color: #000;}
+.focusPic{margin:0 auto; width:244px;}
+.focusPic .pic{margin:0 auto; width:240px; height:180px; padding:2px 0 0;}
+.focusPic .adPic{margin:0 auto 5px; width:240px; height:29px; overflow:hidden;background:url(http://tech.163.com/newimg/adpic.gif);}
+.focusPic .adPic .text{float:right; padding:9px 4px 0 0; width:140px;}
+.focusPic .adPic .text a{color:#1f3a87;}
+.focusPic .adPic .text a:hover{color:#bc2931;}
+.focusPic h2{ float:left; width:232px;padding:4px 0 3px 12px; font-size:14px; text-align:left;}
+.focusPic p{float:left; width:226px;line-height:160%; margin:0; text-align:left;padding:0 0 10px 12px;}
+.focusPic p img {margin:0px 0 2px;}
+.focusPic .more{ margin:0 auto; width:240px; }
+.focusPic .more .textNum{float:right; margin:0 8px 0 0;padding:0 0 4px;}
+.focusPic .more .textNum .text{float:left; font-weight:bold; padding:7px 6px 0 0; color:#666;}
+.focusPic .more .textNum .num{float:left; width:113px; height:19px;}
+.focusPic .more .textNum .bg1{ background:url(http://tech.163.com/newimg/num1.gif);}
+.focusPic .more .textNum .bg2{ background:url(http://tech.163.com/newimg/num2.gif);}
+.focusPic .more .textNum .bg3{ background:url(http://tech.163.com/newimg/num3.gif);}
+.focusPic .more .textNum .bg4{ background:url(http://tech.163.com/newimg/num4.gif);}
+.focusPic .more .textNum .num ul{ float:left; width:113px;}
+.focusPic .more .textNum .num li{float:left; width:28px; font-weight:bold;display:block; color:#fff; list-style-type:none; padding:6px 0 0;}
+.focusPic .more .textNum .num li a{color:#fff; padding:0 5px; }
+.focusPic .more .textNum .num li a:visited{color:#fff;}
+.focusPic .more .textNum .num li a:hover{color:#ff0;}
+-->
+</style>
+</head>
+<body>
+ <script language="JavaScript" type="text/javascript">
+var nn;
+nn=1;
+setTimeout('change_img()',6000);
+function change_img()
+{
+ if(nn>4) nn=1
+ setTimeout('setFocus1('+nn+')',6000);
+ nn++;
+ tt=setTimeout('change_img()',6000);
+}
+function setFocus1(i)
+{
+ selectLayer1(i);
+}
+function selectLayer1(i)
+{
+ switch(i)
+ {
+ case 1:
+ document.getElementById("focusPic1").style.display="block";
+ document.getElementById("focusPic2").style.display="none";
+ document.getElementById("focusPic3").style.display="none";
+ document.getElementById("focusPic4").style.display="none";
+ document.getElementById("focusPic1nav").style.display="block";
+ document.getElementById("focusPic2nav").style.display="none";
+ document.getElementById("focusPic3nav").style.display="none";
+ document.getElementById("focusPic4nav").style.display="none";
+ break;
+ case 2:
+ document.getElementById("focusPic1").style.display="none";
+ document.getElementById("focusPic2").style.display="block";
+ document.getElementById("focusPic3").style.display="none";
+ document.getElementById("focusPic4").style.display="none";
+ document.getElementById("focusPic1nav").style.display="none";
+ document.getElementById("focusPic2nav").style.display="block";
+ document.getElementById("focusPic3nav").style.display="none";
+ document.getElementById("focusPic4nav").style.display="none";
+ break;
+ case 3:
+ document.getElementById("focusPic1").style.display="none";
+ document.getElementById("focusPic2").style.display="none";
+ document.getElementById("focusPic3").style.display="block";
+ document.getElementById("focusPic4").style.display="none";
+ document.getElementById("focusPic1nav").style.display="none";
+ document.getElementById("focusPic2nav").style.display="none";
+ document.getElementById("focusPic3nav").style.display="block";
+ document.getElementById("focusPic4nav").style.display="none";
+ break;
+ case 4:
+ document.getElementById("focusPic1").style.display="none";
+ document.getElementById("focusPic2").style.display="none";
+ document.getElementById("focusPic3").style.display="none";
+ document.getElementById("focusPic4").style.display="block";
+ document.getElementById("focusPic1nav").style.display="none";
+ document.getElementById("focusPic2nav").style.display="none";
+ document.getElementById("focusPic3nav").style.display="none";
+ document.getElementById("focusPic4nav").style.display="block";
+ break;
+ }
+}
+</script>
+ <div class="focusPic">
+ <div id="focusPic1" style="display:block ;">
+ <div class="pic"> <a href="http://tech.163.com/special/000915SN/soft2005.html"><img src="http://cimg.163.com/tech/2006/1/18/2006011810122068706.jpg" alt="网易学院05年软件评选结果" width="240" height="180" border="0" /></a> </div>
+ <h2><a href="http://tech.163.com/special/000915SN/soft2005.html">网易学院05年软件评选结果</a></h2>
+ <p>经过大家的热情投票和我们的辛劳整理，网易学院2005年年度软件评选结果终于出炉啦。点击进入查看……<img src="/newimg/i2.gif" alt="详细" width="3" height="5" /> <a href="http://tech.163.com/special/000915SN/soft2005.html" class="cDRed">详细</a></p>
+ </div>
+ <div id="focusPic2" style="display: none ;">
+ <div class="pic"> <a href="http://tech.163.com/discover/"><img src="http://cimg.163.com/tech/2006/1/17/200601171557008cee7.jpg" alt="颠覆丛林动物生存法则" width="240" height="180" border="0" /></a> </div>
+ <h2><a href="http://tech.163.com/discover/">颠覆丛林动物生存法则</a></h2>
+ <p>群居动物的这种行为颠覆了我们通常认为的，在动物世界通行的 “丛林法则”，动物不都自私，不都是弱肉强食的。<img src="/newimg/i2.gif" alt="详细" width="3" height="5" /> <a href="http://tech.163.com/discover/" class="cDRed">详细</a></p>
+ </div>
+ <div id="focusPic3" style="display: none ;">
+ <div class="pic"> <a href="http://tech.163.com/special/00091MNJ/itobserve015.html"><img src="http://cimg.163.com/tech/2006/1/17/2006011711483290a60.jpg" alt="WAPI并非贸易阴谋" width="240" height="180" border="0" /></a> </div>
+ <h2><a href="http://tech.163.com/special/00091MNJ/itobserve015.html">WAPI并非贸易阴谋</a></h2>
+ <p>近日国家做出决定：“将向其他的国内及国外企业公布该算法”。事实证明中国WAPI标准并非是贸易阴谋。<img src="/newimg/i2.gif" alt="详细" width="3" height="5" /> <a href="http://tech.163.com/special/00091MNJ/itobserve015.html" class="cDRed">详细</a></p>
+ </div>
+ <div id="focusPic4" style="display: none ;">
+ <div class="pic"> <a href="http://tech.163.com/special/00091OSI/horizons.html"><img src="http://cimg.163.com/tech/2006/1/17/200601171002503f251.jpg" alt="新视野号探测冥王星特别专题" width="240" height="180" border="0" /></a> </div>
+ <h2><a href="http://tech.163.com/special/00091OSI/horizons.html">新视野号探测冥王星特别专题</a></h2>
+ <p>美国宇航局将于北京时间18日凌晨2时24分发射新视野号探测器，造访这颗人类唯一尚未探测过的行星-冥王星。<img src="/newimg/i2.gif" alt="详细" width="3" height="5" /> <a href="http://tech.163.com/special/00091OSI/horizons.html" class="cDRed">详细</a></p>
+ </div>
+ <div class="more">
+ <div class="textNum">
+ <div class="text">&gt; 更多头图新闻</div>
+ <div class="num bg1" id="focusPic1nav" style="display: block;">
+ <ul>
+ <li>1</li>
+ <li><a href="javascript:setFocus1(2);" target="_self">2</a></li>
+ <li><a href="javascript:setFocus1(3);" target="_self">3</a></li>
+ <li><a href="javascript:setFocus1(4);" target="_self">4</a></li>
+ </ul>
+ </div>
+ <div class="num bg2" id="focusPic2nav" style="display: none;">
+ <ul>
+ <li><a href="javascript:setFocus1(1);" target="_self">1</a></li>
+ <li>2</li>
+ <li><a href="javascript:setFocus1(3);" target="_self">3</a></li>
+ <li><a href="javascript:setFocus1(4);" target="_self">4</a></li>
+ </ul>
+ </div>
+ <div class="num bg3" id="focusPic3nav" style="display: none;">
+ <ul>
+ <li><a href="javascript:setFocus1(1);" target="_self">1</a></li>
+ <li><a href="javascript:setFocus1(2);" target="_self">2</a></li>
+ <li>3</li>
+ <li><a href="javascript:setFocus1(4);" target="_self">4</a></li>
+ </ul>
+ </div>
+ <div class="num bg4" id="focusPic4nav" style="display: none;">
+ <ul>
+ <li><a href="javascript:setFocus1(1);" target="_self">1</a></li>
+ <li><a href="javascript:setFocus1(2);" target="_self">2</a></li>
+ <li><a href="javascript:setFocus1(3);" target="_self">3</a></li>
+ <li>4</li>
+ </ul>
+ </div>
+ </div>
+ </div>
+ </div>
+</body>
+</html>

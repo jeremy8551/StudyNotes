@@ -1,0 +1,45 @@
+<style>
+div { font-size:12px; }
+</style>
+<div id="mq" style="width:100%;height:70px;overflow:hidden" onmouseover="iScrollAmount=0"
+onmouseout="iScrollAmount=1">
+　　轻轻的我走了，正如我轻轻的来；<br/>
+　　我轻轻的招手，作别西天的云彩。<br/>
+　　<br/>
+　　那河畔的金柳，是夕阳中的新娘；<br/>
+　　波光里的艳影，在我心头荡漾。<br/>
+　　<br/>
+　　软泥上的青荇，油油的在水底招摇；<br/>
+　　在康河的柔波里，我甘心作一条水草。<br/>
+　　<br/>
+　　那榆荫下的一潭，不是清泉是天上的虹；<br/>
+　　揉碎在浮藻间，沉淀彩虹似的梦。<br/>
+　　<br/>
+　　寻梦，撑支长篙，向青草更青处漫溯；<br/>
+　　满载一船星辉，在星辉斑烂里放歌。<br/>
+　　<br/>
+　　但我不能放歌，悄悄是别离的笙箫；<br/>
+　　夏虫也为我沉默，沉默是今晚的康桥。<br/>
+　　<br/>
+　　悄悄的我走了，正如我悄悄的来；<br/>
+　　我挥一挥衣袖，不带走一片云彩。<br/>
+　　<br/>
+</div>
+<script>
+var oMarquee = document.getElementById("mq"); //滚动对象
+var iLineHeight = 42; //单行高度，像素
+var iLineCount = 7; //实际行数
+var iScrollAmount = 1; //每次滚动高度，像素
+function run() {
+oMarquee.scrollTop += iScrollAmount;
+if ( oMarquee.scrollTop == iLineCount * iLineHeight )
+oMarquee.scrollTop = 0;
+if ( oMarquee.scrollTop % iLineHeight == 0 ) {
+window.setTimeout( "run()", 2000 );
+} else {
+window.setTimeout( "run()", 50 );
+}
+}
+oMarquee.innerHTML += oMarquee.innerHTML;
+window.setTimeout( "run()", 2000 );
+</script>
