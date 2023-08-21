@@ -1,0 +1,43 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>cao888---提示</title>
+</head>
+<body>
+<script language=javascript>
+var cao_x,cao_y;
+function cao888() 
+{
+this.display=display; 
+}
+function display() 
+{
+  document.write("<table align=center><tr><td><button style='width:100px;height:30px;font-size:12px;border:1px solid #A4B3C8;background-color:green;' type=button onclick=document.getElementById('cao1').style.display='block' onfocus=this.blur()>CAO留言</button></td></tr></table>");
+  document.write("<div  id='cao1' style='font-size:12px;position:absolute;display:none;text-align:center;overflow:visible'>");
+  document.write("<div style='position:absolute;top:expression((body.clientHeight-300)/2);left:expression((body.clientWidth-200)/2);width:200px;height:180px;background-color:#dbdbdb;border:1px solid #cccccc;'>");
+  document.write("<table width=200 height=20 bgcolor=green onmousedown='cao_x=event.x-parentNode.style.pixelLeft;cao_y=event.y-parentNode.style.pixelTop;setCapture();' onmouseup='releaseCapture();' onmousemove='caoMove(this.parentNode)' style='cursor:move;'>");
+  document.write("<tr align=center>");
+  document.write("<td align=left>提示:CAO888</td>");
+  document.write("</tr>");
+  document.write("</table>");
+  document.write("<span style= cursor:hand onclick=this.parentNode.parentNode.style.display='none';><img src='http://pic1.blueidea.com/bbs/topic5.gif'><br>CAO呀,错误了...<br>[确定]</span>");
+  document.write("  </div>");
+  document.write("</div>");
+}
+function caoMove(obj)  //实现层的拖移
+{
+  if(event.button==1)
+  {
+    var caoX=obj.clientLeft;
+    var caoY=obj.clientTop;
+    obj.style.pixelLeft=caoX+(event.x-cao_x);
+    obj.style.pixelTop=caoY+(event.y-cao_y);
+  }
+}
+</script>
+<script language=javascript>
+var mycao=new cao888();
+mycao.display();
+</script>
+</body>
+</html>

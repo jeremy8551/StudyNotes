@@ -1,0 +1,19 @@
+NewFile                                                        创建一个新文档，同时活动标签为新文档
+NextDocument                                              切换到下一个文件标签文档，即返回到原始的数据文档
+Top                                                               到文档的起始位置
+Loop 0                                                          设置循环，后面的0指无限次循环
+UnixReOff                                                     切换正则表达式到UltraEdit样式的正则表达式（非Unix）
+Find "30071456"                                           查找客户编号为30071456
+IfFound                                                         如果查到
+SelectLine                                                     选中当前活动行 
+Copy                                                            复制选中内容
+NextDocument                                             切换到下一个标签，即新建的文档
+Paste                                                            把粘贴板中的内容复制到光标所在位
+NextDocument                                             切换到下一个标签，即返回到原始文档
+Key RIGHT ARROW　　　　                  发送一个→，即光标移动到下一行开始处
+Else                                                              如果没找到
+ExitLoop                                                      结束循环
+EndIf　　　　　   　　　　　　　　　与前面的ifFound对应
+EndLoop　         　　　　　　　　　　与前面的Loop对应
+NextDocument                                            切换到下一个标签，即新建文档
+
