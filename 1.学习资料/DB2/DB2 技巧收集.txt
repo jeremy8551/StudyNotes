@@ -1,0 +1,13 @@
+表被锁劳可用： 
+db2 list indoubt transactions:查看 
+db2 list indoubt transactions with prompting:解除
+
+
+merger 用法
+
+1.on a表，b表两个字段尽可能类型，长度都一致
+2.on 尽可能是a表字段和b表字段的关联，不能包含对b表的筛选
+
+
+olap功能函数
+1.number() over()      得到顺序号

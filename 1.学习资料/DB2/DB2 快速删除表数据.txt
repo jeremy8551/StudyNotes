@@ -1,0 +1,1 @@
+alter table xxxx activate not logged initially with empty table

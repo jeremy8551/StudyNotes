@@ -1,0 +1,17 @@
+db2执行计划显示工具介绍
+db2有图形执行计划显示工具,如果没有图形环境,如unix主机,可以生成文本的
+
+1.如果第一次执行,请先 connect to dbname,
+执行db2 -tvf $HOME/sqllib/misc/EXPLAIN.DDL建立执行计划表
+
+2.db2 set current explain mode explain
+设置成解释模式,并不真正执行下面将发出的sql命令
+
+3.db2 "select count(1) from staff"
+执行你想要分析的sql语句
+
+4.db2 set current explain mode no
+取消解释模式
+
+5.db2exfmt -d sample -g TIC -w -l -s % -n % -o db2exmt.out
+执行计划输出到文件db2exmt.out

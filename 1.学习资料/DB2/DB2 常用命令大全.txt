@@ -1,0 +1,518 @@
+
+================================================================
+
+以下主要以DB27.X为基础的.以下的字符为小写
+
+本文对DB2高手来说是不用看的.
+
+　　1.DB2产品的级别有那些?
+　　企业版的NTERPRISEEDITION
+　　工作组版WORKGROUPEDITION
+　　企业扩展版ENTERPRISEEXTENDEDEDITION
+　　个人版的PERSONALEDITION
+　　卫星版的SATELLITEEDITION
+　　微型版的EVERYPLACE
+　　
+　　2.可以连接到DB2数据库的产品有哪些?
+　　DB2客户端
+　　DB2CONNECT
+　　DB2DATAPROPAGATOR
+　　DB2NET.DATA
+　　DB2DATAJOINER
+　　DB2RELATIONALCONNECT
+　　WEBSPHERE应用服务器
+　　等
+　　
+　　3.DB2支持的通讯协议有哪些?
+　　TCP/IP
+　　NETBIOS
+　　APPG
+　　IPX/SPX
+　　NAMEPIPE
+　　等
+　　
+　　4.DB2客户端产品有哪些?
+　　DB2运行时间客户端DB2RUNTIMECLIENT
+　　DB2管理客户端DB2ADMINISTRATIONCLIENT
+　　DB2应用程序开发客户端DB2APPLICATIONDEVELOPMENTCLIENT
+　　DB2瘦客户端DB2THINCLIENT
+　　
+　　5.一个数据库是否可以安装在多个数据库服务器上?
+　　可以
+　　
+　　6.从哪个版本后存储过程可以用SQL语句来创建?
+　　7.1版后
+　　
+　　7.DB2提供哪些关系扩展器?
+　　文本扩展器TEXTEXTENDER
+　　图象扩展器IMAGEEXTENDER
+　　音频扩展器AUDIOEXTENDER
+　　视频扩展器VIDEOEXTENDER
+　　空间数据扩展器SPATIALEXTENDER
+　　XML扩展器XMLEXTENDER
+　　网络搜索扩展器NET.SEARCHEXTENDER
+　　
+　　8.WINDOWS和OS/2环境下的DB2安装目录结构?
+　　用SETUP.EXE来安装
+　　
+　　\SQLLIB安装的根目录,包括README文件
+　　\SQLLIB\ADSM包含ADSTAR分布式存储管理器文件
+　　\SQLLIB\BIN包含DB2工具的可执行文件
+　　\SQLLIB\BND包含DB2工具的绑定文件
+　　\SQLLIB\CC包含运行控制中心所需的文件
+　　\SQLLIB\CFG包含默认的系统配置文件
+　　\SQLLIB\CONV包含代码页转换表文件
+　　\SQLLIB\DB2默认的实例目录
+　　\SQLLIB\DB2DAS00缺省的DB2管理服务器目录
+　　\SQLLIB\DOC包含DB2联机手册
+　　\SQLLIB\FUNCTION默认的用户自定义函数目录
+　　\SQLLIB\FUNCTION\UNFENCED默认的非隔离用户自定义函授目录
+　　\SQLLIB\HELP联机帮助文件
+　　\SQLLIB\JAVADB2所需的JAVA类库
+　　JAVA12包含JDK1.2的支持程序
+　　\SQLLIB\MISC包含HTML搜索服务器文件
+　　\SQLLIB\MSG\PRIME包含信息文件
+　　\SQLLIB\QP包含QUERYPATROLLER的客户端文件
+　　\SQLLIB\SAMPLES包含样例程序和样例脚本
+　　\SQLLIB\SPMLOG包含DB2同步点管理器日志文件
+　　\SQLLIB\THNSETUP包含瘦客户端安装文件
+　　9.UNIX和LINUX环境下的DB2安装目录结构?
+　　用DB2SETUP.EXE来安装
+　　安装的根目录下还将创建以下目录:
+　　
+　　README安装的根目录,包括README文件
+　　ADM包含系统管理工具文件
+　　ADSM包含ADSTAR分布式存储管理器文件
+　　BIN包含DB2工具的二进制可执行文件
+　　BND包含DB2工具的绑定文件
+　　CC包含运行控制中心所需的文件
+　　CFG包含默认的系统配置文件
+　　CONV包含代码页转换表文件
+　　DOC包含DB2联机手册
+　　FUNCTION默认的用户自定义函数目录
+　　FUNCTION\UNFENCED默认的非隔离用ё远ㄒ搴谀柯?lt;BR>　　INSTALL包含安装程序
+　　INSTANCE包含实例脚本
+　　JAVADB2所需的JAVA类库
+　　LIBDB2库文件
+　　MAP包含DB2CONNECT使用的映射文件
+　　MISC包含HTML搜索服务器文件
+　　SAMPLES包含样例程序和样例脚本
+　　MSG\$L包含DB2信息文件
+
+　　10.AIX下用哪个命令来安装DB2?
+　　INSTALLP命令
+　　
+　　11.同一操作系统下可以安装多个DB2数据库?
+　　可以的
+　　
+　　12.如何停止实例?
+　　DB2STOP
+　　
+　　13.如何启动实例?
+　　DB2START
+　　[page]
+　　如:
+　　设定当前实例的一个参数
+　　
+　　15.如何在CLP执行操作系统的命令?
+　　在命令前加"!"作为前缀
+　　DB2=>!DIRC:\
+　　
+　　16.在CLP中命令过长怎么办?
+　　用"\"作为续行符号
+　　
+　　17.如何获得DB2的命令的语法相关信息?
+　　DB2?显示所有DB2命令
+　　DB2?COMMAND显示命令信息
+　　DB2?SQLnnnn显示这个SQLCODE的解释信息
+　　DB2?DB2nnnn显示这个DB2错误的解释信息
+　　
+　　18.如何查看当前CLP的设置?
+　　DB2=>LISTCOMANDOPTIONS
+　　
+　　19.如何更新当前CLP会话的特定项设置?
+　　DB2UPDATECOMMANDOPTIONSUSINGOPTIONS...
+　　
+　　20.COMMANDWINDOWS可以通过哪个命令调用?
+　　DB2CMD命令
+　　
+　　21.管理服务器的默认名为?
+　　UNIX下为DB2AS
+　　WINDOWS下为DB2DAS00
+　　
+22.常用管理DB2服务器实例的命令?
+　　DB2ADMINSTART启动DB2管理服务器实例
+　　DB2ADMINSTOP停止DB2管理服务器实例
+　　DASICRTUNIX下创建DB2管理服务器实例
+　　DASIDROPUNIX下删除DB2管理服务器实例
+　　DB2ADMINCREATEWINDOWSOROS/2下创建DB2管理服务器实例
+　　DB2ADMINDROPWINDOWSOROS/2下删除DB2管理服务器实例
+　　DB2GETADMINCFG显示DB2管理服务器的配置参数
+　　DB2UPDATEADMINCFG修改DB2管理服务器的配置参数
+　　DB2RESETADMINCFG将DB2管理服务器的配置参数设为默认值
+　　
+　　23.DB2目录分为哪几种?
+　　系统数据库目录
+　　本地数据库目录
+　　节点目录
+　　DCS目录
+　　管理节点目录
+　　
+　　
+　　26.DB2实例的服务器的默认端口是?
+　　50000
+　　服务器名称为DB2CDB2
+　　
+　　27.DB2UDB服务器端的认证类型有?
+　　SERVER
+　　SERVER_ENCRYPT
+　　CLIENT
+　　DCE
+　　DCE_SERVER_ENCRYPT
+　　KERBEROS
+　　KRB_SERVER_ENCRYPT
+　　
+　　28.DB2客户端的认证类型有?
+　　SERVER
+　　SERVER_ENCRYPT
+　　DCS
+　　DCS_ENCRYPT
+　　CLIENT
+　　DCE
+　　
+　　29.DB2中有哪几种类型的权限?
+　　SYSADM系统管理权限
+　　SYSCTRL系统控制权限
+　　SYSMAINT系统维护权限
+　　DBADM数据库管理权限
+　　LOAD对表进行LOAD操作的权限
+　　
+　　30.不能通过GRANT授权的权限有哪种?
+　　SYSAM
+　　SYSCTRL
+　　SYSMAINT
+　　要更该上述权限必须修改数据库管理器配置参数
+　　
+　　31.表的类型有哪些?
+　　永久表(基表)
+　　临时表(说明表)
+　　临时表(派生表)
+　　
+　　32.如何知道一个用户有多少表?
+　　SELECT*FROM SYSIBM.SYSTABLESWHERECREATOR='USER'
+　　
+　　33.如何知道用户下的函数?
+　　select*from IWH.USERFUNCTION
+　　select*from sysibm.SYSFUNCTIONS
+　
+34.如何知道用户下的VIEW数?
+　　select*from sysibm.sysviewsWHERECREATOR='USER'
+　　
+　　35.如何知道当前DB2的版本?
+　　select*from sysibm.sysvERSIONS
+　　
+　　36.如何知道用户下的TRIGGER数?
+　　select*from sysibm.SYSTRIGGERSWHERESCHEMA='USER'
+　　
+　　37.如何知道TABLESPACE的状况?
+　　select*from sysibm.SYSTABLESPACES
+　　
+　　38.如何知道SEQUENCE的状况?
+　　select*from sysibm.SYSSEQUENCES
+　　
+　　39.如何知道SCHEMA的状况?
+　　select*from sysibm.SYSSCHEMATA
+　　
+　　40.如何知道INDEX的状况?
+　　select*from sysibm.SYSINDEXES
+　　
+　　41.如何知道表的字段的状况?
+　　select*from sysibm.SYSCOLUMNSWHERETBNAME='AAAA'
+　　
+　　42.如何知道DB2的数据类型?
+　　select*from sysibm.SYSDATATYPES
+　　
+　　43.如何知道BUFFERPOOLS状况?
+　　select*fromsysibm.SYSBUFFERPOOLS
+　　
+　　44.DB2表的字段的修改限制?
+　　只能修改VARCHAR2类型的并且只能增加不能减少.
+　　
+　　45.如何查看表的结构?
+　　DESCRIBLE TABLETABLE_NAME
+　　OR
+　　DESCRIBLE SELECT*FROMSCHEMA.TABLE_NAME
+　　
+　　46.如何快速清除一个大表?
+　　ALTER TABLE TABLE_NAME ACTIVE NOTLOGGEDINITALLYWITHEMPTYTABLE
+　　
+　　47.如何查看数据库的包?
+　　select*fromsysCAT.PACKAGES
+　　
+　　48.如何查看数据库的存储过程?
+　　SELECT*FROMSYSCAT.PROCEDURES
+　　
+　　49.如何查看表的约束?
+　　SELECT*FROMSYSCAT.CHECKSWHERETABNAME='AAAA'
+　　
+　　50.如何查看表的引用完整约束?
+　　SELECT*FROMSYSCAT.REFERENCESWHERETABNAME='AAAA'
+
+
+大家在应用DB2的时候可能会遇到一些看似简单的问题,特别对新手来说,我在此简单的总结一下,发布给大家,希望对大家能有所帮助,同时也欢迎大家一起探讨,共同发展,共同进步!
+　　以下主要以DB27.X为基础的.以下的字符为小写.
+
+
+ 
+　　本文对DB2高手来说是不用看的.
+　　所有字符为小写.
+
+　　51.安装DB2默认的事例名称是?
+　　在WINDOWS或OS/2中默认的是DB2
+　　在LINUX或UNIX环境下默认的是DB2INST1
+　　
+　　52.安装后的默认帐户是?
+　　在WINDOWS或OS/2中默认的是DB2ADMIN
+　　在LINUX或UNIX环境下默认的是DB2AS
+
+　　53.事例的类型有哪些?
+　　CLIENT(客户)
+　　STANDALONE(独立的)
+　　SATELLITE(卫星)
+　　EEDB2
+　　EEE
+　　
+　　54.如何创建事例?
+　　DB2ICRTINSTNAME<...PARAMETERS>
+　　
+　　55.如何列出系统上的所有可用事例?
+　　DB2ILIST
+　　
+　　56.如何知道当前对话用的是哪个事例?
+　　GETINSTANCE
+　　
+　　57.如何更新事例的配置?
+　　DB2IUPDT 
+　　
+　　58.如何删除事例?
+　　DB2IDROPINSTANCE_NAME
+　　具体步骤如下:
+　　停止事例上所有应用程序
+　　在所有打开的命令行上执行DB2TERMINATE
+　　运行DB2STOP
+　　备份DB2INSTPROF注册变量指出的事例目录
+　　退出事例所有登陆者
+　　使用DB2IDROP
+　　也可以删除ID
+　　
+　　59.如何列出本地系统上有许可信息的所有产品?
+　　DB2LICM-L
+　　
+　　60.如何增加一产品许可?
+　　DB2LICM-AFILENAME
+　　
+　　61.如何删除一个产品的许可?
+　　DB2LICM-RPRODUCTPASSWORD
+　　
+　　62.如何更新已购买的许可数量?
+　　DB2LICM-U 
+　　
+　　63.如何强制只使用已经购买的数量?
+　　DB2LICM-EHARD
+64.如何更新系统上所使用的许可政策类型?
+　　DB2LICM-P REGISTEREDCONCURRENT
+　　
+　　65.如何更新系统上的处理器的数量?
+　　DB2LICM-N 
+　　
+　　66.如何查询许可文件记录的版本信息?
+　　DB2LICM-V
+　　
+　　67.如何查询DB2LICM的帮助信息?
+　　DB2LICM-H
+　　
+　　68.一个数据库至少包括哪些表空间?
+　　一个目录表空间
+　　一个或多个用户表空间
+　　一个或多个临时表空间[page]
+　　
+　　69.根据数据与存储空间之间移动的控制方式不同,分哪两种表空间?
+　　系统管理的空间(SMS)
+　　数据库管理的空间(DMS)
+　　
+　　70.如何列出系统数据库目录的内容?
+　　LIST DATABASE DIRECTORY
+　　
+　　71.CREATEDATABASE是SQL命令吗?
+　　不是,是系统命令
+　　
+　　72.如何查看数据库ABC的配置文件的内容?
+　　GET DATABASE CONFIGURATIONFORABC
+　　
+　　73.如何将数据库ABC的参数设置为默认数值?
+　　RESET DATABASECONFIGURATIONFORABC
+　　
+　　74.如何修改数据库ABC配置参数数值?
+　　UPDATE DATABASE CONFIGURATIONFORABC
+　　USING 
+　　
+　　75.如何重新启动数据库?
+　　RESTART DATABASE DATABASE_NAME
+　　
+　　76.如何激活数据库?
+　　ACTIVATE DATABASE DATABASE_NAME
+　　
+　　77.如何停止数据库?
+　　DEACTIVATE DATABASE DATABASE_NAME
+　　
+
+78.如何删除数据库?
+　　DROP DATABASE DATABASE_NAME
+　　
+　　
+　　
+　　
+　　81.表的类型有哪些?
+　　基本表
+　　　　结果表
+　　概要表
+　　类型表
+　　子类型
+　　子表
+　　声明的临时表
+　　系统临时表
+
+　　82.如何定义序列?
+　　CREATESEQUENCEORDERSEQSTARTWITH1INCREMENTBY1NOMAXVALUENOCYCLECACHE24
+
+　　83.如何将表置于检查挂起状态?
+　　SETINTEGRITYTABLE_NAMEOFF
+　　
+　　84.如何获得表的排斥锁?
+　　LOCKTABLETABLE_NAMEINEXCLUSIVEMODE
+　　
+　　85.如何把表调整为没有检查数据的在线状态?
+　　SETINTEGRITYFORTABLE_NAMEALLIMMEDIATEUNCHECKED
+
+　　86.如何解除表的锁定?
+　　COMMIT
+　　
+　　87.如何关闭表的日志?
+　　ALTER TABLETABLE_NAMEACTIVENOTLOGGEDINIALLY
+　　
+　　88.如何删除表?
+　　DROP SCHEMA.TABLE_NAME
+　　　　
+　　89.如何重命名表?
+　　RENAME TABLE_OLDTO TABLE_NEW
+　　
+　　90.如何取当前时间?
+　　SELECT CURREN TTIMESTAMP FROM SYSIBM.SYSDUMMY1
+
+
+91.如何创建DB2的概要表?
+　　DB2的概要表功能类似于ORACLE的实体化视图!
+　　语法为:
+　　CREATESUMMARYTABLETABLE_NAMEAS(FULLSELECT)...
+　　例如:
+　　定义一个可以刷新的概要表:
+　　CREATE SUMMARYTABLETABLE_NAMEAS(SELECT*FROMTABLE_NAME1WHERECOL1= AAA )
+　　DATAINITIALLYDEFERREDREFRESHDEFERRED
+　　其中DATAINITIALLYDEFERRED规定不能将数据作为CREATETABLE语句的一部分插入表中.
+　　REFRESHDEFERRED规定表中的数据可以在任何使用了REFRESHTABLE语句的时候获得刷新!
+　　
+　　92.如何刷新概要表?
+　　REFRESH TABLESUM_TABLE
+　　其中SUM_TABLE为概要表.
+　　
+　　93.如何修改概要表?
+　　ALTER TABLE SUM_TABLE...
+　　
+　　94.如何创建临时表?
+　　语法:
+　　DECLAREGLOBALTEMPORARY TABLE TABLE_NAME
+　　AS(FULLSELECT)DEFINITIONONLY
+　　EXCLUDINGIDENTITYCOLUMNATTRIBUTES
+　　ONCOMMITDELETEROWS
+　　NOTLOGGED
+　　第一行规定临时表的名称.
+　　第二行规定临时表的列的定义.
+　　第三行规定不是从源结果表定义中复制的恒等列.
+　　第四行规定如果没有打开WITHGOLD光标,将会删除表的所有行.
+　　第五行规定不对表的改变进行记录.
+　　例如:
+　　DECLAREGLOBALTEMPORARYTABLEDEC_BSEMPMS
+　　AS(SELECT*FROMBSEMPMS)DEFINITIONONLY
+　　EXCLUDINGIDENTITYCOLUMNATTRIBUTES
+　　ONCOMMITDELETEROWS
+　　NOTLOGGED
+　　
+　　95.视图的管理?
+　　如何创建视图:
+　　CREATEVIEWVIEW_NAMEASSELECT*FROMTABLE_NAMEWHERE...
+　　删除视图:
+　　DROPVIEWVIEW_NAME
+　　
+　　96.如何知道视图定义的内容?
+　　SELECT*FROMSYSCAT.VIEWS中的TEXT列中.
+　　
+　　97.如何创建别名?
+　　CREATEALIASALIAS_NAMEFORPRO_NAME
+　　后面的PRO_NAME可以是TABLE,VIEW,ALIAS,NICKNAME等.
+　　
+　　98.如何创建序列?
+　　例如:
+　　CREATESEQUENCESEQUENCE_NAME
+　　STARTWITHSTART_NUMBER
+　　INCREMENTBYVALUE1
+　　NOMAXVALUE
+　　NOCYCLE
+　　CACHEMAXIMUMNUMBEROFSEQUENCEVALUES
+　　第一行规定序列的名称.
+　　第二行规定序列的开始数值.
+　　第三行规定每次新增的幅度.
+　　第四行规定没有最大数值限制.
+　　第五行规定最大数值限制.
+99.如何更改序列?
+　　ALTERSEQUENCESEQUENCE_NAME...
+　　可以修改的参数
+　　STARTWITH的START_NUMBER
+　　INCREMENT的VALUE1
+　　NOMAXVALUE的数值
+　　NOCYCLE属性
+　　MAXIMUMNUMBEROFSEQUENCEVALUES最大数值
+
+100.如何删除序列?
+　　DROPSEQUENCESEQUENCE_NAME
+　　
+　　101.DB2支持导入(IMPORT)的文件格式有?
+　　有:DEL,ASC,IXF,WSF等
+
+　　102.DB2支持导出(EXPORT)的文件格式有?
+　　有:DEL,IXF,WSF等.
+　　不支持ASC格式.
+　　
+　　103.DB2支持载入(LOAD)的文件格式有?
+　　有:DEL,ASC,IXF等.
+　　不支持WSF格式.
+　　
+　　104.DB2支持DB2MOVE的文件格式有?
+　　有:IXF等.
+　　不支持ASC,DEL,WSF格式.
+　　
+　　105.DB2数据库监控的两个组成部分?
+　　快照监控(SNAPSHOTMONITOR)可返回特定时间点的数据库活动的快照.
+　　事件监控(EVENTMONITOR)记录事件发生的数据.
+　　
+　　106.系统监控的数据元素类型?
+　　计数器(COUNTER)记录活动发生的次数.
+　　测量(GAUGE)测量条目的当前值.
+　　水线(WATERMARK)从监控来元素达到的最大或最小数值.
+　　信息(INFORMATION)监控活动的参照类型细节.
+　　时间点(TIMESTAMP)活动发生的日期时间.
+　　时间(TIME)返回一个活动花费的时间.
+　　
+　　107.如何知道监控堆所需的页的数量?
+　　(NUMBEROFMONITORINGAPPLICATIONS+1)*(NUMBEROFDATABASES*(800+(NUMBEROFTABLES
+　　
+　　ACCESSED*20)+((N

@@ -1,0 +1,35 @@
+执行一个大表删除竟然不是用清空，直接用delete，3千万条记录啊。。。。。执行了1个小时没反应，强制结束客户端，
+
+
+
+
+服务器等了半个小时，磁盘使用率还是100%
+
+
+
+
+db2 force applications 无效
+db2stop force 
+
+
+完蛋了，又等半小时
+
+
+db2_kill
+ipclean
+ipclean
+ipcs -a | grep db2
+
+
+su - root
+ps -ef | grep db2
+除了 db2fmcd db2fmd 之外的进程
+kill -9
+
+
+世界清静了。。。
+
+
+db2start
+db2stop
+db2start

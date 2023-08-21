@@ -1,0 +1,25 @@
+在SQL语句的结果信息中如何插入单引号和双引号? 
+   
+        
+ 
+在SQL语句的结果信息中如何插入单引号和双引号?
+
+环境  产品: DB2 UDB
+ 平台: Windows 9x/NT/2000, Unix, Linux
+ 版本: 5.x/6.x/7.x 
+问题  在SQL语句的结果信息中如何插入单引号和双引号? 
+解答 1) 单引号的插入: 连续单引号表示一个单引号;
+db2 "select empno,'''Testing''' test from employee where empno='000300'"
+
+EMPNO   TEST
+------ ---------
+000300 'Testing'
+
+2) 双引号的插入: 使用转义字符;
+db2 "select empno,'\"Testing\"' test from employee where empno='000300'" 
+EMPNO   TEST
+------ ---------
+000300 "Testing"
+
+ 
+ 
