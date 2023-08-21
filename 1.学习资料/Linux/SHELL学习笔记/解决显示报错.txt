@@ -1,0 +1,8 @@
+
+问题：
+xlib connection to 0.0 refused by server
+
+解决：
+export DISPLAY=:0
+或
+xhost local:udsf

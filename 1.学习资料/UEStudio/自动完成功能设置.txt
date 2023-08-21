@@ -1,0 +1,1 @@
+菜单->Advanced->Configuration->KeyMapping 右侧commands框中选中：auto complete 设置快捷键

@@ -1,0 +1,13 @@
+<style type="text/css"> 
+html { 
+   filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); 
+     } 
+
+/* 
+   或者 
+   html *{filter:gray;} 
+   或者 
+   body *{filter:gray;} 
+  */ 
+
+</style> 
