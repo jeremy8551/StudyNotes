@@ -1,0 +1,4 @@
+
+useradd -m -g db2iadm1 -d /home/udsfadm udsfadm
+
+查看linux上组的配置信息： 配置文件/etc/group。可以通过这个文件来查看详细的组信息。
