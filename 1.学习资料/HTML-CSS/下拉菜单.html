@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>nav</title>
+<script language="javascript">
+// JavaScript Document
+startList = function() {
+if (document.all&&document.getElementById) {
+navRoot = document.getElementById("nav");
+for (i=0; i<navRoot.childNodes.length; i++) {
+node = navRoot.childNodes[i];
+if (node.nodeName=="LI") {
+node.onmouseover=function() {
+this.className+=" over";
+ }
+ node.onmouseout=function() {
+ this.className=this.className.replace(" over", "");
+ }
+ }
+ }
+ }
+}
+window.onload=startList;
+</script>
+<style type="text/css">
+<!--
+body {
+  font: normal 11px verdana;
+  }
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 150px; /* Width of Menu Items */
+  border-bottom: 1px solid #ccc;
+  }
+  
+ul li {
+  position: relative;
+  }
+  
+li ul {
+  position: absolute;
+  left: 149px; /* Set 1px less than menu width */
+  top: 0;
+  display: none;
+  }
+/* Styles for Menu Items */
+ul li a {
+  display: block;
+  text-decoration: none;
+  color: #777;
+  background: #fff; /* IE6 Bug */
+  padding: 5px;
+  border: 1px solid #ccc; /* IE6 Bug */
+  border-bottom: 0;
+  }
+  
+/* Holly Hack. IE Requirement \*/
+* html ul li { float: left; height: 1%; }
+* html ul li a { height: 1%; }
+/* End */
+li:hover ul, li.over ul { display: block; } /* The magic */
+-->
+</style>
+</head>
+<body>
+<ul id="nav"> 
+ <li><a href="#">Home</a></li> 
+ <li><a href="#">About</a> 
+ <ul> 
+ <li><a href="#">History</a></li> 
+ <li><a href="#">Team</a></li> 
+ <li><a href="#">Offices</a></li> 
+ </ul> 
+ </li> 
+ <li><a href="#">Services</a> 
+ <ul> 
+ <li><a href="#">Web Design</a></li> 
+ <li><a href="#">Internet Marketing</a></li> 
+ <li><a href="#">Hosting</a></li> 
+ <li><a href="#">Domain Names</a></li> 
+ <li><a href="#">Broadband</a></li> 
+ </ul> 
+ </li> 
+ <li><a href="#">Contact Us</a> 
+ <ul> 
+ <li><a href="#">United Kingdom</a></li> 
+ <li><a href="#">France</a></li> 
+ <li><a href="#">USA</a></li> 
+ <li><a href="#">Australia</a></li> 
+ </ul> 
+ </li> 
+</ul> 
+</body>
+</html>

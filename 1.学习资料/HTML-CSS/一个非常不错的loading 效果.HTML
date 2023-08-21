@@ -1,0 +1,120 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>无标题文档</title>
+</head>
+<BODY STYLE="FONT-SIZE: 10pt; FONT-FAMILY: Verdana, Arial, Helvetica">
+<SCRIPT LANGUAGE="JScript">
+var NUMBER_OF_REPETITIONS = 40;
+var nRepetitions = 0;
+var g_oTimer = null;
+function startLongProcess()
+{
+   divProgressDialog.style.display = "";
+   resizeModal();
+   btnCancel.focus();
+   // Add a resize handler for the window
+   window.onresize = resizeModal;
+   // Add a warning in case anyone tries to navigate away or refresh the page
+   window.onbeforeunload = showWarning;
+   //
+   // Here's where you would normally kick off a long asynchronous process
+   // like a file download or a remote database operation. Here, we use
+   // our "long process" to simulate this process.
+   //
+   continueLongProcess();
+}
+function updateProgress(nNewPercent)
+{
+   // Update our pseudo progress bar
+   divProgressInner.style.width = (parseInt(divProgressOuter.style.width) 
+      * nNewPercent / 100)+ "px";
+}
+function stopLongProcess()
+{
+   if (g_oTimer != null)
+   {
+      // Clear the timer so we don't get called back an extra time
+      window.clearTimeout(g_oTimer);
+      g_oTimer = null;
+   }
+   // Hide the fake modal DIV
+   divModal.style.width = "0px";
+   divModal.style.height = "0px";
+   divProgressDialog.style.display = "none";
+   // Remove our event handlers
+   window.onresize = null;
+   window.onbeforeunload = null;
+   nRepetitions = 0;
+}
+function continueLongProcess()
+{
+   if (nRepetitions < NUMBER_OF_REPETITIONS)
+   {
+      // Set the timeout somewhere between 0 and .25 seconds
+      var nTimeoutLength = Math.random() * 250;
+      updateProgress(100 * nRepetitions / NUMBER_OF_REPETITIONS);
+      g_oTimer = window.setTimeout("continueLongProcess();", nTimeoutLength);
+      nRepetitions++;
+   }
+   else
+   {
+      stopLongProcess();
+   }
+}
+function showWarning()
+{
+   //Warn users before they refresh the page or navigate away
+   return "Navigating to a different page or refreshing the window could cause you to lose precious data.\n\nAre you*absolutely* certain you want to do this?";
+}
+function resizeModal()
+{
+   // Resize the DIV which fakes the modality of the dialog DIV
+   divModal.style.width = document.body.scrollWidth;
+   divModal.style.height = document.body.scrollHeight;
+   // Re-center the dialog DIV
+   divProgressDialog.style.left = ((document.body.offsetWidth - divProgressDialog.offsetWidth) / 2);
+   divProgressDialog.style.top = ((document.body.offsetHeight - 
+divProgressDialog.offsetHeight) / 2);
+}
+</SCRIPT>
+<INPUT TYPE="BUTTON" VALUE="Click Me!" onclick="startLongProcess();">
+<!-- BEGIN PROGRESS DIALOG -->
+<DIV STYLE="BORDER: buttonhighlight 2px outset; FONT-SIZE: 8pt; Z-INDEX: 
+4; FONT-FAMILY: Tahoma; POSITION: absolute; BACKGROUND-COLOR: buttonface; 
+DISPLAY: none; WIDTH: 350px; CURSOR: default" ID="divProgressDialog" 
+onselectstart="window.event.returnValue=false;">
+   <DIV STYLE="PADDING: 3px; FONT-WEIGHT: bolder; COLOR: captiontext; 
+BORDER-BOTTOM: white 2px groove; BACKGROUND-COLOR: activecaption">
+      Downloading Requested Document
+   </DIV>
+   <DIV STYLE="PADDING: 5px">
+      Please wait while I download the document you requested.
+   </DIV>
+   <DIV STYLE="PADDING: 5px">
+      This may take several seconds.
+   </DIV>
+   <DIV STYLE="PADDING: 5px">
+         <DIV ID="divProgressOuter" STYLE="BORDER: 1px solid threedshadow; 
+WIDTH: 336px; HEIGHT: 15px">
+            <DIV ID="divProgressInner" STYLE="COLOR: white; TEXT-ALIGN: 
+center; BACKGROUND-COLOR: infobackground; MARGIN: 0px; WIDTH: 0px; HEIGHT: 
+13px;"></DIV>
+         </DIV>
+   </DIV>
+   <DIV STYLE="BORDER-TOP: white 2px groove; PADDING-BOTTOM: 5px; PADDING-TOP: 3px; 
+BACKGROUND-COLOR: buttonface; TEXT-ALIGN: center">
+         <INPUT STYLE="FONT-FAMILY: Tahoma; FONT-SIZE: 8pt" TYPE="button" 
+ID="btnCancel" onclick="stopLongProcess();" VALUE="Cancel">
+   </DIV>
+</DIV>
+<!-- END PROGRESS DIALOG -->
+<!-- BEGIN FAKE MODAL DIV-->
+<DIV ID="divModal"
+   STYLE="BACKGROUND-COLOR: white; FILTER: alpha(opacity=75); LEFT: 0px; POSITION:
+ absolute; TOP: 0px; Z-INDEX: 3"
+   onclick="window.event.cancelBubble=true; window.event.returnValue=false;">
+</DIV>
+<!-- END FAKE MODAL DIV -->
+</body>
+</html>
