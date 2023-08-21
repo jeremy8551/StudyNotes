@@ -1,0 +1,10 @@
+1,安装boson-ibm-361;
+2,将ibmcrack.exe拷到安装目录下,执行;
+3,会出来boson的demo;
+4,按about;按manual repair;
+5,出现注册界面，此时按crack的确定键；
+6,按boson的repair键；
+7,OK
+这是189的题，然后安装bos-ibm.exe,这是199的题。
+
+ibm6000

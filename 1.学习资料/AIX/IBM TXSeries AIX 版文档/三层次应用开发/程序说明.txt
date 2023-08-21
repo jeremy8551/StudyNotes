@@ -1,0 +1,546 @@
+本程序输入的参数有:
+1. amt_bill(关键字) 帐单个数:与帐单项列表中的帐单分隔符"&"的个数相同,也和帐目类型列表中帐单分隔符"&"的个数相同.
+
+2. xzbillitemlist 帐单项列表字符串:表示各帐单和帐单项的关系.有帐单分隔符"&"和帐单项分隔符"%".字符串格式: 市话月租费%市话通话费%&长途通话费%农话通话费%& 表示帐单1有"市话月租费"和"市话通话费"两个帐单项;帐单2有"长途通话费"和"农话通话费"两个帐单项.
+
+3. xzlenbillitem 帐单项列表字符串的长度,中间层根据该长度分配内存.
+
+4. xzacctitemlist 帐目类型列表字符串:表示帐单项和帐目类型的关系.有帐单分隔符"&"和帐单项分隔符"%"和帐目类型分隔符"`".字符串格式(对应帐单项列表字符串):123`12`%23`345`%&1`2`%56`45`%& 表示帐单1"市话月租费"对应帐目类型索引123和12;帐单1"市话通话费"对应帐目类型索引23和345;帐单2"长途通话费"对应帐目类型索引1和2;帐单2"农话通话费"对应帐目类型索引56和45.
+
+5. xzlenacctitem 帐目类型列表字符串,中间层根据该长度分配内存.
+
+
+本程序功能是将帐单项列表字符串和帐目类型列表字符串分解,将各对应关系插入数据库.
+
+
+流程:
+
+BEGIN	
+	
+	for i=1 to 帐单数
+	{
+		
+		插入该帐单;		
+
+		从帐单项列表字符串得到"&"和"&"之间的字符串
+		(即得到帐单项列表字符串中各帐单所包括的字符);
+		
+		从帐目类型列表字符串得到"&"和"&"之间的字符串
+		(即得到帐目类型列表字符串中各帐单所包括的字符);
+		
+		while(帐单项列表字符串中该帐单所包括的字符未完成分解
+			&&帐目类型列表字符串中该帐单所包括的字符)
+		{
+			
+			从帐单项列表字符串中该帐单所包括的字符中分解出"%"和"%"之间各帐单项的名称,			插入数据库;
+			
+			while(帐单项包括的账目类型未完成分解)
+			{
+				
+				帐目类型列表字符串中该帐单所包括的字符分解出"%"和"%"之间各帐单
+				包括的"`"和"`"之间的账目类型索引,插入数据库;
+			}
+		}
+	}
+END
+
+
+出错状态:
+
+amt_bill =1
+
+
+xzlenbillitem=61
+
+
+xzacctitemlist=1347
+
+xzbillitemlist=市话月租费%其它费用%&
+
+xzacctitemlist=88`3`6`%7`10`11`22`23`24`26`27`28`30`31`32`36`37`39`40`42`43`47`48`50`86`52`53`55`58`59`61`62`64`65`67`981`60`66`63`54`1023`174`245`175`246`176`247`177`248`178`249`179`250`180`251`181`252`182`253`183`254`1035`1037`173`244`185`256`186`257`187`258`184`255`189`260`190`261`192`263`193`264`195`266`196`267`198`269`199`270`200`271`202`273`203`274`205`276`206`277`208`279`209`280`210`281`211`282`213`284`214`285`216`287`217`288`219`290`220`291`188`259`222`293`226`297`221`292`234`305`235`306`236`307`237`308`238`309`239`310`240`311`241`312`242`313`233`304`1007`1009`1011`1013`1025`1027`1015`1017`1051`1053`1055`1057`1043`1045`1047`1049`1039`1041`1085`1087`243`314`92`93`96`97`108`109`110`112`113`114`116`117`118`122`123`125`126`128`129`133`134`136`171`138`139`141`144`145`147`148`149`150`152`982`127`135`151`140`1024`316`387`317`388`318`389`319`390`320`391`321`392`322`393`323`394`324`395`325`396`1036`1038`315`386`327`398`328`399`329`400`326`397`331`402`332`403`334`405`335`406`337`408`338`409`340`411`341`412`342`413`344`415`345`416`347`418`348`419`350`421`351`422`352`423`353`424`355`426`356`427`358`429`359`430`361`432`362`433`330`401`364`435`368`439`363`434`376`447`377`448`378`449`379`450`380`451`381`452`382`453`383`454`384`455`375`446`1008`1010`1012`1014`1026`1028`1016`1018`1052`1054`1056`1058`1044`1046`1048`1050`1040`1042`1086`1088`385`456`%&
+
+
+
+程序:
+
+/*																						*/										
+/*		功能:用于发票格式的定制                             							*/								
+/*   传入参数:用户号,帐户号																*/
+/*   传出参数:反映帐单格式的结果集,处理成功标志											*/
+/*   操作的数据库表:BILL_FORMAT,BILL_ITEM_TYPE,BILL_ACCT_ITEM_TYPE						*/
+/*   																					*/
+/*																						*/
+/*																	        			*/
+
+
+
+
+
+
+
+#include "easycics.h"
+
+#ifdef _WIN32
+	#define DLLIMPORT __declspec(dllimport)
+	#define DLLEXPORT __declspec(dllexport)
+	#define CDECL __cdecl
+#else
+	#define DLLIMPORT
+	#define DLLEXPORT
+	#define CDECL
+#endif
+
+#define SQLNOTFOUND 1403
+
+EXEC SQL INCLUDE sqlca;
+
+
+
+ 
+  
+EXEC SQL BEGIN DECLARE SECTION;
+	
+	long bill_format_id;
+	long bill_item_id;
+	long acct_item_id;
+	char bill_item_name[100];
+	
+EXEC SQL END DECLARE SECTION;
+
+
+ 
+
+
+
+
+void main(){
+
+	char statusbuf[1000];
+	
+	/*处理成功标志 V: 成功*/
+	char s_err[1000]="V";
+
+	/*传入的帐单数,帐单项列表字符串的长度,帐目类型列表字符串的长度*/
+	char s_amt_bill[5],s_len_billitem[5],s_len_acctitem[5];
+	
+
+	/*以上参数的转换值*/
+	int  amt_bill,len_billitem,len_acctitem;
+
+
+	/*传入的帐单项列表和帐目列表*/
+	char * s_billitem_list,* s_acctitem_list;
+
+
+	/*帐单项列表和帐目列表中每张帐单所包括的字符串,每个帐单项包括的字符串,每个帐目*/
+	char s_evy_bill_for_billitem[2000],
+		 s_evy_billitem_for_billitem[2000],
+		 s_evy_bill_for_acctitem[2000],
+		 s_evy_billitem_for_acctitem[2000],
+		 s_evy_acctitem[2000];
+
+
+	/*帐单项列表和帐目列表中每张帐单,每个帐单项和每个帐目的开始\结束位置*/
+	char * start_bill_for_billitem,
+		* end_bill_for_billitem,
+		* start_billitem_for_billitem,
+		* end_billitem_for_billitem,
+		* start_acctitem,
+		* end_acctitem,
+		* start_bill_for_acctitem,
+		* end_bill_for_acctitem,
+		* start_billitem_for_acctitem,
+		* end_billitem_for_acctitem;
+
+
+
+	/*帐单项列表和帐目列表中每张帐单,每个帐单项和每个帐目的长度*/
+	int len_bill_for_billitem,
+		len_evy_billitem_for_billitem,
+		len_bill_for_acctitem,
+		len_evy_billitem_for_acctitem,
+		len_evy_acctitem;
+
+
+	/*循环子*/
+	int i;
+
+
+
+	/*分隔符*/
+	
+	/*帐单分隔符*/
+	int bill_spin='&';
+
+	/*帐单项分隔符*/
+	int billitem_spin='%';
+	
+	/*帐目类型分隔符*/
+	int acctitem_spin='`';
+
+	/*cics初始化*/
+	if( InitEasyCics() )
+	{
+		
+		ExitEasyCics();
+		return;
+	
+	}
+
+
+	PrintStatus("xz_mk_308完成init cics ");
+
+
+	/*得到帐单项列表的长度,分配内存,得到帐单项列表*/
+	GetValue( "xzlenbillitem", s_len_billitem);
+	len_billitem=atoi(s_len_billitem);
+
+	s_billitem_list=(char *)malloc((len_billitem+1)*sizeof(char));
+	GetValue("xzbillitemlist",s_billitem_list);
+	s_billitem_list[len_billitem]='\0';
+
+	
+
+	
+	sprintf(statusbuf,"len_billitem is %d,s_billitem_list is %s.",len_billitem,s_billitem_list);
+	PrintStatus(statusbuf);
+
+
+	/*得到帐目列表的长度,分配内存,得到帐目列表*/
+	GetValue( "xzlenacctitem", s_len_acctitem);
+	len_acctitem=atoi(s_len_acctitem);
+
+	s_acctitem_list=(char *)malloc((len_acctitem+1)*sizeof(char));
+	GetValue("xzacctitemlist",s_acctitem_list);
+	s_acctitem_list[len_acctitem]='\0';
+
+
+
+	/*得到帐单的数目*/
+	GetValue("xzamtbill",s_amt_bill);
+	amt_bill=atoi(s_amt_bill);
+
+
+	/*将原先的帐单作废*/
+	EXEC SQL UPDATE BILL_FORMAT 
+	SET 
+		BILL_FORMAT.STATE='X1B'
+	WHERE
+		BILL_FORMAT.STATE='X1A';
+	if(sqlca.sqlcode<0)
+	{
+		sprintf(s_err,"bill_format修改错误:%s",sqlca.sqlerrm.sqlerrmc);
+		PrintStatus(s_err);
+		EXEC SQL rollback;
+		BeginWrite();
+		SetValue("xzzddzscss",s_err);
+		ExitEasyCics();
+	}
+
+
+
+	PrintStatus("帐单循环开始");
+
+	start_bill_for_billitem=s_billitem_list;
+	end_bill_for_billitem=s_billitem_list;
+	start_bill_for_acctitem=s_acctitem_list;
+	end_bill_for_acctitem=s_acctitem_list;
+
+
+	/*处理帐单*/
+
+	for(i=1;i<=amt_bill;i++)
+	{
+		
+		exec sql select seq_bill_format_id.nextval 
+					into :bill_format_id from dual;
+		if(sqlca.sqlcode<0)
+		{
+			PrintStatus("select seq_bill_format_id err:");
+			PrintStatus(sqlca.sqlerrm.sqlerrmc);
+			EXEC SQL rollback;
+			sprintf(s_err,"生成bill_format主键错误:%s",sqlca.sqlerrm.sqlerrmc);
+			BeginWrite();
+			SetValue("xzzddzscss",s_err);
+		} 
+			
+		exec sql insert into bill_format 
+				values(:bill_format_id,NULL,NULL,NULL,NULL,'X1A');
+		if(sqlca.sqlcode<0)
+		{
+			sprintf(s_err,"插入bill_format错误:%s",sqlca.sqlerrm.sqlerrmc);
+			PrintStatus(s_err);
+			EXEC SQL rollback;
+			SetValue("xzzddzscss",s_err);
+			ExitEasyCics();
+		} 
+		else
+			PrintStatus("成功插入bill_format");
+			
+		
+		/*end_bill_for_billitem指向本帐单所包括的字符串的结束位置*/
+		end_bill_for_billitem=strchr(start_bill_for_billitem,bill_spin);
+	
+		PrintStatus("end_bill_for_billitem");
+		PrintStatus(end_bill_for_billitem);
+
+		if (end_bill_for_billitem==NULL)
+			break;
+		
+		/*end_bill_for_billitem-start_bill_for_billitem是本帐单所包括的字符串的长度*/
+		len_bill_for_billitem=end_bill_for_billitem-start_bill_for_billitem;		
+		if (len_bill_for_billitem==0)
+			break;
+			
+		PrintStatus("start_bill_for_billitem");
+		PrintStatus(start_bill_for_billitem);
+		
+		/*从帐单项列表中分解得到该帐单所包括的帐单项字符串*/
+		strncpy(s_evy_bill_for_billitem,start_bill_for_billitem,len_bill_for_billitem);
+		s_evy_bill_for_billitem[len_bill_for_billitem]='\0';
+			
+		if(s_evy_bill_for_billitem!=NULL)	
+		{
+			
+			sprintf(statusbuf,"s_evy_bill_for_billitem is %s",s_evy_bill_for_billitem);
+			PrintStatus(statusbuf);
+		
+		}
+		else
+			PrintStatus("s_evy_bill_for_billitem 为空");	
+		
+		
+		
+		end_bill_for_acctitem=strchr(start_bill_for_acctitem,bill_spin);
+		
+		sprintf(statusbuf,"帐单的帐单项的起始地址:%d",end_bill_for_acctitem);
+		PrintStatus(statusbuf);
+		if(end_bill_for_acctitem==NULL)
+			break;
+		
+		len_bill_for_acctitem=end_bill_for_acctitem-start_bill_for_acctitem;
+		
+		sprintf(statusbuf,"帐单的帐单项的长度%d",len_bill_for_acctitem);
+		PrintStatus(statusbuf);
+		
+		if(len_bill_for_acctitem==0)
+			PrintStatus("帐单项所包括的帐目类型为空");
+			
+		PrintStatus("时strncpy的问题");
+		
+		
+		/*从帐目列表中分解得到该帐单所包括的帐目类型字符串*/
+		strncpy(s_evy_bill_for_acctitem,start_bill_for_acctitem,len_bill_for_acctitem);
+		s_evy_bill_for_acctitem[len_bill_for_acctitem]='\0';
+		
+		if(s_evy_bill_for_acctitem!=NULL)
+		{
+			
+			/*debug*/
+			sprintf(statusbuf,"s_evy_bill_for_acctitem is %s",s_evy_bill_for_acctitem);
+			PrintStatus(statusbuf);
+		
+		}
+		else
+			PrintStatus("s_evy_bill_for_acctitem 为空");	
+		
+		
+		
+		start_billitem_for_billitem=s_evy_bill_for_billitem;
+		end_billitem_for_billitem=s_evy_bill_for_billitem;
+		start_billitem_for_acctitem=s_evy_bill_for_acctitem;
+		end_billitem_for_acctitem=s_evy_bill_for_acctitem;
+			
+		/*debug*/
+		sprintf(statusbuf,"start_billitem_for_billitem is %d,start_billitem_for_acctitem is %d",start_billitem_for_billitem,start_billitem_for_acctitem);
+		PrintStatus(statusbuf);
+
+		PrintStatus("帐单项循环开始");
+		
+		/*处理帐单项*/
+		while(((* start_billitem_for_billitem)!='\0') && 
+				((* start_billitem_for_acctitem)!='\0'))
+		{
+		
+			PrintStatus("是end_billitem_for_billitem的错?");
+			end_billitem_for_billitem=strchr(start_billitem_for_billitem,billitem_spin);	
+			PrintStatus("不是");
+		
+			if(end_billitem_for_billitem==NULL)
+			{
+				
+				PrintStatus("帐单项处理完成");
+				break;
+			
+			}
+		
+			len_evy_billitem_for_billitem=end_billitem_for_billitem-start_billitem_for_billitem;
+					
+			if(len_evy_billitem_for_billitem>0) 
+			{
+				
+				/*分解得到每个帐单的帐单项*/		
+				strncpy(s_evy_billitem_for_billitem,start_billitem_for_billitem,len_evy_billitem_for_billitem);	
+				
+				s_evy_billitem_for_billitem[len_evy_billitem_for_billitem]='\0';
+
+				strcpy(bill_item_name,s_evy_billitem_for_billitem);
+				
+				exec sql select seq_bill_item_type_id.nextval 
+							into :bill_item_id from dual ;
+				if(sqlca.sqlcode<0)
+				{
+					
+					sprintf(s_err,"生成bill_item_type的主键值错误:%s",sqlca.sqlerrm.sqlerrmc);
+					PrintStatus(s_err);
+					EXEC SQL rollback;
+					SetValue("xzzddzscss",s_err);
+					ExitEasyCics();
+				
+				} 
+			
+				exec sql insert into bill_item_type 
+						values(:bill_item_id,:bill_format_id,:bill_item_name);
+				if(sqlca.sqlcode<0)
+				{
+					
+					sprintf(s_err,"插入bill_item_type错误:%s",sqlca.sqlerrm.sqlerrmc);
+					PrintStatus(s_err);
+					EXEC SQL rollback;
+					SetValue("xzzddzscss",s_err);
+					ExitEasyCics();
+
+				}
+				else 
+					PrintStatus("成功插入bill_item_type");
+			
+			}
+
+			end_billitem_for_acctitem=strchr(start_billitem_for_acctitem,billitem_spin);
+			
+			if(end_billitem_for_acctitem==NULL)
+				break;
+			
+			len_evy_billitem_for_acctitem=end_billitem_for_acctitem-start_billitem_for_acctitem;
+						
+			/*从帐目类型列表字符串得到帐单字符串中得到每个帐单项和帐目的关系录入数据库*/				
+			if(len_evy_billitem_for_acctitem>0)
+			{
+		
+				strncpy(s_evy_billitem_for_acctitem,start_billitem_for_acctitem,len_evy_billitem_for_acctitem);	
+				
+				s_evy_billitem_for_acctitem[len_evy_billitem_for_acctitem]='\0';
+				start_acctitem=s_evy_billitem_for_acctitem;
+				end_acctitem=s_evy_billitem_for_acctitem;
+			
+			
+				PrintStatus("帐目项循环开始");
+			
+				while((* start_acctitem)!='\0')
+				{
+			
+					PrintStatus("是end_acctitem的错?");
+					end_acctitem=strchr(start_acctitem,acctitem_spin);
+					PrintStatus("不是");
+			
+					if (end_acctitem==NULL)
+					{
+						
+						PrintStatus("帐单项的帐目类型处理完成");
+						break;
+					
+					}
+			
+					len_evy_acctitem=end_acctitem-start_acctitem;
+							
+					if(len_evy_acctitem>0)
+					{
+									
+						strncpy(s_evy_acctitem,start_acctitem,len_evy_acctitem);
+						s_evy_acctitem[len_evy_acctitem]='\0';
+						
+						sprintf(statusbuf,"所在帐单项:%s.",bill_item_name);
+						PrintStatus(statusbuf);
+						PrintStatus("帐目类型编号:");
+						PrintStatus(s_evy_acctitem);
+						
+						acct_item_id=atol(s_evy_acctitem);
+						
+						exec sql insert into bill_acct_item_type_10
+								values(:bill_item_id,:acct_item_id);
+			
+						if(sqlca.sqlcode<0)
+						{
+							
+							sprintf(s_err,"插入bill_acct_item_type表错误:%s",sqlca.sqlerrm.sqlerrmc);
+							PrintStatus(s_err);
+							EXEC SQL rollback;
+							SetValue("xzzddzscss",s_err);
+							ExitEasyCics();
+						
+						}
+						else 
+							if(sqlca.sqlcode==0)		
+								PrintStatus("成功插入bill_acct_item_typ");
+							else
+							{
+								
+								sprintf(s_err,"插入bill_acct_item_type表错误:%s",sqlca.sqlerrm.sqlerrmc);
+								PrintStatus(s_err);
+								EXEC SQL rollback;
+								SetValue("xzzddzscss",s_err);
+								ExitEasyCics();
+							
+							}
+									
+					}
+					start_acctitem=end_acctitem+1;		
+				
+				}
+			
+			}
+			start_billitem_for_billitem=end_billitem_for_billitem+1;
+					
+			start_billitem_for_acctitem=end_billitem_for_acctitem+1;
+					
+		}
+				
+		start_bill_for_billitem=end_bill_for_billitem+1;
+		
+		start_bill_for_acctitem=end_bill_for_acctitem+1;
+			
+	}
+	
+	exec sql commit;
+
+	start_bill_for_billitem=NULL;
+	end_bill_for_billitem=NULL;
+	start_billitem_for_billitem=NULL;
+	end_billitem_for_billitem=NULL;
+	start_acctitem=NULL;
+	end_acctitem=NULL;
+	start_bill_for_acctitem=NULL;
+	end_bill_for_acctitem=NULL;
+	start_billitem_for_acctitem=NULL;
+	end_billitem_for_acctitem=NULL;
+	
+	
+	free(s_billitem_list);
+	free(s_acctitem_list);
+
+	BeginWrite();
+	SetValue("xzzddzscss",s_err);
+	ExitEasyCics();
+	PrintStatus("xz_mk_308完成");
+
+}
+
+
+
+
+
+
+
+
+
+		
