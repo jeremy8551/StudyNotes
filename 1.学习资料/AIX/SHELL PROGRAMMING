@@ -1,0 +1,224 @@
+SHELL PROGRAMMING
+.
+Metacharacters and Wildcards
+Metacharacters	< > | ; ! * ? [ ] $ \ " ' '
+Wildcards	* ? ! [ ] [ - ]
+- options
+example
+	ls n*
+	rm n?
+	echo test*
+	ls ne[stw]	枚举
+	 new net
+	ls *[1-5]	no "test" file
+	 test1 test1.2
+	ls [!tn]*	取非
+	ls /tmp/[a-zA-Z]*.[0-9]
+.
+The Standard Files
+ in(0)    <
+ out(1)   >	same as 1>
+ err(2)   2>
+        Redirect 重定向 
+example
+	mail team01 < letter
+	ls > ls.out
+	who >> who.online	added to the end of the exited file who.online
+	wc -l < file1 > /tmp/lines
+	cat > newfile
+	wrongcmd 2> err.log
+	wrongcmd 2> /dev/null	cancel all errout.
+	cat /dev/null>err.log
+	command > outfile 2> errfile < infile
+.
+Pipe 
+	ps -ef | more
+	who | wc -l
+.
+Variables
+ /etc/environment
+ /etc/profile
+ .profile
+	
+	readonly LOGNAME	用户不能重新设定LOGNAME。
+	now=$date
+	now=`date`	`反向的'.
+	now=$(date)
+	' '内为实际键入的字符。
+	" "保留特殊字符的意义，
+	\$HOME \取消特殊字符的意义
+	
+
+PROCESS
+	the first process id is 1 --> /etc/init
+	$echo $$	#the current pid
+	
+	$echo $$
+	202
+	$ksh
+	$echo $$
+	303	#pid=303 and ppid=202
+	$exit
+	$echo $$
+	202
+#通过export申明的变量在当前和向下的sh中有效，向上无效。
+	$lssrc -a|pg
+  执行方式：	
+	$ksh hello	#1	or
+	$hello		#2	or
+	$. hello	#3同1，但不开启新的sh，而在当前sh执行，其实2也是开启一个新的sh
+	
+	$echo $?	#看前一次执行是不是正常，0正常，非0异常。
+  查看进程:	#多用于系统调优
+  	$ps
+  	$ps -f
+  	$ps -fu root
+  	$ps -ft pts/1
+  	$ps -ef | grep 1
+  	$ps aux|pg	#进程占用CPU、MEM时间
+  	$ps -el
+  后台进程：	#用&
+  	$ls -R />fil.out&
+  终止进程：	#前台可用CTL+C，其它用kill -9 pid
+  	正常提交后台进程后，当当前终端退出时，会向后台进程发 kill -1 pid的命令，要求后台进程终止，可使用nohup来实现后台进程的不终止。
+  	$jobs
+  	$^z
+  	$fg %1
+  	$bg %1
+
+CUSTOMER
+ 1./etc/environment	#root
+ 2./etc/profile		#root
+ 3.$HOME/.profile	#user, root可以没有。
+
+.dtprofile的DTSOURCEPROFILE=true可保证两种类型的终端登陆时.profile均生效。
+	$alias
+	$unalias
+	 
+ 
+  	
+COMMAND
+ find
+ grep
+ sort
+ head
+ tail
+ dosdir
+ dosread
+ doswrite
+ dosdelete
+  	$find . -name sum 
+ 	$find . -name 'm*' -exec ls -l {} \;
+ 	                   -----       -- --fixed formal
+ 	$find . -name 'm*' -ok rm {} \;
+ 	                   ---intetactive
+ 	$find . -name 's*' -type f -size +2 
+ 	$find . -perm 644 -mtime +4 -print
+ 	$find . -name haha -o -name xixi
+ 	$grep haha file1
+ 	$grep haha file*
+ 		. * [aA] [a-f] ^a z$
+ 	$grep '^B' *
+ 	$grep '^A.*z$' *
+ 		-v -c -l -i -w
+ 	$fgrep 'HW' *		#just for search 字符
+ 	$egrep 'haha|xixi' *	#or
+ 	$sort file1
+ 	$sort file1 +0.1
+ 	$sort file -t. -n +1
+ 	$head -5 file1
+ 	$tail -5 file1	#last 5 lines
+ 	$tail +5 file1	#start line 5
+ ftp
+ 	$ftp computer1
+ tar
+ backup
+ restore	#you can use 'smit' to instand these command
+ 
+ xargs
+ 	$cat files | xargs -t rm
+ 	$ls > printlist
+ 	$xargs -t qprt < printlist
+ 	$ls | xargs -t -I {} mv {} {}.old
+ 	$find . -type f -mtime +10 | xargs -t rm	# same as
+ 	 $find . -type f -mtime +10 -exec rm {} \;
+ 	$find . -type f | xargs -t grep -l Hello
+ 	$find . -name 'c*'	#递归查找
+ 	$find /home -type f -links +1 | xargs ls -li
+ 	$alias mycmd='ls'
+ 	$which find
+ 	$whereis find
+ 	$whence find	#add alias table
+ 	$file ls myfile	#/etc/magic
+ 	$diff file1 file2
+ 	$cmp file1 file2
+ 	$dircmp dir1 dir2
+ compress
+ uncompress
+ zcat	#查看.Z文件
+ 	$
+ 	$echo "haha" > -i
+ 	$rm -- -i
+ tips:
+ 	$cat -vte file
+ 	$touch file$$
+ 	$touch file.$(date +'%m%d')
+SHELL PROGRAMMING UTILITY
+ $$	 $0 sh名称
+ $#参数个数
+ $*参数
+ $? 	$!
+ $1 $2 $9 ${10} ${29}
+ 
+ expr : integer arithmetic
+ 	\* / % + -
+ 	$expr 2 \* 3
+ 	$expr \( $ver1 + $ver2 \) \* 5
+ 	$val=$( expr 2 + 3 ) 
+ command1 && command2 	#1成功，才2 
+ command1 || command2 	#1不成功，才2
+ test expression 
+ test [ expression ] 
+ test [[ expression ]]
+  	$test -a file1 	#file exists
+  	      -d
+  	      -r
+  	      -w
+  	$test -a myfile || touch myfile
+ if
+ read	#在申明变量的同时从标准输入读入。
+ for
+ 	for var in file1 file2 file3
+ 	do 
+ 	   wc -l $var
+ 	done
+ 	
+ 	for file in /tmp/*	# for file in $(ls)
+ 	do
+ 	  echo "removing $file"
+ 	  rm $file
+ 	done
+ while
+
+AIXwindow
+ r命令：
+ 	$rexe sys2 aixterm -display sys1:0	#在sys1运行sys2上的程序
+ starx
+ xhost
+ xclock
+ xterm
+ 
+ start order:
+ .xinitrc
+ 	xclock  aixterm  mwm(Motif Window Manager)
+ .xdefaults	# $HOME/.xdefaults
+ .mwmrc		# $HOME/.mwmrc
+    
+ same to 'custom' window
+ or xsetroot command
+ 		
+CDE common desktop environment
+ include : login, panel, style, file, application, personal, help, session management
+ xinit /usr/dt/bin/xsession
+ $HOME/.dtprofile
+ 
