@@ -1,0 +1,4 @@
+
+把tomcat注册成服务:
+
+call %TOMCAT_HOME%\bin\service.bat -install [service name]

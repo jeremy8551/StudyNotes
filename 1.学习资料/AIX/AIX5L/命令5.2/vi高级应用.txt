@@ -1,0 +1,274 @@
+    1.交换两个字符位置
+　　
+　　xp
+　　2.上下两行调换
+　　ddp
+　　3.把文件内容反转
+　　:g/^/m0/ (未通过)
+　　
+　　4.上下两行合并 
+　　J
+　　5.删除所有行 
+　　dG
+　　6.从当前位置删除到行尾
+　　d$
+　　7.从当前位置复制到行尾
+　　y$ 如果要粘贴到其他地方 p 就可以了
+　　
+　　
+　　由于vi 是建立在 EX 上的 所以 当键入 : 时就来到了 EX 命令状态 
+　　8.
+　　:ab string strings 
+　　例如 ":ab usa United States of America" ,
+　　当你在文见里插入 usa 时 
+　　United States of America 就蹦出来了
+　　9.
+　　:map keys new_seq 
+　　定义你当前 键盘命令 
+　　10.
+　　:set [all] 
+　　vi or ex 的编辑状态
+　　如 显示每行 :set nu 
+　　11.
+　　在命令状态下，nyy表示拷贝从光标行起的下n行内容，p表示paste,可刚复制的内容粘贴在光标处的
+　　下面。 
+　　
+　　12.
+　　单个字符替换用r，覆盖多个字符用R，用多个字符替换一个字符用s，整行替换用S 
+　　
+　　13.
+　　
+　　:%s/old_word/new_word/g
+　　这个指令是于在整个文件中替换特定字符串 
+　　
+　　14.光标控制
+　　
+　　k:上移 nk 上移n行
+　　j:下移 nj 下移n行
+　　
+　　
+　　将光标移到第n行，按下 mk
+　　将光标移到第m行，按下 "ay'k
+　　即将第n到m的行存到a寄存器，以此类推，b，c........寄存器等
+　　
+　　这样就可以将你常用的需要复用的内容粘贴到不同的寄存器中以备用
+　　
+　　
+　　想粘贴到某处，直接将光标移到某地，按下 ‘ap 即可,以此类推，b，c........寄存器等
+　　
+　　在当前屏幕中
+　　H 跳到第一行
+　　M 跳到中间一行
+　　L 跳到最后一行 
+　　
+　　15.
+　　表8-2 删除命令
+　　删除命令操作
+　　d l 删除当前字符（与x命令功能相同）
+　　d 0 删除到某一行的开始位置
+　　d ^ 删除到某一行的第一个字符位置（不包括空格或TA B字符）
+　　d w 删除到某个单词的结尾位置
+　　d 3 w 删除到第三个单词的结尾位置
+　　d b 删除到某个单词的开始位置
+　　d W 删除到某个以空格作为分隔符的单词的结尾位置
+　　d B 删除到某个以空格作为分隔符的单词的开始位置
+　　d 7 B 删除到前面7个以空格作为分隔符的单词的开始位置
+　　d） 删除到某个语句的结尾位置
+　　d 4） 删除到第四个语句的结尾位置
+　　d（ 删除到某个语句的开始位置
+　　d } 删除到某个段落的结尾位置
+　　d { 删除到某个段落的开始位置
+　　d 7 { 删除到当前段落起始位置之前的第7个段落位置
+　　d d 删除当前行
+　　d /t e x t 删除从文本中出现“ t e x t”中所指定字样的位置，一直向前直到下一个该字样所出现的
+　　位置（但不包括该字样）之间的内容
+　　d fc 删除从文本中出现字符“c”的位置，一直向前直到下一个该字符所出现的位置（包括
+　　该字符）之间的内容
+　　d tc 删除当前行直到下一个字符“ c”所出现位置之间的内容
+　　D 删除到某一行的结尾
+　　d $ 删除到某一行的结尾
+　　5 d d 删除从当前行所开始的5行内容
+　　d L 删除直到屏幕上最后一行的内容
+　　d H 删除直到屏幕上第一行的内容
+　　d G 删除直到工作缓存区结尾的内容
+　　d 1 G 删除直到工作缓存区开始的内容
+　　
+　　修改命令操作
+　　c l 更改当前字符
+　　c w 修改到某个单词的结尾位置
+　　c 3 w 修改到第三个单词的结尾位置
+　　c b 修改到某个单词的开始位置
+　　c W 修改到某个以空格作为分隔符的单词的结尾位置
+　　c B 修改到某个以空格作为分隔符的单词的开始位置
+　　c 7 B 修改到前面7个以空格作为分隔符的单词的开始位置
+　　c 0 修改到某行的结尾位置
+　　c） 修改到某个语句的结尾位置
+　　c 4） 修改到第四个语句的结尾位置
+　　c（ 修改到某个语句的开始位置
+　　c } 修改到某个段落的结尾位置
+　　c { 修改到某个段落的开始位置
+　　c 7 { 修改到当前段落起始位置之前的第7个段落位置
+　　c tc 修改当前行直到下一个字符c所出现位置之间的内容
+　　C 修改到某一行的结尾
+　　c c 修改当前行
+　　5 c c 修改从当前行所开始的5行内容
+　　
+　　
+　　.重复上一次修改！ 
+　　
+　　
+　　表8-4 替换命令
+　　替换命令操作
+　　s 将当前字符替换为一个或多个字符
+　　S 将当前行替换为一个或多个字符
+　　5 s 将从当前字符开始的5个字符替换为一个或多个字符
+　　
+　　
+　　vi替换使用规则：
+　　:g/s1/s/s2/s3/g
+　　第一个g表示对每一个包括s1的行都进行替换，第二个g表示对每一行包括s1的行所有的s2都用s3替换
+　　s表示替换，s2是要被替换的字符串，他可以和s1相同（如果相同的话用//代替），s3是替换字符串 
+　　
+　　
+　　16.
+　　
+　　fx
+　　往右移动到 x 字符上
+　　Fx
+　　往左移动到 x 字符上
+　　tx
+　　往右移动到 x 字符前
+　　Tx
+　　往左移动到 x 字符后
+　　（注意：以上四个命令中，其中x是键入的字符）
+　　;
+　　分号，配合 f 和 t 使用，重复一次 
+　　,
+　　逗号，配合 f 和 t 使用，反方向重复一次
+　　
+　　
+　　17. vi 环境选项 Solaris ksh
+　　
+　　noautoindent nomodelines noshowmode
+　　autoprint nonumber noslowopen
+　　noautowrite nonovice tabstop=8
+　　nobeautify nooptimize taglength=0
+　　directory=/var/tmp paragraphs=IPLPPPQPP LIpplpipnpbtags=tags /usr/lib/tags
+　　noedcompatible prompt tagstack
+　　noerrorbells noreadonly term=vt100
+　　noexrc redraw noterse
+　　flash remap timeout
+　　hardtabs=8 report=5 ttytype=vt100
+　　noignorecase scroll=11 warn
+　　nolisp sections=NHSHH HUuhsh+c window=23
+　　nolist shell=/bin/ksh wrapscan
+　　magic shiftwidth=8 wrapmargin=0
+　　mesg noshowmatch nowriteany
+　　
+　　
+　　For C-Shell:
+　　setenv EXINIT "set nu"
+　　For Bourne or Korn Shell:
+　　EXINIT="set nu"; export EXINIT 
+　　For Korn Shell Only (alternate method): 
+　　typeset -x EXINIT="set nu"
+　　在 .profile 里设置 vi 的环境选项 , 以上均测试过 
+　　
+　　
+　　18.标记文本
+　　
+　　　　mchar　　 用字母char标记当前光标的位置
+　　　　`char 　　移至char所标记处
+　　　　'char　　 移至char标记所在行的开头处
+　　　　"　　　　 移至当前行上一次所在位置（在光标移动之后）――一个双引号
+　　　　''　　　　移至当前行上第一次所在位置的行的开头处(在光标移动之后)――两个单引号
+　　
+　　
+　　19.
+　　同时vi多个文件时，CTRL-SHIFT-6回到上一个文件，在本次vi的文件和上次vi的文件之间切换。
+　　但是我发现一个BUG：在用CTRL-SHIFT-6切换到上一个文件后，用:args查看多文件vi状态时，
+　　屏幕底部仍然显示目前vi的是刚才的文件。
+　　(在HP-UX,Solaris,AIX上通过)
+　　
+　　也可以使用:
+　　:n
+　　进行切换
+　　
+　　20.
+　　sco 下VI 要在文本前同样的字符加用
+　　%s/^/要加的内容/g 要在文本后同样的字符加
+　　%s/$/要加的内容/g 
+　　
+　　21.
+　　如何去掉文本中的 ^M 硬回车？不必用binary传回去再ascii传回来的方式，用shell或者unix语句实现。
+　　
+　　cat filename |tr -d '\015' >newfile
+　　不同的unix系统还存在一些其他不同的命令,如:doscp 
+　　sed 也可以实现这个功能. 
+　　
+　　dos2unix filename filename2
+　　反之
+　　unix2dos filename filename2 
+　　
+　　在vi 中用:$s/^M//g
+　　^是crtl-V crtl-M 
+　　
+　　
+　　22.如何在“unix命令行”下将一个文件的某字符串用另一个串换掉
+　　
+　　sed 's/string1/string2/gp' file1 > file2
+　　
+　　23.将/etc/hosts下所有的地址都ping 2次
+　　
+　　 1 #/usr/bin/sh
+　　 2 #grad /etc/hosts and ping each address
+　　 3 cat /etc/hosts|grep -v '^#' | while read LINE
+　　 4 do
+　　 5 ADDR=`awk '{print $1}'`
+　　 6 for MACHINE in $ADDR
+　　 7 do
+　　 8 ping $MACHINE -n 2
+　　 9 done
+　　 10 done
+
+
+
+create table "as400".tgpf20
+  (
+    tg20fsha char(5),
+    tg20dpid char(5),
+    tg20date decimal(8,0),
+    tg20adsn decimal(6,0),
+    tg20buno decimal(5,0),
+    tg20buid char(32),
+    tg20pydt decimal(8,0),
+    tg20pykd char(1),
+    tg20pydp char(12),
+    tg20pyan char(40),
+    tg20pyna char(60),
+    tg20pydd char(20),
+    tg20pype char(2),
+    tg20pyty char(2),
+    tg20pyid char(20),
+    tg20redt decimal(8,0),
+    tg20rekd char(1),
+    tg20redp char(12),
+    tg20rean char(40),
+    tg20rena char(60),
+    tg20redd char(20),
+    tg20repe char(2),
+    tg20rety char(2),
+    tg20reid char(20),
+    tg20cu char(2),
+    tg20amnt decimal(15,2),
+    tg20usag char(20),
+    tg20clmd char(2),
+    tg20evno char(32),
+    tg20trno char(10),
+    tg20kzsb char(20),
+    tg20cash char(20),
+    tg20flag char(1),
+    tg20time integer,
+    t_name char(9)
+  );
+
