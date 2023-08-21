@@ -1,0 +1,72 @@
+JDK6的新特性之十一:更简单,更强大的JAX-WS 
+
+JAX-WS2.0的来历
+
+--------------------------------------------------------------------------------
+JAX-WS(JSR-224) 是Java Architecture for XML Web Services的缩写,简单说就是一种用Java和XML开发Web Services应用程序的框架, 目前版本是2.0, 它是JAX-RPC 1.1的后续版本, J2EE 1.4带的就是JAX-RPC1.1, 而Java EE 5里面包括了JAX-WS 2.0,但为了向后兼容,仍然支持JAX-RPC. 现在,SUN又把JAX-WS直接放到了Java SE 6里面,由于JAX-WS会用到Common Annotation(JSR 250),Java Web Services Metadata(JSR 181), JAXB2(JSR 222), StAX(JSR 173), 所以SUN也必须把后几个原属于Java EE范畴的Components下放到Java SE, 现在我们可以清楚地理解了为什么Sun要把这些看似跟Java SE没有关系的Components放进来,终极目的就是要在Java SE里面支持Web Services.
+
+JAX-WS2.0的架构
+
+--------------------------------------------------------------------------------
+JAX-WS不是一个孤立的框架,它依赖于众多其他的规范,本质上它由以下几部分组成
+1.用来开发Web Services的Java API
+2.用来处理Marshal/Unmarshal的XML Binding机制,JAX-WS2.0用JAXB2来处理Java Object与XML之间的映射,Marshalling就是把Java Object映射到XML,Unmarshalling则是把XML映射到Java Object.之所以要做Java Object与XML的映射,是因为最终作为方法参数和返回值的Java Object要通过网络传输协议(一般是SOAP)传送,这就要求必须对Java Object做类似序列化和反序列化的工作,在SOAP中就是要用XML来表示Java object的内部状态
+3.众多元数据(Annotations)会被JAX-WS用来描述Web Services的相关类,包括Common Annotations, Web Services Metadata, JAXB2的元数据和JAX-WS2.0规范自己的元数据.
+4.Annotation Processing Tool(APT)是JAX-WS重要的组成部分,由于JAX-WS2.0规范用到很多元数据,所以需要APT来处理众多的Annotations.在<JDK_HOME>/bin下有两个命令wsgen和wsimport,就是用到APT和Compiler API来处理碰到的Annotations,wsgen可以为Web Services Provider产生并编译必要的帮助类和相关支持文件,wsimport以WSDL作为输入为Web Service Consumer产生并编译必要的帮助类和相关支持文件.
+5.JAX-WS还包括JAX-WS Runtime与应用服务器和工具之间的契约关系
+
+JAX-WS2.0的编程模型
+
+--------------------------------------------------------------------------------
+现在用JAX-WS2.0来编写Web Services非常简单,不像JAX-RPC,JAX-WS可以把任意POJO暴露为Web Services,服务类不需要实现接口,服务方法也没有必要抛出RMI异常.下面介绍在JDK6环境下用JAX-WS2.0开发和测试Web Services的步骤
+1.编写服务类,并用Web Services Metadata(JSR-181)标注这个服务类,我用我的另一篇BlogJDK6的新特性之十:Web服务元数据中的WSProvider类作为服务类的例子,在此我重复贴一下WSProvider类的源代码:
+/**
+ * @author chinajash
+ */
+@WebService(targetNamespace="http://blog.csdn.net/chinajash",serviceName="HelloService")
+public class WSProvider {
+    @WebResult(name="Greetings")//自定义该方法返回值在WSDL中相关的描述    
+    @WebMethod
+    public String sayHi(@WebParam(name="MyName") String name){
+        return "Hi,"+name; //@WebParam是自定义参数name在WSDL中相关的描述
+    }    
+    @Oneway //表明该服务方法是单向的,既没有返回值,也不应该声明检查异常
+    @WebMethod(action="printSystemTime",operationName="printSystemTime")//自定义该方法在WSDL中相关的描述
+    public void printTime(){
+        System.out.println(System.currentTimeMillis());
+    }
+    public static void main(String[] args) {
+        Thread wsPublisher = new Thread(new WSPublisher());
+        wsPublisher.start();
+    }    
+    private static class WSPublisher implements Runnable{
+        public void run() {
+            //发布WSProvider到http://localhost:8888/chinajash/WSProvider这个地址,之前必须调用wsgen命令
+            //生成服务类WSProvider的支持类,命令如下:
+            //wsgen -cp . WebServices.WSProvider
+            Endpoint.publish("http://localhost:8888/chinajash/WSProvider",new WSProvider());
+        }        
+    }
+}
+2.用wsgen生成上面服务类的必要的帮助类,然后调用用EndPoint类的静态方法publish发布服务类(步骤请参考我的另一篇Blog JDK6的新特性之十:Web服务元数据),我在这里是将服务类发布到http://localhost:8888/chinajash/WSProvider
+3.用wsimport为服务消费者(也就是服务的客户端)生成必要的帮助类,命令如下:
+wsimport http://localhost:8888/chinajash/WSProvider?wsdl
+这会在<当前目录>\net\csdn\blog\chinajash下生成客户端的帮助类,在这个例子中会生成7个类
+HelloService.class
+ObjectFactory.class
+package-info.class
+PrintSystemTime.class
+SayHi.class
+SayHiResponse.class
+WSProvider.class
+4.在客户端用下面代码即可调用步骤1定义的Web Service
+HelloService hs = new HelloService();
+WSProvider ws = hs.getWSProviderPort();
+System.out.println(ws.sayHi("chinajash"));
+ws.printSystemTime();
+调用上述代码后客户端控制台输出
+hi,chinajash
+服务端控制台输出服务器当前系统时间
+
+
+

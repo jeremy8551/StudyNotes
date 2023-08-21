@@ -1,0 +1,53 @@
+JDK6的新特性之十三:JTable的排序和过滤
+
+原来的JTable基本上是只能显示数据，在JDK6新增了对JTable的排序和过滤功能，下面代码演示了这两个功能
+
+/**
+ * @author chinajash
+ */
+public class JTableTester {
+    static String data[][] = {
+        {"China","Beijing","Chinese"},
+        {"America","Washington","English"},
+        {"Korea","Seoul","Korean"},
+        {"Japan","Tokyo","Japanese"},
+        {"France","Paris","French"},
+        {"England","London","English"},
+        {"Germany","Berlin","German"},
+    };
+    static String titles[] = {"Country","Capital","Language"};
+    public static void main(String[] args) {        
+        DefaultTableModel m = new DefaultTableModel(data,titles);
+        JTable t = new JTable(m);
+        final TableRowSorter sorter = new TableRowSorter(m); 
+        t.setRowSorter(sorter); //为JTable设置排序器
+        
+        JScrollPane sPane = new JScrollPane();
+        sPane.setViewportView(t);
+        
+        JPanel p = new JPanel();
+        p.setLayout(new BoxLayout(p,BoxLayout.X_AXIS));
+        JLabel l = new JLabel("Criteria:");
+        final JTextField tf = new JTextField();
+        JButton b = new JButton("Do Filter");
+        p.add(l);
+        p.add(tf);
+        p.add(b);
+        b.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if(tf.getText().length()==0){
+                    sorter.setRowFilter(null);
+                }else{
+                    sorter.setRowFilter(RowFilter.regexFilter(tf.getText()));//为JTable设置基于正则表达式的过滤条件
+                }
+            }
+        });
+        
+        JFrame f = new JFrame("JTable Sorting and Filtering");
+        f.getContentPane().add(sPane,BorderLayout.CENTER);        
+        f.getContentPane().add(p,BorderLayout.SOUTH);
+        f.setSize(400,300);
+        f.setVisible(true);
+    }
+} 
+运行上面程序，单击JTable的某一个title，这个title对应的列就会按照升序/降序重新排列；在下面的Criteria文本框中输入"ese"，点击"Do Filter"按钮，JTable将只显示带有"ese"字符串的行，也就是China和Japan两行，如果文本框里面什么都没有，点击"Do Filter"按钮，这时JTable会显示所有的行。

@@ -1,0 +1,127 @@
+JDK6的新特性之六:插入式注解处理API(Pluggable Annotation Processing API) 
+
+插入式注解处理API(JSR 269)提供一套标准API来处理Annotations(JSR 175),
+实际上JSR 269不仅仅用来处理Annotation,我觉得更强大的功能是它建立了Java 语言本身的一个模型,
+它把method, package, constructor, type, variable, enum, annotation等Java语言元素映射为Types和Elements(两者有什么区别?), 
+从而将Java语言的语义映射成为对象, 我们可以在javax.lang.model包下面可以看到这些类. 
+
+所以我们可以利用JSR 269提供的API来构建一个功能丰富的元编程(metaprogramming)环境. 
+JSR 269用Annotation Processor在编译期间而不是运行期间处理Annotation, Annotation Processor相当于编译器的一个插件,
+所以称为插入式注解处理.如果Annotation Processor处理Annotation时(执行process方法)产生了新的Java代码,
+编译器会再调用一次Annotation Processor,如果第二次处理还有新代码产生,就会接着调用Annotation Processor,直到没有新代码产生为止.
+
+每执行一次process()方法被称为一个"round",这样整个Annotation processing过程可以看作是一个round的序列. JSR 269主要被设计成为针对Tools或者容器的API. 
+举个例子,我们想建立一套基于Annotation的单元测试框架(如TestNG),在测试类里面用Annotation来标识测试期间需要执行的测试方法,如下所示:
+
+@TestMethod
+ public void testCheckName(){
+       //do something here
+ }
+
+这时我们就可以用JSR 269提供的API来处理测试类,根据Annotation提取出需要执行的测试方法. 
+
+另一个例子是如果我们出于某种原因需要自行开发一个符合Java EE 5.0的Application Server(当然不建议这样做),我们就必须处理Common Annotations(JSR 250),Web Services Metadata(JSR 181)等规范的Annotations,这时可以用JSR 269提供的API来处理这些Annotations. 在现在的开发工具里面,Eclipse 3.3承诺将支持JSR 269
+
+下面我用代码演示如何来用JSR 269提供的API来处理Annotations和读取Java源文件的元数据(metadata)
+
+ /**
+ * Created by IntelliJ IDEA.
+ * User: Chinajash
+ * Date: Dec 31, 2006
+ */
+@SupportedAnnotationTypes("PluggableAPT.ToBeTested")//可以用"*"表示支持所有Annotations
+@SupportedSourceVersion(SourceVersion.RELEASE_6)
+public class MyAnnotationProcessor extends AbstractProcessor {
+    private void note(String msg) {
+        processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, msg);
+    }
+    public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+        //annotations的值是通过@SupportedAnnotationTypes声明的且目标源代码拥有的所有Annotations
+        for(TypeElement te:annotations){
+            note("annotation:"+te.toString());
+        }
+        Set<? extends Element> elements = roundEnv.getRootElements();//获取源代码的映射对象
+        for(Element e:elements){
+            //获取源代码对象的成员
+            List<? extends Element> enclosedElems = e.getEnclosedElements();
+            //留下方法成员,过滤掉其他成员
+            List<? extends ExecutableElement> ees = ElementFilter.methodsIn(enclosedElems);
+            for(ExecutableElement ee:ees){
+                note("--ExecutableElement name is "+ee.getSimpleName());
+                List<? extends AnnotationMirror> as = ee.getAnnotationMirrors();//获取方法的Annotations
+                note("--as="+as); 
+                for(AnnotationMirror am:as){
+                    //获取Annotation的值
+                    Map<? extends ExecutableElement, ? extends AnnotationValue> map= am.getElementValues();
+                    Set<? extends ExecutableElement> ks = map.keySet();
+                    for(ExecutableElement k:ks){//打印Annotation的每个值
+                        AnnotationValue av = map.get(k);
+                        note("----"+ee.getSimpleName()+"."+k.getSimpleName()+"="+av.getValue());
+                    }
+                }
+            }
+        }
+        return false;
+    }
+}
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+@interface ToBeTested{
+    String owner() default "Chinajash";
+    String group();
+}
+
+编译以上代码,然后再创建下面的Testing对象,不要编译Testing对象,我在后面会编译它
+
+public class Testing{    
+    @ToBeTested(group="A")
+    public void m1(){
+    }
+    @ToBeTested(group="B",owner="QQ")
+    public void m2(){
+    }    
+    @PostConstruct//Common Annotation里面的一个Annotation
+    public void m3(){
+    }    
+}
+
+下面我用以下命令编译Testing对象
+
+javac -XprintRounds -processor PluggableAPT.MyAnnotationProcessor Testing.java
+
+-XprintRounds表示打印round的次数,运行上面命令后在控制台会看到如下输出:
+
+Round 1:
+        input files: {PluggableAPT.Testing}
+        annotations: [PluggableAPT.ToBeTested, javax.annotation.PostConstruct]
+        last round: false
+Note: annotation:PluggableAPT.ToBeTested
+Note: --ExecutableElement name is m1
+Note: --as=@PluggableAPT.ToBeTested(group="A")
+Note: ----m1.group=A
+Note: --ExecutableElement name is m2
+Note: --as=@PluggableAPT.ToBeTested(group="B", owner="QQ")
+Note: ----m2.group=B
+Note: ----m2.owner=QQ
+Note: --ExecutableElement name is m3
+Note: --as=@javax.annotation.PostConstruct
+Round 2:
+        input files: {}
+        annotations: []
+        last round: true
+
+本来想用JDK6.0的Compiler API来执行上面编译命令,可是好像现在Compiler API还不支持-processor参数,运行时总报以下错误
+
+Exception in thread "main" java.lang.IllegalArgumentException: invalid flag: -processor PluggableAPT.MyAnnotationProcessor
+
+调用Compiler API的代码是这样的
+
+JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+StandardJavaFileManager fileManager = compiler.getStandardFileManager(null, null, null);
+Iterable<? extends JavaFileObject> sourcefiles = fileManager.getJavaFileObjects("Testing.java");
+Set<String> options = new HashSet<String>();
+options.add("-processor PluggableAPT.MyAnnotationProcessor");
+compiler.getTask(null, fileManager, null, options, null, sourcefiles).call();
+
+不知道这是不是Compiler API的一个bug.

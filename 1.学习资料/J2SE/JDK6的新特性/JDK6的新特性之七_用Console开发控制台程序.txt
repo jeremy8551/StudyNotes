@@ -1,0 +1,36 @@
+JDK6的新特性之七:用Console开发控制台程序 
+
+JDK6中提供了java.io.Console类专用来访问基于字符的控制台设备. 你的程序如果要与Windows下的cmd或者Linux下的Terminal交互,就可以用Console类代劳. 但我们不总是能得到可用的Console, 一个JVM是否有可用的Console依赖于底层平台和JVM如何被调用. 如果JVM是在交互式命令行(比如Windows的cmd)中启动的,并且输入输出没有重定向到另外的地方,那么就可以得到一个可用的Console实例. 下面代码演示了Console类的用法:
+
+/**
+ * @author chinajash
+ */
+public class ConsoleTest {
+    
+    public static void main(String[] args) {
+        Console console = System.console();//获得Console实例
+        if(console!=null){//判断console是否可用
+            String user = new String(console.readLine("Enter user:")); //读取整行字符
+            String pwd = new String(console.readPassword("Enter passowrd:")); //读取密码,密码输入时不会显示
+            console.printf("User is:"+user+"\n");
+            console.printf("Password is:"+pwd+"\n");
+        }else{
+            System.out.println("Console is unavailable");
+        }
+    }
+}
+
+如果在NetBean5.5里面运行上面程序,会输出
+
+Console is unavailable
+
+表示Console不可获得,那是因为JVM不是在命令行中被调用的或者输入输出被重定向了. 但是如果我们在命令行中运行上面程序(java ConsoleTest),程序能够获得Console实例,并执行如下:
+
+Enter user:chinajash
+Enter passowrd:
+User is:chinajash
+Password is:chinajash
+
+在这里可以看到输入密码时,控制台时不显示这些密码字符的,但是程序可以得到输入的密码字符串,这与Linux下面输入密码的情况是一样的
+
+

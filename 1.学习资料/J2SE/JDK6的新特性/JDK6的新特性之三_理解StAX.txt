@@ -1,0 +1,122 @@
+JDK6的新特性之三:理解StAX 
+StAX(JSR 173)是JDK6.0中除了DOM和SAX之外的又一种处理XML文档的API
+
+StAX的来历 
+
+在JAXP1.3(JSR 206)有两种处理XML文档的方法:
+DOM(Document Object Model)和SAX(Simple API for XML).
+由于JDK6.0中的JAXB2(JSR 222)和JAX-WS 2.0(JSR 224)都会用到StAX所以Sun决定把StAX加入到JAXP家族当中来，
+并将JAXP的版本升级到1.4(JAXP1.4是JAXP1.3的维护版本). JDK6里面JAXP的版本就是1.4.
+
+StAX简介
+
+StAX是The Streaming API for XML的缩写，
+一种利用拉模式解析(pull-parsing)XML文档的API.
+StAX通过提供一种基于事件迭代器(Iterator)的API让程序员去控制xml文档解析过程,
+程序遍历这个事件迭代器去处理每一个解析事件，解析事件可以看做是程序拉出来的，
+也就是程序促使解析器产生一个解析事件然后处理该事件，之后又促使解析器产生下一个解析事件，
+如此循环直到碰到文档结束符；SAX也是基于事件处理xml文档，但却是用推模式解析，解析器解析完整个xml文档后，
+才产生解析事件，然后推给程序去处理这些事件；DOM采用的方式是将整个xml文档映射到一颗内存树，
+这样就可以很容易地得到父节点和子结点以及兄弟节点的数据，但如果文档很大，将会严重影响性能。
+下面是这几种API的比较(转载自http://www.blogjava.net/hsith/archive/2006/06/29/55817.html)
+
+XML Parser API Feature Summary  Feature  StAX  SAX  DOM  TrAX  
+API Type  Pull, streaming  Push, streaming  In memory tree  XSLT Rule  
+Ease of Use  High  Medium  High  Medium  
+XPath Capability  No  No  Yes  Yes  
+CPU and Memory Efficiency  Good  Good  Varies  Varies  
+Forward Only  Yes  Yes  No  No  
+Read XML  Yes  Yes  Yes  Yes  
+Write XML  Yes  No  Yes  Yes  
+Create, Read, Update, Delete  No  No  Yes  No  
+
+
+StAX代码演示
+
+下面代码演示了如何通过StAX读取xml文档和生成xml文档
+
+public class StaxTester {
+    public static void main(String[] args) throws XMLStreamException, FileNotFoundException {
+        readXMLByStAX();//用XMLEventReader解析xml文档
+        writeXMLByStAX();//用XMLStreamWriter写xml文档
+    }
+
+    private static void readXMLByStAX() throws XMLStreamException, FileNotFoundException {
+        XMLInputFactory xmlif = XMLInputFactory.newInstance();
+        XMLEventReader xmler = xmlif.createXMLEventReader(StaxTester.class.getResourceAsStream("test.xml"));
+        XMLEvent event;
+        StringBuffer parsingResult = new StringBuffer();
+        while (xmler.hasNext()) {
+            event = xmler.nextEvent();            
+            if (event.isStartElement()) { //如果解析的是起始标记
+                StartElement se = event.asStartElement();
+                parsingResult.append("<");
+                parsingResult.append(se.getName());
+                if(se.getName().getLocalPart().equals("catalog")) {
+                    parsingResult.append(" id=\"");
+                    parsingResult.append(se.getAttributeByName(new QName("id")).getValue());
+                    parsingResult.append("\""); 
+                }
+                parsingResult.append(">");
+            } else if (event.isCharacters()) { //如果解析的是文本内容
+                parsingResult.append(event.asCharacters().getData());
+            } else if(event.isEndElement()){ //如果解析的是结束标记
+                parsingResult.append("</");
+                parsingResult.append(event.asEndElement().getName());
+                parsingResult.append(">");
+            }
+        }
+        System.out.println(parsingResult);
+    }
+
+    private static void writeXMLByStAX() throws XMLStreamException, FileNotFoundException {
+        XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+        XMLStreamWriter xmlw = xmlof.createXMLStreamWriter(new FileOutputStream("output.xml"));
+
+        // 写入默认的 XML 声明到xml文档
+        xmlw.writeStartDocument();
+        xmlw.writeCharacters("\n");
+        // 写入注释到xml文档
+        xmlw.writeComment("testing comment");
+        xmlw.writeCharacters("\n");
+        // 写入一个catalogs根元素
+        xmlw.writeStartElement("catalogs");
+        xmlw.writeNamespace("myNS", "http://blog.csdn.net/Chinajash");
+        xmlw.writeAttribute("owner","Chinajash");
+        xmlw.writeCharacters("\n");
+        // 写入子元素catalog
+        xmlw.writeStartElement("http://blog.csdn.net/Chinajash", "catalog");
+        xmlw.writeAttribute("id","007");
+        xmlw.writeCharacters("Apparel");
+        // 写入catalog元素的结束标签
+        xmlw.writeEndElement();
+        // 写入catalogs元素的结束标签
+        xmlw.writeEndElement();
+        // 结束 XML 文档
+        xmlw.writeEndDocument();         
+        xmlw.close();
+    }
+}
+
+test.xml文件内容如下:
+
+<?xml version="1.0" encoding="UTF-8"?>
+<catalogs>
+    <catalog id="001">Book</catalog>
+    <catalog id="002">Video</catalog>
+</catalogs>
+
+运行上面程序后，控制台输出如下:
+
+<catalogs>
+    <catalog id="001">Book</catalog>
+    <catalog id="002">Video</catalog>
+</catalogs>
+
+运行上面程序后，产生的output.xml文件如下:
+
+<?xml version="1.0" ?>
+<!-- testing comment-->
+<catalogs xmlns:myNS="http://blog.csdn.net/Chinajash" owner="Chinajash">
+    <myNS:catalog id="007">Apparel</myNS:catalog>
+</catalogs>

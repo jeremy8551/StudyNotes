@@ -1,0 +1,112 @@
+JDK6的新特性之二:使用JAXB2来实现对象与XML之间的映射 
+JAXB是Java Architecture for XML Binding的缩写，可以将一个Java对象转变成为XML格式，反之亦然。我们把对象与关系数据库之间的映射称为ORM, 其实也可以把对象与XML之间的映射称为OXM(Object XML Mapping). 原来JAXB是Java EE的一部分，在JDK6中，SUN将其放到了Java SE中，这也是SUN的一贯做法。JDK6中自带的这个JAXB版本是2.0, 比起1.0(JSR 31)来，JAXB2(JSR 222)用JDK5的新特性Annotation来标识要作绑定的类和属性等，这就极大简化了开发的工作量。实际上，在Java EE 5.0中，EJB和Web Services也通过Annotation来简化开发工作。另外,JAXB2在底层是用StAX(JSR 173)来处理XML文档。 闲话不多说了，下面用代码演示在JDK6中如何来用JAXB2
+
+public class JAXB2Tester {
+    public static void main(String[] args) throws JAXBException,IOException {
+        JAXBContext context = JAXBContext.newInstance(Person.class);
+        //下面代码演示将对象转变为xml
+        Marshaller m = context.createMarshaller();
+        Address address = new Address("China","Beijing","Beijing","ShangDi West","100080");
+        Person p = new Person(Calendar.getInstance(),"JAXB2",address,Gender.MALE,"SW");
+        FileWriter fw = new FileWriter("person.xml");
+        m.marshal(p,fw);
+
+        //下面代码演示将上面生成的xml转换为对象
+        FileReader fr = new FileReader("person.xml");
+        Unmarshaller um = context.createUnmarshaller();
+        Person p2 = (Person)um.unmarshal(fr);
+        System.out.println("Country:"+p2.getAddress().getCountry());
+    }
+}
+
+@XmlRootElement//表示person是一个根元素
+class Person {    
+    @XmlElement
+    Calendar birthDay; //birthday将作为person的子元素
+
+    @XmlAttribute
+    String name; //name将作为person的的一个属性
+
+    public Address getAddress() {
+        return address;
+    }
+
+    @XmlElement
+    Address address; //address将作为person的子元素
+
+    @XmlElement
+    Gender gender; //gender将作为person的子元素
+
+    @XmlElement
+    String job; //job将作为person的子元素
+
+    public Person(){
+    }
+    
+    public Person(Calendar birthDay, String name, Address address, Gender gender, String job) {
+        this.birthDay = birthDay;
+        this.name = name;
+        this.address = address;
+        this.gender = gender;
+        this.job = job;
+    }
+}
+
+enum Gender{
+    MALE(true),
+    FEMALE (false);
+    private boolean value;
+    Gender(boolean _value){
+        value = _value;
+    }
+}
+
+class Address {
+    @XmlAttribute
+    String country;
+    @XmlElement
+    String state;
+    @XmlElement
+    String city;
+    @XmlElement
+    String street;
+    String zipcode; //由于没有添加@XmlElement,所以该元素不会出现在输出的xml中
+
+    public Address() {
+    }
+
+    public Address(String country, String state, String city, String street, String zipcode) {
+        this.country = country;
+        this.state = state;
+        this.city = city;
+        this.street = street;
+        this.zipcode = zipcode;
+    }
+
+
+    public String getCountry() {
+        return country;
+    }
+}
+
+运行该程序，我们会得到一个person.xml的文件，如下：
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+
+<person name="JAXB2">
+      <birthDay>2006-12-28T08:49:27.203+00:00</birthDay> 
+       <address country="China">
+            <state>Beijing</state> 
+            <city>Beijing</city> 
+            <street>ShangDi West</street> 
+  </address>
+       <gender>MALE</gender> 
+       <job>SW</job> 
+</person>
+控制台会输出
+
+Country:China
+
+最后，想说一点，除了JAXB之外，我们还可以通过XMLBeans和Castor等来实现同样的功能。
+
+

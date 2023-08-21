@@ -1,0 +1,6 @@
+
+kill ÃüÁî£º
+
+ps -ef|grep java
+
+kill -9 pid

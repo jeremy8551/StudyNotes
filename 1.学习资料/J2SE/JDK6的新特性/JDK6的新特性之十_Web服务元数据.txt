@@ -1,0 +1,85 @@
+JDK6的新特性之十:Web服务元数据(Web Services metadata) 
+
+.Net的Web Services元数据
+早在.Net  Framework 1.0中,微软就用元数据功能(.net的attribute特性)来标注要暴露成Web Service的方法,下面是用C#演示的利用.net的元数据功能暴露Web Service方法的代码片断.
+public class TestWS{
+    [WebMethod]
+    public String sayHi(){
+          return "Hi!";
+    }    
+    public int add(int d1,int d2){
+          return d1+d2;
+    }
+}
+上面的[WebMethod]是加在方法sayHi上面的元数据,用来告诉Web Services引擎(一般是ASP.NET Runtime), 我这个方法需要暴露为一个Web Service,你需要帮我生成相应的WSDL描述及相关支持文件.而另一个方法add没有加这个元数据,所以Web Services引擎就不会为该方法生成WSDL及相关支持文件
+
+Java的Web Services元数据
+Java 里的Web服务元数据跟微软的方案基本没有语义上的区别,自从JDK5添加了元数据功能(Annotation)之后,SUN几乎重构了整个J2EE体 系, 由于变化很大,干脆将名字也重构为Java EE, Java EE(当前版本为5.0)将元数据纳入很多规范当中,这其中就包括Web Services的相关规范, 加入元数据之后的Web Services服务器端编程模型就跟上面看到的C#片断差不多了, 这显然比以前的JAX-RPC编程模型简单(当然, Axis的编程模型也很简单).这里要谈的Web服务元数据(JSR 181)只是Java Web 服务规范中的一个,它跟Common Annotations, JAXB2, StAX, SAAJ和JAX-WS等共同构成Java EE 5的Web Services技术堆栈.
+
+JSR-181的元数据清单
+下面介绍JSR-181里面各个元数据的相关参数及用途
+Annotation Retention Target Description 
+ WebService  Runtime Type 
+ 标注要暴露为Web Services的类或接口 
+ WebParam  Runtime Parameter 自定义服务方法参数到WSDL的映射 
+ WebResult  Runtime Method 自定义服务方法返回值到WSDL的映射 
+ WebMethod  Runtime Method 自定义单个服务方法到WSDL的映射 
+ Oneway  Runtime Method 必须与@WebMethod连用,表明被标注方法只有输入没有输出,这就要求被标注方法不能有返回值,也不能声明checked exception
+ 
+ HandlerChain  Runtime Type,Method,Field 将Web服务与外部Handler chain关联起来 
+ SOAPBinding  Runtime Type,Method 自定义SOAPBinding 
+
+JSR-181元数据使用示例
+
+package WebServices;
+
+import java.io.File;
+import java.io.IOException;
+import javax.jws.Oneway;
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+import javax.jws.WebResult;
+import javax.jws.WebService;
+import javax.xml.ws.Endpoint;
+
+/**
+ * @author chinajash
+ */
+@WebService(targetNamespace="http://blog.csdn.net/chinajash",serviceName="HelloService")
+public class WSProvider {
+    @WebResult(name="Greetings")//自定义该方法返回值在WSDL中相关的描述    
+    @WebMethod
+    public String sayHi(@WebParam(name="MyName") String name){
+        return "Hi,"+name; //@WebParam是自定义参数name在WSDL中相关的描述
+    }    
+    @Oneway //表明该服务方法是单向的,既没有返回值,也不应该声明检查异常
+    @WebMethod(action="printSystemTime",operationName="printSystemTime")//自定义该方法在WSDL中相关的描述
+    public void printTime(){
+        System.out.println(System.currentTimeMillis());
+    }
+    public static void main(String[] args) {
+        Thread wsPublisher = new Thread(new WSPublisher());
+        wsPublisher.start();
+    }    
+    private static class WSPublisher implements Runnable{
+        public void run() {
+            //发布WSProvider到http://localhost:8888/chinajash/WSProvider这个地址,之前必须调用wsgen命令
+            //生成服务类WSProvider的支持类,命令如下:
+            //wsgen -cp . WebServices.WSProvider
+            Endpoint.publish("http://localhost:8888/chinajash/WSProvider",new WSProvider());
+        }        
+    }
+}
+
+如果想看到Web Services Engine生成的WSDL文件是否遵守上面的元数据, 我们没有必要将上面的WSProvider部署到支持JSR-181的应用服务器或Servlet形式的Web Services Engine,现在JDK6已经提供了一个很简单的机制可以用来测试和发布Web Services,下面讲讲如何在JDK6环境下发布Web Services和查看生成的WSDL
+1.将<JDK_HOME>/bin加入path环境变量
+2.在命令行下切换当前目录到WSProvider的class文件所在的目录,运行下面命令
+wsgen -cp . WebServices.WSProvider
+在这个例子中会生成以下3个类的源代码文件及class文件
+SayHi
+SayHiResponse
+PrintTime
+3.执行如下代码发布WSProvider到http://localhost:8888/chinajash/WSProvider,在这里可以执行WSProvider类的main方法就可以
+Endpoint.publish("http://localhost:8888/chinajash/WSProvider",new WSProvider());
+4.在浏览器输入http://localhost:8888/chinajash/WSProvider?wsdl就可以看到生成的WSDL文件，为了节省篇幅,这里就不把生成的WSDL文件贴上了，大家可以自己动手试试.
+

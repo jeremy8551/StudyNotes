@@ -1,0 +1,87 @@
+
+/*
+ JDK6的新特性之八:嵌入式数据库Derby 
+
+  Derby并不是一个新的数据库产品
+ ,它是由IBM捐献给Apache的DB项目的一个纯Java数据库
+ ,JDK6.0里面带的这个Derby的版本是10.2.1.7,支持存储过程和触发器;
+  有两种运行模式,一种是作为嵌入式数据库,另一种是作为网络数据库
+ ,前者的数据库服务器和客户端都在同一个JVM里面运行
+ ,后者允许数据库服务器端和客户端不在同一个JVM里面
+ ,而且允许这两者在不同的物理机器上.值得注意的是JDK6里面的这个Derby支持JDK6的新特性JDBC 4.0规范(JSR 221)
+ ,现在我们如果要练习JDBC的用法
+ ,没有必要单独装一个数据库产品了
+ ,直接用Derby就行.安装完JDK6.0后
+ ,Derby会被安装到<JDK6_HOME>/db下面
+ ,在<JDK6_HOME>/db/demo/programs下面还有一些示例程序
+ ,演示了如何启动
+ ,连接Derby数据库以及JDBC API的使用.下面分两种情况演示一下如何用代码操作Derby数据库
+ ,一种是嵌入式数据库
+ ,一种是网络数据库.
+*/
+
+一.嵌入式数据库
+
+ /**
+ * @author chinajash
+ */
+public class EmbeddedDerbyTester {
+    public static void main(String[] args) {
+        String driver = "org.apache.derby.jdbc.EmbeddedDriver";//在derby.jar里面
+        String dbName="EmbeddedDB";
+        String dbURL = "jdbc:derby:"+dbName+";create=true";//create=true表示当数据库不存在时就创建它
+        try {            
+            Class.forName(driver);
+            Connection conn = DriverManager.getConnection(dbURL);//启动嵌入式数据库
+            Statement st = conn.createStatement();
+            st.execute("create table foo (FOOID INT NOT NULL,FOONAME VARCHAR(30) NOT NULL)");//创建foo表
+            st.executeUpdate("insert into foo(FOOID,FOONAME) values (1,'chinajash')");//插入一条数据
+            ResultSet rs = st.executeQuery("select * from foo");//读取刚插入的数据
+            while(rs.next()){
+                int id = rs.getInt(1);
+                String name = rs.getString(2);
+                System.out.println("id="+id+";name="+name);
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+}
+
+运行上面程序后,会在当前目录生成名为EmbeddedDB的文件夹,既是EmbeddedDB数据库的数据文件存放的地方,控制台将输出
+
+id=1;name=chinajash
+
+二.网络数据库
+
+/**
+ * @author chinajash
+ */
+public class NetworkServerDerbyTester {
+    public static void main(String[] args) {
+        String driver = "org.apache.derby.jdbc.ClientDriver";//在derbyclient.jar里面
+        String dbName="NetworkDB";
+        String connectionURL = "jdbc:derby://localhost:1527/" + dbName + ";create=true";
+        try {
+            /*
+             创建Derby网络服务器,默认端口是1527,也可以通过运行
+             <Derby_Home>\frameworks\NetworkServer\bin\startNetworkServer.bat
+             来创建并启动Derby网络服务器,如果是Unix,用startNetworkServer.ksh
+            */
+            NetworkServerControl derbyServer = new NetworkServerControl();//NetworkServerControl类在derbynet.jar里面
+            PrintWriter pw = new PrintWriter(System.out);//用系统输出作为Derby数据库的输出
+            derbyServer.start(pw);//启动Derby服务器
+            Class.forName(driver);
+            DriverManager.getConnection(connectionURL);
+            //do something
+            derbyServer.shutdown();//关闭Derby服务器
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+}
+
+ 运行上面程序后,会在当前目录生成名为NetworkDB的文件夹
+
+关于Derby的详细情况,请参考http://db.apache.org/derby
+

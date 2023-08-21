@@ -1,0 +1,120 @@
+在JDK6中 ,AWT新增加了两个类:Desktop和SystemTray,前者可以用来打开系统默认浏览器浏览指定的URL,打开系统默认邮件客户端给指定的邮箱发邮件,用默认应用程序打开或编辑文件(比如,用记事本打开以txt为后缀名的文件),用系统默认的打印机打印文档;后者可以用来在系统托盘区创建一个托盘程序.下面代码演示了Desktop和SystemTray的用法.
+
+/**
+ *
+ * @author chinajash
+ */
+import java.awt.Desktop;
+import java.awt.SystemTray;
+import java.awt.TrayIcon;
+import java.awt.Toolkit;
+import java.awt.Image;
+import java.awt.PopupMenu;
+import java.awt.Menu;
+import java.awt.MenuItem;
+import java.awt.AWTException;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class DesktopTray {
+    private static Desktop desktop;
+    private static SystemTray st;
+    private static PopupMenu pm;
+    public static void main(String[] args) {
+        if(Desktop.isDesktopSupported()){//判断当前平台是否支持Desktop类
+            desktop = Desktop.getDesktop();
+        }
+        if(SystemTray.isSupported()){//判断当前平台是否支持系统托盘
+            st = SystemTray.getSystemTray();
+            Image image = Toolkit.getDefaultToolkit().getImage("netbeans.png");//定义托盘图标的图片            
+            createPopupMenu();
+            TrayIcon ti = new TrayIcon(image, "Desktop Demo Tray", pm);
+            try {
+                st.add(ti);
+            } catch (AWTException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+    
+    public static void sendMail(String mail){
+        if(desktop!=null && desktop.isSupported(Desktop.Action.MAIL)){
+            try {
+                desktop.mail(new URI(mail));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            } catch (URISyntaxException ex) {
+                ex.printStackTrace();
+            }
+        }            
+    }
+    
+    public static void  openBrowser(String url){
+        if(desktop!=null && desktop.isSupported(Desktop.Action.BROWSE)){
+            try {
+                desktop.browse(new URI(url));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            } catch (URISyntaxException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+    
+    public static void  edit(){
+        if(desktop!=null && desktop.isSupported(Desktop.Action.EDIT)){
+            try {
+                File txtFile = new File("test.txt");
+                if(!txtFile.exists()){
+                    txtFile.createNewFile();
+                }
+                desktop.edit(txtFile);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            } 
+        }
+    }
+    
+    public static void createPopupMenu(){
+       pm = new PopupMenu();
+        MenuItem openBrowser = new MenuItem("Open My Blog");
+        openBrowser.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                openBrowser("http://blog.csdn.net/chinajash");
+            }
+        });
+        
+        MenuItem sendMail = new MenuItem("Send Mail to me");
+        sendMail.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                sendMail("mailto:chinajash@yahoo.com.cn");
+            }
+        });
+        
+        MenuItem edit = new MenuItem("Edit Text File");
+        sendMail.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                edit();
+            }
+        });
+        
+        MenuItem exitMenu = new MenuItem("&Exit");
+        exitMenu.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+        pm.add(openBrowser);
+        pm.add(sendMail);
+        pm.add(edit);
+        pm.addSeparator();
+        pm.add(exitMenu);    
+    }
+} 
+
+如果在Windows中运行该程序,可以看到在系统托盘区有一个图标,右击该图标会弹出一个菜单,点击Open My Blog会打开IE,并浏览"http://blog.csdn.net/chinajash";点击Send Mail to me会打开Outlook Express给我发邮件;点击Edit Text File会打开记事本编辑在程序中创建的文件test.txt
+
