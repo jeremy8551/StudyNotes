@@ -1,0 +1,350 @@
+在SUN上安装CICS的简明步骤 IBM/SWG/SEC
+
+********************* 调整内核参数并重启机器： *********************88
+1. 首先看已有参数是否满足应用需要(如：RD中MaxRegionPool)，若不满足实际应用需要
+  则修改文件/etc/system：
+     set shmsys:shminfo_shmmax=<application needed>  并重启系统
+2、对内存和硬盘空间的要求：
+	每个region至少需要64M内存；
+	软件本身，包括DCE、ENCINA、CICS等，大约需要200M硬盘空间
+3、操作系统及版本：
+   用uname –a查看；
+   对于Solaris 2.5.1，you must upgrade it to kernel patch 103640-14 (or later) to fix Sun BugId 4044980. This patch can be obtained through your normal Sun service channels
+   对于Solaris 2.6，需要打如下patch：105181-20、105210-27、107733-06、105568-16、105591-08、106125-09，可参照MQ for Solaris 2.6联机文档。
+
+
+
+****************第一部分：安装DCE******************
+
+1．使用DCE2.0 for solaris光盘，安装DCE。
+  # dcesetup install -component client  appdev  -dir  ./dce2.0
+   注意：如果在该机器上存在DCE，你首先应该通过admintool工具删除原有的DCE。
+         也可以通过dcesetup uninstall来删除。请确认/opt目录下无DCE的信息。
+2.DCE安装的确认：
+  # pkginfo | grep TRDCE
+
+*****************第二部分：设置文件系统*********************
+
+1.设置存放区域的文件系统
+     # mkdir /var/cics_regions
+2.设置存放SFS的文件系统
+     # mkdir /var/cics_servers
+    你可以在单独的分区上创建文件系统，或使用已有的文件系统。
+    注意：如果要创建新的文件系统，请一定要同负责SUN系统管理的人员联系，以确定哪些分区或逻辑卷准备给CICS使用。
+         尤其在生产系统下安装时更应该注意。
+
+*****************第三部分：创建CICS用户和组********************
+1． 创建cics和cicsterm组
+   # groupadd cics
+   # groupadd cicsterm
+2．创建cics用户
+   # useradd -d homeDir -G cics -s /bin/ksh cics
+3． 将root用户添加到cics和cicsterm组。
+   # cd /etc
+   #  vi group
+   修改group文件中的cics和cicsterm组的信息，类似以下的方法：
+    cics::100:cics,root
+    cicsterm::101:root
+4.注销，然后以root登录。
+
+*****************第四部分：指定root为CICS系统管理员****************
+
+1.修改root的.profile文件，加入以下环境变量：
+#  vi  /.profile
+加入的环境变量为：
+LANG=en_us
+PATH=$PATH:/usr/ucb:/opt/cics/bin:/opt/dcelocal/bin:/opt/encina/bin
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/cics/lib: /opt/dcelocal/lib:/opt/encina/lib
+NLSPATH=$NLSPATH:/opt/cics/msg/%L/%N:/opt/cics/msg/C/%N:/opt/dcelocal/nls/msg/%L/%N: /opt/encina/msg/%L/%N:/opt/encina/msg/C/%N
+CICSREGION=CICS01   (CICS01为你要创建的REGION名)
+CICS_SFS_SERVER=/.:/cics/sfs/hnyd730yw01  （hnyd730yw01为hostname）
+CICSPATH=/usr/lpp/cics" 
+ENCINA_BINDING_FILE=/var/cics_servers/server_bindings
+export  LANG PATH  LD_LIBRARY_PATH NLSPATH CICSREGION CICS_SFS_SERVER CICSPATH ENCINA_BINDING_FILE
+
+*********************第五部分：安装CICS软件*********************
+
+1．安装
+  # pkgadd -d /cdrom  （其中/cdrom是光驱mount时的名称）
+  在安装CICS软件时，系统会提示你输入一些确认信息和选择信息，你只需选择y或all即可。
+   如：
+     WARNING:
+	The <dependent_pkg_name> package "Name_of_package" is
+	a prerequisite package and should be installed.
+	Do you want to continue with the installation of <pkg_name> [y, n, ?]
+	请选择y.
+2．CICS软件安装的确认：
+# pkginfo | grep CICS
+# pkginfo | grep Encina
+
+************************* 第六部分：配置DCE**************************
+  # /opt/dce/bin/dce.ps
+  # /opt/cics/bin/cicscp -v -l logFile create dce -R
+  # /opt/cics/bin/cicscp -v -l logFile start dce
+  创建缺省的服务器资源定义文件
+   # /opt/cics/bin/cicsdefaultservers
+
+*************************第七部分：创建SFS服务器：******************
+1、创建SFS_SERV用户
+ # /usr/sbin/useradd -g cics -s /bin/ksh \
+         -d /var/cics_servers/SSD/cics/sfs/sfsServerName SFS_SERV
+2、为SFS服务器创建数据和日志卷：
+ 你可以使用format命令来设置分区，或者使用已经存在的未使用卷。无论使用哪种方法，最终都创建或设置了逻辑分区，
+ 下面是将分区链接到SFS逻辑卷。关于format的使用请参照SOLARIES手册。
+ # cd /dev/dsk
+ # ln -s log_partition log_SFS_SERV   (在岳阳项目中，rd5f6为日志卷，rd7f7为数据卷)
+ # ln -s data_partition sfs_SFS_SERV
+ # cd /dev/rdsk
+ # ln -s log_partition log_sfsUserId
+ # ln -s data_partition sfs_sfsUserId
+ 改变日志和数据卷的属主和权限信息：（请注意：/dev/dsk/log_partition应该用实际的分区名和所在位置代替，
+   但是log_SFS_SERV和sfs_SFS_SERV必须在/dev/dsk和/dev/rdsk下）
+  # chown sfsUserId:cics /dev/dsk/log_partition
+  # chown sfsUserId:cics /dev/dsk/data_partition
+  # chown sfsUserId:cics /dev/dsk/log_SFS_SERV
+  # chown sfsUserId:cics /dev/dsk/sfs_SFS_SERV
+
+  # chown sfsUserId:cics /dev/rdsk/log_partition
+  # chown sfsUserId:cics /dev/rdsk/data_partition
+  # chown sfsUserId:cics /dev/rdsk/log_SFS_SERV
+  # chown sfsUserId:cics /dev/rdsk/sfs_SFS_SERV
+
+  # chmod 777 /dev/dsk/log_partition
+  # chmod 777 /dev/dsk/data_partition
+  # chmod 777 /dev/dsk/log_SFS_SERV
+  # chmod 777 /dev/dsk/sfs_SFS_SERV
+
+  # chmod 777 /dev/rdsk/log_partition
+  # chmod 777 /dev/rdsk/data_partition
+  # chmod 777 /dev/rdsk/log_SFS_SERV
+  # chmod 777 /dev/rdsk/sfs_SFS_SERV
+3、定义SFS服务器：
+  # /opt/cics/bin/cicssfscreate -S /.:/cics/sfs/sfsServerName 
+4、为SFS服务器创建联编文件
+  编辑-"/etc/services"
+    加入"sfs_port			8888/udp" (找一未被使用的口(port))
+  创建-"/var/cics_servers/server_bindings"
+    "/.:/cics/sfs/$HOSTNAME	ncadg_ip_udp:$host_ip[$sfs_port]
+     其中，$HOSTNAME是机器名，$host_ip是IP地址，$sfs_port是设定的端口号，如8888。
+5、启动SFS服务器
+  # /opt/cics/bin/cicssfs /.:/cics/sfs/sfsServerName
+
+du -sk /dir
+************** 第八部分：创建REGION *********************
+    # /opt/cics/bin/cicsdefault -r CICS01  -S
+   修改REGION的DefaultFileServer的属性为SFS服务器名称
+    # /opt/cics/bin/cicsupdate -c rd -r regionName  DefaultFileServer=/.:/cics/sfs/sfsServerName
+   创建必要的队列：
+    # /opt/cics/bin/cicssfsconf [-I] wc regionName
+***************第九部分：启动REGION：********************
+# /opt/cics/bin/cicsstart -c regionName
+  验证REGION成功启动：
+# /opt/cics/bin/cicstail -r regionName
+  如果出现“*** CICS startup is complete ***”，那么表示启动成功。
+
+***************第十部分：配置资源：********************
+1）	关闭 Region 区域
+  #cicscp –v stop region BJTEL
+2）添加Listener(LD) ：
+  #cicsadd –c ld –r BJTEL –P lt1 ResourceDescription="Listener Definition" GroupName=""
+     ActivateOnStartup=yes Permanent=no Protocol=TCP \
+     TCPAddress="10.10.10.10" TCPService="cicslt1" NamedPipeName=""
+  #cicsget –c ld –r BJTEL –s lt1
+  #cicsdelete –c ld –r BJTEL –P lt1 
+3）添加User(UD) ：
+   #cicsadd –c ud –r BJTEL –P TEST ResourceDescription="User Definition" GroupName=""
+      ActivateOnStartup=yes Permanent=no Priority=0 OpID="HP11" TraceFile="" Principal=""
+      RSLKeyList="none" TSLKeyList="1" DCECell="" CICSPassword="TEST"
+
+3）添加XA(XAD) ：
+   #cicsadd –c xad –r BJTEL –P IFM ResourceDescription="XA Definition" GroupName=""
+      ActivateOnStartup=yes Permanent=no SwitchLoadFile="/var/cics_regions/BJTEL/bin/ifm1pc"
+      XAOpen="testdb" XAClose="" XASerialize=all_operations
+
+3）添加Program(PD) ：
+    (添加)#cicsadd –c pd –r BJTEL –P telecom PathName=’/opt/cics/sbin/telecom’ 
+            ProgType=program ActivateOnStartup=yes RSLKey=public (永久)
+    (添加)#cicsadd –c pd –r BJTEL –B telecom PathName=’/opt/cics/sbin/telecom’
+            ProgType=program ActivateOnStartup=yes   (Both)
+    (更改)#cicsupdate –c pd –r BJTEL –P telecom EnableStatus=disabled
+    (删除)#cicsdelete –c pd –r BJTEL –B telecom 
+    (查看)#cicsget –c pd –r BJTEL telecom
+          #cicsadd -c pd -r REGION2 -B PROG1 PathName=/var/cics_regions/REGION2/bin/prog1 \
+	     ProgType=program ActivateOnStartup=yes
+
+
+******************* 校验 ***************************
+# /opt/cics/bin/cicsterm -r BJTEL
+CEMT INQUIRE TASK
+
+
+完
+
+
+***************************************** command summary *******************************************
+***************************************** command summary *******************************************
+
+在SUN上安装CICS的简明步骤
+
+********************* 调整内核参数并重启机器： *********************88
+1. (如：RD中MaxRegionPool)， 则修改文件/etc/system：
+     set shmsys:shminfo_shmmax=<application needed>  并重启系统
+3、操作系统及版本：
+   用uname –a查看；
+   对于Solaris 2.5.1，you must upgrade it to kernel patch 103640-14 (or later) to fix Sun BugId 4044980. This patch can be obtained through your normal Sun service channels
+   对于Solaris 2.6，需要打如下patch：105181-20、105210-27、107733-06、105568-16、105591-08、106125-09，可参照MQ for Solaris 
+****************第一部分：安装DCE******************
+
+  # dcesetup install -component client  appdev  -dir  ./dce2.0
+   注意：如果在该机器上存在DCE，你首先应该通过admintool工具删除原有的DCE。
+         也可以通过dcesetup uninstall来删除。请确认/opt目录下无DCE的信息。
+2.DCE安装的确认：
+  # pkginfo | grep TRDCE
+
+*****************第二部分：设置文件系统*********************
+
+1.设置存放区域的文件系统
+     # mkdir /var/cics_regions
+2.设置存放SFS的文件系统
+     # mkdir /var/cics_servers
+
+
+*****************第三部分：创建CICS用户和组********************
+1． 创建cics和cicsterm组
+   # groupadd cics
+   # groupadd cicsterm
+2．创建cics用户
+   # useradd -d homeDir -G cics -s /bin/ksh cics
+3． 将root用户添加到cics和cicsterm组。
+   # cd /etc
+   #  vi group
+   修改group文件中的cics和cicsterm组的信息，类似以下的方法：
+    cics::100:cics,root
+    cicsterm::101:root
+4.注销，然后以root登录。
+
+*****************第四部分：指定root为CICS系统管理员****************
+
+1.修改root的.profile文件，加入以下环境变量：
+#  vi  /.profile
+加入的环境变量为：
+LANG=en_us
+PATH=$PATH:/usr/ucb:/opt/cics/bin:/opt/dcelocal/bin:/opt/encina/bin
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/cics/lib: /opt/dcelocal/lib:/opt/encina/lib
+NLSPATH=$NLSPATH:/opt/cics/msg/%L/%N:/opt/cics/msg/C/%N:/opt/dcelocal/nls/msg/%L/%N: /opt/encina/msg/%L/%N:/opt/encina/msg/C/%N
+CICSREGION=CICS01   (CICS01为你要创建的REGION名)
+CICS_SFS_SERVER=/.:/cics/sfs/hnyd730yw01  （hnyd730yw01为hostname）
+CICSPATH=/usr/lpp/cics" 
+ENCINA_BINDING_FILE=/var/cics_servers/server_bindings
+export  LANG PATH  LD_LIBRARY_PATH NLSPATH CICSREGION CICS_SFS_SERVER CICSPATH ENCINA_BINDING_FILE
+
+*********************第五部分：安装CICS软件*********************
+
+1．安装
+  # pkgadd -d /cdrom  （其中/cdrom是光驱mount时的名称）
+
+2．CICS软件安装的确认：
+# pkginfo | grep CICS
+# pkginfo | grep Encina
+
+************************* 第六部分：配置DCE**************************
+  # /opt/cics/bin/cicscp -v -l logFile create dce -R
+  # /opt/cics/bin/cicscp -v -l logFile start dce
+
+  # /opt/cics/bin/cicsdefaultservers
+
+1、创建SFS_SERV用户
+ # /usr/sbin/useradd -g cics -s /bin/ksh \
+         -d /var/cics_servers/SSD/cics/sfs/sfsServerName SFS_SERV
+
+2、为SFS服务器创建数据和日志卷：
+ 你可以使用format命令来设置分区，或者使用已经存在的未使用卷。无论使用哪种方法，最终都创建或设置了逻辑分区，
+ 下面是将分区链接到SFS逻辑卷。关于format的使用请参照SOLARIES手册。
+ # cd /dev/dsk
+ # ln -s log_partition log_SFS_SERV   (在岳阳项目中，rd5f6为日志卷，rd7f7为数据卷)
+ # ln -s data_partition sfs_SFS_SERV
+ # cd /dev/rdsk
+ # ln -s log_partition log_sfsUserId
+ # ln -s data_partition sfs_sfsUserId
+ 改变日志和数据卷的属主和权限信息：（请注意：/dev/dsk/log_partition应该用实际的分区名和所在位置代替，
+   但是log_SFS_SERV和sfs_SFS_SERV必须在/dev/dsk和/dev/rdsk下）
+  # chown sfsUserId:cics /dev/dsk/log_partition
+  # chown sfsUserId:cics /dev/dsk/data_partition
+  # chown sfsUserId:cics /dev/dsk/log_SFS_SERV
+  # chown sfsUserId:cics /dev/dsk/sfs_SFS_SERV
+
+  # chown sfsUserId:cics /dev/rdsk/log_partition
+  # chown sfsUserId:cics /dev/rdsk/data_partition
+  # chown sfsUserId:cics /dev/rdsk/log_SFS_SERV
+  # chown sfsUserId:cics /dev/rdsk/sfs_SFS_SERV
+
+  # chmod 777 /dev/dsk/log_partition
+  # chmod 777 /dev/dsk/data_partition
+  # chmod 777 /dev/dsk/log_SFS_SERV
+  # chmod 777 /dev/dsk/sfs_SFS_SERV
+
+  # chmod 777 /dev/rdsk/log_partition
+  # chmod 777 /dev/rdsk/data_partition
+  # chmod 777 /dev/rdsk/log_SFS_SERV
+  # chmod 777 /dev/rdsk/sfs_SFS_SERV
+
+3、定义SFS服务器：
+  # /opt/cics/bin/cicssfscreate -S /.:/cics/sfs/sfsServerName 
+
+4、为SFS服务器创建联编文件
+  编辑-"/etc/services"
+    加入"sfs_port			8888/udp" (找一未被使用的口(port))
+
+  创建-"/var/cics_servers/server_bindings"
+    "/.:/cics/sfs/$HOSTNAME	ncadg_ip_udp:$host_ip[$sfs_port]
+     其中，$HOSTNAME是机器名，$host_ip是IP地址，$sfs_port是设定的端口号，如8888。
+
+5、启动SFS服务器
+  # /opt/cics/bin/cicssfs /.:/cics/sfs/sfsServerName
+
+************** 第八部分：创建REGION *********************
+
+    # /opt/cics/bin/cicsdefault -r CICS01  -S
+    # /opt/cics/bin/cicsupdate -c rd -r regionName  DefaultFileServer=/.:/cics/sfs/sfsServerName
+    # /opt/cics/bin/cicssfsconf [-I] wc regionName
+
+***************第九部分：启动REGION：********************
+# /opt/cics/bin/cicsstart -c regionName
+# /opt/cics/bin/cicstail -r regionName
+
+***************第十部分：配置资源：********************
+1）	关闭 Region 区域
+  #cicscp –v stop region BJTEL
+2）添加Listener(LD) ：
+  #cicsadd –c ld –r BJTEL –P lt1 ResourceDescription="Listener Definition" GroupName=""
+     ActivateOnStartup=yes Permanent=no Protocol=TCP \
+     TCPAddress="10.10.10.10" TCPService="cicslt1" NamedPipeName=""
+  #cicsget –c ld –r BJTEL –s lt1
+  #cicsdelete –c ld –r BJTEL –P lt1 
+3）添加User(UD) ：
+   #cicsadd –c ud –r BJTEL –P TEST ResourceDescription="User Definition" GroupName=""
+      ActivateOnStartup=yes Permanent=no Priority=0 OpID="HP11" TraceFile="" Principal=""
+      RSLKeyList="none" TSLKeyList="1" DCECell="" CICSPassword="TEST"
+
+3）添加XA(XAD) ：
+   #cicsadd –c xad –r BJTEL –P IFM ResourceDescription="XA Definition" GroupName=""
+      ActivateOnStartup=yes Permanent=no SwitchLoadFile="/var/cics_regions/BJTEL/bin/ifm1pc"
+      XAOpen="testdb" XAClose="" XASerialize=all_operations
+
+3）添加Program(PD) ：
+    (添加)#cicsadd –c pd –r BJTEL –P telecom PathName=’/opt/cics/sbin/telecom’ 
+            ProgType=program ActivateOnStartup=yes RSLKey=public (永久)
+    (添加)#cicsadd –c pd –r BJTEL –B telecom PathName=’/opt/cics/sbin/telecom’
+            ProgType=program ActivateOnStartup=yes   (Both)
+    (更改)#cicsupdate –c pd –r BJTEL –P telecom EnableStatus=disabled
+    (删除)#cicsdelete –c pd –r BJTEL –B telecom 
+    (查看)#cicsget –c pd –r BJTEL telecom
+          #cicsadd -c pd -r REGION2 -B PROG1 PathName=/var/cics_regions/REGION2/bin/prog1 \
+	     ProgType=program ActivateOnStartup=yes
+
+
+
+
+***************************************** command summary *******************************************
+***************************************** command summary *******************************************
+
