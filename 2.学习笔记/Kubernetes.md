@@ -1045,7 +1045,7 @@ scp  -r  HOME/.kube   node1: HOME/
 
 
 
-# 实战入门
+# 组件 + yaml
 
 本章节将介绍如何在kubernetes集群中部署一个nginx服务，并且能够对其进行访问。
 
@@ -1677,6 +1677,241 @@ spec:
 
 
 
+
+
+## yaml详解
+
+遇到不懂的，用 kubectl explain … 命令查
+
+
+
+### apiVersion
+
+![在这里插入图片描述](Kubenetes.assets/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2tlbGVfYmFiYQ==,size_16,color_FFFFFF,t_70.png)
+
+
+
+### terminationMessagePath
+
+表示容器异常终止消息的路径，默认在 /dev/termination-log 下，当容器退出时，可通过容器的状态查看到退出信息。
+
+
+
+### terminationMessagePolicy
+
+FallbackToLogsOnError，从日志中来读取
+
+
+
+
+
+### progressDeadlineSeconds
+
+可选配置，单位秒，默认600秒，等待多少秒才能确定Deployment进程是卡住的。
+
+
+
+### terminationGracePeriodSeconds
+
+Kubernetes等待指定的时间称为优雅终止宽限期。默认情况下，这是30秒。值得注意的是，这与preStop Hook和SIGTERM信号并行发生。Kubernetes不会等待preStop Hook完成。
+
+如果你的应用程序完成关闭并在terminationGracePeriod完成之前退出，Kubernetes会立即进入下一步。
+
+如果您的Pod通常需要超过30秒才能关闭，请确保增加优雅终止宽限期。您可以通过在Pod YAML中设置terminationGracePeriodSeconds选项来实现。 例如，要将其更改为60秒：
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  namespace: default
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+  terminationGracePeriodSeconds: 30
+```
+
+
+
+### revisionHistoryLimit
+
+用来指定可以保留的旧的 ReplicaSet 或 revision（版本） 的数量。默认所有旧的 Replicaset 都会被保留。如果删除了一个旧的 RepelicaSet，则 Deployment 将无法再回退到那个 revison。如果将该值设置为0，所有具有0个 Pod 副本的 ReplicaSet 都会被删除，这时候 Deployment 将无法回退，因为 revision history 都被清理掉了。
+
+
+
+### dnsPolicy
+
+POD里的DNS策略可以对每个pod进行设置，支持四种策略default，ClusterFirst，ClusterFirstWithHostNet，None，如果dnsPolicy字段未设置，默认策略是"ClusterFirst"。
+
+- **Default**
+
+  该配置只能解析注册到互联网上的外部域名，无法解析集群内部域名，表示 Pod 里面的 DNS 配置继承了宿主机上的 DNS 配置。简单来说，就是该 Pod 的 DNS 配置会跟宿主机完全一致，也就是和node上的dns配置是一样的。
+
+- **ClusterFirst**
+
+  应用对接Kube-DNS/CoreDNS。这种场景下，容器既能够解析service注册的集群内部域名，也能够解析发布到互联网上的外部域名。不过ClusterFirst 还有一个特例，如果你的 Pod 设置了 HostNetwork=true，则 ClusterFirst 就会被强制转换成 Default。
+
+- **ClusterFirstWithHostNet**
+
+  如果pod是桥接的模式， dnsPolicy 将设置为ClusterFirstWithHostNet，将同时继承default和ClusterFirst的DNS解析。
+
+- **None**
+
+  表示会清除 Pod 预设的 DNS 配置，当 dnsPolicy 设置成这个值之后，Kubernetes 不会为 Pod 预先载入任何自身逻辑判断得到的 DNS 配置。因此若要将 dnsPolicy 的值设为 None，为了避免 Pod 里面没有配置任何 DNS，最好再添加 dnsConfig 来描述自定义的 DNS 参数。
+
+
+
+### restartPolicy
+
+- Always
+
+  当容器终止退出后，总是重启容器，默认策略。
+
+- OnFailure
+
+  当容器异常退出（退出状态码非0）时，才重启容器。 
+
+- Never
+
+  当容器终止退出，从不重启容器。
+
+
+
+### schedulerName
+
+除了Kubernetes自带的调度器，我们也可以编写自己的调度器。通过spec.schedulername参数指定调度器名字，可以为Pod选择某个调度器进行调度。
+
+如下Pod选择my-scheduler进行调度，而不是默认的default-scheduler
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: annotation-second-scheduler
+  labels:
+    name: multischeduler-example
+spec:
+  schedulername: my-scheduler
+  containers:
+  - name: pod-with-second-annotation-container
+    image: gcr.io/google_containers/pause:2.0
+```
+
+
+
+### securityContext
+
+Pod 或容器配置安全上下文securityContext，可解决Docker容器限制文件句柄数的问题
+
+```yaml
+securityContext:
+      privileged: true
+```
+
+
+
+### spec
+
+
+
+#### InitContainers
+
+POD能够具有多个容器，应用运行在容器中，但是可能会有一个或多个优先于应用容器启动的init容器。Init容器是一种专用的容器，在应用程序容器运行之前运行，包括一些应用镜像中不存在的实用工具和安装脚本。
+
+与普通POD容器不同的点：
+
+- Init容器总是运行到成功完成为止；
+- 如果POD的init容器失败，k8s会不断的重启该POD，直到init容器成功为止。但是，如果POD对应的restartPolicy为Never，则不会重新启动；
+- 如果为一个POD指定了多个Init容器，那会按顺序一次运行一个。每个Init容器必须运行成功，下一个才能运行。当所有Init容器运行完毕，k8s会像开始运行应用容器；
+
+应用场景：
+
+- 进行应用的初始化，如：从Git或svn拉取应用最新配置或动态生成配置文件；
+- 进行应用的依赖检查，如一些应用必须要先启动数据库，然后再启动web服务，此时可以在web应用pod内定义一个init容器，通过init容器去对数据库进行检测，一旦检测到数据库启动成功，就继续启动web应用POD；
+
+
+
+#### terminationGracePeriodSeconds
+
+属性值是一个整数字段，指定了Pod在被终止之前要等待的时间（以秒为单位）。这给予了Pod在终止前完成正在运行的任务和清理的机会。
+
+是一个用于控制Pod终止过程的设置。当Kubernetes调度器决定终止一个Pod时（例如，当需要更新Deployment的副本数或者节点需要驱逐时），它会触发Pod的终止过程。
+
+在Pod终止过程中，Kubernetes会发送一个`SIGTERM`信号给容器中的主进程（entrypoint或CMD指定的进程），表明希望它优雅地停止。优雅终止是为了确保在终止之前完成未完成的工作，并允许正在处理的请求完成，从而避免丢失数据或导致不稳定的状态。
+
+如果容器在`terminationGracePeriodSeconds`的时间内未能终止，Kubernetes将强制终止（发送`SIGKILL`信号）该容器，这将导致容器立即停止而不会有进一步的优雅清理。
+
+设置`terminationGracePeriodSeconds`的值取决于你的应用程序的性质以及它在终止时需要完成的任务。如果设置得过小，可能导致未完成的任务或数据丢失；如果设置得过大，可能会导致终止过程耗费较长时间，影响应用程序的扩缩容和更新等操作的速度。
+
+这是一个Pod模板示例，其中指定了`terminationGracePeriodSeconds`字段：
+
+
+
+#### hostAliases
+
+在Pod内部使用自定义的主机名来解析特定的IP地址，而无需进行DNS查找。
+
+通常用于以下情况：
+
+1. **解决本地开发问题**：当你在本地开发环境中运行容器时，可能希望使用自定义的主机名来代替IP地址。使用`hostAliases`可以在Pod内部轻松地将自定义主机名映射到本地主机的IP地址。
+2. **解决一些依赖于特定主机名的应用程序问题**：某些应用程序可能依赖于特定的主机名进行通信。使用`hostAliases`可以将这些特定的主机名映射到正确的IP地址，以便应用程序能够正确地解析它们。
+
+下面是一个包含`hostAliases`字段的Pod示例：
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: example-pod
+spec:
+  containers:
+  - name: my-app-container
+    image: nginx:latest
+  hostAliases:
+  - ip: "192.168.1.100"
+    hostnames:
+    - "custom-hostname.local"
+    - "alias-hostname.local"
+```
+
+
+
+#### nodeSelector
+
+是用于选择在哪些节点上调度Pod的一个字段。通过使用`nodeSelector`，你可以指定一个或多个标签键值对，以便Kubernetes调度器能够将特定的Pod调度到具有匹配标签的节点上。
+
+每个Kubernetes节点都可以拥有自定义的标签，用于描述其特性、硬件配置或其他属性。使用`nodeSelector`，你可以选择性地将Pod调度到具有特定标签的节点上，以便根据应用程序的需求进行节点选择。
+
+以下是一个使用`nodeSelector`字段的Pod示例：
+
+```yaml
+yamlCopy code
+apiVersion: v1
+kind: Pod
+metadata:
+  name: example-pod
+spec:
+  nodeSelector:
+    disk: ssd
+    gpu: true
+  containers:
+  - name: my-app-container
+    image: nginx:latest
+```
+
+在这个示例中，`example-pod` Pod的`nodeSelector`字段包含两个键值对：`disk: ssd`和`gpu: true`。这意味着这个Pod将被调度到具有标签`disk=ssd`和`gpu=true`的节点上。
+
+要使用`nodeSelector`，你需要确保至少有一个节点带有与`nodeSelector`字段中指定的标签匹配的标签。
+
+需要注意的是，`nodeSelector`只是一个简单的节点选择器，可以满足基本的节点选择需求。如果你需要更复杂的节点选择逻辑，例如根据节点的资源使用情况进行选择，那么你可以考虑使用更高级的调度策略，如Node Affinity和Node Selector Expressions。这些功能允许你在Pod规范中定义更灵活的节点选择规则。
+
+
+
+
+
+
+
 # Pod详解
 
 
@@ -2226,235 +2461,6 @@ pod-resources   0/1     Pending   0          20s
 ......
 Warning  FailedScheduling  35s   default-scheduler  0/3 nodes are available: 1 node(s) had taint {node-role.kubernetes.io/master: }, that the pod didn't tolerate, 2 Insufficient memory.(内存不足)
 ```
-
-
-
-## yaml详解
-
-遇到不懂的，用 kubectl explain … 命令查
-
-
-
-### apiVersion
-
-![在这里插入图片描述](Kubenetes.assets/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2tlbGVfYmFiYQ==,size_16,color_FFFFFF,t_70.png)
-
-
-
-### terminationMessagePath
-
-表示容器异常终止消息的路径，默认在 /dev/termination-log 下，当容器退出时，可通过容器的状态查看到退出信息。
-
-
-
-### terminationMessagePolicy
-
-FallbackToLogsOnError，从日志中来读取
-
-
-
-
-
-### progressDeadlineSeconds
-
-可选配置，单位秒，默认600秒，等待多少秒才能确定Deployment进程是卡住的。
-
-
-
-### terminationGracePeriodSeconds
-
-Kubernetes等待指定的时间称为优雅终止宽限期。默认情况下，这是30秒。值得注意的是，这与preStop Hook和SIGTERM信号并行发生。Kubernetes不会等待preStop Hook完成。
-
-如果你的应用程序完成关闭并在terminationGracePeriod完成之前退出，Kubernetes会立即进入下一步。
-
-如果您的Pod通常需要超过30秒才能关闭，请确保增加优雅终止宽限期。您可以通过在Pod YAML中设置terminationGracePeriodSeconds选项来实现。 例如，要将其更改为60秒：
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: nginx
-  namespace: default
-spec:
-  containers:
-  - name: nginx
-    image: nginx
-  terminationGracePeriodSeconds: 30
-```
-
-
-
-### revisionHistoryLimit
-
-用来指定可以保留的旧的 ReplicaSet 或 revision（版本） 的数量。默认所有旧的 Replicaset 都会被保留。如果删除了一个旧的 RepelicaSet，则 Deployment 将无法再回退到那个 revison。如果将该值设置为0，所有具有0个 Pod 副本的 ReplicaSet 都会被删除，这时候 Deployment 将无法回退，因为 revision history 都被清理掉了。
-
-
-
-### dnsPolicy
-
-POD里的DNS策略可以对每个pod进行设置，支持四种策略default，ClusterFirst，ClusterFirstWithHostNet，None，如果dnsPolicy字段未设置，默认策略是"ClusterFirst"。
-
-- **Default**
-
-  该配置只能解析注册到互联网上的外部域名，无法解析集群内部域名，表示 Pod 里面的 DNS 配置继承了宿主机上的 DNS 配置。简单来说，就是该 Pod 的 DNS 配置会跟宿主机完全一致，也就是和node上的dns配置是一样的。
-
-- **ClusterFirst**
-
-  应用对接Kube-DNS/CoreDNS。这种场景下，容器既能够解析service注册的集群内部域名，也能够解析发布到互联网上的外部域名。不过ClusterFirst 还有一个特例，如果你的 Pod 设置了 HostNetwork=true，则 ClusterFirst 就会被强制转换成 Default。
-
-- **ClusterFirstWithHostNet**
-
-  如果pod是桥接的模式， dnsPolicy 将设置为ClusterFirstWithHostNet，将同时继承default和ClusterFirst的DNS解析。
-
-- **None**
-
-  表示会清除 Pod 预设的 DNS 配置，当 dnsPolicy 设置成这个值之后，Kubernetes 不会为 Pod 预先载入任何自身逻辑判断得到的 DNS 配置。因此若要将 dnsPolicy 的值设为 None，为了避免 Pod 里面没有配置任何 DNS，最好再添加 dnsConfig 来描述自定义的 DNS 参数。
-
-
-
-### restartPolicy
-
-- Always
-
-  当容器终止退出后，总是重启容器，默认策略。
-
-- OnFailure
-
-  当容器异常退出（退出状态码非0）时，才重启容器。 
-
-- Never
-
-  当容器终止退出，从不重启容器。
-
-
-
-### schedulerName
-
-除了Kubernetes自带的调度器，我们也可以编写自己的调度器。通过spec.schedulername参数指定调度器名字，可以为Pod选择某个调度器进行调度。
-
-如下Pod选择my-scheduler进行调度，而不是默认的default-scheduler
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: annotation-second-scheduler
-  labels:
-    name: multischeduler-example
-spec:
-  schedulername: my-scheduler
-  containers:
-  - name: pod-with-second-annotation-container
-    image: gcr.io/google_containers/pause:2.0
-```
-
-
-
-### securityContext
-
-Pod 或容器配置安全上下文securityContext，可解决Docker容器限制文件句柄数的问题
-
-```yaml
-securityContext:
-      privileged: true
-```
-
-
-
-### spec
-
-
-
-#### InitContainers
-
-POD能够具有多个容器，应用运行在容器中，但是可能会有一个或多个优先于应用容器启动的init容器。Init容器是一种专用的容器，在应用程序容器运行之前运行，包括一些应用镜像中不存在的实用工具和安装脚本。
-
-与普通POD容器不同的点：
-
-- Init容器总是运行到成功完成为止；
-- 如果POD的init容器失败，k8s会不断的重启该POD，直到init容器成功为止。但是，如果POD对应的restartPolicy为Never，则不会重新启动；
-- 如果为一个POD指定了多个Init容器，那会按顺序一次运行一个。每个Init容器必须运行成功，下一个才能运行。当所有Init容器运行完毕，k8s会像开始运行应用容器；
-
-应用场景：
-
-- 进行应用的初始化，如：从Git或svn拉取应用最新配置或动态生成配置文件；
-- 进行应用的依赖检查，如一些应用必须要先启动数据库，然后再启动web服务，此时可以在web应用pod内定义一个init容器，通过init容器去对数据库进行检测，一旦检测到数据库启动成功，就继续启动web应用POD；
-
-
-
-#### terminationGracePeriodSeconds
-
-属性值是一个整数字段，指定了Pod在被终止之前要等待的时间（以秒为单位）。这给予了Pod在终止前完成正在运行的任务和清理的机会。
-
-是一个用于控制Pod终止过程的设置。当Kubernetes调度器决定终止一个Pod时（例如，当需要更新Deployment的副本数或者节点需要驱逐时），它会触发Pod的终止过程。
-
-在Pod终止过程中，Kubernetes会发送一个`SIGTERM`信号给容器中的主进程（entrypoint或CMD指定的进程），表明希望它优雅地停止。优雅终止是为了确保在终止之前完成未完成的工作，并允许正在处理的请求完成，从而避免丢失数据或导致不稳定的状态。
-
-如果容器在`terminationGracePeriodSeconds`的时间内未能终止，Kubernetes将强制终止（发送`SIGKILL`信号）该容器，这将导致容器立即停止而不会有进一步的优雅清理。
-
-设置`terminationGracePeriodSeconds`的值取决于你的应用程序的性质以及它在终止时需要完成的任务。如果设置得过小，可能导致未完成的任务或数据丢失；如果设置得过大，可能会导致终止过程耗费较长时间，影响应用程序的扩缩容和更新等操作的速度。
-
-这是一个Pod模板示例，其中指定了`terminationGracePeriodSeconds`字段：
-
-
-
-#### hostAliases
-
-在Pod内部使用自定义的主机名来解析特定的IP地址，而无需进行DNS查找。
-
-通常用于以下情况：
-
-1. **解决本地开发问题**：当你在本地开发环境中运行容器时，可能希望使用自定义的主机名来代替IP地址。使用`hostAliases`可以在Pod内部轻松地将自定义主机名映射到本地主机的IP地址。
-2. **解决一些依赖于特定主机名的应用程序问题**：某些应用程序可能依赖于特定的主机名进行通信。使用`hostAliases`可以将这些特定的主机名映射到正确的IP地址，以便应用程序能够正确地解析它们。
-
-下面是一个包含`hostAliases`字段的Pod示例：
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: example-pod
-spec:
-  containers:
-  - name: my-app-container
-    image: nginx:latest
-  hostAliases:
-  - ip: "192.168.1.100"
-    hostnames:
-    - "custom-hostname.local"
-    - "alias-hostname.local"
-```
-
-
-
-#### nodeSelector
-
-是用于选择在哪些节点上调度Pod的一个字段。通过使用`nodeSelector`，你可以指定一个或多个标签键值对，以便Kubernetes调度器能够将特定的Pod调度到具有匹配标签的节点上。
-
-每个Kubernetes节点都可以拥有自定义的标签，用于描述其特性、硬件配置或其他属性。使用`nodeSelector`，你可以选择性地将Pod调度到具有特定标签的节点上，以便根据应用程序的需求进行节点选择。
-
-以下是一个使用`nodeSelector`字段的Pod示例：
-
-```yaml
-yamlCopy code
-apiVersion: v1
-kind: Pod
-metadata:
-  name: example-pod
-spec:
-  nodeSelector:
-    disk: ssd
-    gpu: true
-  containers:
-  - name: my-app-container
-    image: nginx:latest
-```
-
-在这个示例中，`example-pod` Pod的`nodeSelector`字段包含两个键值对：`disk: ssd`和`gpu: true`。这意味着这个Pod将被调度到具有标签`disk=ssd`和`gpu=true`的节点上。
-
-要使用`nodeSelector`，你需要确保至少有一个节点带有与`nodeSelector`字段中指定的标签匹配的标签。
-
-需要注意的是，`nodeSelector`只是一个简单的节点选择器，可以满足基本的节点选择需求。如果你需要更复杂的节点选择逻辑，例如根据节点的资源使用情况进行选择，那么你可以考虑使用更高级的调度策略，如Node Affinity和Node Selector Expressions。这些功能允许你在Pod规范中定义更灵活的节点选择规则。
 
 
 
